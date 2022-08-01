@@ -157,14 +157,14 @@ const LineChartData = () => {
             <Line
               type="monotone"
               dataKey="student"
-              strokeDasharray="12"
+              strokeDasharray="12 12 12 12"
               stroke="red"
               // activeDot={{ r: 8 }}
             />
             <Line
               type="monotone"
               dataKey="fees"
-              strokeDasharray="4 2"
+              strokeDasharray="0 3 8 8"
               stroke="green"
               // activeDot={{ r: 8 }}
             />
