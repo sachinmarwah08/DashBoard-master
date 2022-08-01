@@ -1,0 +1,74 @@
+.wrapper {
+  width: 50%;
+  max-height: auto;
+  background-color: white;
+  border-radius: 10px;
+  margin-top: 1.5rem;
+
+  .content {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+  }
+
+  .heading {
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 28px;
+    @media (max-width: 998px) {
+      font-weight: 700;
+      font-size: 12px;
+      line-height: 28px;
+    }
+  }
+
+  .bar-chart-wrapper {
+    background-color: white;
+    width: 100%;
+    height: 30rem;
+    // margin-bottom: 60rem;
+    border-radius: 8px;
+  }
+
+  .chart-map {
+    height: 25rem;
+    border-radius: 20px;
+    margin: 1rem;
+  }
+
+  .side-logos {
+    display: flex;
+    width: max-content;
+    align-items: center;
+
+    .WorldMap {
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      @media (max-width: 998px) {
+        width: 25px;
+        height: 25px;
+      }
+    }
+
+    .table {
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      @media (max-width: 998px) {
+        width: 25px;
+        height: 25px;
+      }
+    }
+
+    .bigArrow {
+      width: 39px;
+      height: 39px;
+      cursor: pointer;
+      @media (max-width: 998px) {
+        width: 25px;
+        height: 25px;
+      }
+    }
+  }
+}

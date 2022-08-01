@@ -1,25 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import GlobalWellbeing from "./components/GlobalWellbeing/GlobalWellbeing";
+import Header from "./components/Header/Header";
+import Contries from "./components/Contries/Contries";
+import NewsAndHashTags from "./components/NewsAndHashTags/NewsAndHashTags";
+import LineChartData from "./components/Charts/LineChart/LineChart";
+import Footer from "./components/Footer/Footer";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Header />
+      <GlobalWellbeing />
+      <Contries />
+      <NewsAndHashTags />
+      <LineChartData />
+      <Footer />
+    </>
   );
 }
-
 export default App;

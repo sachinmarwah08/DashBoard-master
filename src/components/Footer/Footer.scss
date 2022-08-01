@@ -1,0 +1,112 @@
+.footer-wrapper {
+  width: 80%;
+  height: auto;
+  margin: auto;
+  display: flex;
+  border-bottom: 1px solid #757575;
+  padding-bottom: 1rem;
+  margin-top: 6rem;
+  margin-bottom: 6rem;
+
+  .footer-inside-wrapper {
+    width: 100%;
+    margin: auto;
+    display: flex;
+
+    @media (max-width: 998px) {
+      width: 100%;
+      margin: auto;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  .footer-li {
+    margin: 0%;
+
+    & img {
+      margin: 0%;
+    }
+  }
+
+  .footer-right-container {
+    width: auto;
+    margin-left: 4rem;
+    margin-top: 0%;
+
+    @media (max-width: 998px) {
+      width: auto;
+      margin: 0%;
+      margin-top: 1rem;
+    }
+    @media (max-width: 1280px) {
+      margin-left: 0%;
+    }
+
+    .logos-apple {
+      display: flex;
+      align-items: center;
+
+      .appleLogo {
+        width: 110px;
+        height: 60px;
+      }
+      .googleLogo {
+        width: 110px;
+        height: 35px;
+      }
+    }
+  }
+
+  .footer-left-container {
+    display: flex;
+    justify-content: space-around;
+
+    @media (max-width: 998px) {
+      width: auto;
+      margin: auto;
+    }
+  }
+
+  .footer-column-one {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-right: 3.5rem;
+
+    @media (max-width: 1280px) {
+      width: auto;
+      margin-right: 3.4rem;
+    }
+  }
+  .heading {
+    margin: 0%;
+    font-size: 20px;
+    color: #f05728;
+    font-weight: 700;
+    width: max-content;
+  }
+
+  .title-logo {
+    color: #757575;
+    font-weight: 500;
+    margin-top: 3%;
+    width: max-content;
+    font-size: 16px;
+  }
+  .title {
+    font-size: 16px;
+    // width: max-content;
+    font-weight: 400;
+    color: #757575;
+  }
+  .title-right {
+    font-size: 16px;
+    // width: max-content;
+    font-weight: 400;
+    margin-bottom: 0%;
+    color: #757575;
+  }
+}
