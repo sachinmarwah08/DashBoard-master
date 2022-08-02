@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import "./BarChart.scss";
 import Highcharts from "highcharts";
 import filterBarLogo from "../../../Images/filter.svg";
-import highSortDown from "../../../Images/bi-sort-down.svg";
-import lowSortDown from "../../../Images/bi-sort-down-alt.svg";
+import SortDown from "../../../Images/bi-sort-down.svg";
+import SortDownFilter from "../../../Images/bi-sort-down-alt.svg";
 
 // import {
 //   BarChart,
@@ -26,13 +26,27 @@ import data from "./data";
 // import BarGraph from "./BarGraph";
 
 const BarChartComponent = () => {
+  const [isActive, setIsActive] = useState(false);
   return (
     <div className="wrapper">
       <div className="content">
         <h1 className="heading">
           Countries Rankings by Wellbeing Sentiment Score
-          <button className="heading-button">
+          <button
+            onClick={() => setIsActive(!isActive)}
+            className="heading-button"
+          >
             <FontAwesomeIcon icon={faAngleDown} />
+            {isActive && (
+              <div className="dropdown-bar-filter">
+                <div className="dropdown-item">
+                  High to Low <img src={SortDown} />
+                </div>
+                <div className="dropdown-item">
+                  Low to High <img src={SortDownFilter} />
+                </div>
+              </div>
+            )}
           </button>
         </h1>
         {/* <Sort Icon={Icon} /> */}

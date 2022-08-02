@@ -28,7 +28,7 @@ const MapChartComponent = () => {
   // var distanceLong = data.maxLong - data.minLong;
   // var bufferLong = distanceLong * 0.05;
   return (
-    <div className="wrapper">
+    <div className="map-wrapper">
       <div className="content-map">
         <div className="heading-map">
           <h1 className="heading">Country Ranking</h1>

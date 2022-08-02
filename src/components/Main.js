@@ -15,13 +15,6 @@ const Main = () => {
       <NewsAndHashTags />
       <LineChartData />
       <Footer />
-      {/* <button
-        onClick={() =>
-          navigator.clipboard.writeText("http://localhost:3000/LineChart")
-        }
-      >
-        Copy
-      </button> */}
     </div>
   );
 };

@@ -24,15 +24,15 @@ const Sort = () => {
           }}
           className="sort-filter-wrapper"
         >
-          <img src={filterBarLogo} className="filter-lofo-img"></img>
+          <img src={filterBarLogo} className="filter-logo-img"></img>
           Filter
           {isActive && (
             <div className="content-container">
               <div className="filter-item">
-                Low to High <img src={highSortDown} />
+                Influencer <div className="sort-circle" />
               </div>
               <div className="filter-item">
-                Low to High <img src={lowSortDown} />
+                Hashtag <div className="sort-circle" />
               </div>
             </div>
           )}

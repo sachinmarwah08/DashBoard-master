@@ -3,13 +3,23 @@ import "./Header.scss";
 import logo from "../../Images/logo.png";
 import { faSortDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
+  const navigate = useNavigate();
+  const navigateHome = () => {
+    navigate("/");
+  };
   return (
     <header className="header-container">
       <div className="main-content">
         <div className="logo">
-          <img alt="logo" className="logo-image" src={logo}></img>
+          <img
+            onClick={navigateHome}
+            alt="logo"
+            className="logo-image"
+            src={logo}
+          ></img>
         </div>
         <div className="links">
           <div className="links-data">
