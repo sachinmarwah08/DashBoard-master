@@ -1,86 +1,15 @@
 .wrapper {
   width: 50%;
-  max-height: 40rem;
+  height: 40rem;
   background-color: white;
   border-radius: 10px;
   overflow: auto;
   margin-top: 1.5rem;
 
-  // .filter {
-  //   position: relative;
-
-  //   .filter-dropdown-content {
-  //     position: absolute;
-  //     top: 120%;
-  //     left: -290%;
-  //     width: max-content;
-  //     border-radius: 8px;
-  //     z-index: 1000;
-  //     // padding: 10px;
-  //     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  //     background-color: white;
-  //     font-weight: 400;
-  //     color: #101828;
-  //     display: flex;
-  //     flex-direction: column;
-  //     cursor: pointer;
-
-  //     animation: growDown 300ms ease-in-out forwards;
-  //     transform-origin: top center;
-
-  //     @keyframes growDown {
-  //       0% {
-  //         transform: scaleY(0);
-  //       }
-  //       80% {
-  //         transform: scaleY(1.1);
-  //       }
-  //       100% {
-  //         transform: scaleY(1);
-  //       }
-  //     }
-
-  //     .filter-dropdown-item {
-  //       font-weight: 400;
-  //       font-size: 14px;
-  //       color: #616161;
-  //       padding: 10px;
-  //       display: flex;
-  //       cursor: pointer;
-  //       gap: 10px;
-  //       align-items: center;
-  //       justify-content: space-between;
-
-  //       &:hover {
-  //         background: #f5f5f5;
-  //         border-radius: 8px;
-  //       }
-
-  //       .sort-down {
-  //         width: 16px;
-  //         height: 16px;
-  //       }
-  //     }
-  //   }
-  // }
-
-  // .sort-icon {
-  //   cursor: pointer;
-
-  //   @media (max-width: 998px) {
-  //     width: 25px;
-  //     height: 25px;
-  //   }
-  // }
-
-  // .sort-icon-open {
-  //   box-shadow: 0px 0px 10px #f05728;
-  //   border-radius: 4px;
-  //   cursor: pointer;
-  // }
   .content {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    // justify-content: space-between;
     padding: 1rem;
     align-items: center;
   }
@@ -88,8 +17,22 @@
   .heading {
     font-weight: 700;
     font-size: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
     line-height: 28px;
     color: #f05728;
+
+    .heading-button {
+      margin-right: 1rem;
+      border-radius: 4px;
+      color: #212121;
+      cursor: pointer;
+      border: 1px solid #eeeeee;
+      padding-right: 0.5rem;
+      padding-left: 0.5rem;
+      background-color: #f5f5f5;
+    }
 
     @media (max-width: 998px) {
       font-weight: 700;

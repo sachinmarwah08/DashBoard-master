@@ -11,9 +11,10 @@ const TrendingHashtags = () => {
         <div className="right-heading">Trending Hashtags</div>
         <div className="icons">
           <p className="score">Sentiment Score</p>
-          <Sort Icon={dropdown} />
+          <img src={dropdown} />
         </div>
       </div>
+      <Sort />
       <div className="right-content-wrapper">
         {trendingHashtags.map((item) => (
           <div key={item.id} className="right-content">

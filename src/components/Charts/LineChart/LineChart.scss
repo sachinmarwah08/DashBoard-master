@@ -104,8 +104,51 @@
     display: flex;
     justify-content: space-between;
 
-    .icon {
+    .s-icon {
       cursor: pointer;
+      background: transparent;
+      border: none;
+      position: relative;
+    }
+    .d-icon {
+      cursor: pointer;
+      background: transparent;
+      border: none;
+    }
+
+    .share-content {
+      background-color: white;
+      border-radius: 8px;
+      left: 82.5%;
+      box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+      position: absolute;
+      width: 10%;
+
+      animation: growDown 300ms ease-in-out forwards;
+      transform-origin: top center;
+
+      @keyframes growDown {
+        0% {
+          transform: scaleY(0);
+        }
+        80% {
+          transform: scaleY(1.1);
+        }
+        100% {
+          transform: scaleY(1);
+        }
+      }
+
+      .share-item {
+        cursor: pointer;
+        transition: all 0.2s;
+        padding: 10px;
+
+        &:hover {
+          background: #f5f5f5;
+          border-radius: 8px;
+        }
+      }
     }
 
     .heading {

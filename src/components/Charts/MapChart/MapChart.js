@@ -7,6 +7,7 @@ import BigArrow from "../../../Images/bif-Arrow.png";
 // import "leaflet/dist/leaflet.css";
 import data from "./Cities";
 import GoogleMap from "./googleMap";
+import Sort from "../../SortFilter/Sort";
 // import { Chart } from "react-google-charts";
 
 // const data = [
@@ -28,15 +29,19 @@ const MapChartComponent = () => {
   // var bufferLong = distanceLong * 0.05;
   return (
     <div className="wrapper">
-      <div className="content">
-        <h1 className="heading">Country Ranking</h1>
-        <div className="side-logos">
-          <img alt="WorldMap" className="WorldMap" src={WorldMap}></img>
-          <img alt="Table" className="table" src={Table}></img>
-          <img alt="BigArrow" className="bigArrow" src={BigArrow}></img>
+      <div className="content-map">
+        <div className="heading-map">
+          <h1 className="heading">Country Ranking</h1>
+          <div className="side-logos">
+            <img alt="WorldMap" className="WorldMap" src={WorldMap}></img>
+            <img alt="Table" className="table" src={Table}></img>
+            <img alt="BigArrow" className="bigArrow" src={BigArrow}></img>
+          </div>
         </div>
+
+        <Sort />
       </div>
-      <div className="bar-chart-wrapper">
+      <div className="bar-map-wrapper">
         <div className="chart-map">
           <GoogleMap />
           <div>

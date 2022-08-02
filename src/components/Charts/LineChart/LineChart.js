@@ -4,6 +4,9 @@ import downloadIcon from "../../../Images/download.svg";
 import shareIcon from "../../../Images/share.svg";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { Line } from "react-chartjs-2";
+// import { useNavigate } from "react-router-dom";
+// import Chart from "chart.js/auto";
 import {
   LineChart,
   Line,
@@ -11,7 +14,7 @@ import {
   YAxis,
   // CartesianGrid,
   Tooltip,
-  // Legend,
+  Legend,
   ResponsiveContainer,
   // AreaChart,
   // Area,
@@ -42,7 +45,7 @@ const pdata = [
     fees: 5,
   },
   {
-    name: "Jun 13, 22#",
+    name: "Jun 13, 22",
     student: 9,
     fees: 4,
   },
@@ -70,20 +73,34 @@ const pdata = [
 
 const LineChartData = () => {
   const [selected, setSelected] = useState("Past 1 months");
-
   const [selectCountry, setselectCountry] = useState("India");
-
   const dateSelect = ["react ", "vue", "Angular"];
-
   const countrySelect = ["react ", "vue", "Angular"];
+  const [isActive, setIsActive] = useState(false);
+
   return (
     <div className="lineChart-container">
       <div className="whole-container">
         <div className="heading-content">
           <div className="heading">Wellbeing Sentiment Score Over Time</div>
           <div className="right-icons">
-            <img alt="downloadIcon" className="icon" src={downloadIcon} />
-            <img alt="shareIcon" className="icon" src={shareIcon} />
+            <button type="button" alt="downloadIcon" className="d-icon">
+              <img src={downloadIcon}></img>
+            </button>
+            <button
+              onClick={() => setIsActive(!isActive)}
+              type="button"
+              alt="shareIcon"
+              className="s-icon"
+            >
+              <img src={shareIcon}></img>
+            </button>
+            {isActive && (
+              <div className="share-content">
+                <div className="share-item">Hello</div>
+                <div className="share-item">Hello</div>
+              </div>
+            )}
           </div>
         </div>
         <div className="buttons">
@@ -106,7 +123,6 @@ const LineChartData = () => {
                 setSelected={setSelected}
               />
             </div>
-
             {/* <button className="left-ouline-buttonTwo">
               Past 1 months
               <FontAwesomeIcon icon={faAngleDown} />
@@ -157,17 +173,19 @@ const LineChartData = () => {
             <Line
               type="monotone"
               dataKey="student"
-              strokeDasharray="12 12 12 12"
+              strokeDasharray="4 4"
+              strokeWidth={3}
               stroke="red"
+              dot={false}
               // activeDot={{ r: 8 }}
             />
-            <Line
+            {/* <Line
               type="monotone"
               dataKey="fees"
               strokeDasharray="0 3 8 8"
               stroke="green"
               // activeDot={{ r: 8 }}
-            />
+            /> */}
           </LineChart>
         </ResponsiveContainer>
       </div>

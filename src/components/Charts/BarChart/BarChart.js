@@ -1,6 +1,9 @@
 import React from "react";
 import "./BarChart.scss";
 import Highcharts from "highcharts";
+import filterBarLogo from "../../../Images/filter.svg";
+import highSortDown from "../../../Images/bi-sort-down.svg";
+import lowSortDown from "../../../Images/bi-sort-down-alt.svg";
 
 // import {
 //   BarChart,
@@ -17,6 +20,8 @@ import Highcharts from "highcharts";
 import Icon from "../../../Images/Dropdown.svg";
 import Sort from "../../SortFilter/Sort";
 import HighchartsReact from "highcharts-react-official";
+import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import data from "./data";
 // import BarGraph from "./BarGraph";
 
@@ -26,8 +31,12 @@ const BarChartComponent = () => {
       <div className="content">
         <h1 className="heading">
           Countries Rankings by Wellbeing Sentiment Score
+          <button className="heading-button">
+            <FontAwesomeIcon icon={faAngleDown} />
+          </button>
         </h1>
-        <Sort Icon={Icon} />
+        {/* <Sort Icon={Icon} /> */}
+        <Sort />
       </div>
       <div className="bar-chart-wrapper">
         <div className="chart-bar">

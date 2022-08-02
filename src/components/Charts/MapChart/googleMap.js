@@ -1,17 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
+
+const center = {
+  lat: 44,
+  lng: -80,
+};
 
 const containerStyle = {
   width: "636px",
-  height: "462px",
+  height: "467px",
+  borderRadius: "8px",
 };
 
-const center = {
-  lat: -3.745,
-  lng: -38.523,
+const Style = {
+  width: "336px",
+  height: "250px",
 };
 
 function MyComponent() {
+  const [widthState, setWidthState] = useState(null);
+
+  useEffect(() => {
+    console.log("window.innerWidth", window.innerWidth);
+    setWidthState(window.innerWidth);
+  }, []);
+
   const { isLoaded } = useJsApiLoader({
     // id: "google-map-script",
     googleMapsApiKey: "AIzaSyC_3Wo9FRrSnT4idegucxu2wIjVgPJH84I",
@@ -31,17 +44,31 @@ function MyComponent() {
 
   return isLoaded ? (
     <div style={{ margin: "auto" }}>
-      <GoogleMap
-        mapContainerStyle={containerStyle}
-        margin="auto"
-        center={center}
-        zoom={10}
-        onLoad={onLoad}
-        onUnmount={onUnmount}
-      >
-        {/* Child components, such as markers, info windows, etc. */}
-        <></>
-      </GoogleMap>
+      {widthState && widthState < 998 ? (
+        <GoogleMap
+          mapContainerStyle={Style}
+          margin="auto"
+          center={center}
+          zoom={10}
+          onLoad={onLoad}
+          onUnmount={onUnmount}
+        >
+          {/* Child components, such as markers, info windows, etc. */}
+          <></>
+        </GoogleMap>
+      ) : (
+        <GoogleMap
+          mapContainerStyle={containerStyle}
+          margin="auto"
+          center={center}
+          zoom={3}
+          // onLoad={onLoad}
+          // onUnmount={onUnmount}
+        >
+          {/* Child components, such as markers, info windows, etc. */}
+          <></>
+        </GoogleMap>
+      )}
     </div>
   ) : (
     <></>
