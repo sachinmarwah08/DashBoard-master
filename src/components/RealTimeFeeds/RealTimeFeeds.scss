@@ -38,6 +38,10 @@
     opacity: 35%;
     left: 46.5rem;
 
+    @media (max-width: 1280px) {
+      left: 37.5rem;
+    }
+
     .search-icon-image {
       width: 20px;
       height: 20px;

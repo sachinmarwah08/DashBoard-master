@@ -11,7 +11,7 @@ const TrendingHashtags = () => {
         <div className="right-heading">Trending Hashtags</div>
         <div className="icons">
           <p className="score">Sentiment Score</p>
-          <img src={dropdown} />
+          <img className="dropdown-img-trending" src={dropdown} />
         </div>
       </div>
       <Sort />

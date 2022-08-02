@@ -33,6 +33,12 @@
       line-height: 28px;
     }
 
+    @media (max-width: 1280px) {
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 28px;
+    }
+
     .heading-button {
       margin-right: 1rem;
       border-radius: 4px;

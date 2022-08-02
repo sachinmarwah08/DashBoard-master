@@ -13,8 +13,9 @@ const containerStyle = {
 };
 
 const Style = {
-  width: "336px",
-  height: "242px",
+  width: "530px",
+  height: "465px",
+  borderRadius: "8px",
 };
 
 function MyComponent() {
@@ -44,7 +45,7 @@ function MyComponent() {
 
   return isLoaded ? (
     <div style={{ margin: "auto" }}>
-      {widthState && widthState < 998 ? (
+      {widthState && widthState < 1300 ? (
         <GoogleMap
           mapContainerStyle={Style}
           margin="auto"

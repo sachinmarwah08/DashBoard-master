@@ -59,8 +59,22 @@
     padding-bottom: 0.8rem;
   }
 
+  @media (max-width: 1280px) {
+    font-size: 14px;
+    gap: 9.5px;
+    margin: 0%;
+    margin-left: 0.7rem;
+    padding-top: 0.6rem;
+    padding-bottom: 0.6rem;
+  }
+
   .filter-logo-img {
     @media (max-width: 998px) {
+      width: 16px;
+      height: 16px;
+    }
+
+    @media (max-width: 1280px) {
       width: 12px;
       height: 12px;
     }
