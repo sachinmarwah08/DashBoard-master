@@ -4,6 +4,7 @@ import { data } from "./data";
 import { faXmark, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Content from "./Content";
+import shareIcon from "../../Images/share.svg";
 
 const RealTimeFeeds = () => {
   const [filterData, setFilterData] = useState(data);
@@ -41,7 +42,7 @@ const RealTimeFeeds = () => {
             active === "Real-time-Tweets" ? "colored-heading" : "heading"
           }`}
         >
-          Real-time Tweets
+          <div className="tweets-heading">Real-time Tweets</div>
         </button>
         <button
           onClick={() => setActive("Real-time-News")}
@@ -51,8 +52,11 @@ const RealTimeFeeds = () => {
               : "second-heading"
           }`}
         >
-          Real-time News
+          <div className="tweets-heading">Real-time News</div>
         </button>
+        <div className="share-icon-btn">
+          <img src={shareIcon} />
+        </div>
       </div>
       <div className="radio-button">
         <div>

@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import "./Sort.scss";
-import highSortDown from "../../Images/bi-sort-down.svg";
-import lowSortDown from "../../Images/bi-sort-down-alt.svg";
 import filterBarLogo from "../../Images/filter.svg";
 
-const Sort = () => {
+const Sort = ({ optiondata, data, setData }) => {
   const [isActive, setIsActive] = useState(false);
 
   return (
@@ -25,15 +23,21 @@ const Sort = () => {
           className="sort-filter-wrapper"
         >
           <img src={filterBarLogo} className="filter-logo-img"></img>
-          Filter
+          {data}
           {isActive && (
             <div className="content-container">
-              <div className="filter-item">
-                Influencer <div className="sort-circle" />
-              </div>
-              <div className="filter-item">
-                Hashtag <div className="sort-circle" />
-              </div>
+              {optiondata.map((option) => (
+                <>
+                  <div
+                    onClick={() => {
+                      setData(option);
+                    }}
+                    className="filter-item"
+                  >
+                    {option} <div className="sort-circle" />
+                  </div>
+                </>
+              ))}
             </div>
           )}
         </div>

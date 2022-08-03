@@ -1,0 +1,18 @@
+.whole-wrapper-container {
+  width: 88%;
+  margin: auto;
+}
+
+.main-wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+  height: 39rem;
+  gap: 1rem;
+  margin-bottom: 4rem;
+}
+@media (max-width: 998px) {
+  .main-wrapper {
+    margin-bottom: 5rem;
+  }
+}/*# sourceMappingURL=Contries.css.map */

@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import dropdown from "../../Images/DropdownWhite.svg";
 import Sort from "../SortFilter/Sort";
 import { trendingHashtags } from "./data";
 import "./TrendingHashtags.scss";
+import shareIcon from "../../Images/sharetwo.svg";
 
 const TrendingHashtags = () => {
+  const trendingData = ["Country", "Influencer", "Hashtag"];
+  const [data, setdata] = useState("Filter");
   return (
     <div className="right-container">
       <div className="heading-content">
@@ -12,9 +15,10 @@ const TrendingHashtags = () => {
         <div className="icons">
           <p className="score">Sentiment Score</p>
           <img className="dropdown-img-trending" src={dropdown} />
+          <img className="share-img" src={shareIcon} />
         </div>
       </div>
-      <Sort />
+      <Sort setdata={setdata} data={data} optiondata={trendingData} />
       <div className="right-content-wrapper">
         {trendingHashtags.map((item) => (
           <div key={item.id} className="right-content">

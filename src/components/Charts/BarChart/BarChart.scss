@@ -25,6 +25,7 @@
     display: flex;
     justify-content: space-between;
     line-height: 28px;
+    align-items: center;
     color: #f05728;
 
     @media (max-width: 998px) {
@@ -39,8 +40,16 @@
       line-height: 28px;
     }
 
+    .share-btn {
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      padding: 0%;
+    }
+
     .heading-button {
-      margin-right: 1rem;
+      margin-left: 4.5rem;
+      height: 1.5rem;
       border-radius: 4px;
       color: #212121;
       cursor: pointer;
@@ -56,6 +65,9 @@
         padding-top: 0.2rem;
         padding-bottom: 0.2rem;
         margin-left: 0%;
+      }
+      @media (max-width: 1440px) {
+        margin-left: 1.5rem;
       }
     }
 

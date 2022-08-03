@@ -5,88 +5,46 @@ import downloadIcon from "../../../Images/download.svg";
 import shareIcon from "../../../Images/share.svg";
 import { faPlus, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { Line } from "react-chartjs-2";
-// import { useNavigate } from "react-router-dom";
-// import Chart from "chart.js/auto";
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  // CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-  // AreaChart,
-  // Area,
-  // BarChart,
-  // Bar,
-} from "recharts";
 import Button from "../../Button/Button";
 import Modal from "../../Modal/Modal";
 import Header from "../../Header/Header";
-
-const pdata = [
-  {
-    name: "Jun 1, 22",
-    student: 7,
-    fees: 8,
-  },
-  {
-    name: "Jun 4, 22",
-    student: 8,
-    fees: -1,
-  },
-  {
-    name: "Jun 7, 22",
-    student: 5,
-    fees: 10,
-  },
-  {
-    name: "Jun 10, 22",
-    student: 8,
-    fees: 5,
-  },
-  {
-    name: "Jun 13, 22",
-    student: -1,
-    fees: -1,
-  },
-  {
-    name: "Jun 16, 22",
-    student: 7,
-    fees: 8,
-  },
-  {
-    name: "Jun 19, 22",
-    student: -1,
-    fees: 4,
-  },
-  {
-    name: "Jun 22, 22",
-    student: 6,
-    fees: -1,
-  },
-  {
-    name: "Jun 25, 22",
-    student: 8,
-    fees: -1,
-  },
-];
+import Chart from "./Chart";
+import Highcharts from "highcharts";
+import { LineChartBarData } from "../BarChart/data";
+import HighchartsReact from "highcharts-react-official";
+import xCircle from "../../../Images/x-circle.svg";
+import threeDots from "../../../Images/threeDots.svg";
 
 const LineChartData = () => {
   const [selected, setSelected] = useState("Past 1 months");
-  const [selectCountry, setselectCountry] = useState("India");
+  const [selectCountry, setselectCountry] = useState("Worldwide");
   const dateSelect = ["react ", "vue", "Angular"];
   const countrySelect = ["react ", "vue", "Angular"];
   const [openModal, setOpenModal] = useState(false);
   const router = useLocation();
   const navigate = useNavigate();
+  const [addCountry, setaddCountry] = useState(false);
+  const [contryNameState, setContryNameState] = useState("");
+  const [isValue, setIsValue] = useState(false);
 
   const navigateHome = () => {
     navigate("/");
   };
 
+  const onCountryNameAdd = (event) => {
+    setContryNameState(event.target.value);
+  };
+
+  const onCountryEnterPress = (e) => {
+    if (e.key === "Enter") {
+      setIsValue(true);
+    }
+  };
+
+  const closeAddCountry = () => {
+    setContryNameState("");
+    setIsValue(false);
+  };
   return (
     <>
       {router.pathname === "/LineChart" ? <Header /> : ""}
@@ -119,10 +77,6 @@ const LineChartData = () => {
           </div>
           <div className="buttons">
             <div className="left-button">
-              {/* <button className="left-ouline-button">
-      India
-      <FontAwesomeIcon icon={faAngleDown} />
-    </button> */}
               <div className="select-country-btn">
                 <Button
                   options={countrySelect}
@@ -137,10 +91,6 @@ const LineChartData = () => {
                   setSelected={setSelected}
                 />
               </div>
-              {/* <button className="left-ouline-buttonTwo">
-      Past 1 months
-      <FontAwesomeIcon icon={faAngleDown} />
-    </button> */}
             </div>
             <div className="right-button">
               <button className="right-ouline-button">
@@ -153,56 +103,74 @@ const LineChartData = () => {
               </button>
             </div>
           </div>
-        </div>
-        <div className="Add-country">
-          <div className="country">
-            <span className="circle"></span>
-            <p className="title">India</p>
-          </div>
-          <button className="country-add">
-            <span className="faplus">
-              <FontAwesomeIcon icon={faPlus} />
-            </span>
-            <p className="title">Add country</p>
-          </button>
-        </div>
 
+          <div className="Add-country">
+            <div className="country">
+              {/* <span className="circle"></span> */}
+              <img src={threeDots} />
+              <p className="title">Worldwide</p>
+            </div>
+            {!addCountry ? (
+              <button
+                onClick={() => setaddCountry(!addCountry)}
+                className="country-add"
+              >
+                <>
+                  <span className="faplus">
+                    <FontAwesomeIcon icon={faPlus} />
+                  </span>
+                  <p className="title">Add country</p>
+                </>
+              </button>
+            ) : (
+              !isValue && (
+                <div className="country-added">
+                  <input
+                    type="text"
+                    onKeyDown={onCountryEnterPress}
+                    onChange={onCountryNameAdd}
+                    value={contryNameState}
+                    className="contry-name"
+                    placeholder="Type country name"
+                  />
+                </div>
+              )
+            )}
+            {isValue && (
+              <div className="country-added">
+                <span className="circle-line-added-country"></span>
+                <p className="title-line-added-country">
+                  {contryNameState}
+                  <button
+                    className="close-addCountry-btn"
+                    onClick={closeAddCountry}
+                  >
+                    <img src={xCircle} />
+                  </button>
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
         <div className="chart">
-          <ResponsiveContainer width="100%" aspect={3}>
-            <LineChart
-              data={pdata}
-              width={500}
-              height={100}
-              margin={{ top: 50, right: 70, left: 0, bottom: 40 }}
-            >
-              {/* <CartesianGrid strokeDasharray="3 3" /> */}
-              <XAxis
-                dataKey="name"
-                interval={"preserveStartEnd"}
-                tickFormatter={(value) => value + ""}
+          {isValue ? (
+            <div className="bar-chart-line">
+              <HighchartsReact
+                highcharts={Highcharts}
+                options={LineChartBarData}
               />
-              <YAxis />
-              <Tooltip
-                contentStyle={{ backgroundColor: "white", border: "none" }}
-              />
-              {/* <Legend /> */}
-              <Line
-                type="monotone"
-                dataKey="student"
-                strokeDasharray="4 4"
-                strokeWidth={3}
-                stroke="red"
-                dot={false}
-              />
-              {/* <Line
-      type="monotone"
-      dataKey="fees"
-      strokeDasharray="0 3 8 8"
-      stroke="green"
-      // activeDot={{ r: 8 }}
-    /> */}
-            </LineChart>
-          </ResponsiveContainer>
+            </div>
+          ) : (
+            ""
+          )}
+
+          <div
+            className={`${
+              isValue ? "line-chart-bar" : "line-chart-bar-condition"
+            }`}
+          >
+            <Chart />
+          </div>
         </div>
       </div>
       <div>{openModal && <Modal closeModal={setOpenModal} />}</div>

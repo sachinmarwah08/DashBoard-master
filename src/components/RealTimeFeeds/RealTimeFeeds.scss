@@ -4,6 +4,30 @@
   height: auto;
   width: 60%;
 
+  .share-icon-btn {
+    display: flex;
+    justify-content: end;
+    width: max-content;
+    margin-left: 25.5rem;
+    cursor: pointer;
+
+    @media (max-width: 1440px) {
+      margin-left: 22rem;
+    }
+  }
+  .tweets-heading {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    font-family: "Work-Sans";
+
+    @font-face {
+      font-family: "Work-Sans";
+      src: url("../../Fonts/work-sans.medium.ttf");
+      font-style: normal;
+    }
+  }
+
   .positive {
     @media (max-width: 998px) {
       font-weight: 500;
@@ -40,6 +64,9 @@
 
     @media (max-width: 1280px) {
       left: 37.5rem;
+    }
+    @media (max-width: 1440px) {
+      left: 42.8rem;
     }
 
     .search-icon-image {

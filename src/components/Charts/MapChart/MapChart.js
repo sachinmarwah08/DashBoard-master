@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import "./MapChart.scss";
 import WorldMap from "../../../Images/WorldMap.svg";
 import Table from "../../../Images/Table.png";
-import BigArrow from "../../../Images/bif-Arrow.png";
+// import BigArrow from "../../../Images/bif-Arrow.png";
+import shareIcon from "../../../Images/share.svg";
 // import { MapContainer, CircleMarker, TileLayer, Tooltip } from "react-leaflet";
 // import "leaflet/dist/leaflet.css";
 import data from "./Cities";
@@ -21,6 +22,8 @@ import Sort from "../../SortFilter/Sort";
 // ];
 
 const MapChartComponent = () => {
+  const mapData = ["influencer", "hashtags"];
+  const [mapdata, setMapData] = useState("Filter");
   // var centerLat = (data.minLat + data.maxLat) / 2;
   // var distanceLat = data.maxLat - data.minLat;
   // var bufferLat = distanceLat * 0.05;
@@ -35,11 +38,11 @@ const MapChartComponent = () => {
           <div className="side-logos">
             <img alt="WorldMap" className="WorldMap" src={WorldMap}></img>
             <img alt="Table" className="table" src={Table}></img>
-            <img alt="BigArrow" className="bigArrow" src={BigArrow}></img>
+            <img alt="BigArrow" className="bigArrow" src={shareIcon}></img>
           </div>
         </div>
 
-        <Sort />
+        <Sort setData={setMapData} data={mapdata} optiondata={mapData} />
       </div>
       <div className="bar-map-wrapper">
         <div className="chart-map">

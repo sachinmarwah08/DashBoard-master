@@ -13,8 +13,14 @@ const containerStyle = {
 };
 
 const Style = {
-  width: "530px",
+  width: "592px",
   height: "465px",
+  borderRadius: "8px",
+};
+
+const ipad = {
+  width: "130px",
+  height: "265px",
   borderRadius: "8px",
 };
 
@@ -45,7 +51,7 @@ function MyComponent() {
 
   return isLoaded ? (
     <div style={{ margin: "auto" }}>
-      {widthState && widthState < 1300 ? (
+      {widthState && widthState < 1442 ? (
         <GoogleMap
           mapContainerStyle={Style}
           margin="auto"
@@ -55,7 +61,6 @@ function MyComponent() {
           onUnmount={onUnmount}
         >
           {/* Child components, such as markers, info windows, etc. */}
-          <></>
         </GoogleMap>
       ) : (
         <GoogleMap
@@ -67,7 +72,6 @@ function MyComponent() {
           // onUnmount={onUnmount}
         >
           {/* Child components, such as markers, info windows, etc. */}
-          <></>
         </GoogleMap>
       )}
     </div>

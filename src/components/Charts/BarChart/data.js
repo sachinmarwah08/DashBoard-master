@@ -1,5 +1,3 @@
-//
-
 const data = {
   chart: {
     type: "bar",
@@ -105,3 +103,99 @@ const data = {
 };
 
 export default data;
+
+export const LineChartBarData = {
+  chart: {
+    type: "column",
+    height: 210,
+    width: 150,
+    zoomType: "x",
+    borderWidth: 0,
+  },
+
+  title: {
+    style: {
+      display: "none",
+    },
+    text: null,
+  },
+  xAxis: {
+    categories: "none",
+    // categories: ["Russia"],
+    labels: {
+      enabled: false,
+    },
+
+    title: {
+      // style: {
+      //   display: "none",
+      // },
+      text: "Average Comparison",
+    },
+
+    accessibility: {
+      description: "Countries",
+    },
+  },
+
+  credits: {
+    enabled: false,
+  },
+
+  yAxis: {
+    min: 0,
+    max: 30,
+
+    tickInterval: 0,
+    title: {
+      style: {
+        display: "none",
+      },
+      text: null,
+    },
+
+    labels: {
+      style: {
+        display: "none",
+      },
+      overflow: "justify",
+      format: "{value}%",
+    },
+  },
+
+  plotOptions: {
+    series: {
+      pointPadding: 0.1,
+      groupPadding: -0.12,
+      borderRadius: 3,
+    },
+    bar: {
+      borderWidth: 0,
+
+      dataLabels: {
+        enabled: false,
+        pointPadding: -0.1,
+        format: "{y}%",
+      },
+    },
+  },
+  tooltip: {
+    valueSuffix: "%",
+    stickOnContact: false,
+    backgroundColor: "rgba(255, 255, 255, 0.93)",
+  },
+  legend: {
+    enabled: false,
+  },
+  series: [
+    {
+      name: "Organic farming area",
+      color: "rgba(240, 87, 40, 0.35)",
+      borderColor: "rgba(240, 87, 40, 0.35)",
+      data: [
+        { y: 34.4, color: "#F05728" },
+        { y: 24.4, color: "#2A00FF" },
+      ],
+    },
+  ],
+};

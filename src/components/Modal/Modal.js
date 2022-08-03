@@ -11,12 +11,15 @@ const Modal = ({ closeModal }) => {
     toast.success("Link Coppied...", {
       position: "top-right",
       autoClose: 500,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
+      hideProgressBa: true,
+      newestOnTop: false,
 
-      draggable: true,
-      progress: 0,
+      // closeOnClick,
+      rtl: false,
+      toastClassName: "dark-toast",
+      // pauseOnFocusLoss,
+      // draggable,
+      // pauseOnHover,
     });
   };
   return (
@@ -33,19 +36,13 @@ const Modal = ({ closeModal }) => {
               type="text"
               className="component-link"
             />
-            <button
-              className="copy-btn"
-              //   onClick={() =>
-              //     navigator.clipboard.writeText("http://localhost:3000/LineChart")
-              //   }
-              onClick={notify}
-            >
+            <button className="copy-btn" onClick={notify}>
               Copy Link
             </button>
             <ToastContainer
               position="top-right"
               autoClose={500}
-              hideProgressBar={false}
+              hideProgressBar={true}
               newestOnTop={false}
               closeOnClick
               rtl={false}
