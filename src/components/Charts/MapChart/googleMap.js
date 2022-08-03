@@ -7,30 +7,18 @@ const center = {
 };
 
 const containerStyle = {
-  width: "636px",
-  height: "467px",
-  borderRadius: "8px",
-};
-
-const Style = {
-  width: "592px",
-  height: "465px",
-  borderRadius: "8px",
-};
-
-const ipad = {
-  width: "130px",
-  height: "265px",
+  width: "auto",
+  height: "100%",
   borderRadius: "8px",
 };
 
 function MyComponent() {
   const [widthState, setWidthState] = useState(null);
 
-  useEffect(() => {
-    console.log("window.innerWidth", window.innerWidth);
-    setWidthState(window.innerWidth);
-  }, []);
+  // useEffect(() => {
+  //   console.log("window.innerWidth", window.innerWidth);
+  //   setWidthState(window.innerWidth);
+  // }, []);
 
   const { isLoaded } = useJsApiLoader({
     // id: "google-map-script",
@@ -50,31 +38,16 @@ function MyComponent() {
   }, []);
 
   return isLoaded ? (
-    <div style={{ margin: "auto" }}>
-      {widthState && widthState < 1442 ? (
-        <GoogleMap
-          mapContainerStyle={Style}
-          margin="auto"
-          center={center}
-          zoom={10}
-          onLoad={onLoad}
-          onUnmount={onUnmount}
-        >
-          {/* Child components, such as markers, info windows, etc. */}
-        </GoogleMap>
-      ) : (
-        <GoogleMap
-          mapContainerStyle={containerStyle}
-          margin="auto"
-          center={center}
-          zoom={3}
-          // onLoad={onLoad}
-          // onUnmount={onUnmount}
-        >
-          {/* Child components, such as markers, info windows, etc. */}
-        </GoogleMap>
-      )}
-    </div>
+    <GoogleMap
+      mapContainerStyle={containerStyle}
+      margin="auto"
+      center={center}
+      zoom={2}
+      onLoad={onLoad}
+      onUnmount={onUnmount}
+    >
+      {/* Child components, such as markers, info windows, etc. */}
+    </GoogleMap>
   ) : (
     <></>
   );
