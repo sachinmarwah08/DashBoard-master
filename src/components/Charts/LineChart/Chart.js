@@ -8,6 +8,8 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
+  PolarGrid,
+  CartesianGrid,
   // AreaChart,
   // Area,
   // BarChart,
@@ -25,26 +27,35 @@ const Chart = () => {
       <ResponsiveContainer width="100%" aspect={3}>
         <LineChart
           data={data}
-          width={500}
+          width={600}
           height={100}
           margin={{ top: 50, right: 70, left: 0, bottom: 40 }}
         >
-          {/* <CartesianGrid strokeDasharray="3 3" /> */}
+          {/* <PolarGrid strokeDasharray="3 3" /> */}
+
+          {/* <CartesianGrid horizontal={true} vertical={false} /> */}
           <XAxis
             dataKey="name"
+            stroke="#757575"
+            fontWeight={400}
+            fontSize="14px"
             interval={"preserveStartEnd"}
             tickFormatter={(value) => value + ""}
           />
-          <YAxis />
+          <YAxis stroke="#E0E0E0" />
           <Tooltip
+            separator="         "
             labelStyle={{
               fontWeight: "700",
-              color: "#000000",
+              color: "##757575",
               fontSize: "20px",
+              borderColor: "#757575",
+              lineHeight: "20px",
               lineHeight: "28px",
               borderRadius: "8px",
             }}
             wrapperStyle={{
+              width: "9rem",
               boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2)",
               borderRadius: "8px",
               gap: "10px",
@@ -52,6 +63,7 @@ const Chart = () => {
               outline: "none",
             }}
             itemStyle={{
+              gap: "40px",
               color: "#939596",
             }}
             contentStyle={{
@@ -67,7 +79,7 @@ const Chart = () => {
             dataKey="Worldwide"
             strokeDasharray="4 4"
             strokeWidth={3}
-            stroke="red"
+            stroke="#F05728"
             dot={false}
           />
           {/* <Line
