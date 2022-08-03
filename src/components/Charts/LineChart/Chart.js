@@ -16,6 +16,9 @@ import {
 import { data } from "./data";
 
 const Chart = () => {
+  const color = {
+    boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2)",
+  };
   return (
     <div>
       {" "}
@@ -34,13 +37,28 @@ const Chart = () => {
           />
           <YAxis />
           <Tooltip
+            labelStyle={{
+              fontWeight: "700",
+              color: "#000000",
+              fontSize: "20px",
+              lineHeight: "28px",
+              borderRadius: "8px",
+            }}
+            wrapperStyle={{
+              boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2)",
+              borderRadius: "8px",
+              gap: "10px",
+              border: "none",
+              outline: "none",
+            }}
+            itemStyle={{
+              color: "#939596",
+            }}
             contentStyle={{
               backgroundColor: "white",
               border: "none",
+              borderRadius: "8px",
               color: "Black",
-              outline: "none",
-              boxShadow: "black",
-              borderRadius: "10px",
             }}
           />
           {/* <Legend /> */}
