@@ -2,7 +2,7 @@
   width: 50%;
   height: 100%;
   background-color: white;
-  border-radius: 10px;
+  border-radius: 0.625rem;
   overflow: auto;
   margin-top: 1.5rem;
 
@@ -20,24 +20,24 @@
 
   .heading {
     font-weight: 700;
-    font-size: 20px;
+    font-size: 1.25rem;
     width: 100%;
     display: flex;
     justify-content: space-between;
-    line-height: 28px;
+    line-height: 1.75rem;
     align-items: center;
     color: #f05728;
 
     @media (max-width: 998px) {
       font-weight: 700;
-      font-size: 8px;
-      line-height: 28px;
+      font-size: 0.5rem;
+      line-height: 1.75rem;
     }
 
     @media (max-width: 1280px) {
       font-weight: 700;
-      font-size: 18px;
-      line-height: 28px;
+      font-size: 1.125rem;
+      line-height: 1.75rem;
     }
 
     .share-btn {
@@ -50,7 +50,7 @@
     .heading-button {
       margin-left: 4.5rem;
       height: 1.5rem;
-      border-radius: 4px;
+      border-radius: 0.25rem;
       color: #212121;
       cursor: pointer;
       border: 1px solid #eeeeee;
@@ -66,6 +66,7 @@
         padding-bottom: 0.2rem;
         margin-left: 0%;
       }
+
       @media (max-width: 1440px) {
         margin-left: 1.5rem;
       }
@@ -75,11 +76,11 @@
       background-color: white;
       position: absolute;
       top: 125%;
-      left: -350%;
+      left: -335%;
       display: flex;
       flex-direction: column;
       z-index: 100;
-      border-radius: 4px;
+      border-radius: 0.25rem;
       box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 
       animation: growDown 300ms ease-in-out forwards;
@@ -89,35 +90,37 @@
         0% {
           transform: scaleY(0);
         }
+
         80% {
           transform: scaleY(1.1);
         }
+
         100% {
           transform: scaleY(1);
         }
       }
 
       .dropdown-item {
-        gap: 10px;
-        padding: 10px;
+        gap: 0.625rem;
+        padding: 0.625rem;
         width: max-content;
         display: flex;
         font-weight: 500;
-        font-size: 13px;
+        font-size: 0.813rem;
         transition: all 0.2s;
         color: #616161;
 
         &:hover {
           background-color: #eeeeee;
-          border-radius: 4px;
+          border-radius: 0.25rem;
         }
       }
     }
 
     @media (max-width: 998px) {
       font-weight: 700;
-      font-size: 12px;
-      line-height: 28px;
+      font-size: 0.75rem;
+      line-height: 1.75rem;
     }
   }
 
@@ -126,9 +129,10 @@
     width: 100%;
     height: 30rem;
     // margin-bottom: 60rem;
-    border-radius: 8px;
+    border-radius: 0.5rem;
     overflow: auto;
   }
+
   .chart-content {
     display: flex;
     align-items: center;
@@ -144,15 +148,15 @@
     .country {
       // border-left: 1px solid #212121;
       font-weight: 500;
-      font-size: 12px;
+      font-size: 0.75rem;
       width: 13%;
       text-align: right;
-      line-height: 18px;
+      line-height: 1.125rem;
       color: #212121;
 
       @media (max-width: 998px) {
         font-weight: 500;
-        font-size: 8px;
+        font-size: 0.5rem;
         width: 15%;
         font-weight: 500;
         color: #212121;
@@ -166,7 +170,7 @@
       opacity: 50%;
       margin-left: 0.5rem;
       padding-right: 2rem;
-      border-radius: 4px;
+      border-radius: 0.25rem;
 
       @media (max-width: 998px) {
         height: 1.5rem;
@@ -175,12 +179,13 @@
       }
     }
   }
+
   .chart-bar {
     overflow-x: hidden;
     height: 29rem;
 
     &.chart-bar::-webkit-scrollbar {
-      width: 0px;
+      width: 0;
     }
 
     @media (max-width: 998px) {

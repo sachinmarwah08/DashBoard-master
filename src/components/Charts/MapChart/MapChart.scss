@@ -2,7 +2,7 @@
   width: 50%;
   height: 100%;
   background-color: white;
-  border-radius: 10px;
+  border-radius: 0.625rem;
   margin-top: 1.5rem;
 
   .content-map {
@@ -25,14 +25,14 @@
 
   .heading {
     font-weight: 700;
-    font-size: 20px;
-    line-height: 28px;
+    font-size: 1.25rem;
+    line-height: 1.75rem;
     color: #f05728;
 
     @media (max-width: 998px) {
       font-weight: 700;
-      font-size: 12px;
-      line-height: 28px;
+      font-size: 0.75rem;
+      line-height: 1.75rem;
     }
   }
 
@@ -41,7 +41,7 @@
     width: 100%;
 
     // margin-bottom: 60rem;
-    border-radius: 8px;
+    border-radius: 0.5rem;
     @media (max-width: 998px) {
       height: 28.8rem;
     }
@@ -49,7 +49,7 @@
 
   .chart-map {
     height: 29rem;
-    border-radius: 20px;
+    border-radius: 1.25rem;
     margin: 1rem;
   }
 
@@ -59,32 +59,32 @@
     align-items: center;
 
     .WorldMap {
-      width: 40px;
-      height: 40px;
+      width: 2.5rem;
+      height: 2.5rem;
       cursor: pointer;
       @media (max-width: 998px) {
-        width: 25px;
-        height: 25px;
+        width: 1.563rem;
+        height: 1.563rem;
       }
     }
 
     .table {
-      width: 40px;
-      height: 40px;
+      width: 2.5rem;
+      height: 2.5rem;
       cursor: pointer;
       @media (max-width: 998px) {
-        width: 25px;
-        height: 25px;
+        width: 1.563rem;
+        height: 1.563rem;
       }
     }
 
     .bigArrow {
-      width: 39px;
-      height: 39px;
+      width: 2.438rem;
+      height: 2.438rem;
       cursor: pointer;
       @media (max-width: 998px) {
-        width: 25px;
-        height: 25px;
+        width: 1.563rem;
+        height: 1.563rem;
       }
     }
   }

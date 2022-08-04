@@ -23,7 +23,7 @@
       box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
       width: 40%;
       height: auto;
-      border-radius: 8px;
+      border-radius: 0.5rem;
 
       .modal-cloe-btn {
         width: 100%;
@@ -40,12 +40,12 @@
         margin-top: 1.5rem;
         justify-content: center;
         align-items: center;
-        gap: 10px;
+        gap: 0.625rem;
 
         .component-link {
           width: 60%;
           outline: none;
-          border-radius: 4px;
+          border-radius: 0.25rem;
           border: 2px solid #eeeeee;
           padding: 0.8rem;
         }
@@ -53,12 +53,12 @@
           border: none;
           padding: 0.8rem;
           background-color: #f05728;
-          border-radius: 4px;
+          border-radius: 0.25rem;
           width: max-content;
           color: white;
           cursor: pointer;
           font-weight: 400;
-          font-size: 16px;
+          font-size: 1rem;
         }
       }
     }

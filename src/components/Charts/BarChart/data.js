@@ -134,7 +134,7 @@ export const LineChartBarData = {
     title: {
       style: {
         width: "200%",
-        fontSize: "11px",
+        fontSize: "0.688rem",
       },
       text: "Average Comparison",
     },
@@ -150,9 +150,7 @@ export const LineChartBarData = {
 
   yAxis: {
     gridLineHeight: 100,
-    // minorGridLineWidth: 200,
     gridLineColor: "transparent",
-    // minorGridLineWidth: "80px",
     min: 8,
     max: 30,
 

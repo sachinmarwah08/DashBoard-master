@@ -7,21 +7,28 @@ import shareIcon from "../../Images/sharetwo.svg";
 
 const TrendingHashtags = () => {
   const trendingData = ["Country", "Influencer", "Hashtag"];
-  const [data, setdata] = useState("Filter");
+  const [trendData, setTrendData] = useState("Filter");
   return (
     <div className="right-container">
       <div className="heading-content">
         <div className="right-heading">Trending Hashtags</div>
         <div className="icons">
           <p className="score">Sentiment Score</p>
-          <img className="dropdown-img-trending" src={dropdown} />
-          <img className="share-img" src={shareIcon} />
+          <img
+            alt="dropdown"
+            className="dropdown-img-trending"
+            src={dropdown}
+          />
+          <img alt="share-icon" className="share-img" src={shareIcon} />
         </div>
       </div>
       <div className="trending-sort">
-        <Sort setdata={setdata} data={data} optiondata={trendingData} />
+        <Sort
+          setData={setTrendData}
+          data={trendData}
+          optiondata={trendingData}
+        />
       </div>
-
       <div className="right-content-wrapper">
         {trendingHashtags.map((item) => (
           <div key={item.id} className="right-content">

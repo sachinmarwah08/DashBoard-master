@@ -63,7 +63,7 @@ const LineChartData = () => {
             <div className="heading">Wellbeing Sentiment Score Over Time</div>
             <div className="right-icons">
               <button type="button" alt="downloadIcon" className="d-icon">
-                <img src={downloadIcon}></img>
+                <img alt="download-icon" src={downloadIcon}></img>
               </button>
               <button
                 onClick={() => setOpenModal(true)}
@@ -71,7 +71,7 @@ const LineChartData = () => {
                 alt="shareIcon"
                 className="s-icon"
               >
-                <img src={shareIcon}></img>
+                <img alt="share-icon" src={shareIcon}></img>
               </button>
             </div>
           </div>
@@ -106,8 +106,7 @@ const LineChartData = () => {
 
           <div className="Add-country">
             <div className="country">
-              {/* <span className="circle"></span> */}
-              <img src={threeDots} />
+              <img alt="image" src={threeDots} />
               <p className="title">Worldwide</p>
             </div>
             {!addCountry ? (
@@ -145,7 +144,7 @@ const LineChartData = () => {
                     className="close-addCountry-btn"
                     onClick={closeAddCountry}
                   >
-                    <img src={xCircle} />
+                    <img alt="xCircle" src={xCircle} />
                   </button>
                 </p>
               </div>

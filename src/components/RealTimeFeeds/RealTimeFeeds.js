@@ -5,15 +5,13 @@ import { faXmark, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Content from "./Content";
 import shareIcon from "../../Images/share.svg";
-import searchBarLogo from "../../Images/Search.png";
-import filterBarLogo from "../../Images/filter.svg";
 import Sort from "../SortFilter/Sort";
 
 const RealTimeFeeds = () => {
   const [filterData, setFilterData] = useState(data);
   const [wordEntered, setWordEntered] = useState("");
   const [active, setActive] = useState("Real-time-Tweets");
-  const realTimeData = ["influencer", "hashtags"];
+  const realTimeData = ["Influencer", "hashtags"];
   const [realData, setRealData] = useState("Filter");
 
   const handleFilter = (event) => {
@@ -60,7 +58,7 @@ const RealTimeFeeds = () => {
           <div className="tweets-heading">Real-time News</div>
         </button>
         <div className="share-icon-btn">
-          <img src={shareIcon} />
+          <img alt="share-icon" src={shareIcon} />
         </div>
       </div>
       <div className="radio-button">

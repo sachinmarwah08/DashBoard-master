@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
 
 const center = {
@@ -9,17 +9,10 @@ const center = {
 const containerStyle = {
   width: "auto",
   height: "100%",
-  borderRadius: "8px",
+  borderRadius: "0.5rem",
 };
 
 function MyComponent() {
-  const [widthState, setWidthState] = useState(null);
-
-  // useEffect(() => {
-  //   console.log("window.innerWidth", window.innerWidth);
-  //   setWidthState(window.innerWidth);
-  // }, []);
-
   const { isLoaded } = useJsApiLoader({
     // id: "google-map-script",
     googleMapsApiKey: "AIzaSyC_3Wo9FRrSnT4idegucxu2wIjVgPJH84I",

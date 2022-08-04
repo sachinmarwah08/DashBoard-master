@@ -64,28 +64,27 @@
 
     .column-two-digit-one {
       color: #ff3c00;
-      font-size: 18px;
+      font-size: 1.125rem;
       font-weight: 600;
-      line-height: 24px;
+      line-height: 1.5rem;
       margin-bottom: 0.5rem;
       margin-top: 0.5rem;
 
       @media (max-width: 998px) {
         font-weight: 600;
-        font-size: 12px;
+        font-size: 0.75rem;
         line-height: 1rem;
       }
     }
     .value-one-tilte {
-      font-size: 12px;
-      // font-weight: 400;
-      line-height: 16px;
+      font-size: 0.75rem;
+      line-height: 1rem;
       color: #ff3c00;
 
       @media (max-width: 998px) {
-        font-size: 9px;
+        font-size: 0.563rem;
         font-weight: 400;
-        line-height: 11px;
+        line-height: 0.688rem;
       }
     }
   }

@@ -17,7 +17,11 @@ const Sort = ({ optiondata, data, setData, value, onchange }) => {
           placeholder="search..."
           type="text"
         />
-        <img className="search-icon-image-sort" src={searchBarLogo} />
+        <img
+          alt="share-icon"
+          className="search-icon-image-sort"
+          src={searchBarLogo}
+        />
       </div>
       <div className="filter-bar-data">
         <div
@@ -26,7 +30,11 @@ const Sort = ({ optiondata, data, setData, value, onchange }) => {
           }}
           className="sort-filter-wrapper"
         >
-          <img src={filterBarLogo} className="filter-logo-img"></img>
+          <img
+            alt="share-icon"
+            src={filterBarLogo}
+            className="filter-logo-img"
+          ></img>
           {data}
           {isActive && (
             <div className="content-container">
@@ -38,7 +46,12 @@ const Sort = ({ optiondata, data, setData, value, onchange }) => {
                     }}
                     className="filter-item"
                   >
-                    {option} <div className="sort-circle" />
+                    {option}
+                    <div
+                      className={`${
+                        !isActive ? "sort-circle" : "sort-circle-colored"
+                      }`}
+                    />
                   </div>
                 </>
               ))}

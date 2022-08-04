@@ -4,12 +4,12 @@
   margin-left: 0.8rem;
   color: #f05728;
   font-weight: 600;
-  font-size: 20px;
+  font-size: 1.25rem;
   cursor: pointer;
   border: none;
   background: transparent;
   align-items: center;
-  gap: 10px;
+  gap: 0.625rem;
   font-family: "Work-Sans";
 
   @font-face {
@@ -21,8 +21,6 @@
 
 .whole-container {
   width: 100%;
-
-  // border-bottom: 1px solid #9e9e9e;
 }
 
 .chart {
@@ -51,7 +49,7 @@
 
 .lineChart-container {
   background-color: white;
-  border-radius: 8px;
+  border-radius: 0.5rem;
   width: 88%;
   height: auto;
   margin: auto;
@@ -73,7 +71,7 @@
       border-right: 1px solid #9e9e9e;
       align-items: center;
       justify-content: center;
-      gap: 10px;
+      gap: 0.625rem;
       text-align: center;
       color: #757575;
       display: flex;
@@ -81,26 +79,25 @@
       width: 100%;
 
       .title {
-        font-size: 20px;
+        font-size: 1.25rem;
         font-weight: 600;
-        line-height: 48px;
+        line-height: 3rem;
 
         @media (max-width: 998px) {
-          font-size: 13px;
+          font-size: 0.813rem;
         }
       }
       .circle {
-        width: 20.67px;
+        width: 1.292rem;
         margin-right: 0.5rem;
         background-color: #f05728;
-        height: 2.67px;
+        height: 0.167rem;
         transform: rotate(180deg);
         display: flex;
-        // border-radius: 50px;
 
         @media (max-width: 998px) {
-          width: 8px;
-          height: 8px;
+          width: 0.5rem;
+          height: 0.5rem;
         }
       }
     }
@@ -118,12 +115,12 @@
       cursor: pointer;
 
       .title {
-        font-size: 20px;
+        font-size: 1.25rem;
         font-weight: 600;
-        line-height: 48px;
+        line-height: 3rem;
 
         @media (max-width: 998px) {
-          font-size: 13px;
+          font-size: 0.813rem;
         }
       }
       .faplus {
@@ -136,34 +133,32 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      // text-align: center;
 
       .circle-line-added-country {
-        width: 20.67px;
+        width: 1.292rem;
         margin-right: 0.5rem;
         background-color: #2a00ff;
-        height: 2.67px;
+        height: 0.167rem;
         transform: rotate(180deg);
         display: flex;
-        // border-radius: 50px;
 
         @media (max-width: 998px) {
-          width: 8px;
-          height: 8px;
+          width: 0.5rem;
+          height: 0.5rem;
         }
       }
 
       .title-line-added-country {
-        font-size: 20px;
+        font-size: 1.25rem;
         font-weight: 600;
-        line-height: 48px;
+        line-height: 3rem;
         color: #757575;
         display: flex;
         align-items: center;
-        gap: 2px;
+        gap: 0.125rem;
 
         @media (max-width: 998px) {
-          font-size: 13px;
+          font-size: 0.813rem;
         }
         .close-addCountry-btn {
           margin-top: 0.3rem;
@@ -176,8 +171,8 @@
       }
 
       .contry-name {
-        font-size: 20px;
-        line-height: 20px;
+        font-size: 1.25rem;
+        line-height: 1.25rem;
         border: none;
         background: transparent;
         outline: none;
@@ -189,9 +184,9 @@
       }
     }
     .select-country {
-      font-size: 20px;
+      font-size: 1.25rem;
       font-weight: 600;
-      line-height: 48px;
+      line-height: 3rem;
       color: #9e9e9e;
       text-align: center;
       width: 100%;
@@ -221,7 +216,7 @@
 
     .share-content {
       background-color: white;
-      border-radius: 8px;
+      border-radius: 0.5rem;
       left: 82.5%;
       box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
       position: absolute;
@@ -245,11 +240,11 @@
       .share-item {
         cursor: pointer;
         transition: all 0.2s;
-        padding: 10px;
+        padding: 0.625rem;
 
         &:hover {
           background: #f5f5f5;
-          border-radius: 8px;
+          border-radius: 0.5rem;
         }
       }
     }
@@ -280,7 +275,7 @@
       display: flex;
       width: 100%;
       justify-content: end;
-      gap: 10px;
+      gap: 0.625rem;
 
       @media (max-width: 998px) {
         width: 44%;
@@ -295,12 +290,12 @@
     .left-button {
       display: flex;
       width: 35%;
-      gap: 45px;
+      gap: 2.813rem;
 
       @media (max-width: 998px) {
         width: 44%;
         height: 4rem;
-        gap: 30px;
+        gap: 1.875rem;
       }
 
       .select-country-btn {
@@ -324,7 +319,7 @@
       cursor: pointer;
       padding-bottom: 0.5rem;
       border: 1px solid #d0d5dd;
-      border-radius: 8px;
+      border-radius: 0.5rem;
     }
 
     .left-ouline-buttonTwo {
@@ -334,7 +329,7 @@
       color: #101828;
       width: 100%;
       font-weight: 400;
-      line-height: 24px;
+      line-height: 1.5rem;
       cursor: pointer;
       justify-content: space-between;
       padding-left: 1rem;
@@ -342,14 +337,14 @@
       padding-top: 0.5rem;
       padding-bottom: 0.5rem;
       border: 1px solid #d0d5dd;
-      border-radius: 8px;
+      border-radius: 0.5rem;
     }
 
     .right-ouline-button {
       display: flex;
       align-items: center;
       width: max-content;
-      gap: 10px;
+      gap: 0.625rem;
       color: white;
       font-weight: 600;
       justify-content: space-between;
@@ -357,15 +352,15 @@
       background-color: #f05728;
       padding-right: 1rem;
       padding-top: 0.5rem;
-      font-size: 20px;
+      font-size: 1.25rem;
       cursor: pointer;
-      line-height: 28px;
+      line-height: 1.75rem;
       padding-bottom: 0.5rem;
       border: 1px solid #f05728;
-      border-radius: 8px;
+      border-radius: 0.5rem;
 
       @media (max-width: 998px) {
-        font-size: 12px;
+        font-size: 0.75rem;
       }
     }
     .right-ouline-buttonTwo {
@@ -374,21 +369,21 @@
       color: #f05728;
       background-color: transparent;
       width: max-content;
-      gap: 10px;
+      gap: 0.625rem;
       box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
       font-weight: 600;
-      font-size: 20px;
+      font-size: 1.25rem;
       cursor: pointer;
-      line-height: 28px;
+      line-height: 1.75rem;
       justify-content: space-between;
       padding-left: 1rem;
       padding-right: 1rem;
       padding-top: 0.5rem;
       padding-bottom: 0.5rem;
       border: 1px solid #f05728;
-      border-radius: 8px;
+      border-radius: 0.5rem;
       @media (max-width: 998px) {
-        font-size: 12px;
+        font-size: 0.75rem;
       }
     }
   }

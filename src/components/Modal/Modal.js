@@ -13,13 +13,8 @@ const Modal = ({ closeModal }) => {
       autoClose: 500,
       hideProgressBa: true,
       newestOnTop: false,
-
-      // closeOnClick,
       rtl: false,
       toastClassName: "dark-toast",
-      // pauseOnFocusLoss,
-      // draggable,
-      // pauseOnHover,
     });
   };
   return (

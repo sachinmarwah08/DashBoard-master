@@ -17,13 +17,9 @@ import {
 } from "recharts";
 import { data } from "./data";
 
-const Chart = ({ show, countryName }) => {
-  const color = {
-    boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2)",
-  };
+const Chart = ({ show }) => {
   return (
     <div>
-      {" "}
       <ResponsiveContainer width="100%" aspect={3}>
         <LineChart
           data={data}
@@ -38,7 +34,7 @@ const Chart = ({ show, countryName }) => {
             dataKey="name"
             stroke="#757575"
             fontWeight={400}
-            fontSize="14px"
+            fontSize="0.875rem"
             interval={"preserveStartEnd"}
             tickFormatter={(value) => value + ""}
           />
@@ -48,28 +44,28 @@ const Chart = ({ show, countryName }) => {
             labelStyle={{
               fontWeight: "700",
               color: "##757575",
-              fontSize: "20px",
+              fontSize: "1.25rem",
               borderColor: "#757575",
-              lineHeight: "20px",
-              lineHeight: "28px",
-              borderRadius: "8px",
+              lineHeight: "1.25rem",
+              lineHeight: "1.75rem",
+              borderRadius: "0.5rem",
             }}
             wrapperStyle={{
               width: "9rem",
               boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2)",
-              borderRadius: "8px",
-              gap: "10px",
+              borderRadius: "0.5rem",
+              gap: "0.625rem",
               border: "none",
               outline: "none",
             }}
             itemStyle={{
-              gap: "40px",
+              gap: "2.5rem",
               color: "#939596",
             }}
             contentStyle={{
               backgroundColor: "white",
               border: "none",
-              borderRadius: "8px",
+              borderRadius: "0.5rem",
               color: "Black",
             }}
           />
