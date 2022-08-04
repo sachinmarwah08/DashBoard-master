@@ -19,7 +19,11 @@ import SortDownFilter from "../../../Images/bi-sort-down-alt.svg";
 
 import Sort from "../../SortFilter/Sort";
 import HighchartsReact from "highcharts-react-official";
-import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
+import {
+  faAngleDown,
+  faArrowDownShortWide,
+  faArrowUpWideShort,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import data from "./data";
 // import BarGraph from "./BarGraph";
@@ -46,10 +50,10 @@ const BarChartComponent = () => {
               {isActive && (
                 <div className="dropdown-bar-filter">
                   <div className="dropdown-item">
-                    High to Low <img src={SortDown} />
+                    High to Low <FontAwesomeIcon icon={faArrowUpWideShort} />
                   </div>
                   <div className="dropdown-item">
-                    Low to High <img src={SortDownFilter} />
+                    Low to High <FontAwesomeIcon icon={faArrowDownShortWide} />
                   </div>
                 </div>
               )}
