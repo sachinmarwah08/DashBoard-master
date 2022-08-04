@@ -43,8 +43,8 @@ function MyComponent() {
       margin="auto"
       center={center}
       zoom={2}
-      onLoad={onLoad}
-      onUnmount={onUnmount}
+      // onLoad={onLoad}
+      // onUnmount={onUnmount}
     >
       {/* Child components, such as markers, info windows, etc. */}
     </GoogleMap>
