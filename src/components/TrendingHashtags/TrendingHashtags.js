@@ -18,7 +18,10 @@ const TrendingHashtags = () => {
           <img className="share-img" src={shareIcon} />
         </div>
       </div>
-      <Sort setdata={setdata} data={data} optiondata={trendingData} />
+      <div className="trending-sort">
+        <Sort setdata={setdata} data={data} optiondata={trendingData} />
+      </div>
+
       <div className="right-content-wrapper">
         {trendingHashtags.map((item) => (
           <div key={item.id} className="right-content">

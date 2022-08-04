@@ -2,15 +2,22 @@
   display: flex;
   width: auto;
   justify-content: space-between;
-  padding-top: 0%;
-  // padding: 1rem;
   width: 100%;
-  margin-top: 1rem;
+  align-items: center;
+  gap: 40px;
   border: none;
 
   .bar-search {
-    width: 69%;
+    width: 100%;
     align-items: center;
+    position: relative;
+
+    .search-icon-image-sort {
+      position: absolute;
+      top: 18%;
+      left: 99%;
+      cursor: pointer;
+    }
 
     .bar-search-data {
       padding-top: 0.6rem;
@@ -26,7 +33,7 @@
 }
 
 .filter-bar-data {
-  width: 23.5%;
+  width: 25%;
 }
 
 .sort-filter-wrapper {
@@ -42,7 +49,7 @@
   padding-right: 1rem;
   cursor: pointer;
   justify-content: space-between;
-  gap: 20px;
+  gap: 15px;
   border: 1px solid #eeeeee;
   border-radius: 4px;
   background: #f5f5f5;
@@ -101,7 +108,7 @@
     align-items: center;
     top: 120%;
     cursor: pointer;
-    left: -15%;
+    left: -13.5%;
     padding: 10px;
     padding-top: 0%;
     padding-bottom: 0%;

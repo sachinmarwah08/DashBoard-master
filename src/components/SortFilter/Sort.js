@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import "./Sort.scss";
 import filterBarLogo from "../../Images/filter.svg";
+import searchBarLogo from "../../Images/Search.png";
 
-const Sort = ({ optiondata, data, setData }) => {
+const Sort = ({ optiondata, data, setData, value, onchange, filterData }) => {
   const [isActive, setIsActive] = useState(false);
 
   return (
@@ -11,9 +12,12 @@ const Sort = ({ optiondata, data, setData }) => {
         <input
           className="bar-search-data"
           name="search"
+          value={value}
+          onChange={onchange}
           placeholder="search..."
           type="text"
         />
+        <img className="search-icon-image-sort" src={searchBarLogo} />
       </div>
       <div className="filter-bar-data">
         <div

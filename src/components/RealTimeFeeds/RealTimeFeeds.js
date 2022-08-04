@@ -5,11 +5,16 @@ import { faXmark, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Content from "./Content";
 import shareIcon from "../../Images/share.svg";
+import searchBarLogo from "../../Images/Search.png";
+import filterBarLogo from "../../Images/filter.svg";
+import Sort from "../SortFilter/Sort";
 
 const RealTimeFeeds = () => {
   const [filterData, setFilterData] = useState(data);
   const [wordEntered, setWordEntered] = useState("");
   const [active, setActive] = useState("Real-time-Tweets");
+  const realTimeData = ["influencer", "hashtags"];
+  const [realData, setRealData] = useState("Filter");
 
   const handleFilter = (event) => {
     const searchWord = event.target.value;
@@ -74,30 +79,42 @@ const RealTimeFeeds = () => {
           </label>
         </div>
       </div>
-      <div className="search-container">
-        <input
-          onChange={handleFilter}
-          value={wordEntered}
-          className="seacrh-bar"
-          type="text"
-          name="search"
-          placeholder="search..."
-        />
-        <div className="search-icon">
-          {filterData.length === 0 ? (
-            <FontAwesomeIcon
-              onClick={clearData}
-              className="close-icon-image"
-              icon={faXmark}
-            />
-          ) : (
-            <FontAwesomeIcon
-              className="search-icon-image"
-              icon={faMagnifyingGlass}
-            />
-          )}
+      <div className="search-container-wrapper">
+        {/* <div className="search-container">
+          <input
+            onChange={handleFilter}
+            value={wordEntered}
+            className="seacrh-bar"
+            type="text"
+            name="search"
+            placeholder="search..."
+          />
+          <div className="search-icon">
+            {filterData.length === 0 ? (
+              <FontAwesomeIcon
+                onClick={clearData}
+                className="close-icon-image"
+                icon={faXmark}
+              />
+            ) : (
+              <img className="search-icon-image" src={searchBarLogo} />
+            )}
+          </div>
         </div>
+        <button className="filter-button">
+          <img src={filterBarLogo} />
+          <div className="filter-title">Filter</div>
+        </button> */}
+        <Sort
+          filterData={filterData}
+          setData={setRealData}
+          data={realData}
+          optiondata={realTimeData}
+          value={wordEntered}
+          onchange={handleFilter}
+        />
       </div>
+
       {active === "Real-time-Tweets" && <Content filterData={filterData} />}
       {active === "Real-time-News" && <Content filterData={filterData} />}
     </div>

@@ -17,7 +17,7 @@ import {
 } from "recharts";
 import { data } from "./data";
 
-const Chart = () => {
+const Chart = ({ show, countryName }) => {
   const color = {
     boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2)",
   };
@@ -82,15 +82,19 @@ const Chart = () => {
             stroke="#F05728"
             dot={false}
           />
-          {/* <Line
-            type="monotone"
-            dataKey="fees"
-            // strokeDasharray="0 3 8 8"
-            stroke="#2A00FF"
-            strokeWidth={3}
-            dot={false}
-            // activeDot={{ r: 8 }}
-          /> */}
+          {show ? (
+            <Line
+              type="monotone"
+              dataKey="fees"
+              // strokeDasharray="0 3 8 8"
+              stroke="#2A00FF"
+              strokeWidth={3}
+              dot={false}
+              // activeDot={{ r: 8 }}
+            />
+          ) : (
+            ""
+          )}
         </LineChart>
       </ResponsiveContainer>
     </div>

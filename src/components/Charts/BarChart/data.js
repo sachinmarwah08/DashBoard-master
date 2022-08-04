@@ -107,10 +107,11 @@ export default data;
 export const LineChartBarData = {
   chart: {
     type: "column",
-    height: 210,
-    width: 150,
+    height: 220,
+    width: 110,
     zoomType: "x",
-    borderWidth: 0,
+
+    minorGridLineWidth: "100%",
   },
 
   title: {
@@ -120,6 +121,10 @@ export const LineChartBarData = {
     text: null,
   },
   xAxis: {
+    lineColor: "transparent",
+    minorTickLength: 100,
+    tickLength: 200,
+
     categories: "none",
     // categories: ["Russia"],
     labels: {
@@ -127,9 +132,10 @@ export const LineChartBarData = {
     },
 
     title: {
-      // style: {
-      //   display: "none",
-      // },
+      style: {
+        width: "200%",
+        fontSize: "11px",
+      },
       text: "Average Comparison",
     },
 
@@ -143,7 +149,11 @@ export const LineChartBarData = {
   },
 
   yAxis: {
-    min: 0,
+    gridLineHeight: 100,
+    // minorGridLineWidth: 200,
+    gridLineColor: "transparent",
+    // minorGridLineWidth: "80px",
+    min: 8,
     max: 30,
 
     tickInterval: 0,
@@ -165,8 +175,8 @@ export const LineChartBarData = {
 
   plotOptions: {
     series: {
-      pointPadding: 0.1,
-      groupPadding: -0.12,
+      pointPadding: 0.14,
+      groupPadding: -0.2,
       borderRadius: 3,
     },
     bar: {

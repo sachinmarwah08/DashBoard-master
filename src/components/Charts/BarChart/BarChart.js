@@ -4,7 +4,6 @@ import Highcharts from "highcharts";
 import filterBarLogo from "../../../Images/filter.svg";
 import SortDown from "../../../Images/bi-sort-down.svg";
 import SortDownFilter from "../../../Images/bi-sort-down-alt.svg";
-
 // import {
 //   BarChart,
 //   Bar,
@@ -32,6 +31,7 @@ const BarChartComponent = () => {
   const barData = ["Influencer", "Hashtag"];
   const [bardata, setBardata] = useState("Filter");
   const [barOpenModal, setBarOpenModal] = useState(false);
+
   return (
     <>
       <div className="wrapper">

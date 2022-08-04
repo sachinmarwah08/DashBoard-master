@@ -42,7 +42,7 @@ function MyComponent() {
       mapContainerStyle={containerStyle}
       margin="auto"
       center={center}
-      zoom={2}
+      zoom={3}
       // onLoad={onLoad}
       // onUnmount={onUnmount}
     >

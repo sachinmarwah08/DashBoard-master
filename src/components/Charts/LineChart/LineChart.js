@@ -169,7 +169,7 @@ const LineChartData = () => {
               isValue ? "line-chart-bar" : "line-chart-bar-condition"
             }`}
           >
-            <Chart />
+            <Chart show={isValue} />
           </div>
         </div>
       </div>

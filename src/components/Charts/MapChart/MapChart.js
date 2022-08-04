@@ -41,8 +41,9 @@ const MapChartComponent = () => {
             <img alt="BigArrow" className="bigArrow" src={shareIcon}></img>
           </div>
         </div>
-
-        <Sort setData={setMapData} data={mapdata} optiondata={mapData} />
+        <div className="map-sort">
+          <Sort setData={setMapData} data={mapdata} optiondata={mapData} />
+        </div>
       </div>
       <div className="bar-map-wrapper">
         <div className="chart-map">

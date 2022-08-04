@@ -36,19 +36,27 @@
     }
   }
 
+  .search-container-wrapper {
+    width: 100%;
+    padding: 0.5rem;
+    border-bottom: 1px solid #eeeeee;
+  }
+
   .search-container {
     width: auto;
-    display: flex;
+    position: relative;
     align-items: center;
-    justify-content: space-between;
 
+    width: 100%;
     border-bottom: 1px solid #f5f5f5;
     // position: relative;
 
     .seacrh-bar {
       width: 100%;
-      border: none;
-      padding: 1rem;
+      border-radius: 4px;
+      border: 1px solid #eeeeee;
+      padding: 0.5rem;
+      margin: 0.5rem;
       outline: none;
     }
     input,
@@ -60,13 +68,14 @@
   }
 
   .search-icon {
-    // position: absolute;
+    position: absolute;
     width: auto;
     margin-right: 1rem;
     cursor: pointer;
     // top: 1rem;
-    opacity: 35%;
     // left: 46.5rem;
+    top: 29%;
+    left: 98%;
 
     @media (max-width: 1280px) {
       left: 37.5rem;
@@ -76,8 +85,9 @@
     }
 
     .search-icon-image {
-      width: 20px;
-      height: 20px;
+      // width: 20px;
+      // position: absolute;
+      // height: 20px;
 
       @media (max-width: 998px) {
         width: 12px;
