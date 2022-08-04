@@ -16,16 +16,15 @@ import SortDownFilter from "../../../Images/bi-sort-down-alt.svg";
 //   ResponsiveContainer,
 //   Rectangle,
 // } from "recharts";
-import Icon from "../../../Images/Dropdown.svg";
+
 import Sort from "../../SortFilter/Sort";
 import HighchartsReact from "highcharts-react-official";
-import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
+import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import data from "./data";
 // import BarGraph from "./BarGraph";
 import shareIcon from "../../../Images/share.svg";
 import Modal from "../../Modal/Modal";
-
 const BarChartComponent = () => {
   const [isActive, setIsActive] = useState(false);
   const barData = ["Influencer", "Hashtag"];

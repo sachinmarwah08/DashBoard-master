@@ -39,16 +39,18 @@
 .sort-filter-wrapper {
   display: flex;
   align-items: center;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  width: max-content;
-  margin: auto;
-  padding-top: 0.3rem;
-  padding-bottom: 0.4rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
+  padding: 5px;
+
+  // padding-top: 5px;
+  justify-content: space-around;
+  // padding-bottom: 5px;
+  width: auto;
+  margin: 0%;
+
+  padding-left: 0.3rem;
+
   cursor: pointer;
-  justify-content: space-between;
+
   gap: 15px;
   border: 1px solid #eeeeee;
   border-radius: 4px;

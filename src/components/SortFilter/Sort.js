@@ -3,7 +3,7 @@ import "./Sort.scss";
 import filterBarLogo from "../../Images/filter.svg";
 import searchBarLogo from "../../Images/Search.png";
 
-const Sort = ({ optiondata, data, setData, value, onchange, filterData }) => {
+const Sort = ({ optiondata, data, setData, value, onchange }) => {
   const [isActive, setIsActive] = useState(false);
 
   return (
