@@ -104,7 +104,6 @@ const RealTimeFeeds = () => {
           <div className="filter-title">Filter</div>
         </button> */}
         <Sort
-          filterData={filterData}
           setData={setRealData}
           data={realData}
           optiondata={realTimeData}

@@ -3,7 +3,7 @@ import React from "react";
 const Content = ({ filterData }) => {
   return (
     <div className="left-content-wrapper">
-      {filterData.map((item, key) => (
+      {filterData.map((item) => (
         <div key={item.id} className="left-content">
           <h1 className="left-content-heading">
             <span className="heading-colored">{item.colredHeading}</span> ❤️
