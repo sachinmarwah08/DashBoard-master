@@ -13,183 +13,191 @@
   .content {
     display: flex;
     flex-direction: column;
-    // justify-content: space-between;
     padding: 1rem;
     align-items: center;
   }
 
-  .heading {
-    font-weight: 700;
-    font-size: 1.25rem;
-    width: 100%;
+  .bar-heading-wrapper {
     display: flex;
+    width: 100%;
+    margin-bottom: 0.6rem;
     justify-content: space-between;
-    line-height: 1.75rem;
     align-items: center;
-    color: #f05728;
 
-    @media (max-width: 998px) {
+    .heading {
       font-weight: 700;
-      font-size: 0.5rem;
+      font-size: 1.25rem;
+      width: 100%;
       line-height: 1.75rem;
-    }
-
-    @media (max-width: 1280px) {
-      font-weight: 700;
-      font-size: 1.125rem;
-      line-height: 1.75rem;
-    }
-
-    .share-btn {
-      cursor: pointer;
-      border: none;
-      background: transparent;
-      padding: 0%;
-    }
-
-    .heading-button {
-      margin-left: 4.5rem;
-      height: 1.5rem;
-      border-radius: 0.25rem;
-      color: #212121;
-      cursor: pointer;
-      border: 1px solid #eeeeee;
-      padding-right: 0.5rem;
-      padding-left: 0.5rem;
-      background-color: #f5f5f5;
-      position: relative;
+      color: #f05728;
 
       @media (max-width: 998px) {
-        padding-right: 0.8rem;
-        padding-left: 0.8rem;
-        padding-top: 0.2rem;
-        padding-bottom: 0.2rem;
-        margin-left: 0%;
-      }
-
-      @media (max-width: 1440px) {
-        margin-left: 1.5rem;
+        font-weight: 700;
+        font-size: 1.2rem;
+        line-height: 1.75rem;
       }
     }
 
-    .dropdown-bar-filter {
-      background-color: white;
-      position: absolute;
-      top: 125%;
-      left: -335%;
+    .btn-share {
+      align-items: center;
       display: flex;
-      flex-direction: column;
-      z-index: 100;
-      border-radius: 0.25rem;
-      box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 
-      animation: growDown 300ms ease-in-out forwards;
-      transform-origin: top center;
+      .share-btn {
+        cursor: pointer;
+        border: none;
+        background: transparent;
+        padding: 0%;
 
-      @keyframes growDown {
-        0% {
-          transform: scaleY(0);
-        }
-
-        80% {
-          transform: scaleY(1.1);
-        }
-
-        100% {
-          transform: scaleY(1);
+        .share-icon-bar {
+          @media (max-width: 998px) {
+            width: 8px;
+            height: 8px;
+          }
         }
       }
-
-      .dropdown-item {
-        gap: 0.625rem;
-        padding: 0.625rem;
-        width: max-content;
-        display: flex;
-        font-weight: 500;
-        font-size: 0.813rem;
-        transition: all 0.2s;
-        color: #616161;
-
-        &:hover {
-          background-color: #eeeeee;
-          border-radius: 0.25rem;
-        }
-      }
-    }
-
-    @media (max-width: 998px) {
-      font-weight: 700;
-      font-size: 0.75rem;
-      line-height: 1.75rem;
-    }
-  }
-
-  .bar-chart-wrapper {
-    background-color: white;
-    width: 100%;
-    height: 30rem;
-    // margin-bottom: 60rem;
-    border-radius: 0.5rem;
-    overflow: auto;
-  }
-
-  .chart-content {
-    display: flex;
-    align-items: center;
-    // padding: 0.5rem;
-    padding-left: 0.5rem;
-    padding-bottom: 0.8rem;
-
-    @media (max-width: 998px) {
-      padding-left: 1rem;
-      padding-bottom: 0.5rem;
-    }
-
-    .country {
-      // border-left: 1px solid #212121;
-      font-weight: 500;
-      font-size: 0.75rem;
-      width: 13%;
-      text-align: right;
-      line-height: 1.125rem;
-      color: #212121;
-
-      @media (max-width: 998px) {
-        font-weight: 500;
-        font-size: 0.5rem;
-        width: 15%;
-        font-weight: 500;
-        color: #212121;
-      }
-    }
-
-    .bar {
-      width: 75%;
-      background-color: #f15827;
-      height: 2.5rem;
-      opacity: 50%;
-      margin-left: 0.5rem;
-      padding-right: 2rem;
-      border-radius: 0.25rem;
-
-      @media (max-width: 998px) {
+      .heading-button {
+        margin-left: 4.5rem;
         height: 1.5rem;
-        border-radius: 0px 4px 4px 0px;
-        width: 75%;
+        border-radius: 0.25rem;
+        color: #212121;
+        cursor: pointer;
+        border: 1px solid #eeeeee;
+        padding-right: 0.5rem;
+        padding-left: 0.5rem;
+        background-color: #f5f5f5;
+        position: relative;
+
+        @media (max-width: 998px) {
+          padding-right: 0.5rem;
+          height: max-content;
+          padding-left: 0.5rem;
+          margin-left: 0%;
+        }
+
+        @media (max-width: 1440px) {
+          margin-left: 1.5rem;
+        }
+      }
+
+      .dropdown-bar-filter {
+        background-color: white;
+        position: absolute;
+        top: 125%;
+        left: -335%;
+        display: flex;
+        flex-direction: column;
+        z-index: 100;
+        border-radius: 0.25rem;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
+        animation: growDown 300ms ease-in-out forwards;
+        transform-origin: top center;
+
+        @keyframes growDown {
+          0% {
+            transform: scaleY(0);
+          }
+
+          80% {
+            transform: scaleY(1.1);
+          }
+
+          100% {
+            transform: scaleY(1);
+          }
+        }
+
+        .dropdown-item {
+          gap: 0.625rem;
+          padding: 0.625rem;
+          width: max-content;
+          display: flex;
+          font-weight: 500;
+          font-size: 0.813rem;
+          transition: all 0.2s;
+          color: #616161;
+
+          &:hover {
+            background-color: #eeeeee;
+            border-radius: 0.25rem;
+          }
+        }
+      }
+
+      @media (max-width: 998px) {
+        font-weight: 700;
+        font-size: 0.75rem;
+        line-height: 1.75rem;
       }
     }
   }
+}
 
-  .chart-bar {
-    overflow-x: hidden;
-    height: 29rem;
+.bar-chart-wrapper {
+  background-color: white;
+  width: 100%;
+  height: 30rem;
+  // margin-bottom: 60rem;
+  border-radius: 0.5rem;
+  overflow: auto;
+}
 
-    &.chart-bar::-webkit-scrollbar {
-      width: 0;
-    }
+.chart-content {
+  display: flex;
+  align-items: center;
+  // padding: 0.5rem;
+  padding-left: 0.5rem;
+  padding-bottom: 0.8rem;
+
+  @media (max-width: 998px) {
+    padding-left: 1rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .country {
+    // border-left: 1px solid #212121;
+    font-weight: 500;
+    font-size: 0.75rem;
+    width: 13%;
+    text-align: right;
+    line-height: 1.125rem;
+    color: #212121;
 
     @media (max-width: 998px) {
-      height: 29rem;
+      font-weight: 500;
+      font-size: 0.5rem;
+      width: 15%;
+      font-weight: 500;
+      color: #212121;
     }
+  }
+
+  .bar {
+    width: 75%;
+    background-color: #f15827;
+    height: 2.5rem;
+    opacity: 50%;
+    margin-left: 0.5rem;
+    padding-right: 2rem;
+    border-radius: 0.25rem;
+
+    @media (max-width: 998px) {
+      height: 1.5rem;
+      border-radius: 0px 4px 4px 0px;
+      width: 75%;
+    }
+  }
+}
+
+.chart-bar {
+  overflow-x: hidden;
+  height: 29rem;
+
+  &.chart-bar::-webkit-scrollbar {
+    width: 0;
+  }
+
+  @media (max-width: 998px) {
+    height: 29rem;
   }
 }

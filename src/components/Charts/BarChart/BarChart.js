@@ -21,28 +21,36 @@ const BarChartComponent = () => {
     <>
       <div className="wrapper">
         <div className="content">
-          <h1 className="heading">
-            Countries Rankings by Wellbeing Sentiment Score
-            <button
-              onClick={() => setIsActive(!isActive)}
-              className="heading-button"
-            >
-              <FontAwesomeIcon icon={faAngleDown} />
-              {isActive && (
-                <div className="dropdown-bar-filter">
-                  <div className="dropdown-item">
-                    High to Low <FontAwesomeIcon icon={faArrowUpWideShort} />
+          <div className="bar-heading-wrapper">
+            <div className="heading-left">
+              <h1 className="heading">
+                Countries Rankings by Wellbeing Sentiment Score
+              </h1>
+            </div>
+            <div className="btn-share">
+              <button
+                onClick={() => setIsActive(!isActive)}
+                className="heading-button"
+              >
+                <FontAwesomeIcon icon={faAngleDown} />
+                {isActive && (
+                  <div className="dropdown-bar-filter">
+                    <div className="dropdown-item">
+                      High to Low <FontAwesomeIcon icon={faArrowUpWideShort} />
+                    </div>
+                    <div className="dropdown-item">
+                      Low to High
+                      <FontAwesomeIcon icon={faArrowDownShortWide} />
+                    </div>
                   </div>
-                  <div className="dropdown-item">
-                    Low to High <FontAwesomeIcon icon={faArrowDownShortWide} />
-                  </div>
-                </div>
-              )}
-            </button>
-            <button className="share-btn">
-              <img alt="share-icon" src={shareIcon} />
-            </button>
-          </h1>
+                )}
+              </button>
+              <button className="share-btn">
+                <img alt="share-icon-bar" src={shareIcon} />
+              </button>
+            </div>
+          </div>
+
           <Sort setData={setBardata} data={bardata} optiondata={barData} />
         </div>
         <div className="bar-chart-wrapper">
