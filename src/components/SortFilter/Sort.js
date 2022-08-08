@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./Sort.scss";
 import filterBarLogo from "../../Images/filter.svg";
-import searchBarLogo from "../../Images/Search.png";
+import searchBarLogo from "../../Images/search.svg";
 
 const Sort = ({ optiondata, data, setData, value, onchange }) => {
   const [isActive, setIsActive] = useState(false);
