@@ -1,4 +1,4 @@
-import twitterLogo from "../../Images/TwitterLogo.svg";
+import twitterLogo from "../../../Images/TwitterLogo.svg";
 
 export const data = [
   {

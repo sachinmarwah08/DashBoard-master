@@ -1,14 +1,14 @@
 import React from "react";
 import "./NewsAndHashTags.scss";
-import RealTimeFeeds from "../RealTimeFeeds/RealTimeFeeds";
-import TrendingHashtags from "../TrendingHashtags/TrendingHashtags";
+import RealTimeFeeds from "./RealTimeFeeds/RealTimeFeeds";
+import TopInfluencer from "./TopInfluencer/TopInfluencer";
 
 const NewsAndHashTags = () => {
   return (
     <div className="whole-wrapper">
       <div className="big-wrapper">
+        <TopInfluencer />
         <RealTimeFeeds />
-        <TrendingHashtags />
       </div>
     </div>
   );

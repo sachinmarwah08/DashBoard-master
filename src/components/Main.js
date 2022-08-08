@@ -5,6 +5,7 @@ import Footer from "./Footer/Footer";
 import GlobalWellbeing from "./GlobalWellbeing/GlobalWellbeing";
 import Header from "./Header/Header";
 import NewsAndHashTags from "./NewsAndHashTags/NewsAndHashTags";
+import TrendingHashtags from "./TrendingHashtags/TrendingHashtags";
 
 const Main = () => {
   return (
@@ -13,6 +14,7 @@ const Main = () => {
       <GlobalWellbeing />
       <Contries />
       <NewsAndHashTags />
+      <TrendingHashtags />
       <LineChartData />
       <Footer />
     </div>

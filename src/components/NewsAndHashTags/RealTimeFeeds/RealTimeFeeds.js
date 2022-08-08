@@ -4,8 +4,9 @@ import { data } from "./data";
 import { faXmark, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Content from "./Content";
-import shareIcon from "../../Images/share.svg";
-import Sort from "../SortFilter/Sort";
+import shareIcon from "../../../Images/share.svg";
+import Sort from "../../SortFilter/Sort";
+import RadioButton from "../../RadioButton/RadioButton";
 
 const RealTimeFeeds = () => {
   const [filterData, setFilterData] = useState(data);
@@ -13,6 +14,12 @@ const RealTimeFeeds = () => {
   const [active, setActive] = useState("Real-time-Tweets");
   const realTimeData = ["Influencer", "hashtags"];
   const [realData, setRealData] = useState("Filter");
+  const [isRadioChecked, setIsRadioChecked] = useState(0);
+
+  const handleRadioChange = (value) => {
+    setIsRadioChecked(value);
+    console.log(value);
+  };
 
   const handleFilter = (event) => {
     const searchWord = event.target.value;
@@ -61,22 +68,21 @@ const RealTimeFeeds = () => {
           <img alt="share-icon" src={shareIcon} />
         </div>
       </div>
-      <div className="radio-button">
-        <div>
-          <label className="container">
-            <p className="positive">Positive</p>
-            <input type="radio" checked="checked" name="radio" />
-            <span className="checkmark"></span>
-          </label>
-        </div>
-        <div className="second-container">
-          <label className="container">
-            <p className="positive">Negative</p>
-            <input type="radio" checked="checked" name="radio" />
-            <span className="checkmark"></span>
-          </label>
-        </div>
+      <div className="realTime-radioBtn">
+        <RadioButton
+          name="Positive"
+          checked={isRadioChecked}
+          value={1}
+          onchange={handleRadioChange}
+        />
+        <RadioButton
+          name="Negative"
+          checked={isRadioChecked}
+          value={2}
+          onchange={handleRadioChange}
+        />
       </div>
+
       <div className="search-container-wrapper">
         {/* <div className="search-container">
           <input

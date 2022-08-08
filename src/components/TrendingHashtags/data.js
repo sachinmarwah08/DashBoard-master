@@ -1,102 +1,98 @@
-export const trendingHashtags = [
+export const data = [
   {
     id: 1,
-    hashtags: "#mentalhealth",
-    value: "-0.1",
+    hashtags: "#wellbeing",
   },
   {
     id: 2,
-    hashtags: "#mentalhealth",
-    value: "-0.1",
+    hashtags: "#health",
   },
   {
     id: 3,
-    hashtags: "#mentalhealth",
-    value: "-0.1",
+    hashtags: "#spiritual",
   },
   {
     id: 4,
-    hashtags: "#mentalhealth",
-    value: "-0.1",
+    hashtags: "#yoga",
   },
   {
     id: 5,
-    hashtags: "#mentalhealth",
-    value: "-0.1",
+    hashtags: "#meditation",
   },
   {
     id: 6,
-    hashtags: "#mentalhealth",
-    value: "-0.1",
+    hashtags: "#selflove",
   },
   {
     id: 7,
-    hashtags: "#mentalhealth",
-    value: "-0.1",
+    hashtags: "#peace",
   },
   {
     id: 8,
-    hashtags: "#mentalhealth",
-    value: "-0.1",
+    hashtags: "#freedom",
   },
   {
     id: 9,
-    hashtags: "#mentalhealth",
-    value: "-0.1",
+    hashtags: "#me",
   },
   {
     id: 10,
-    hashtags: "#mentalhealth",
-    value: "-0.1",
+    hashtags: "#spirituality",
   },
   {
     id: 11,
-    hashtags: "#mentalhealth",
-    value: "-0.1",
+    hashtags: "#love",
   },
   {
     id: 12,
-    hashtags: "#mentalhealth",
-    value: "-0.1",
+    hashtags: "#wellness",
   },
   {
     id: 13,
-    hashtags: "#mentalhealth",
-    value: "-0.1",
+    hashtags: "#mindfulness",
   },
   {
     id: 14,
-    hashtags: "#mentalhealth",
-    value: "-0.1",
+    hashtags: "#nature",
   },
   {
     id: 15,
-    hashtags: "#mentalhealth",
-    value: "-0.1",
+    hashtags: "#reading",
   },
   {
     id: 16,
-    hashtags: "#mentalhealth",
-    value: "-0.1",
+    hashtags: "#smile",
   },
   {
     id: 17,
-    hashtags: "#mentalhealth",
-    value: "-0.1",
+    hashtags: "#together",
   },
   {
     id: 18,
-    hashtags: "#mentalhealth",
-    value: "-0.1",
+    hashtags: "#us",
   },
   {
     id: 19,
-    hashtags: "#mentalhealth",
-    value: "-0.1",
+    hashtags: "#family",
   },
   {
     id: 20,
-    hashtags: "#mentalhealth",
-    value: "-0.1",
+    hashtags: "#strength",
+  },
+  {
+    id: 21,
+    hashtags: "#exercise",
+  },
+  {
+    id: 22,
+    hashtags: "#exercise",
+  },
+  {
+    id: 23,
+    hashtags: "#allaboutus",
+  },
+  {
+    id: 24,
+    hashtags: "#inspiration",
   },
 ];

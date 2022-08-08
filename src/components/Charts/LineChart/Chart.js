@@ -20,11 +20,11 @@ import { data } from "./data";
 const Chart = ({ show }) => {
   return (
     <div>
-      <ResponsiveContainer width="100%" aspect={3}>
+      <ResponsiveContainer width="100%" aspect={4}>
         <LineChart
           data={data}
           width={600}
-          height={100}
+          height={50}
           margin={{ top: 50, right: 70, left: 0, bottom: 40 }}
         >
           {/* <PolarGrid strokeDasharray="3 3" /> */}
