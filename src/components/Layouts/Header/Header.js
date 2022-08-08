@@ -1,6 +1,6 @@
 import React from "react";
 import "./Header.scss";
-import logo from "../../../Images/logo.png";
+import logo from "../../../Images/logo.svg";
 import { faSortDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
