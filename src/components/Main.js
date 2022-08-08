@@ -1,9 +1,9 @@
 import React from "react";
 import LineChartData from "./Charts/LineChart/LineChart";
 import Contries from "./Contries/Contries";
-import Footer from "./Footer/Footer";
+import Footer from "./Layouts/Footer/Footer";
 import GlobalWellbeing from "./GlobalWellbeing/GlobalWellbeing";
-import Header from "./Header/Header";
+import Header from "./Layouts/Header/Header";
 import NewsAndHashTags from "./NewsAndHashTags/NewsAndHashTags";
 import TrendingHashtags from "./TrendingHashtags/TrendingHashtags";
 

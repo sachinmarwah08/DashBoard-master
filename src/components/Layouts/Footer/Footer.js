@@ -1,8 +1,8 @@
 import React from "react";
 import "./Footer.scss";
-import logo from "../../Images/logo.png";
-import appleLogo from "../../Images/appleLogo.png";
-import googlePlayLogo from "../../Images/googlePlayLogo.png";
+import logo from "../../../Images/logo.png";
+import appleLogo from "../../../Images/appleLogo.png";
+import googlePlayLogo from "../../../Images/googlePlayLogo.png";
 
 const Footer = () => {
   return (

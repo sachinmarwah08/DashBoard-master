@@ -7,7 +7,7 @@ import { faPlus, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Button from "../../Button/Button";
 import Modal from "../../Modal/Modal";
-import Header from "../../Header/Header";
+import Header from "../../Layouts/Header/Header";
 import Chart from "./Chart";
 import Highcharts from "highcharts";
 import { LineChartBarData } from "../BarChart/data";
