@@ -9,7 +9,7 @@ import TrendingHashtags from "./TrendingHashtags/TrendingHashtags";
 
 const Main = () => {
   return (
-    <div>
+    <>
       <Header />
       <GlobalWellbeing />
       <Contries />
@@ -17,7 +17,7 @@ const Main = () => {
       <TrendingHashtags />
       <LineChartData />
       <Footer />
-    </div>
+    </>
   );
 };
 

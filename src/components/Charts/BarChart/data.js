@@ -107,7 +107,7 @@ export default data;
 export const LineChartBarData = {
   chart: {
     type: "column",
-    height: 220,
+    height: 200,
     width: 110,
     zoomType: "x",
 
