@@ -10,7 +10,7 @@ import Modal from "../../Modal/Modal";
 import Header from "../../Layouts/Header/Header";
 import Chart from "./Chart";
 import Highcharts from "highcharts";
-import { LineChartBarData } from "../BarChart/data";
+import { LineChartBarData } from "./data";
 import HighchartsReact from "highcharts-react-official";
 import xCircle from "../../../Images/x-circle.svg";
 import threeDots from "../../../Images/threeDots.svg";
