@@ -14,11 +14,98 @@
     width: 100%;
     height: 100%;
     display: flex;
+
     align-items: center;
     justify-content: center;
 
+    .filterModa-body {
+      padding: 2rem;
+      z-index: 1000000;
+      background-color: white;
+      box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+      width: 80%;
+      height: auto;
+      border-radius: 0.5rem;
+
+      .submit-btn-wrapper {
+        width: 100%;
+        display: flex;
+        justify-content: end;
+
+        .submit-btn {
+          border: none;
+          padding: 0.8rem;
+          background: #f05728;
+          border-radius: 0.25rem;
+          width: max-content;
+          color: white;
+          cursor: pointer;
+          font-weight: 400;
+          font-size: 1rem;
+        }
+      }
+
+      .modal-cloe-btn {
+        width: 100%;
+        cursor: pointer;
+        border: none;
+        background: transparent;
+        display: flex;
+        justify-content: end;
+
+        .x-mark {
+          width: 24px;
+          height: 24px;
+          color: #14144b;
+        }
+      }
+
+      // FilterModal Css
+
+      .filter-modal-content {
+        width: 100%;
+        gap: 20px;
+        z-index: 1000000;
+        padding: 0.5rem;
+        justify-content: space-between;
+        display: flex;
+        align-items: center;
+
+        .font > .rdrStartEdge .rdrEndEdge {
+          background: red !important;
+        }
+
+        .right-dropdown-filters {
+          padding: 0.6rem;
+          gap: 10px;
+          height: auto;
+          align-items: center;
+          width: 100%;
+
+          .search-wrapper {
+            width: 60%;
+            height: 100%;
+            margin: auto;
+            // margin: 0%;
+
+            .search-one {
+              font-size: 14px;
+              gap: 10px;
+              color: #f05728;
+              margin-bottom: 2.5rem;
+
+              .select-placeholder-text {
+                font-size: 12px;
+              }
+            }
+          }
+        }
+      }
+    }
+
     .modal-body {
       padding: 1rem;
+      z-index: 1000000;
       background-color: white;
       box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
       width: 40%;
@@ -33,7 +120,10 @@
         display: flex;
         justify-content: end;
       }
-      .modal-content {
+
+      // Linechart Modal Css
+
+      .LineChartmodal-content {
         display: flex;
         width: 100%;
         margin-bottom: 2.7rem;
@@ -52,7 +142,7 @@
         .copy-btn {
           border: none;
           padding: 0.8rem;
-          background-color: #f05728;
+          background: #f05728;
           border-radius: 0.25rem;
           width: max-content;
           color: white;

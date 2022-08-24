@@ -55,6 +55,39 @@ body {
   background: #bdbdbd;
 }
 
+.rdrInputRanges {
+  display: none;
+}
+
+.rdrStaticRangeLabel {
+  color: #f05728;
+  font-family: "Work-Sans";
+
+  @font-face {
+    font-family: "Work-Sans";
+    src: url("./Fonts/work-sans.regular.ttf");
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "Work-Sans";
+    src: url("./Fonts/work-sans.bold.ttf");
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "Work-Sans";
+    src: url("./Fonts/work-sans.medium.ttf");
+    font-style: normal;
+  }
+}
+
+.rdrDayToday {
+  .rdrDayNumber {
+    span:after {
+      background: #f05728 !important;
+    }
+  }
+}
+
 .highcharts-tooltip {
   border: 1px solid #f05728;
   background: #fff;

@@ -6,6 +6,7 @@ import GlobalWellbeing from "./GlobalWellbeing/GlobalWellbeing";
 import Header from "./Layouts/Header/Header";
 import NewsAndHashTags from "./NewsAndHashTags/NewsAndHashTags";
 import TrendingHashtags from "./TrendingHashtags/TrendingHashtags";
+import DashboardFilter from "./DashboardFilter/DashboardFilter";
 // import DataTabel from "./DataTabel";
 
 const Main = () => {
@@ -13,6 +14,7 @@ const Main = () => {
     <>
       <Header />
       <GlobalWellbeing />
+      <DashboardFilter />
       <Contries />
       <NewsAndHashTags />
       <TrendingHashtags />
