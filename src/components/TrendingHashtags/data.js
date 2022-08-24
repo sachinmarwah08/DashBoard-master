@@ -1,98 +1,98 @@
 export const data = [
   {
     id: 1,
-    hashtags: "#wellbeing",
+    hashtags: "strength",
   },
   {
     id: 2,
-    hashtags: "#health",
+    hashtags: "allaboutus",
   },
   {
     id: 3,
-    hashtags: "#spiritual",
+    hashtags: "seattleseahawks",
   },
   {
     id: 4,
-    hashtags: "#yoga",
+    hashtags: "bnb",
   },
   {
     id: 5,
-    hashtags: "#meditation",
+    hashtags: "SDGS",
   },
   {
     id: 6,
-    hashtags: "#selflove",
+    hashtags: "love",
   },
   {
     id: 7,
-    hashtags: "#peace",
+    hashtags: "immunotherapy",
   },
   {
     id: 8,
-    hashtags: "#freedom",
+    hashtags: "bmtsm",
   },
   {
     id: 9,
-    hashtags: "#me",
+    hashtags: "nature",
   },
   {
     id: 10,
-    hashtags: "#spirituality",
+    hashtags: "Accessiblity",
   },
   {
     id: 11,
-    hashtags: "#love",
+    hashtags: "cart",
   },
   {
     id: 12,
-    hashtags: "#wellness",
+    hashtags: "us",
   },
   {
     id: 13,
-    hashtags: "#mindfulness",
+    hashtags: "genetherapy",
   },
   {
     id: 14,
-    hashtags: "#nature",
+    hashtags: "ash21",
   },
   {
     id: 15,
-    hashtags: "#reading",
+    hashtags: "Tech4Good",
   },
   {
     id: 16,
-    hashtags: "#smile",
+    hashtags: "family",
   },
   {
     id: 17,
-    hashtags: "#together",
+    hashtags: "wellness",
   },
   {
     id: 18,
-    hashtags: "#us",
+    hashtags: "smile",
   },
   {
     id: 19,
-    hashtags: "#family",
+    hashtags: "inspiration",
   },
   {
     id: 20,
-    hashtags: "#strength",
+    hashtags: "mindfulness",
   },
   {
     id: 21,
-    hashtags: "#exercise",
+    hashtags: "together",
   },
   {
     id: 22,
-    hashtags: "#exercise",
+    hashtags: "SDGS",
   },
   {
     id: 23,
-    hashtags: "#allaboutus",
+    hashtags: "spiritual",
   },
   {
     id: 24,
-    hashtags: "#inspiration",
+    hashtags: "spiritual",
   },
 ];

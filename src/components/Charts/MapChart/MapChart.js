@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./MapChart.scss";
 import WorldMap from "../../../Images/WorldMap.svg";
-import Table from "../../../Images/Table.png";
+import Table from "../../../Images/tableIcon.svg";
 import shareIcon from "../../../Images/share.svg";
 import GoogleMap from "./googleMap";
 import Sort from "../../SortFilter/Sort";

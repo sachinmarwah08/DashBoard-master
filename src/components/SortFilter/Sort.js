@@ -47,11 +47,11 @@ const Sort = ({ optiondata, data, setData, value, onchange }) => {
                     className="filter-item"
                   >
                     {option}
-                    <div
-                      className={`${
-                        !isActive ? "sort-circle" : "sort-circle-colored"
-                      }`}
-                    />
+                    <div className="sort-circle">
+                      {data === option && (
+                        <div className="sort-circle-colored"></div>
+                      )}
+                    </div>
                   </div>
                 </>
               ))}

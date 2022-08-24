@@ -6,6 +6,7 @@ import GlobalWellbeing from "./GlobalWellbeing/GlobalWellbeing";
 import Header from "./Layouts/Header/Header";
 import NewsAndHashTags from "./NewsAndHashTags/NewsAndHashTags";
 import TrendingHashtags from "./TrendingHashtags/TrendingHashtags";
+// import DataTabel from "./DataTabel";
 
 const Main = () => {
   return (

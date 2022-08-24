@@ -57,6 +57,7 @@
   .side-logos {
     display: flex;
     width: max-content;
+    gap: 10px;
     align-items: center;
 
     .WorldMap {
@@ -70,8 +71,8 @@
     }
 
     .table {
-      width: 2.5rem;
-      height: 2.5rem;
+      width: 24px;
+      height: 24px;
       cursor: pointer;
       @media (max-width: 998px) {
         width: 1.563rem;

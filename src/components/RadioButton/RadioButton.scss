@@ -1,7 +1,9 @@
 .radio-button {
   align-items: center;
   display: flex;
-  padding: 1rem;
+  border: none;
+  background: none;
+  padding: 0.8rem;
   //   padding-top: 0%;
 
   .container {
@@ -12,8 +14,10 @@
     .positive {
       padding-left: 1.563rem;
       margin: 0%;
-      padding-top: 0.1rem;
-      font-weight: 500;
+      font-size: 16px;
+
+      font-weight: 400;
+      color: #424242;
     }
 
     cursor: pointer;
@@ -41,8 +45,9 @@
     font-weight: 500;
     line-height: 1.25rem;
     background-color: #ffffff;
-    border-radius: 50%;
     border: 1px solid #f05728;
+
+    border-radius: 50%;
   }
 
   /* On mouse-over, add a grey background color */

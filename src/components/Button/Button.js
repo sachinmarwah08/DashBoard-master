@@ -22,7 +22,7 @@ const Button = ({ selected, setSelected, options }) => {
           {options.map((option) => (
             <div
               onClick={(e) => {
-                setSelected(option);
+                setSelected(option.title);
                 setActive(false);
               }}
               className="dropdown-item"

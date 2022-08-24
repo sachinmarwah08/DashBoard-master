@@ -9,7 +9,7 @@ import RadioButton from "../../RadioButton/RadioButton";
 const TopInfluencer = () => {
   const trendingData = ["Country", "Influencer", "Hashtag"];
   const [trendData, setTrendData] = useState("Filter");
-  const [isRadioChecked, setIsRadioChecked] = useState(0);
+  const [isRadioChecked, setIsRadioChecked] = useState(1);
 
   const handleRadioChange = (value) => {
     setIsRadioChecked(value);
@@ -29,24 +29,28 @@ const TopInfluencer = () => {
       </div>
       <div className="trending-radioBtn">
         <RadioButton
+          radioName="topInfluencer"
           name="All"
           checked={isRadioChecked}
           value={1}
           onchange={handleRadioChange}
         />
         <RadioButton
+          radioName="topInfluencer"
           name="Person"
           checked={isRadioChecked}
           value={2}
           onchange={handleRadioChange}
         />
         <RadioButton
+          radioName="topInfluencer"
           name="Organisation"
           checked={isRadioChecked}
           value={3}
           onchange={handleRadioChange}
         />
         <RadioButton
+          radioName="topInfluencer"
           name="Media House"
           checked={isRadioChecked}
           value={4}

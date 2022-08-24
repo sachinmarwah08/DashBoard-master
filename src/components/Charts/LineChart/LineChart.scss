@@ -3,6 +3,7 @@
   margin-top: 2rem;
   margin-left: 0.8rem;
   color: #f05728;
+
   font-weight: 600;
   font-size: 1.25rem;
   cursor: pointer;
@@ -17,6 +18,11 @@
     src: url("../../../Fonts/work-sans.medium.ttf");
     font-style: normal;
   }
+}
+
+.border {
+  border: 0.2px solid #9e9e9e;
+  width: 100%;
 }
 
 .whole-container {
@@ -49,6 +55,8 @@
 
 .lineChart-container {
   background-color: white;
+  box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.07), 0px 1px 10px rgba(0, 0, 0, 0.06),
+    0px 2px 4px rgba(0, 0, 0, 0.1);
   border-radius: 0.5rem;
   width: 88%;
   height: auto;
@@ -79,6 +87,7 @@
       width: 100%;
 
       .title {
+        color: #14144b;
         font-size: 1.25rem;
         font-weight: 600;
         line-height: 3rem;
@@ -115,6 +124,7 @@
       cursor: pointer;
 
       .title {
+        color: #14144b;
         font-size: 1.25rem;
         font-weight: 600;
         line-height: 3rem;
@@ -124,7 +134,120 @@
         }
       }
       .faplus {
-        margin-right: 0.5rem;
+        margin-right: 0.8rem;
+        margin-top: 0.1rem;
+      }
+    }
+
+    .country-time {
+      width: 100%;
+
+      .compare-time {
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: #212121;
+        position: relative;
+        display: flex;
+        height: 3rem;
+        margin: auto;
+        width: max-content;
+        background: none;
+        border: none;
+        cursor: pointer;
+        gap: 0.8rem;
+
+        .title {
+          font-size: 1.25rem;
+
+          font-weight: 600;
+          line-height: 3rem;
+
+          @media (max-width: 998px) {
+            font-size: 0.813rem;
+          }
+        }
+
+        .dropdown-content {
+          background-color: white;
+          border-radius: 4px;
+          position: absolute;
+          width: 100%;
+          box-shadow: inset;
+          z-index: 1000;
+          top: 115%;
+          box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+          height: auto;
+
+          .drop-item {
+            font-size: 20px;
+            font-weight: 600;
+            align-items: center;
+            width: max-content;
+            margin: auto;
+            padding: 0.7rem;
+            color: #14144b;
+            cursor: pointer;
+
+            &:hover {
+              color: #990099;
+            }
+          }
+        }
+      }
+      .compare-time-with-border {
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: #212121;
+        position: relative;
+        border-radius: 4px;
+        background-color: white;
+        display: flex;
+        height: 3rem;
+        margin: auto;
+        width: 30%;
+        // background: none;
+        border: 0.5px solid #14144b;
+        cursor: pointer;
+        gap: 0.8rem;
+
+        .title {
+          font-size: 1.25rem;
+          font-weight: 600;
+          line-height: 3rem;
+
+          @media (max-width: 998px) {
+            font-size: 0.813rem;
+          }
+        }
+
+        .dropdown-content {
+          background-color: white;
+          border-radius: 4px;
+          position: absolute;
+          width: 100%;
+
+          z-index: 1000;
+          top: 115%;
+          box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+          height: auto;
+
+          .drop-item {
+            font-size: 20px;
+            font-weight: 600;
+            align-items: center;
+
+            padding: 0.7rem;
+            // padding: 0.7rem;
+            color: #14144b;
+
+            &:hover {
+              background-color: #f5f5f5;
+              border-radius: 4px;
+            }
+          }
+        }
       }
     }
 
@@ -135,8 +258,21 @@
       justify-content: center;
 
       .circle-line-added-country {
-        width: 1.292rem;
+        width: 1.8rem;
         margin-right: 0.5rem;
+        background-color: #2a00ff;
+        height: 0.167rem;
+        transform: rotate(180deg);
+        display: flex;
+
+        @media (max-width: 998px) {
+          width: 0.5rem;
+          height: 0.5rem;
+        }
+      }
+      .circle-line-added-country-time {
+        width: 1.8rem;
+        margin-right: 1rem;
         background-color: #2a00ff;
         height: 0.167rem;
         transform: rotate(180deg);
@@ -250,7 +386,7 @@
     }
 
     .heading {
-      font-weight: 700;
+      font-weight: 600;
       font-size: 1.25rem;
       line-height: 1.75rem;
       color: #f05728;
@@ -265,6 +401,7 @@
     display: flex;
     justify-content: space-between;
     width: auto;
+
     padding: 1rem;
 
     @media (max-width: 998px) {
@@ -289,7 +426,7 @@
 
     .left-button {
       display: flex;
-      width: 35%;
+      width: 50%;
       gap: 2.813rem;
 
       @media (max-width: 998px) {
@@ -349,24 +486,29 @@
       font-weight: 600;
       justify-content: space-between;
       padding-left: 1rem;
-      background-color: #f05728;
+      box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+      background: #f05728;
       padding-right: 1rem;
       padding-top: 0.5rem;
       font-size: 1.25rem;
       cursor: pointer;
       line-height: 1.75rem;
       padding-bottom: 0.5rem;
-      border: 1px solid #f05728;
+      border: none;
       border-radius: 0.5rem;
 
       @media (max-width: 998px) {
         font-size: 0.75rem;
       }
     }
+
     .right-ouline-buttonTwo {
       display: flex;
       align-items: center;
-      color: #f05728;
+      // background: white;
+      // -webkit-background-clip: text;
+      // -webkit-text-fill-color: transparent;
+      // background-clip: text;
       background-color: transparent;
       width: max-content;
       gap: 0.625rem;
@@ -375,13 +517,17 @@
       font-size: 1.25rem;
       cursor: pointer;
       line-height: 1.75rem;
+      box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
       justify-content: space-between;
       padding-left: 1rem;
       padding-right: 1rem;
+      color: #f05728;
       padding-top: 0.5rem;
+      border-image: linear-gradient(45deg, #990099 100%, #0033cc 100%);
       padding-bottom: 0.5rem;
-      border: 1px solid #f05728;
+      border: 1px solid;
       border-radius: 0.5rem;
+
       @media (max-width: 998px) {
         font-size: 0.75rem;
       }

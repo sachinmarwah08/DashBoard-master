@@ -4,6 +4,8 @@
   background-color: white;
   border-radius: 8px;
   height: auto;
+  box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.07), 0px 1px 10px rgba(0, 0, 0, 0.06),
+    0px 2px 4px rgba(0, 0, 0, 0.1);
 
   .content {
     padding: 1rem;
@@ -18,12 +20,500 @@
 
     .hashtags-wrapper {
       width: 100%;
-      background-color: #f5f5f5;
-      height: auto;
+      background: #f5f5f5;
+      height: 100%;
       border-radius: 8px;
       margin-top: 1rem;
-      display: grid;
-      grid-template-columns: auto auto auto auto auto auto auto auto;
+      // display: grid;
+      // grid-template-columns: auto auto auto auto auto auto auto auto;
+
+      // html,
+      // body {
+      //   height: 100vh;
+      //   width: 100vw;
+      //   margin: 0;
+      //   padding: 0;
+      //   display: flex;
+      //   align-items: center;
+      //   justify-content: center;
+      // }
+
+      ul.cloud {
+        list-style: none;
+        padding-left: 0;
+        display: flex;
+        margin: 0%;
+        padding-bottom: 1rem;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        line-height: 4rem;
+        width: 100%;
+        height: auto;
+      }
+
+      ul.cloud a {
+        /*   
+        Not supported by any browser at the moment :(
+        --size: attr(data-weight number); 
+        */
+        // --size: 4;
+        height: auto;
+        color: #f05728;
+        // --color: linear-gradient(63.43deg, #990099 16.67%, #0033cc 100%);
+        // background: linear-gradient(45deg, #990099 50%, #330099 50%);
+        // -webkit-background-clip: text;
+        // -webkit-text-fill-color: #990099;
+        // background-clip: text;
+        // height: 8vh;
+        // color: var(--color);
+        font-size: calc(var(--size) * 0.25rem + 0.5rem);
+        display: block;
+        padding: 0.125rem 0.25rem;
+        position: relative;
+        text-decoration: none;
+        /* 
+        For different tones of a single color
+        opacity: calc((15 - (9 - var(--size))) / 15); 
+        */
+      }
+
+      ul.cloud a[data-weight="1"] {
+        --size: 3;
+      }
+      ul.cloud a[data-weight="2"] {
+        --size: 2;
+      }
+      ul.cloud a[data-weight="3"] {
+        --size: 8;
+      }
+      ul.cloud a[data-weight="4"] {
+        --size: 4;
+      }
+      ul.cloud a[data-weight="5"] {
+        --size: 6;
+      }
+      ul.cloud a[data-weight="6"] {
+        --size: 8;
+      }
+      ul.cloud a[data-weight="7"] {
+        --size: 11;
+      }
+      ul.cloud a[data-weight="8"] {
+        --size: 6;
+      }
+      ul.cloud a[data-weight="9"] {
+        --size: 7;
+      }
+      ul.cloud a[data-weight="10"] {
+        --size: 8;
+      }
+      ul.cloud a[data-weight="11"] {
+        --size: 6;
+      }
+      ul.cloud a[data-weight="12"] {
+        --size: 12;
+      }
+      ul.cloud a[data-weight="13"] {
+        --size: 12;
+      }
+      ul.cloud a[data-weight="14"] {
+        --size: 6;
+      }
+      ul.cloud a[data-weight="15"] {
+        --size: 9;
+      }
+      ul.cloud a[data-weight="16"] {
+        --size: 8;
+      }
+      ul.cloud a[data-weight="17"] {
+        --size: 10;
+      }
+      ul.cloud a[data-weight="18"] {
+        --size: 5;
+      }
+      ul.cloud a[data-weight="19"] {
+        --size: 9;
+      }
+      ul.cloud a[data-weight="20"] {
+        --size: 4;
+      }
+      ul.cloud a[data-weight="21"] {
+        --size: 8;
+      }
+      ul.cloud a[data-weight="22"] {
+        --size: 8;
+      }
+      ul.cloud a[data-weight="23"] {
+        --size: 6;
+      }
+      ul.cloud a[data-weight="24"] {
+        --size: 14;
+      }
+
+      ul[data-show-value] a::after {
+        content: " (" attr(data-weight) ")";
+        font-size: 1rem;
+      }
+
+      ul.cloud li:nth-child(2n + 1) a {
+        --color: #f05728;
+      }
+      ul.cloud li:nth-child(3n + 1) a {
+        --color: #f05728;
+      }
+      ul.cloud li:nth-child(4n + 1) a {
+        --color: #f05728;
+      }
+      ul.cloud li:nth-child(5n + 1) a {
+        --color: #f05728;
+      }
+      ul.cloud li:nth-child(6n + 1) a {
+        --color: #f05728;
+      }
+      ul.cloud li:nth-child(7n + 1) a {
+        --color: #f05728;
+      }
+      ul.cloud li:nth-child(8n + 1) a {
+        --color: #f05728;
+      }
+      ul.cloud li:nth-child(9n + 1) a {
+        --color: #f05728;
+      }
+
+      ul.cloud a:focus {
+        outline: 1px dashed;
+      }
+
+      ul.cloud a::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 0;
+        height: 100%;
+        background: var(--color);
+        transform: translate(-50%, 0);
+        opacity: 0.15;
+        transition: width 0.25s;
+      }
+
+      ul.cloud a:focus::before,
+      ul.cloud a:hover::before {
+        width: 100%;
+      }
+
+      @media (prefers-reduced-motion) {
+        ul.cloud * {
+          transition: none !important;
+        }
+      }
+
+      .line-one {
+        display: flex;
+
+        &:hover {
+          text-decoration: underline;
+          cursor: pointer;
+        }
+        .one {
+          font-size: 16px;
+          font-weight: 400;
+          color: #330099;
+          margin-left: 25rem;
+        }
+      }
+      .line-two {
+        display: flex;
+        margin-top: -1rem;
+
+        .two-one {
+          font-size: 16px;
+          font-weight: 400;
+          color: #990099;
+          margin-left: 15rem;
+
+          &:hover {
+            text-decoration: underline;
+            cursor: pointer;
+          }
+        }
+        .two-two {
+          font-size: 16px;
+          font-weight: 400;
+          color: #990099;
+          margin-left: 10rem;
+
+          &:hover {
+            text-decoration: underline;
+            cursor: pointer;
+          }
+        }
+        .two-three {
+          font-size: 16px;
+          font-weight: 400;
+          color: #330099;
+          margin-top: -0.5rem;
+          margin-left: 4rem;
+
+          &:hover {
+            text-decoration: underline;
+            cursor: pointer;
+          }
+        }
+        .two-four {
+          font-size: 16px;
+          font-weight: 400;
+          color: #990099;
+          margin-left: 6rem;
+
+          &:hover {
+            text-decoration: underline;
+            cursor: pointer;
+          }
+        }
+        .two-five {
+          font-size: 23px;
+          font-weight: 400;
+          color: #990099;
+          margin-left: 6rem;
+
+          &:hover {
+            text-decoration: underline;
+            cursor: pointer;
+          }
+        }
+      }
+      .line-three {
+        display: flex;
+        margin-top: -1rem;
+        .three-one {
+          font-size: 16px;
+          font-weight: 400;
+          color: #990099;
+          margin-left: 6rem;
+
+          &:hover {
+            text-decoration: underline;
+            cursor: pointer;
+          }
+        }
+        .three-two {
+          font-size: 47px;
+          font-weight: 400;
+          color: #990099;
+          margin-left: 4rem;
+          margin-top: -0.5rem;
+
+          &:hover {
+            text-decoration: underline;
+            cursor: pointer;
+          }
+        }
+        .three-three {
+          font-size: 33px;
+          font-weight: 400;
+          color: #990099;
+          margin-top: 0rem;
+          margin-left: 4rem;
+
+          &:hover {
+            text-decoration: underline;
+            cursor: pointer;
+          }
+        }
+        .three-four {
+          font-size: 16px;
+          font-weight: 400;
+          color: #990099;
+          margin-left: 4rem;
+
+          &:hover {
+            text-decoration: underline;
+            cursor: pointer;
+          }
+        }
+        .three-five {
+          font-size: 19px;
+          font-weight: 400;
+          color: #990099;
+          margin-left: 3.2rem;
+
+          &:hover {
+            text-decoration: underline;
+            cursor: pointer;
+          }
+        }
+        .three-six {
+          font-size: 16px;
+          font-weight: 400;
+          margin-top: -0.1rem;
+          color: #990099;
+          margin-left: 2rem;
+
+          &:hover {
+            text-decoration: underline;
+            cursor: pointer;
+          }
+        }
+      }
+
+      .line-four {
+        display: flex;
+        margin-top: -1.5rem;
+        .four-one {
+          font-size: 16px;
+          font-weight: 400;
+          color: #330099;
+          margin-left: 1rem;
+
+          &:hover {
+            text-decoration: underline;
+            cursor: pointer;
+          }
+        }
+        .four-two {
+          font-size: 16px;
+          font-weight: 400;
+          color: #990099;
+          margin-left: 2rem;
+          margin-top: -0.5rem;
+
+          &:hover {
+            text-decoration: underline;
+            cursor: pointer;
+          }
+        }
+        .four-three {
+          font-size: 16px;
+          font-weight: 400;
+          color: #990099;
+          margin-top: -1rem;
+          margin-left: 2rem;
+
+          &:hover {
+            text-decoration: underline;
+            cursor: pointer;
+          }
+        }
+      }
+      .line-five {
+        display: flex;
+        margin-top: -1.5rem;
+        .five-one {
+          font-size: 16px;
+          font-weight: 400;
+          color: #990099;
+          margin-left: 10rem;
+          margin-top: 0.5rem;
+
+          &:hover {
+            text-decoration: underline;
+            cursor: pointer;
+          }
+        }
+        .five-two {
+          font-size: 68px;
+          font-weight: 400;
+          color: #990099;
+          margin-left: 2rem;
+          margin-top: -3rem;
+
+          &:hover {
+            text-decoration: underline;
+            cursor: pointer;
+          }
+        }
+        .five-three {
+          font-size: 27px;
+          font-weight: 400;
+          color: #990099;
+          margin-top: 0rem;
+          margin-left: 4rem;
+
+          &:hover {
+            text-decoration: underline;
+            cursor: pointer;
+          }
+        }
+        .five-four {
+          font-size: 16px;
+          font-weight: 400;
+          color: #990099;
+          margin-top: 0rem;
+          margin-left: 4rem;
+
+          &:hover {
+            text-decoration: underline;
+            cursor: pointer;
+          }
+        }
+        .five-five {
+          font-size: 16px;
+          font-weight: 400;
+          color: #990099;
+          margin-top: -1rem;
+          margin-left: 2rem;
+
+          &:hover {
+            text-decoration: underline;
+            cursor: pointer;
+          }
+        }
+      }
+      .line-six {
+        display: flex;
+        margin-top: -1.5rem;
+        .six-one {
+          font-size: 16px;
+          font-weight: 400;
+          color: #330099;
+          margin-top: -2rem;
+          margin-left: 14rem;
+
+          &:hover {
+            text-decoration: underline;
+            cursor: pointer;
+          }
+        }
+        .six-two {
+          font-size: 16px;
+          font-weight: 400;
+          color: #990099;
+          margin-left: 1rem;
+          margin-top: 0.5rem;
+
+          &:hover {
+            text-decoration: underline;
+            cursor: pointer;
+          }
+        }
+        .six-three {
+          font-size: 39px;
+          font-weight: 400;
+          color: #990099;
+          margin-top: -1rem;
+          margin-left: 3rem;
+
+          &:hover {
+            text-decoration: underline;
+            cursor: pointer;
+          }
+        }
+        .six-four {
+          font-size: 57px;
+          font-weight: 400;
+          color: #990099;
+          margin-bottom: 0%;
+          margin-top: -1rem;
+          margin-left: 6rem;
+
+          &:hover {
+            text-decoration: underline;
+            cursor: pointer;
+          }
+        }
+      }
 
       .hashtags-data {
         display: flex;
