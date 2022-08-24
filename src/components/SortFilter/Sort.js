@@ -14,7 +14,7 @@ const Sort = ({ optiondata, data, setData, value, onchange }) => {
           name="search"
           value={value}
           onChange={onchange}
-          placeholder="search..."
+          placeholder="Search..."
           type="text"
         />
         <img
