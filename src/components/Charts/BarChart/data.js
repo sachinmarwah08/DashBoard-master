@@ -82,16 +82,23 @@ const data = {
     },
   },
   tooltip: {
-    valueSuffix: "%",
+    valueSuffix: "M",
+    useHTML: true,
+    backgroundColor: null,
+    borderWidth: 0,
+    shadow: false,
+    pointFormat: "{series.name}: {point.y}<br/>Happy: 70%<br/>Sad: 30%",
     stickOnContact: false,
-    backgroundColor: "rgba(255, 255, 255, 0.93)",
+    style: {
+      zIndex: 200000000,
+    },
   },
   legend: {
     enabled: false,
   },
   series: [
     {
-      name: "Organic farming area",
+      name: "Sentiment",
       color: "rgba(240, 87, 40, 0.35)",
       borderColor: "rgba(240, 87, 40, 0.35)",
       data: [27, 25, 23, 21, 19, 17, 15, 13, 11, 9, 7, 5, 3, 1.5],
