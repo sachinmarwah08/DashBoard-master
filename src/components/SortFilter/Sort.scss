@@ -12,6 +12,16 @@
     align-items: center;
     position: relative;
 
+    .close-icon-image {
+      position: absolute;
+      top: 22%;
+      width: 20px;
+      height: 20px;
+      left: 101%;
+      opacity: 35%;
+      cursor: pointer;
+    }
+
     .search-icon-image-sort {
       position: absolute;
       top: 18%;

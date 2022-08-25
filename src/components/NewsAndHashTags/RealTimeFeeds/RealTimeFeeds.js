@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import "./RealTimeFeeds.scss";
 import { data } from "./data";
-import { faXmark, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Content from "./Content";
 import shareIcon from "../../../Images/share-2.svg";
 import Sort from "../../SortFilter/Sort";
@@ -86,32 +84,9 @@ const RealTimeFeeds = () => {
       </div>
 
       <div className="search-container-wrapper">
-        {/* <div className="search-container">
-          <input
-            onChange={handleFilter}
-            value={wordEntered}
-            className="seacrh-bar"
-            type="text"
-            name="search"
-            placeholder="search..."
-          />
-          <div className="search-icon">
-            {filterData.length === 0 ? (
-              <FontAwesomeIcon
-                onClick={clearData}
-                className="close-icon-image"
-                icon={faXmark}
-              />
-            ) : (
-              <img className="search-icon-image" src={searchBarLogo} />
-            )}
-          </div>
-        </div>
-        <button className="filter-button">
-          <img src={filterBarLogo} />
-          <div className="filter-title">Filter</div>
-        </button> */}
         <Sort
+          clearData={clearData}
+          filterData={filterData.length === 0}
           setData={setRealData}
           data={realData}
           optiondata={realTimeData}

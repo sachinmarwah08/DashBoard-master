@@ -2,8 +2,18 @@ import React, { useState } from "react";
 import "./Sort.scss";
 import filterBarLogo from "../../Images/filter.svg";
 import searchBarLogo from "../../Images/search.svg";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const Sort = ({ optiondata, data, setData, value, onchange }) => {
+const Sort = ({
+  optiondata,
+  data,
+  setData,
+  value,
+  onchange,
+  filterData,
+  clearData,
+}) => {
   const [isActive, setIsActive] = useState(false);
 
   return (
@@ -17,11 +27,19 @@ const Sort = ({ optiondata, data, setData, value, onchange }) => {
           placeholder="Search..."
           type="text"
         />
-        <img
-          alt="share-icon"
-          className="search-icon-image-sort"
-          src={searchBarLogo}
-        />
+        {filterData ? (
+          <FontAwesomeIcon
+            onClick={clearData}
+            className="close-icon-image"
+            icon={faXmark}
+          />
+        ) : (
+          <img
+            alt="share-icon"
+            className="search-icon-image-sort"
+            src={searchBarLogo}
+          />
+        )}
       </div>
       <div className="filter-bar-data">
         <div

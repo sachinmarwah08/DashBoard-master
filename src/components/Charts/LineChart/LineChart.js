@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import "./LineChart.scss";
 import { useLocation, useNavigate } from "react-router-dom";
-import downloadIcon from "../../../Images/download.svg";
-import shareIcon from "../../../Images/share.svg";
+import downloadIcon from "../../../Images/download-2.svg";
+import shareIcon from "../../../Images/share-3.svg";
 import {
   faPlus,
   faArrowLeft,

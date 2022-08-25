@@ -342,10 +342,19 @@
       cursor: pointer;
       background: transparent;
       border: none;
+      height: 5vh;
       position: relative;
+      padding: 8px;
+      border-radius: 4px;
+
+      &:hover {
+        background-color: rgba(240, 87, 40, 0.2);
+      }
     }
     .d-icon {
       cursor: pointer;
+      padding: 8px;
+      height: 5vh;
       background: transparent;
       border: none;
     }
@@ -523,9 +532,8 @@
       padding-right: 1rem;
       color: #f05728;
       padding-top: 0.5rem;
-      border-image: linear-gradient(45deg, #990099 100%, #0033cc 100%);
       padding-bottom: 0.5rem;
-      border: 1px solid;
+      border: 1px solid #f05728;
       border-radius: 0.5rem;
 
       @media (max-width: 998px) {

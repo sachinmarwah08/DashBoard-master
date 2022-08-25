@@ -19,17 +19,7 @@ import { data, CompareTime } from "./data";
 
 const Chart = ({ show, showTime }) => {
   return (
-    <div style={{ marginTop: "1rem", position: "relative" }}>
-      <div
-        style={{
-          left: "1.1rem",
-          top: " 0.5rem",
-          color: "rgba(20, 20, 75, 0.6)",
-          position: "absolute",
-        }}
-      >
-        (MM)
-      </div>
+    <div style={{ marginTop: "1rem" }}>
       <ResponsiveContainer width="100%" aspect={4}>
         {!showTime ? (
           <LineChart
@@ -43,13 +33,13 @@ const Chart = ({ show, showTime }) => {
             {/* <CartesianGrid horizontal={true} vertical={false} /> */}
             <XAxis
               dataKey="name"
-              stroke="rgba(20, 20, 75, 0.6)"
+              stroke="#757575"
               fontWeight={400}
               fontSize="0.875rem"
               interval={"preserveStartEnd"}
               tickFormatter={(value) => value + ""}
             />
-            <YAxis stroke="rgba(20, 20, 75, 0.6)" />
+            <YAxis stroke="#E0E0E0" />
             <Tooltip
               separator="         "
               labelStyle={{
@@ -115,13 +105,13 @@ const Chart = ({ show, showTime }) => {
             {/* <CartesianGrid horizontal={true} vertical={false} /> */}
             <XAxis
               dataKey="name"
-              stroke="rgba(20, 20, 75, 0.6)"
+              stroke="#757575"
               fontWeight={400}
               fontSize="0.875rem"
               interval={"preserveStartEnd"}
               tickFormatter={(value) => value + ""}
             />
-            <YAxis stroke="rgba(20, 20, 75, 0.6)" />
+            <YAxis stroke="#E0E0E0" />
             <Tooltip
               separator="         "
               labelStyle={{
