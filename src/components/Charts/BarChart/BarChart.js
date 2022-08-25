@@ -10,7 +10,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import data from "./data";
-import shareIcon from "../../../Images/share.svg";
+import shareIcon from "../../../Images/share-2.svg";
 import TopBottomButton from "../../TopBottomButton/TopBottomButton";
 
 const BarChartComponent = () => {
@@ -29,7 +29,7 @@ const BarChartComponent = () => {
               </h1>
             </div>
             <div className="btn-share">
-              <button
+              {/* <button
                 onClick={() => setIsActive(!isActive)}
                 className="heading-button"
               >
@@ -45,7 +45,7 @@ const BarChartComponent = () => {
                     </div>
                   </div>
                 )}
-              </button>
+              </button> */}
               <button className="share-btn">
                 <img alt="share-icon-bar" src={shareIcon} />
               </button>

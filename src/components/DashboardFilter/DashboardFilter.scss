@@ -3,7 +3,8 @@
   border: none;
   padding-top: 0.3rem;
   padding-bottom: 0.3rem;
-  background: rgba(240, 87, 40, 0.2);
+  background: rgba(240, 87, 40, 0.1);
+  // background: linear-gradient(90deg, rgba(240, 87, 40, 0.2) 100%);
   height: 100%;
   cursor: pointer;
 
@@ -13,6 +14,24 @@
     font-size: 14px;
     font-weight: 400;
     color: #f05728;
+
+    font-family: "Work-Sans";
+
+    @font-face {
+      font-family: "Work-Sans";
+      src: url("../../Fonts/work-sans.regular.ttf");
+      font-style: normal;
+    }
+    @font-face {
+      font-family: "Work-Sans";
+      src: url("../../Fonts/work-sans.bold.ttf");
+      font-style: normal;
+    }
+    @font-face {
+      font-family: "Work-Sans";
+      src: url("../../Fonts/work-sans.medium.ttf");
+      font-style: normal;
+    }
   }
 }
 

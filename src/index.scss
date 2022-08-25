@@ -55,6 +55,26 @@ body {
   background: #bdbdbd;
 }
 
+.rdrCalendarWrapper > .rdrDateRangeWrapper {
+  font-family: "Work-Sans" !important;
+  font-weight: 600 !important;
+  @font-face {
+    font-family: "Work-Sans";
+    src: url("./Fonts/work-sans.regular.ttf");
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "Work-Sans";
+    src: url("./Fonts/work-sans.bold.ttf");
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "Work-Sans";
+    src: url("./Fonts/work-sans.medium.ttf");
+    font-style: normal;
+  }
+}
+
 .rdrInputRanges {
   display: none;
 }
@@ -93,14 +113,15 @@ body {
   background: #fff;
   display: block;
   border-radius: 4px;
-  height: 5rem;
+  height: 6.5rem;
   position: absolute;
   left: 473px;
   padding: 5px !important;
+  line-height: 1.5rem;
   width: 7rem !important;
   white-space: normal !important;
   font-family: "Work-Sans" !important;
-  font-weight: 600 !important;
+  // font-weight: 600 !important;
 
   @font-face {
     font-family: "Work-Sans";

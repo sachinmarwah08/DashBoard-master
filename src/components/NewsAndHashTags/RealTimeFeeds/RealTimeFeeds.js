@@ -4,7 +4,7 @@ import { data } from "./data";
 import { faXmark, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Content from "./Content";
-import shareIcon from "../../../Images/share.svg";
+import shareIcon from "../../../Images/share-2.svg";
 import Sort from "../../SortFilter/Sort";
 import RadioButton from "../../RadioButton/RadioButton";
 
@@ -71,14 +71,14 @@ const RealTimeFeeds = () => {
       <div className="realTime-radioBtn">
         <RadioButton
           radioName="realTimeTweets"
-          name="Positive"
+          name="Positive Sentiment"
           checked={isRadioChecked}
           value={1}
           onchange={handleRadioChange}
         />
         <RadioButton
           radioName="realTimeTweets"
-          name="Negative"
+          name="Negative Sentiment"
           checked={isRadioChecked}
           value={2}
           onchange={handleRadioChange}

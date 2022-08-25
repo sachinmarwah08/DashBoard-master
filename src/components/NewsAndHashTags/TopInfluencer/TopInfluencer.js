@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Sort from "../../SortFilter/Sort";
 import { trendingHashtags } from "./data";
 import "./TrendingHashtags.scss";
-import shareIcon from "../../../Images/sharetwo.svg";
+import shareIcon from "../../../Images/share-2.svg";
 import RadioButton from "../../RadioButton/RadioButton";
 
 const TopInfluencer = () => {
