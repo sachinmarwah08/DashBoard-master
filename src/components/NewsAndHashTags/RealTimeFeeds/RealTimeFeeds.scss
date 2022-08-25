@@ -10,21 +10,6 @@
     justify-content: end;
     width: max-content;
     cursor: pointer;
-
-    .share-icon {
-      padding: 8px;
-      border-radius: 4px;
-      width: 24px;
-      height: 24px;
-
-      &:hover {
-        background-color: rgba(240, 87, 40, 0.2);
-      }
-    }
-
-    // @media (max-width: 1440px) {
-    //   margin-left: 22rem;
-    // }
   }
   .tweets-heading {
     font-size: 1rem;
@@ -301,7 +286,7 @@
 
   .left-content-wrapper {
     background-color: white;
-    height: 27rem;
+    height: 26.5rem;
     width: auto;
     padding: 0.5rem;
     overflow: auto;
@@ -316,7 +301,7 @@
       border-bottom: 1px solid #eeeeee;
       height: auto;
       // padding: 1rem;
-      padding-top: 1rem;
+      // padding-top: 1rem;
       overflow: hidden;
 
       .left-content-heading {
