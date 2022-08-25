@@ -63,7 +63,7 @@ const RealTimeFeeds = () => {
           <div className="tweets-heading">Real-time News</div>
         </button>
         <div className="share-icon-btn">
-          <img alt="share-icon" src={shareIcon} />
+          <img className="share-icon" alt="share-icon" src={shareIcon} />
         </div>
       </div>
       <div className="realTime-radioBtn">

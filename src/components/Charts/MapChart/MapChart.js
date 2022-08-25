@@ -6,7 +6,6 @@ import shareIcon from "../../../Images/share-2.svg";
 import GoogleMap from "./googleMap";
 import TableData from "./Table";
 import Sort from "../../SortFilter/Sort";
-import RadioButton from "../../RadioButton/RadioButton";
 
 const MapChartComponent = () => {
   const mapData = ["Influencer", "Hashtags"];

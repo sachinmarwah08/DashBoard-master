@@ -47,6 +47,16 @@
         border: none;
         background: transparent;
         padding: 0%;
+        .share-icon-bar {
+          border-radius: 4px;
+          padding: 8px;
+          width: 24px;
+          height: 24px;
+
+          &:hover {
+            background-color: rgba(240, 87, 40, 0.2);
+          }
+        }
 
         .share-icon-bar {
           @media (max-width: 998px) {

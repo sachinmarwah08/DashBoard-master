@@ -3,12 +3,6 @@ import "./BarChart.scss";
 import Highcharts from "highcharts";
 import Sort from "../../SortFilter/Sort";
 import HighchartsReact from "highcharts-react-official";
-import {
-  faAngleDown,
-  faArrowDownShortWide,
-  faArrowUpWideShort,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import data from "./data";
 import shareIcon from "../../../Images/share-2.svg";
 import TopBottomButton from "../../TopBottomButton/TopBottomButton";
@@ -47,7 +41,11 @@ const BarChartComponent = () => {
                 )}
               </button> */}
               <button className="share-btn">
-                <img alt="share-icon-bar" src={shareIcon} />
+                <img
+                  className="share-icon-bar"
+                  alt="share-icon-bar"
+                  src={shareIcon}
+                />
               </button>
             </div>
           </div>

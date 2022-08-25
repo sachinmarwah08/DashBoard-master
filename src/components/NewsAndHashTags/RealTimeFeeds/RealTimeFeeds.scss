@@ -9,8 +9,18 @@
     margin: 1rem;
     justify-content: end;
     width: max-content;
-
     cursor: pointer;
+
+    .share-icon {
+      padding: 8px;
+      border-radius: 4px;
+      width: 24px;
+      height: 24px;
+
+      &:hover {
+        background-color: rgba(240, 87, 40, 0.2);
+      }
+    }
 
     // @media (max-width: 1440px) {
     //   margin-left: 22rem;
