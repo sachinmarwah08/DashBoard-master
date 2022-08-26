@@ -15,8 +15,8 @@ const Table = () => {
               <th>Influencers</th>
             </tr>
           </thead>
-          {data.map((item) => (
-            <tbody style={{ marginTop: "0.5rem", height: "24rem" }}>
+          <tbody style={{ marginTop: "0.5rem", height: "24rem" }}>
+            {data.map((item) => (
               <tr
                 style={{
                   borderBottom: "1px solid #eeeeee",
@@ -26,19 +26,19 @@ const Table = () => {
               >
                 <td style={{ textAlign: "left" }}>{item.country}</td>
                 <td>
-                  {item.rank}
+                  {item.rank}{" "}
                   <span style={{ color: "#0033CC" }}>{item.rankColored}</span>
                 </td>
                 <td>
-                  {item.Interest}
+                  {item.Interest}{" "}
                   <span style={{ color: "#CC0000" }}>
                     {item.InterestColred}
                   </span>
                 </td>
                 <td>{item.Influencers}</td>
               </tr>
-            </tbody>
-          ))}
+            ))}
+          </tbody>
         </table>
       </div>
     </div>
