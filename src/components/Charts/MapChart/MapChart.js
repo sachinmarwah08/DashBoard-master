@@ -10,12 +10,7 @@ import Sort from "../../SortFilter/Sort";
 const MapChartComponent = () => {
   const mapData = ["Influencer", "Hashtags"];
   const [mapdata, setMapData] = useState("Filter");
-  const [isRadioChecked, setIsRadioChecked] = useState(1);
   const [show, setShow] = useState("map");
-
-  const handleRadioChange = (value) => {
-    setIsRadioChecked(value);
-  };
 
   return (
     <div className="map-wrapper">
