@@ -1,17 +1,16 @@
 import React, { useState } from "react";
-// import dropdown from "../../Images/DropdownWhite.svg";
 import Sort from "../../SortFilter/Sort";
 import { data } from "./data";
-import "./TrendingHashtags.scss";
+import "./TopInfluencer.scss";
 import shareIcon from "../../../Images/share-2.svg";
 import RadioButton from "../../RadioButton/RadioButton";
 import Content from "./Content";
 
 const TopInfluencer = () => {
-  const trendingData = ["Country", "Influencer", "Hashtag"];
-  const [trendData, setTrendData] = useState("Filter");
+  const dropdownOptions = ["Country", "Influencer", "Hashtag"];
+  const [topInfluencerFilter, setTopInfluencerFilter] = useState("Filter");
   const [isRadioChecked, setIsRadioChecked] = useState(1);
-  const [filterData, setFilterData] = useState(data);
+  const [topInfluencerData, setTopInfluencerData] = useState(data);
   const [wordEntered, setWordEntered] = useState("");
 
   const handleRadioChange = (value) => {
@@ -26,11 +25,11 @@ const TopInfluencer = () => {
       return value.hashtags.toLowerCase().includes(searchWord.toLowerCase());
     });
 
-    setFilterData(newFilter);
+    setTopInfluencerData(newFilter);
   };
 
   const clearData = () => {
-    setFilterData(data);
+    setTopInfluencerData(data);
     setWordEntered("");
   };
 
@@ -42,10 +41,10 @@ const TopInfluencer = () => {
           <p className="score">
             <span className="digits">13569</span> Influencers
           </p>
-
           <img alt="share-icon" className="share-img" src={shareIcon} />
         </div>
       </div>
+
       <div className="trending-radioBtn">
         <RadioButton
           radioName="topInfluencer"
@@ -79,16 +78,17 @@ const TopInfluencer = () => {
 
       <div className="trending-sort">
         <Sort
-          filterData={filterData.length === 0}
+          filterData={topInfluencerData.length === 0}
           clearData={clearData}
           value={wordEntered}
           onchange={handleFilter}
-          setData={setTrendData}
-          data={trendData}
-          optiondata={trendingData}
+          setData={setTopInfluencerFilter}
+          data={topInfluencerFilter}
+          dropdownOptions={dropdownOptions}
         />
       </div>
-      <Content filterData={filterData} />
+
+      <Content topInfluencerData={topInfluencerData} />
     </div>
   );
 };

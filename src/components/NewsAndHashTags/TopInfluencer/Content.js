@@ -1,9 +1,9 @@
 import React from "react";
 
-const Content = ({ filterData }) => {
+const Content = ({ topInfluencerData }) => {
   return (
     <div className="right-content-wrapper">
-      {filterData.map((item) => (
+      {topInfluencerData.map((item) => (
         <div key={item.id} className="right-content">
           <div key={item.id} className="left-content">
             <p className="username">{item.hashtags}</p>

@@ -6,7 +6,7 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Sort = ({
-  optiondata,
+  dropdownOptions,
   data,
   setData,
   value,
@@ -56,7 +56,7 @@ const Sort = ({
           {data}
           {isActive && (
             <div className="content-container">
-              {optiondata.map((option) => (
+              {dropdownOptions.map((option) => (
                 <>
                   <div
                     onClick={() => {

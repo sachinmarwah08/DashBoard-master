@@ -89,7 +89,7 @@ const RealTimeFeeds = () => {
           filterData={filterData.length === 0}
           setData={setRealData}
           data={realData}
-          optiondata={realTimeData}
+          dropdownOptions={realTimeData}
           value={wordEntered}
           onchange={handleFilter}
         />

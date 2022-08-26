@@ -46,7 +46,7 @@ const MapChartComponent = () => {
         </div>
 
         <div className="map-sort">
-          <Sort setData={setMapData} data={mapdata} optiondata={mapData} />
+          <Sort setData={setMapData} data={mapdata} dropdownOptions={mapData} />
         </div>
       </div>
       <div className="bar-map-wrapper">
