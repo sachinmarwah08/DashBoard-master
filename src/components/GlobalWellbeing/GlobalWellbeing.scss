@@ -1,7 +1,8 @@
 .main-container {
   background-color: white;
-  height: 8.813rem;
-  width: 100%;
+  height: auto;
+  padding: 2rem;
+  width: auto;
   margin-top: 1.5rem;
   display: flex;
   justify-content: space-between;
@@ -10,14 +11,14 @@
 
   .column-one {
     flex-direction: column;
-    width: 32%;
     align-items: center;
 
     .digit-one {
+      margin: 0%;
       font-weight: 600;
       font-size: 2rem;
       line-height: 2rem;
-      color: #14144b;
+      color: #000000;
       padding-right: 2rem;
       margin-bottom: 0%;
 
@@ -30,11 +31,10 @@
     .value-one {
       font-weight: 400;
       font-size: 0.75rem;
-      line-height: 1rem;
-      color: #14144b;
+      line-height: 2rem;
+      color: #000000;
       padding-right: 0.6rem;
       margin: 0%;
-      margin-top: 0.5rem;
 
       @media (max-width: 998px) {
         font-weight: 600;
@@ -43,12 +43,11 @@
       }
     }
     .date {
-      color: rgba(20, 20, 75, 0.6);
+      color: #757575;
       font-weight: 600;
       font-size: 14px;
       line-height: 1.25rem;
       margin: 0%;
-      padding-top: 0.3rem;
 
       .as {
         font-weight: 400;
@@ -65,16 +64,14 @@
   .column-two {
     flex-direction: column;
     align-items: center;
-    // margin-left: 4rem;
-    width: 30%;
 
     .column-two-digit-one {
       color: #f05728;
       font-size: 1.125rem;
       font-weight: 600;
+      margin: 0%;
       line-height: 0.5rem;
       margin-bottom: 0.5rem;
-      margin-top: 2.3rem;
 
       @media (max-width: 998px) {
         font-weight: 600;
@@ -103,7 +100,7 @@
       color: #f05728;
       font-weight: 600;
       font-size: 2.125;
-      line-height: 3rem;
+      margin: 0%;
     }
   }
 
@@ -111,9 +108,8 @@
     padding-right: 5rem;
     align-items: center;
     width: 35%;
-    margin-top: -1.2rem;
     display: flex;
-    // justify-content: space-around;
+    justify-content: space-around;
     position: relative;
 
     @media (max-width: 998px) {
@@ -124,8 +120,8 @@
       position: absolute;
       border-right: 4px solid #f05728;
       height: 5.6rem;
-      top: 30%;
-      left: 84%;
+      top: -4%;
+      left: 89%;
       @media (max-width: 998px) {
         left: 86%;
       }

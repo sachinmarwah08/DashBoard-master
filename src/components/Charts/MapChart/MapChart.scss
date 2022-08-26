@@ -102,6 +102,7 @@
     .table {
       padding: 8px;
       width: 24px;
+      color: #424242;
       height: 24px;
       cursor: pointer;
       &:hover {
@@ -119,6 +120,7 @@
       height: 24px;
       align-items: center;
       cursor: pointer;
+
       padding: 8px;
       border-radius: 4px;
       background: rgba(240, 87, 40, 0.2);
