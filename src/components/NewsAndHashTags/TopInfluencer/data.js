@@ -1,4 +1,4 @@
-export const trendingHashtags = [
+export const data = [
   {
     id: 1,
     hashtags: "CDC",
