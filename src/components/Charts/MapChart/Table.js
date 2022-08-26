@@ -14,7 +14,7 @@ const Table = () => {
               <th>Influencers</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody style={{ marginTop: "0.5rem", height: "24rem" }}>
             <tr
               style={{
                 borderBottom: "1px solid #eeeeee",
@@ -35,7 +35,7 @@ const Table = () => {
               style={{
                 borderBottom: "1px solid #eeeeee",
                 paddingTop: "1rem",
-                paddingBottom: "1rem",
+                paddingBottom: "0.5rem",
               }}
             >
               <td style={{ textAlign: "left" }}>France</td>
