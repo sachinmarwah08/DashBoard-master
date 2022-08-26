@@ -8,9 +8,13 @@ const TrendingHashtags = () => {
       <div className="content">
         <div className="heading">Trending Hashtags</div>
         <div className="hashtags-wrapper">
-          <ul class="cloud" role="navigation" aria-label="Webdev word cloud">
+          <ul
+            className="cloud"
+            role="navigation"
+            aria-label="Webdev word cloud"
+          >
             {data.map((item) => (
-              <li>
+              <li key={item.id}>
                 <a href="" data-weight={item.id}>
                   {item.hashtags}
                 </a>

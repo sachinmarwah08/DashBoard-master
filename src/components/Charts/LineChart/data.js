@@ -76,7 +76,6 @@ export const LineChartBarData = {
     height: 200,
     width: 110,
     zoomType: "x",
-
     minorGridLineWidth: "100%",
   },
 
@@ -91,7 +90,6 @@ export const LineChartBarData = {
     minorTickLength: 100,
     tickLength: 200,
     categories: "none",
-    // categories: ["Russia"],
     labels: {
       enabled: false,
     },
@@ -172,4 +170,7 @@ export const LineChartBarData = {
       ],
     },
   ],
+  accessibility: {
+    enabled: false,
+  },
 };
