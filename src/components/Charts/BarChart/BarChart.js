@@ -11,6 +11,8 @@ const BarChartComponent = () => {
   const [isActive, setIsActive] = useState(false);
   const barData = ["Influencer", "Hashtag"];
   const [bardata, setBardata] = useState("Filter");
+  const topBottomData = ["Top 10", "Bottom 10"];
+  const [topBottom, setTopBottom] = useState("Top 10");
 
   return (
     <>
@@ -50,7 +52,11 @@ const BarChartComponent = () => {
             </div>
           </div>
           <div className="filter-container">
-            <TopBottomButton />
+            <TopBottomButton
+              setTopBottom={setTopBottom}
+              topBottomData={topBottomData}
+              topBottom={topBottom}
+            />
             <Sort setData={setBardata} data={bardata} optiondata={barData} />
           </div>
         </div>
