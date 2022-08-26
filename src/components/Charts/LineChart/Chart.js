@@ -101,7 +101,6 @@ const Chart = ({ show, showTime }) => {
             margin={{ top: 50, right: 70, left: 0, bottom: 40 }}
           >
             {/* <PolarGrid strokeDasharray="3 3" /> */}
-
             {/* <CartesianGrid horizontal={true} vertical={false} /> */}
             <XAxis
               dataKey="name"
