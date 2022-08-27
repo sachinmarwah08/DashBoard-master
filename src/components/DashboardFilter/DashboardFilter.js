@@ -4,7 +4,7 @@ import Modal from "../Modal/Modal";
 import filterBarLogo from "../../Images/filter.svg";
 
 const DashboardFilter = () => {
-  const [isActive, setIsActive] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
 
   const headerRef = useRef();
   if (typeof document !== `undefined`) {
@@ -23,7 +23,7 @@ const DashboardFilter = () => {
       {/* DATA ANALYTICS BUTTON */}
 
       <button
-        onClick={() => setIsActive(!isActive)}
+        onClick={() => setOpenModal(!openModal)}
         className="filters-option-icon"
       >
         <h1 className="heading">Data Analytics</h1>
@@ -33,7 +33,7 @@ const DashboardFilter = () => {
 
       <button
         ref={headerRef}
-        onClick={() => setIsActive(!isActive)}
+        onClick={() => setOpenModal(!openModal)}
         className="left-side-filter-option"
       >
         <img
@@ -45,8 +45,8 @@ const DashboardFilter = () => {
 
       {/* MODAL */}
 
-      {isActive && (
-        <Modal dashboardFilter={isActive} closeModal={setIsActive} />
+      {openModal && (
+        <Modal dashboardFilter={openModal} closeModal={setOpenModal} />
       )}
     </>
   );
