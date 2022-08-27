@@ -3,24 +3,18 @@ import "./LineChart.scss";
 import { useLocation, useNavigate } from "react-router-dom";
 import downloadIcon from "../../../Images/download-2.svg";
 import shareIcon from "../../../Images/share-3.svg";
-import {
-  faPlus,
-  faArrowLeft,
-  faAngleUp,
-  faAngleDown,
-} from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Button from "../../Button/Button";
+import CountryAndDateButton from "./Buttons/CountryAndDateButton/Button";
 import Modal from "../../Modal/Modal";
 import Header from "../../Layouts/Header/Header";
 import Chart from "./Chart";
 import Highcharts from "highcharts";
 import { LineChartBarData } from "./data";
 import HighchartsReact from "highcharts-react-official";
-import xCircle from "../../../Images/x-circle.svg";
-import threeDots from "../../../Images/threeDots.svg";
-import plus from "../../../Images/plus.svg";
-import plusTwo from "../../../Images/plusTwo.svg";
+import CountryAndTimeButton from "./Buttons/CountryAndTimeButton/Button";
+import CompareCountry from "./CompareCountry/CompareCountry";
+import CompareTime from "./CompareTime/CompareTime";
 
 const LineChartData = () => {
   const [selected, setSelected] = useState("Past 1 months");
@@ -67,6 +61,7 @@ const LineChartData = () => {
     setContryNameState("");
     setIsValue(false);
   };
+
   return (
     <>
       {router.pathname === "/LineChart" ? <Header /> : ""}
@@ -103,7 +98,7 @@ const LineChartData = () => {
           <div className="buttons">
             <div className="left-button">
               <div className="select-country-btn">
-                <Button
+                <CountryAndDateButton
                   disabled={isValue}
                   options={countrySelect}
                   selected={selectCountry}
@@ -111,7 +106,7 @@ const LineChartData = () => {
                 />
               </div>
               <div className="select-date-btn">
-                <Button
+                <CountryAndDateButton
                   disabled={dateValue}
                   options={dateSelect}
                   selected={selected}
@@ -123,36 +118,17 @@ const LineChartData = () => {
             {/* COMPARE COUNTRY AND COMPARE TIME BUTTONS */}
 
             <div className="right-button">
-              <button
+              <CountryAndTimeButton
                 onClick={() => setCompareCountryActive("compareCountry")}
-                className={`${
-                  compareCountryActive === "compareCountry"
-                    ? "right-ouline-button"
-                    : "right-ouline-buttonTwo"
-                }`}
-              >
-                {compareCountryActive === "compareCountry" ? (
-                  <img alt="plusIcon" src={plus} />
-                ) : (
-                  <img alt="plus" src={plusTwo} />
-                )}
-                Compare country
-              </button>
-              <button
+                compareCountryActive={compareCountryActive}
+                name={"compareCountry"}
+              />
+
+              <CountryAndTimeButton
                 onClick={() => setCompareCountryActive("compareTime")}
-                className={`${
-                  compareCountryActive === "compareTime"
-                    ? "right-ouline-button"
-                    : "right-ouline-buttonTwo"
-                }`}
-              >
-                {compareCountryActive === "compareTime" ? (
-                  <img alt="plusIcon" src={plus} />
-                ) : (
-                  <img alt="plus" src={plusTwo} />
-                )}
-                Compare time
-              </button>
+                compareCountryActive={compareCountryActive}
+                name={"compareTime"}
+              />
             </div>
           </div>
 
@@ -161,110 +137,30 @@ const LineChartData = () => {
           {/* COMPARE COUNTRY */}
 
           {compareCountryActive === "compareCountry" && (
-            <div className="Add-country">
-              <div className="country">
-                <img alt="dots" src={threeDots} />
-                <p className="title">Worldwide</p>
-              </div>
-              {!addCountry ? (
-                <button
-                  onClick={() => setaddCountry(!addCountry)}
-                  className="country-add"
-                >
-                  <>
-                    <span className="faplus">
-                      <FontAwesomeIcon icon={faPlus} />
-                    </span>
-                    <p className="title">Add country</p>
-                  </>
-                </button>
-              ) : (
-                !isValue && (
-                  <div className="country-added">
-                    <input
-                      type="text"
-                      onKeyDown={onCountryEnterPress}
-                      onChange={onCountryNameAdd}
-                      value={contryNameState}
-                      className="contry-name"
-                      placeholder="Type country name"
-                    />
-                  </div>
-                )
-              )}
-              {isValue && (
-                <div className="country-added">
-                  <span className="circle-line-added-country"></span>
-                  <p className="title-line-added-country">
-                    {contryNameState}
-                    <button
-                      className="close-addCountry-btn"
-                      onClick={closeAddCountry}
-                    >
-                      <img alt="xCircle" src={xCircle} />
-                    </button>
-                  </p>
-                </div>
-              )}
-            </div>
+            <CompareCountry
+              title={"Worldwide"}
+              addCountry={addCountry}
+              AddCountryonClick={() => setaddCountry(!addCountry)}
+              closeAddCountry={closeAddCountry}
+              addCountryClickName="Add country"
+              isValue={isValue}
+              onKeyDown={onCountryEnterPress}
+              onChange={onCountryNameAdd}
+              value={contryNameState}
+            />
           )}
 
           {/* COMPARE TIME */}
 
           {compareCountryActive === "compareTime" && (
-            <div className="Add-country">
-              <div className="country">
-                <img alt="threeDots" src={threeDots} />
-                <p className="title">June, 2022</p>
-              </div>
-
-              {!dateValue && (
-                <div className="country-time">
-                  <button
-                    onClick={() => setChooseTime(!chooseTime)}
-                    className={`${
-                      !chooseTime ? "compare-time" : "compare-time-with-border"
-                    }`}
-                  >
-                    <>
-                      <span className="faplus">
-                        {!chooseTime ? (
-                          <FontAwesomeIcon icon={faAngleDown} />
-                        ) : (
-                          <FontAwesomeIcon icon={faAngleUp} />
-                        )}
-                      </span>
-                      <p className="title">Choose Time</p>
-                      {chooseTime && (
-                        <div className="dropdown-content">
-                          <div
-                            onClick={() => setDateValue("July, 2022")}
-                            className="drop-item"
-                          >
-                            July, 2022
-                          </div>
-                        </div>
-                      )}
-                    </>
-                  </button>
-                </div>
-              )}
-
-              {dateValue && (
-                <div className="country-added">
-                  <span className="circle-line-added-country-time"></span>
-                  <p className="title-line-added-country">
-                    {dateValue}
-                    <button
-                      className="close-addCountry-btn"
-                      onClick={() => setDateValue("")}
-                    >
-                      <img alt="xCircle" src={xCircle} />
-                    </button>
-                  </p>
-                </div>
-              )}
-            </div>
+            <CompareTime
+              title={"June, 2022"}
+              dateValue={dateValue}
+              chooseTimeClick={() => setChooseTime(!chooseTime)}
+              chooseTime={chooseTime}
+              chooseTimeDropdownClick={() => setDateValue("July, 2022")}
+              setDateClick={() => setDateValue("")}
+            />
           )}
         </div>
 
