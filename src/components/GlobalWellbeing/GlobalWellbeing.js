@@ -1,21 +1,38 @@
 import React, { useEffect, useState } from "react";
 import "./GlobalWellbeing.scss";
-import axios from "axios";
+import moment from "moment";
+import {
+  getTweetsCount,
+  getTweetsDiff,
+} from "../../actions/GlobalWellBeingApis";
 
 const GlobalWellbeing = () => {
-  const [data, setData] = useState("");
-  const [absoluteData, setAbsoluteData] = useState("");
+  const [data, setData] = useState(0);
+  const [absoluteData, setAbsoluteData] = useState({});
+  const { absolute_change = 0, persentage = 0 } = absoluteData;
 
   useEffect(() => {
     const callApi = async () => {
-      const digitOne = await axios.get(
-        "http://43.204.168.67:8888/api/v1/get-tweet-count-diff?from_date=2022-07-01&to_date=2022-07-26"
-      );
-      const absolute = await axios.get(
-        "http://43.204.168.67:8888/api/v1/get-absolute-tweet-count-diff?from_date=2022-07-01&to_date=2022-07-10"
-      );
-      setData(digitOne.data);
-      setAbsoluteData(absolute.data);
+      // let today = Date.now();
+      // var check = moment(today);
+      // var month = check.format("M");
+      // var day = check.format("D");
+      // var year = check.format("YYYY");
+      // let fromDate = `${year}-${month}-01`;
+      // let toDate = `${year}-${month}-${day}`;
+      // console.log(month, day, year);
+
+      let fromDate = "2022-07-01";
+      let toDate = "2022-07-26";
+
+      let fromDateDiff = "2022-07-01";
+      let toDateDiff = "2022-07-10";
+
+      const response = await getTweetsCount(fromDate, toDate);
+      const diffRes = await getTweetsDiff(fromDateDiff, toDateDiff);
+
+      setData(response.pos_neg_tweet_count);
+      setAbsoluteData(diffRes);
     };
     callApi();
   }, []);
@@ -29,19 +46,17 @@ const GlobalWellbeing = () => {
         <div className="right-border"></div>
 
         <div className="column-one">
-          <p className="digit-one">{data.pos_neg_count_diff}</p>
+          <p className="digit-one">{data}</p>
           <p className="value-one">Current Day Value </p>
-          <p className="date">As of 20 July, 2022</p>
+          <p className="date">As of 27 August, 2022</p>
         </div>
 
         <div className="column-two">
-          <p className="column-two-digit-one">
-            {absoluteData.absolute_value_diff}
-          </p>
+          <p className="column-two-digit-one">{absolute_change}</p>
           <p className="value-one-tilte">Absolute Change</p>
         </div>
         <div className="column-two">
-          <p className="column-two-digit-one">{absoluteData.persentage}%</p>
+          <p className="column-two-digit-one">{persentage}%</p>
           <p className="value-one-tilte">Percentage Change</p>
         </div>
       </div>
