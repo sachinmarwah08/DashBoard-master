@@ -121,13 +121,15 @@ const LineChartData = () => {
               <CountryAndTimeButton
                 onClick={() => setCompareCountryActive("compareCountry")}
                 compareCountryActive={compareCountryActive}
-                name={"compareCountry"}
+                value="compareCountry"
+                name="Compare Country"
               />
 
               <CountryAndTimeButton
                 onClick={() => setCompareCountryActive("compareTime")}
                 compareCountryActive={compareCountryActive}
-                name={"compareTime"}
+                value="compareTime"
+                name="Compare Time"
               />
             </div>
           </div>

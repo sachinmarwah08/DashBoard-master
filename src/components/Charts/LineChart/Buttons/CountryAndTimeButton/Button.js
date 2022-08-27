@@ -2,23 +2,23 @@ import React from "react";
 import plus from "../../../../../Images/plus.svg";
 import plusTwo from "../../../../../Images/plusTwo.svg";
 
-const Button = ({ onClick, compareCountryActive, name }) => {
+const Button = ({ onClick, compareCountryActive, value, name }) => {
   return (
     <>
       <button
         onClick={onClick}
         className={`${
-          compareCountryActive === name
+          compareCountryActive === value
             ? "right-ouline-button"
             : "right-ouline-buttonTwo"
         }`}
       >
-        {compareCountryActive === name ? (
+        {compareCountryActive === value ? (
           <img alt="plusIcon" src={plus} />
         ) : (
           <img alt="plus" src={plusTwo} />
         )}
-        Compare country
+        {name}
       </button>
     </>
   );
