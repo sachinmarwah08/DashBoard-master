@@ -97,6 +97,9 @@ const LineChartData = () => {
               </button>
             </div>
           </div>
+
+          {/* DATE AND COUNTRY BUTTONS */}
+
           <div className="buttons">
             <div className="left-button">
               <div className="select-country-btn">
@@ -116,6 +119,9 @@ const LineChartData = () => {
                 />
               </div>
             </div>
+
+            {/* COMPARE COUNTRY AND COMPARE TIME BUTTONS */}
+
             <div className="right-button">
               <button
                 onClick={() => setCompareCountryActive("compareCountry")}
@@ -149,7 +155,10 @@ const LineChartData = () => {
               </button>
             </div>
           </div>
+
           {!compareCountryActive ? <div className="border"></div> : null}
+
+          {/* COMPARE COUNTRY */}
 
           {compareCountryActive === "compareCountry" && (
             <div className="Add-country">
@@ -199,6 +208,8 @@ const LineChartData = () => {
               )}
             </div>
           )}
+
+          {/* COMPARE TIME */}
 
           {compareCountryActive === "compareTime" && (
             <div className="Add-country">
@@ -256,6 +267,9 @@ const LineChartData = () => {
             </div>
           )}
         </div>
+
+        {/* BAR CHART */}
+
         <div className="chart">
           {isValue || dateValue ? (
             <div className="bar-chart-line">
@@ -267,6 +281,8 @@ const LineChartData = () => {
           ) : (
             ""
           )}
+
+          {/* LINE CHART */}
 
           <div
             className={`${
@@ -282,6 +298,9 @@ const LineChartData = () => {
           </div>
         </div>
       </div>
+
+      {/* MODAL */}
+
       <div>
         {openModal && (
           <Modal linechartModal={openModal} closeModal={setOpenModal} />
