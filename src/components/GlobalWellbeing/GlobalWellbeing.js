@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./GlobalWellbeing.scss";
-import moment from "moment";
+// import moment from "moment";
 import {
   getTweetsCount,
   getTweetsDiff,
