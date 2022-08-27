@@ -20,15 +20,17 @@ const DashboardFilter = () => {
   }
   return (
     <>
-      {isActive && (
-        <Modal dashboardFilter={isActive} closeModal={setIsActive} />
-      )}
+      {/* DATA ANALYTICS BUTTON */}
+
       <button
         onClick={() => setIsActive(!isActive)}
         className="filters-option-icon"
       >
         <h1 className="heading">Data Analytics</h1>
       </button>
+
+      {/* FLOAT ICON BUTTON */}
+
       <button
         ref={headerRef}
         onClick={() => setIsActive(!isActive)}
@@ -40,6 +42,12 @@ const DashboardFilter = () => {
           className="filter-logo-option"
         ></img>
       </button>
+
+      {/* MODAL */}
+
+      {isActive && (
+        <Modal dashboardFilter={isActive} closeModal={setIsActive} />
+      )}
     </>
   );
 };
