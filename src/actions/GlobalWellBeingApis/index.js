@@ -1,4 +1,4 @@
-import baseApi from "../apis";
+import baseApi from "../../apis";
 
 export const getTweetsCount = async (from_date, to_date) => {
   const response = await baseApi().get("/api/v1/get-tweet-count-diff", {
