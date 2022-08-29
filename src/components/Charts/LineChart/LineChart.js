@@ -8,13 +8,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CountryAndDateButton from "./Buttons/CountryAndDateButton/Button";
 import Modal from "../../Modal/Modal";
 import Header from "../../Layouts/Header/Header";
-import Chart from "./Chart";
-import Highcharts from "highcharts";
-import { LineChartBarData } from "./data";
-import HighchartsReact from "highcharts-react-official";
 import CountryAndTimeButton from "./Buttons/CountryAndTimeButton/Button";
-import CompareCountry from "./CompareCountry/CompareCountry";
-import CompareTime from "./CompareTime/CompareTime";
+import CompareCountry from "./CompareCountry";
+import CompareTime from "./CompareTime";
+import CompareCountryLineChart from "./CompareCountry/CompareCountryLineChart";
+import CompareTimeLineChart from "./CompareTime/CompareTimeLineChart";
 
 const LineChartData = () => {
   const [selected, setSelected] = useState("Past 1 months");
@@ -39,7 +37,8 @@ const LineChartData = () => {
   const [addCountry, setaddCountry] = useState(false);
   const [contryNameState, setContryNameState] = useState("");
   const [isValue, setIsValue] = useState(false);
-  const [compareCountryActive, setCompareCountryActive] = useState("");
+  const [compareCountryActive, setCompareCountryActive] =
+    useState("compareCountry");
   const [chooseTime, setChooseTime] = useState(false);
   const [dateValue, setDateValue] = useState("");
 
@@ -140,7 +139,7 @@ const LineChartData = () => {
 
           {compareCountryActive === "compareCountry" && (
             <CompareCountry
-              title={"Worldwide"}
+              title={selectCountry}
               addCountry={addCountry}
               AddCountryonClick={() => setaddCountry(!addCountry)}
               closeAddCountry={closeAddCountry}
@@ -166,34 +165,21 @@ const LineChartData = () => {
           )}
         </div>
 
-        {/* BAR CHART */}
+        {/* LINE CHART */}
 
         <div className="chart">
-          {isValue || dateValue ? (
-            <div className="bar-chart-line">
-              <HighchartsReact
-                highcharts={Highcharts}
-                options={LineChartBarData}
-              />
-            </div>
-          ) : (
-            ""
-          )}
-
-          {/* LINE CHART */}
-
-          <div
-            className={`${
-              isValue || dateValue
-                ? "line-chart-bar"
-                : "line-chart-bar-condition"
-            }`}
-          >
-            <Chart
-              show={isValue || dateValue}
-              showTime={compareCountryActive === "compareTime"}
+          {compareCountryActive === "compareCountry" && (
+            <CompareCountryLineChart
+              isValue={isValue}
+              compareCountryActive={compareCountryActive === "compareCountry"}
             />
-          </div>
+          )}
+          {compareCountryActive === "compareTime" && (
+            <CompareTimeLineChart
+              dateValue={dateValue}
+              compareTimeActive={compareCountryActive === "compareTime"}
+            />
+          )}
         </div>
       </div>
 

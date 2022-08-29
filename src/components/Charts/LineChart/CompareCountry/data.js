@@ -1,4 +1,4 @@
-export const data = [
+export const compareCountryData = [
   {
     name: "Jun 1, 22",
     labels: "MM",
@@ -42,29 +42,6 @@ export const data = [
   },
   {
     name: "Jun 25, 22",
-    Worldwide: 0,
-    India: 1,
-  },
-];
-
-export const CompareTime = [
-  {
-    name: "Week 1",
-    Worldwide: 1,
-    India: 0.5,
-  },
-  {
-    name: "Week 2",
-    Worldwide: 0.5,
-    India: 0,
-  },
-  {
-    name: "Week 3",
-    Worldwide: -1,
-    India: 0.5,
-  },
-  {
-    name: "Week 4",
     Worldwide: 0,
     India: 1,
   },
