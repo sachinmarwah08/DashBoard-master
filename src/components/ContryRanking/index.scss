@@ -1,0 +1,64 @@
+// .wrapper {
+//   display: flex;
+//   margin: auto;
+//   gap: 20px;
+//   width: 88%;
+//   max-height: 30rem;
+//   background-color: white;
+//   padding: 1rem;
+//   margin-top: 2rem;
+//   overflow: auto;
+//   border-radius: 8px;
+//   margin-bottom: 20rem;
+
+//   .content {
+//     margin-bottom: 2rem;
+//   }
+
+//   .wrapper::-webkit-scrollbar {
+//     width: 0px;
+//     height: 0px;
+//   }
+
+//   .chart-container {
+//     height: 60%;
+//     width: 50%;
+//     overflow: hidden;
+//     display: flex;
+
+//     .data {
+//       width: max-content;
+//       height: 40px;
+//       padding-bottom: 2rem;
+//     }
+
+//     .left {
+//       width: 10%;
+//       flex-direction: column;
+//       display: flex;
+//       margin-top: 2rem;
+
+//       //   justify-content: space-around;
+//     }
+
+//     .right {
+//       width: 100%;
+//     }
+//   }
+// }
+
+.whole-wrapper-container {
+  width: 88%;
+  margin: auto;
+}
+
+.main-wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+  gap: 1rem;
+
+  @media (max-width: 998px) {
+    margin-bottom: 5rem;
+  }
+}

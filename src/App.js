@@ -1,5 +1,5 @@
 import React from "react";
-import LineChartData from "./components/Charts/LineChart/LineChart";
+import LineChart from "./components/Charts/LineChart";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import Main from "./components/Main";
 
@@ -9,7 +9,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Main />} />
-          <Route path="/LineChart" element={<LineChartData />} />
+          <Route path="/LineChart" element={<LineChart />} />
         </Routes>
       </BrowserRouter>
     </>

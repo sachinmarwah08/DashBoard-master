@@ -16,7 +16,9 @@ const RadioButton = ({ checked, onchange, value, name, radioName }) => {
           checked={checked === value ? true : false}
           name={radioName}
         />
-        <span className="checkmark"></span>
+        <span
+          className={`${checked === value ? "checkmark" : "checkmark-click"}`}
+        ></span>
       </label>
     </button>
   );

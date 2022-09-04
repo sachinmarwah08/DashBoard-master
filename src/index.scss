@@ -80,7 +80,11 @@ body {
 }
 
 .rdrStaticRangeLabel {
-  color: #f05728;
+  color: #424242;
+  font-weight: 400 !important;
+  font-size: 14px !important;
+  padding: 0.7rem !important;
+  border-bottom: none !important;
   font-family: "Work-Sans";
 
   @font-face {
@@ -103,16 +107,16 @@ body {
 .rdrDayToday {
   .rdrDayNumber {
     span:after {
-      background: #f05728 !important;
+      display: none;
     }
   }
 }
 
 .highcharts-tooltip {
-  border: 1px solid #f05728;
+  border: 1px solid #939596;
   background: #fff;
   display: block;
-  border-radius: 4px;
+  border-radius: 14px;
   height: 6.5rem;
   position: absolute;
   left: 473px;
@@ -138,4 +142,37 @@ body {
     src: url("./Fonts/work-sans.medium.ttf");
     font-style: normal;
   }
+}
+
+.highcharts-title {
+  display: none;
+}
+.highcharts-credits {
+  display: none;
+}
+
+.rdrDateDisplayWrapper {
+  background-color: transparent !important;
+}
+
+.rdrDateDisplayItemActive {
+  border: 1px solid #e0e0e0 !important;
+  box-shadow: none !important;
+  border-radius: 8px !important;
+  color: #757575 !important;
+  font-weight: 400 !important;
+  font-size: 16px !important;
+}
+
+.rdrDateDisplayItem {
+  box-shadow: none !important;
+  border-radius: 8px !important;
+  border: 1px solid #e0e0e0 !important;
+  color: #757575 !important;
+  font-weight: 400 !important;
+  font-size: 16px !important;
+}
+
+.rdrStaticRange {
+  border: none !important;
 }

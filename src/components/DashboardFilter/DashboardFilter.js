@@ -1,11 +1,13 @@
 import React, { useRef, useState } from "react";
 import "./DashboardFilter.scss";
-import Modal from "../Modal/Modal";
-import filterBarLogo from "../../Images/filter.svg";
+import DropdownButton from "./Buttons/DropdownButton";
+import userIcon from "../../Images/userIcon.svg";
+import hashtagIcon from "../../Images/hashtagIcon.svg";
+import locationIcon from "../../Images/locationIcon.svg";
+import calenderIcon from "../../Images/calenderIcon.svg";
+import CalenderButton from "./Buttons/CalenderButton";
 
 const DashboardFilter = () => {
-  const [openModal, setOpenModal] = useState(false);
-
   const headerRef = useRef();
   if (typeof document !== `undefined`) {
     document.addEventListener("scroll", function () {
@@ -20,34 +22,21 @@ const DashboardFilter = () => {
   }
   return (
     <>
-      {/* DATA ANALYTICS BUTTON */}
+      <div className="filter-wrapper">
+        <div className="buttons-wrapper">
+          <div className="dropdown-btn-wrapper">
+            <DropdownButton icon={userIcon} name="Search influencer" />
+            <DropdownButton icon={hashtagIcon} name="Search hashtag" />
+            <DropdownButton icon={locationIcon} name="Search country" />
+            <CalenderButton icon={calenderIcon} name="Select dates" />
+          </div>
 
-      <button
-        onClick={() => setOpenModal(!openModal)}
-        className="filters-option-icon"
-      >
-        <h1 className="heading">Data Analytics</h1>
-      </button>
-
-      {/* FLOAT ICON BUTTON */}
-
-      <button
-        ref={headerRef}
-        onClick={() => setOpenModal(!openModal)}
-        className="left-side-filter-option"
-      >
-        <img
-          alt="share-icon"
-          src={filterBarLogo}
-          className="filter-logo-option"
-        ></img>
-      </button>
-
-      {/* MODAL */}
-
-      {openModal && (
-        <Modal dashboardFilter={openModal} closeModal={setOpenModal} />
-      )}
+          <div className="apply-reset-btn">
+            <button className="apply-btn">Apply</button>
+            <button className="reset-btn">Reset</button>
+          </div>
+        </div>
+      </div>
     </>
   );
 };

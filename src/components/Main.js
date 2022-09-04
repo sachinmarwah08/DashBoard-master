@@ -1,10 +1,10 @@
 import React from "react";
-import LineChartData from "./Charts/LineChart/LineChart";
-import Contries from "./Contries/Contries";
+import LineChart from "./Charts/LineChart";
+import ContryRanking from "./ContryRanking";
 import Footer from "./Layouts/Footer/Footer";
-import GlobalWellbeing from "./GlobalWellbeing/GlobalWellbeing";
+import GlobalWellbeing from "./GlobalWellbeing";
 import Header from "./Layouts/Header/Header";
-import NewsAndHashTags from "./NewsAndHashTags/NewsAndHashTags";
+import NewsAndHashTags from "./NewsAndHashTags";
 import TrendingHashtags from "./TrendingHashtags/TrendingHashtags";
 import DashboardFilter from "./DashboardFilter/DashboardFilter";
 
@@ -14,10 +14,10 @@ const Main = () => {
       <Header />
       <GlobalWellbeing />
       <DashboardFilter />
-      <Contries />
+      <ContryRanking />
       <NewsAndHashTags />
       <TrendingHashtags />
-      <LineChartData />
+      <LineChart />
       <Footer />
     </>
   );

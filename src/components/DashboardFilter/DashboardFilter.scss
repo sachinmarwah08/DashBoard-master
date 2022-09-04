@@ -1,79 +1,423 @@
-.filters-option-icon {
+.filter-wrapper {
   width: 100%;
-  border: none;
-  padding-top: 0.3rem;
-  padding-bottom: 0.3rem;
-  background: rgba(240, 87, 40, 0.1);
-  height: 100%;
-  cursor: pointer;
-
-  .heading {
-    text-align: center;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 400;
-    color: #f05728;
-
-    font-family: "Work-Sans";
-
-    @font-face {
-      font-family: "Work-Sans";
-      src: url("../../Fonts/work-sans.regular.ttf");
-      font-style: normal;
-    }
-    @font-face {
-      font-family: "Work-Sans";
-      src: url("../../Fonts/work-sans.bold.ttf");
-      font-style: normal;
-    }
-    @font-face {
-      font-family: "Work-Sans";
-      src: url("../../Fonts/work-sans.medium.ttf");
-      font-style: normal;
-    }
-  }
-}
-
-.filter-component {
-  width: 100%;
-  height: 20vh;
-  margin-top: 2rem;
+  display: flex;
+  height: 5.75rem;
   background-color: white;
-  box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.07), 0px 1px 10px rgba(0, 0, 0, 0.06),
-    0px 2px 4px rgba(0, 0, 0, 0.1);
-}
+  margin-top: 1.5rem;
 
-.left-side-filter-option {
-  position: fixed;
-  display: none;
-  z-index: 10000000000000000;
-  float: left;
-  background: rgba(240, 87, 40, 0.2);
-  color: white;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  width: max-content;
-  border: 1px solid rgba(240, 87, 40, 0.2);
-
-  &:hover {
-    background: rgba(240, 87, 40, 0.3);
-  }
-
-  cursor: pointer;
-  align-items: center;
-  padding: 0.5rem;
-  margin-top: -12rem;
-  border-radius: 0px 4px 4px 0px;
-
-  .filter-logo-option {
+  .apply-reset-btn {
     display: flex;
-    width: 20px;
-    height: 20px;
-    justify-content: center;
     align-items: center;
-  }
-}
+    gap: 10px;
+    margin-left: 2rem;
 
-.hide-filter-icon {
-  display: block;
-  height: auto;
+    .apply-btn {
+      border: 1px solid #f05728;
+      background-color: #f05728;
+      font-weight: 500;
+      cursor: pointer;
+      width: max-content;
+      padding-left: 2rem;
+      color: white;
+      line-height: 24px;
+      box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+      padding-top: 0.5rem;
+      padding-right: 2rem;
+      padding-bottom: 0.5rem;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    .reset-btn {
+      border: 1px solid #e0e0e0;
+      background-color: white;
+      font-weight: 500;
+      width: max-content;
+      cursor: pointer;
+      padding-left: 2rem;
+      color: #616161;
+      line-height: 24px;
+      box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+      padding-top: 0.5rem;
+      padding-right: 2rem;
+      padding-bottom: 0.5rem;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+  }
+
+  .buttons-wrapper {
+    display: flex;
+    align-items: center;
+    width: 88%;
+    margin: auto;
+
+    .dropdown-btn-wrapper {
+      width: 100%;
+      display: flex;
+      gap: 12px;
+    }
+  }
+
+  .dropdown-filter-button-colored {
+    border: 1px solid #fcad95;
+    padding: 0.5rem;
+    border-radius: 8px;
+    background: #f9fafb;
+    box-shadow: 0px 1px 2px rgba(254, 245, 242, 0.05), 0px 0px 0px 4px #fef5f2;
+    width: 100%;
+    gap: 10px;
+    padding-right: 1rem;
+    padding-left: 1rem;
+    height: auto;
+    position: relative;
+
+    .dropdown-filter-wrapper {
+      z-index: 99999999;
+      background-color: white;
+      border-radius: 8px;
+      width: 100%;
+      box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+        rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+      top: 130%;
+      left: 0%;
+      cursor: pointer;
+      max-height: 20rem;
+      overflow: hidden;
+      position: absolute;
+
+      animation: growDown 300ms ease-in-out forwards;
+      transform-origin: top center;
+
+      @keyframes growDown {
+        0% {
+          transform: scaleY(0);
+        }
+        80% {
+          transform: scaleY(1.1);
+        }
+        100% {
+          transform: scaleY(1);
+        }
+      }
+
+      .overflow-wrapper {
+        height: 14rem;
+        margin: 0.3rem;
+        margin-left: 0%;
+        overflow: scroll;
+        overflow-x: hidden;
+
+        .dropdown-filter-item {
+          display: flex;
+          padding: 0.7rem;
+          font-weight: 400;
+          line-height: 24px;
+          font-size: 16px;
+          &:hover {
+            background-color: #fef5f2;
+          }
+
+          .dropdown-list {
+            list-style: none;
+            color: #101828;
+            &:hover {
+              background-color: #fef5f2;
+            }
+          }
+        }
+      }
+    }
+
+    .dropdown-filter-content {
+      display: flex;
+      gap: 25px;
+      align-items: center;
+      height: auto;
+      padding: 0%;
+      margin: 0%;
+      justify-content: space-between;
+      width: 100%;
+      cursor: pointer;
+      font-weight: 400;
+      font-size: 16px;
+      color: #667085;
+
+      .filter-content {
+        display: flex;
+        height: auto;
+        width: max-content;
+        gap: 10px;
+        align-items: center;
+      }
+
+      .user-Icon {
+        width: 13.33px;
+        height: 15px;
+      }
+
+      .filter-title {
+        width: 100%;
+        margin: 0%;
+        line-height: 24px;
+        align-items: center;
+      }
+
+      .faAngleDown {
+        cursor: pointer;
+        color: #667085;
+
+        align-items: center;
+      }
+    }
+  }
+
+  .dropdown-filter-button {
+    border: 1px solid #bdbdbd;
+    padding: 0.5rem;
+    border-radius: 8px;
+    background: #f9fafb;
+    box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+    width: 100%;
+    gap: 10px;
+    padding-right: 1rem;
+    padding-left: 1rem;
+    height: auto;
+    position: relative;
+
+    .dropdown-filter-wrapper {
+      z-index: 99999999;
+      background-color: white;
+      border-radius: 8px;
+      width: 100%;
+      box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+        rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+      top: 130%;
+      left: 0%;
+      cursor: pointer;
+      max-height: 20rem;
+      overflow: hidden;
+      position: absolute;
+
+      animation: growDown 300ms ease-in-out forwards;
+      transform-origin: top center;
+
+      @keyframes growDown {
+        0% {
+          transform: scaleY(0);
+        }
+        80% {
+          transform: scaleY(1.1);
+        }
+        100% {
+          transform: scaleY(1);
+        }
+      }
+
+      .overflow-wrapper {
+        height: 14rem;
+        margin: 0.3rem;
+        overflow: scroll;
+        overflow-x: hidden;
+
+        .dropdown-filter-item {
+          display: flex;
+          padding: 1rem;
+          font-weight: 400;
+          line-height: 24px;
+          font-size: 16px;
+
+          .dropdown-list {
+            list-style: none;
+            color: #101828;
+
+            &:hover {
+              background-color: #fef5f2;
+            }
+          }
+        }
+      }
+    }
+
+    .dropdown-filter-content {
+      display: flex;
+      gap: 25px;
+      align-items: center;
+      height: auto;
+      padding: 0%;
+      margin: 0%;
+      justify-content: space-between;
+      width: 100%;
+      cursor: pointer;
+      font-weight: 400;
+      font-size: 16px;
+      color: #667085;
+
+      .filter-content {
+        display: flex;
+        height: auto;
+        width: max-content;
+        gap: 10px;
+        align-items: center;
+      }
+
+      .user-Icon {
+        width: 13.33px;
+        height: 15px;
+      }
+
+      .filter-title {
+        width: 100%;
+        margin: 0%;
+        line-height: 24px;
+        align-items: center;
+      }
+
+      .faAngleDown {
+        cursor: pointer;
+        color: #667085;
+
+        align-items: center;
+      }
+    }
+  }
+  .dropdown-filter-button-calender {
+    border: 1px solid #98a2b3;
+    padding: 0.5rem;
+    border-radius: 8px;
+    background: #f9fafb;
+    box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+    // width: 100%;
+    gap: 10px;
+    padding-right: 1rem;
+    padding-left: 1rem;
+    height: auto;
+    position: relative;
+
+    .calender {
+      position: absolute;
+      top: 130%;
+      width: 100%;
+      border-radius: 8px;
+      background-color: white;
+      z-index: 99999999;
+      box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+        rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+      padding: 0.5rem;
+      width: max-content;
+      left: -230%;
+    }
+
+    .dropdown-filter-content-calender {
+      display: flex;
+      gap: 25px;
+      align-items: center;
+      height: auto;
+      padding: 0%;
+      margin: 0%;
+      // justify-content: space-between;
+      width: 100%;
+      cursor: pointer;
+      font-weight: 400;
+      font-size: 16px;
+      color: #667085;
+
+      .filter-content {
+        display: flex;
+        height: auto;
+        width: max-content;
+        gap: 10px;
+        align-items: center;
+      }
+
+      .user-Icon {
+        width: 13.33px;
+        height: 15px;
+      }
+
+      .filter-title {
+        width: 100%;
+        margin: 0%;
+        line-height: 24px;
+        align-items: center;
+      }
+
+      .faAngleDown {
+        cursor: pointer;
+        color: #667085;
+
+        align-items: center;
+      }
+    }
+  }
+
+  .dropdown-filter-button-calender-colored {
+    border: 1px solid #fcad95;
+    padding: 0.5rem;
+    border-radius: 8px;
+    background: #f9fafb;
+    box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+    // width: 100%;
+    gap: 10px;
+    padding-right: 1rem;
+    padding-left: 1rem;
+    height: auto;
+    position: relative;
+
+    .calender {
+      position: absolute;
+      top: 130%;
+      width: 100%;
+      border-radius: 8px;
+      background-color: white;
+      z-index: 99999999;
+      box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+        rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+      padding: 0.5rem;
+      width: max-content;
+      left: -230%;
+    }
+
+    .dropdown-filter-content-calender {
+      display: flex;
+      gap: 25px;
+      align-items: center;
+      height: auto;
+      padding: 0%;
+      margin: 0%;
+      // justify-content: space-between;
+      width: 100%;
+      cursor: pointer;
+      font-weight: 400;
+      font-size: 16px;
+      color: #667085;
+
+      .filter-content {
+        display: flex;
+        height: auto;
+        width: max-content;
+        gap: 10px;
+        align-items: center;
+      }
+
+      .user-Icon {
+        width: 13.33px;
+        height: 15px;
+      }
+
+      .filter-title {
+        width: 100%;
+        margin: 0%;
+        line-height: 24px;
+        align-items: center;
+      }
+
+      .faAngleDown {
+        cursor: pointer;
+        color: #667085;
+
+        align-items: center;
+      }
+    }
+  }
 }

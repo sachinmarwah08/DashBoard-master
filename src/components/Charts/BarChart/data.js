@@ -1,7 +1,7 @@
-const data = {
+const Bardata = {
   chart: {
     type: "bar",
-    height: 800,
+    height: 500,
     zoomType: "y",
   },
 
@@ -13,24 +13,24 @@ const data = {
   },
   xAxis: {
     categories: [
-      "Russia",
-      "China",
-      "India",
-      "United States",
-      "Indonesia",
-      "Nigeria",
-      "Brazil",
-      "Mexico",
-      "Japan",
-      "Ethiopia",
-      "Austria",
-      "Estonia",
-      "Sweden",
-      "Italy",
-      "Czechia",
-      "Latvia",
-      "Finland",
-      "Slovenia",
+      // "Russia",
+      // "China",
+      // "India",
+      // "United States",
+      // "Indonesia",
+      // "Nigeria",
+      // "Brazil",
+      // "Mexico",
+      // "Japan",
+      // "Ethiopia",
+      // "Austria",
+      // "Estonia",
+      // "Sweden",
+      // "Italy",
+      // "Czechia",
+      // "Latvia",
+      // "Finland",
+      // "Slovenia",
     ],
 
     title: {
@@ -87,11 +87,13 @@ const data = {
     backgroundColor: null,
     borderWidth: 0,
     shadow: true,
+    outside: true,
     pointFormat:
-      "{series.name}: <strong>{point.y}</strong><br/>Happy: <strong>70%</strong><br/>Sad: <strong>30%</strong>",
+      "{series.name}: <strong>{point.y}</strong><br/>Happy: <strong>86%</strong><br/>Sad: <strong>30%</strong>",
+
     stickOnContact: false,
     style: {
-      zIndex: 200000000,
+      zIndex: 899999999999,
     },
   },
   legend: {
@@ -102,7 +104,8 @@ const data = {
       name: "Sentiment",
       color: "rgba(240, 87, 40, 0.35)",
       borderColor: "rgba(240, 87, 40, 0.35)",
-      data: [27, 25, 23, 21, 19, 17, 15, 13, 11, 9, 7, 5, 3, 1.5],
+      // data: [27, 25, 23, 21, 19, 17, 15, 13, 11, 9, 7, 5, 3, 1.5],
+      data: [],
     },
   ],
 
@@ -111,4 +114,4 @@ const data = {
   },
 };
 
-export default data;
+export default Bardata;

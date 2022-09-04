@@ -1,16 +1,30 @@
 import React from "react";
+import PuffLoader from "react-spinners/PuffLoader";
 
-const Content = ({ topInfluencerData }) => {
+const Content = ({ topInfluencerData, loading }) => {
   return (
-    <div className="right-content-wrapper">
-      {topInfluencerData.map((item) => (
-        <div key={item.id} className="right-content">
-          <div key={item.id} className="left-content">
-            <p className="username">{item.hashtags}</p>
-          </div>
+    <>
+      {loading ? (
+        <div className="loader">
+          <PuffLoader color="#F05728" loading={loading} size={50} />
         </div>
-      ))}
-    </div>
+      ) : (
+        <div className="right-content-wrapper">
+          {topInfluencerData.map((item, index) => (
+            <div key={index} className="right-content">
+              <ul style={{ listStyle: "none", margin: "0%", padding: "0%" }}>
+                <li
+                  style={{ padding: "1rem", paddingLeft: "0%" }}
+                  className="username"
+                >
+                  {item}
+                </li>
+              </ul>
+            </div>
+          ))}
+        </div>
+      )}
+    </>
   );
 };
 

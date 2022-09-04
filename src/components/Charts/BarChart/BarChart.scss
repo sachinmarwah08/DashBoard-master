@@ -202,6 +202,8 @@
 .chart-bar {
   overflow-x: hidden;
   height: 29rem;
+  margin-right: 0.45rem;
+  margin-left: 0.4rem;
 
   &.chart-bar::-webkit-scrollbar {
     width: 0;
