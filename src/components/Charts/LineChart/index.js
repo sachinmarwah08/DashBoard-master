@@ -20,12 +20,7 @@ import "react-toastify/dist/ReactToastify.css";
 import moment from "moment";
 
 const LineChartData = () => {
-  const [selected, setSelected] = useState("Past 1 months");
-  const [selectCountry, setselectCountry] = useState("World");
-  const [data, setData] = useState([]);
-  const [barChartData, setBarChartData] = useState([]);
-  const [LineChartData, setLineChartData] = useState([]);
-
+  const navigate = useNavigate();
   const dateSelect = [
     "Past Day ",
     "Past 7 Days",
@@ -33,10 +28,14 @@ const LineChartData = () => {
     "Past 90 Days",
     "Past Year",
   ];
+  const [selected, setSelected] = useState("Past 1 months");
+  const [selectCountry, setselectCountry] = useState("World");
+  const [data, setData] = useState([]);
+  const [barChartData, setBarChartData] = useState([]);
+  const [LineChartData, setLineChartData] = useState([]);
   const countrySelect = ["United States", "Canada", "World"];
   const [openModal, setOpenModal] = useState(false);
   const router = useLocation();
-  const navigate = useNavigate();
   const [addCountry, setaddCountry] = useState(false);
   const [contryNameState, setContryNameState] = useState("");
   const [isValue, setIsValue] = useState(false);
@@ -46,7 +45,6 @@ const LineChartData = () => {
   const [dateValue, setDateValue] = useState("");
   const [backUpLineChartData, setBackUpLineChartData] = useState([]);
   const [dataForLineBarChart, setDataForLineBarChart] = useState();
-
   const [chooseTimeLineChartData, setChooseTimeLineChartData] = useState([]);
   const [chooseTimeBarDataState, setChooseTimeBarDataState] = useState();
 
@@ -380,14 +378,13 @@ const LineChartData = () => {
 
           {compareCountryActive === "compareTime" && (
             <CompareTime
-              title={"June, 2022"}
+              // title={"June, 2022"}
               dateValue={dateValue}
               onHandleCompareTimeMonthChange={onHandleCompareTimeMonthChange}
               chooseTimeClick={() => setChooseTime(!chooseTime)}
               chooseTime={chooseTime}
-              chooseTimeDropdownClick={() => setDateValue("July, 2022")}
+              // chooseTimeDropdownClick={() => setDateValue("July, 2022")}
               setDateClick={() => setDateValue("")}
-              chooseTimeBarDataState={chooseTimeBarDataState}
             />
           )}
         </div>

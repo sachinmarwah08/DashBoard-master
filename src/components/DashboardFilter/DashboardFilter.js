@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./DashboardFilter.scss";
 import DropdownButton from "./Buttons/DropdownButton";
 import userIcon from "../../Images/userIcon.svg";
@@ -6,8 +6,48 @@ import hashtagIcon from "../../Images/hashtagIcon.svg";
 import locationIcon from "../../Images/locationIcon.svg";
 import calenderIcon from "../../Images/calenderIcon.svg";
 import CalenderButton from "./Buttons/CalenderButton";
+import { getCountryDropdownData } from "../../actions/DropDownApis";
 
 const DashboardFilter = () => {
+  const [influencer, setIinfluencer] = useState("");
+  const [hashtag, sethashtag] = useState("");
+  const [country, setCountry] = useState([]);
+
+  useEffect(() => {
+    const callApi = async () => {
+      const CountryDataResponse = await getCountryDropdownData();
+      setCountry(CountryDataResponse);
+    };
+    callApi();
+  }, []);
+
+  // const data = [
+  //   "hello",
+  //   "sachin",
+  //   // "hello",
+  //   // "hello",
+  //   // "hello",
+  //   // "hello",
+  //   // "hello",
+  //   // "hello",
+  //   // "hello",
+  //   // "hello",
+  //   // "hello",
+  //   // "hello",
+  //   // "hello",
+  //   // "hello",
+  //   // "hello",
+  //   // "hello",
+  //   // "hello",
+  //   // "hello",
+  //   // "hello",
+  //   // "hello",
+  //   // "hello",
+  //   // "hello",
+  //   // "hello",
+  //   // "hello",
+  // ];
+
   const headerRef = useRef();
   if (typeof document !== `undefined`) {
     document.addEventListener("scroll", function () {
@@ -25,9 +65,27 @@ const DashboardFilter = () => {
       <div className="filter-wrapper">
         <div className="buttons-wrapper">
           <div className="dropdown-btn-wrapper">
-            <DropdownButton icon={userIcon} name="Search influencer" />
-            <DropdownButton icon={hashtagIcon} name="Search hashtag" />
-            <DropdownButton icon={locationIcon} name="Search country" />
+            <DropdownButton
+              // data={data}
+              selectedVal={influencer}
+              handleChange={(val) => setIinfluencer(val)}
+              icon={userIcon}
+              name="Search influencer"
+            />
+            <DropdownButton
+              // data={data}
+              selectedVal={hashtag}
+              handleChange={(val) => sethashtag(val)}
+              icon={hashtagIcon}
+              name="Search hashtag"
+            />
+            <DropdownButton
+              data={country}
+              selectedVal={country}
+              handleChange={(val) => setCountry(val)}
+              icon={locationIcon}
+              name="Search country"
+            />
             <CalenderButton icon={calenderIcon} name="Select dates" />
           </div>
 

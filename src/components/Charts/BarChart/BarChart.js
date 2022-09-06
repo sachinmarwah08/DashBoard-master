@@ -36,7 +36,7 @@ const BarChartComponent = () => {
       for (let i = 0; i < response.data.length; i++) {
         tempData.xAxis.categories.push(response.data[i]._id);
         tempData.series[0].data.push(Math.floor(response.data[i].count));
-        tempData.tooltip.pointFormat = `</strong><br/>Happy: <strong>${response.data[i].happy}</strong><br/>Sad: <strong>${response.data[i].sad_per}</strong>`;
+        // tempData.tooltip.pointFormat = `</strong><br/>Happy: <strong>${response.data[i].happy}</strong><br/>Sad: <strong>${response.data[i].sad_per}</strong>`;
       }
 
       setData(tempData);
