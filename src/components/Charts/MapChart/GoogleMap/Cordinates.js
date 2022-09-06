@@ -1789,8 +1789,8 @@ export const countryData = [
     alpha2: "US",
     alpha3: "USA",
     numeric: 840,
-    latitude: 40.73061,
-    longitude: -73.935242,
+    latitude: 38,
+    longitude: -97,
   },
   {
     country: "United States Minor Outlying Islands",
