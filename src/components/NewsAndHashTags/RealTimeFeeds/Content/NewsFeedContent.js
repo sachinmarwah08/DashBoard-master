@@ -12,9 +12,16 @@ const NewsFeedContent = ({ filterData, loading }) => {
         <div className="left-content-wrapper">
           {filterData.map((item, index) => (
             <div key={index} className="left-content">
-              <h1 className="left-content-heading-news">{item.news_source}</h1>
+              <a
+                href={item.url}
+                rel="noreferrer"
+                target="_blank"
+                className="left-content-heading-news"
+              >
+                {item.news_source}
+              </a>
               <p className="hashtags-news">{item.headline}</p>
-              <div className="news-link-wrapper">
+              {/* <div className="news-link-wrapper">
                 <a
                   href={item.url}
                   rel="noreferrer"
@@ -23,7 +30,7 @@ const NewsFeedContent = ({ filterData, loading }) => {
                 >
                   {item.url}
                 </a>
-              </div>
+              </div> */}
             </div>
           ))}
         </div>

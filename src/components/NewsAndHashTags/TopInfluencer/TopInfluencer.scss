@@ -41,9 +41,17 @@
       font-size: 1.125rem;
       line-height: 1.75rem;
       color: #f05728;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      .info-icon {
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+      }
     }
     .score {
-      font-weight: 500;
       font-size: 0.875rem;
       margin-right: 1rem;
       line-height: 1.75rem;

@@ -24,17 +24,28 @@
     justify-content: space-between;
     align-items: center;
 
-    .heading {
-      font-weight: 700;
-      font-size: 1.25rem;
-      width: 100%;
-      line-height: 1.75rem;
-      color: #f05728;
+    .heading-left {
+      display: flex;
+      align-items: center;
+      gap: 15px;
 
-      @media (max-width: 998px) {
+      .info-icon {
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+      }
+      .heading {
         font-weight: 700;
-        font-size: 1.2rem;
+        font-size: 1.25rem;
+        width: 100%;
         line-height: 1.75rem;
+        color: #f05728;
+
+        @media (max-width: 998px) {
+          font-weight: 700;
+          font-size: 1.2rem;
+          line-height: 1.75rem;
+        }
       }
     }
 
@@ -50,12 +61,12 @@
         .share-icon-bar {
           border-radius: 4px;
           padding: 8px;
-          width: 24px;
-          height: 24px;
+          width: 22px;
+          height: 22px;
 
-          &:hover {
-            background-color: rgba(240, 87, 40, 0.2);
-          }
+          // &:hover {
+          //   background-color: rgba(240, 87, 40, 0.2);
+          // }
         }
 
         .share-icon-bar {
@@ -204,6 +215,14 @@
   height: 29rem;
   margin-right: 0.45rem;
   margin-left: 0.4rem;
+
+  .bar-loader {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
   &.chart-bar::-webkit-scrollbar {
     width: 0;

@@ -7,10 +7,15 @@ import GoogleMap from "./GoogleMap/googleMap";
 import TableData from "./Table/Table";
 import Sort from "../../SortFilter/Sort";
 import { data } from "./Table/TableData";
+import Tippy from "@tippyjs/react";
+import "tippy.js/dist/tippy.css";
+import "tippy.js/themes/light.css";
+import "tippy.js/dist/svg-arrow.css";
+import infoIcon from "../../../Images/info.svg";
 
 const MapChartComponent = () => {
-  const mapData = ["Influencer", "Hashtags"];
-  const [mapdata, setMapData] = useState("Filter");
+  const mapData = ["Country", "Influencer", "Hashtag"];
+  const [mapdata, setMapData] = useState("Filters");
   const [show, setShow] = useState("map");
   const [tableData, setTableData] = useState(data);
   const [tableBackupData, setTableBackupData] = useState(data);
@@ -38,11 +43,40 @@ const MapChartComponent = () => {
     setTableData(tableBackupData);
     setWordEntered("");
   };
+
   return (
     <div className="map-wrapper">
       <div className="content-map">
         <div className="heading-map">
-          <h1 className="heading">Country Ranking</h1>
+          <div className="heading-map-content">
+            <h1 className="heading">Geographical Wellbeing Analysis</h1>
+            <Tippy
+              theme={"light"}
+              interactive={true}
+              content={
+                <div
+                  style={{
+                    padding: "0.5rem",
+                    fontWeight: 400,
+                    fontFamily: "Work-Sans",
+                    fontSize: "14px",
+                  }}
+                >
+                  <p style={{ fontWeight: 600, marginTop: 0 }}>
+                    Geography Wise Wellbeing Analysis
+                  </p>
+                  This shows geography-wise wellbeing insights. It shows each
+                  country's ranking for wellbeing, wellbeing index score,
+                  percentages of happiness and sadness towards wellbeing, and
+                  the net change in ranking and wellbeing index score from the
+                  previous period.
+                </div>
+              }
+            >
+              <img className="info-icon" src={infoIcon}></img>
+            </Tippy>
+          </div>
+
           <div className="side-logos">
             <button onClick={() => setShow("map")}>
               <img
@@ -89,9 +123,6 @@ const MapChartComponent = () => {
                 filterData={tableData.length === 0}
                 value={wordEntered}
                 onchange={handleFilter}
-                setData={setMapData}
-                data={mapdata}
-                dropdownOptions={mapData}
               />
             </div>
             <div className="bar-map-wrapper">

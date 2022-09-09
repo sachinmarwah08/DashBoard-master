@@ -20,6 +20,9 @@ const Sort = ({
     <div className="search-bar-filter">
       <div className="bar-search">
         <input
+          style={{
+            fontFamily: "Work-Sans",
+          }}
           className="bar-search-data"
           name="search"
           value={value}

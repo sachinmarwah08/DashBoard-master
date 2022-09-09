@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import LineChart from "./Charts/LineChart";
 import ContryRanking from "./ContryRanking";
 import Footer from "./Layouts/Footer/Footer";

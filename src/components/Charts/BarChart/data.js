@@ -2,7 +2,14 @@ const Bardata = {
   chart: {
     type: "bar",
     height: 500,
-    zoomType: "y",
+    zoomType: false,
+  },
+
+  navigator: {
+    enabled: false,
+  },
+  exporting: {
+    enabled: false,
   },
 
   title: {
@@ -71,6 +78,7 @@ const Bardata = {
   },
   plotOptions: {
     series: {
+      cursor: "pointer",
       pointPadding: -0.1,
       borderRadius: 3,
     },
@@ -88,12 +96,13 @@ const Bardata = {
     borderWidth: 0,
     shadow: true,
     outside: true,
-    pointFormat:
-      "{series.name}: <strong>{point.y}</strong><br/>Happy: <strong>86%</strong><br/>Sad: <strong>30%</strong>",
+    // headerFormat: "<span style="fontSize: 24px">{point.key}</span><br>",
+    // pointFormat: "{series.name}: <strong>{point.y}",
 
     stickOnContact: false,
     style: {
       zIndex: 899999999999,
+      fontFamily: "Work-Sans",
     },
   },
   legend: {
@@ -101,9 +110,12 @@ const Bardata = {
   },
   series: [
     {
-      name: "Sentiment",
+      name: "Index",
+      fontFamily: "Work-Sans",
+      fontWeight: 700,
+      fontSize: "16px",
       color: "rgba(240, 87, 40, 0.35)",
-      borderColor: "rgba(240, 87, 40, 0.35)",
+      // borderColor: "rgba(240, 87, 40, 0.35)",
       // data: [27, 25, 23, 21, 19, 17, 15, 13, 11, 9, 7, 5, 3, 1.5],
       data: [],
     },

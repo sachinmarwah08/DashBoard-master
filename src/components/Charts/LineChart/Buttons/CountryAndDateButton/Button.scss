@@ -48,11 +48,13 @@
       color: #d0d5dd;
     }
   }
-  .dropdown-content {
+  .dropdown-content-countryData {
     position: absolute;
     top: 120%;
     width: 118%;
     border-radius: 0.5rem;
+    height: 15rem;
+    overflow: auto;
     z-index: 1000;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     background-color: white;
@@ -74,7 +76,7 @@
       }
     }
 
-    .dropdown-item {
+    .dropdown-item-countryData {
       padding: 0.625rem;
       cursor: pointer;
       transition: all 0.2s;

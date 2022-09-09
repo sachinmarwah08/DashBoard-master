@@ -4,6 +4,10 @@ import threeDots from "../../../../Images/threeDots.svg";
 import { faAngleUp, faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import moment from "moment";
+import Tippy from "@tippyjs/react";
+import "tippy.js/dist/tippy.css";
+import "tippy.js/themes/light.css";
+import "tippy.js/dist/svg-arrow.css";
 
 const CompareTime = ({
   title,
@@ -90,38 +94,62 @@ const CompareTime = ({
         </div>
 
         {!dateValue && (
-          <div className="country-time">
-            <button
-              onClick={chooseTimeClick}
-              className={`${
-                !chooseTime ? "compare-time" : "compare-time-with-border"
-              }`}
-            >
-              <>
-                <span className="faplus">
-                  {!chooseTime ? (
-                    <FontAwesomeIcon icon={faAngleDown} />
-                  ) : (
-                    <FontAwesomeIcon icon={faAngleUp} />
+          <Tippy
+            theme={"light"}
+            interactive={true}
+            content={
+              <div
+                style={{
+                  padding: "0.5rem",
+                  fontWeight: 400,
+                  fontFamily: "Work-Sans",
+                  fontSize: "14px",
+                }}
+              >
+                <p style={{ fontWeight: 600, marginTop: 0 }}>Choose Time</p>
+                Choose a time period for comparison of a country's wellbeing
+                index score.
+              </div>
+            }
+          >
+            <div className="country-time">
+              <button
+                onClick={chooseTimeClick}
+                className={`${
+                  !chooseTime ? "compare-time" : "compare-time-with-border"
+                }`}
+              >
+                <>
+                  <span className="faplus">
+                    {!chooseTime ? (
+                      <FontAwesomeIcon icon={faAngleDown} />
+                    ) : (
+                      <FontAwesomeIcon icon={faAngleUp} />
+                    )}
+                  </span>
+
+                  <p className="title">Choose Time</p>
+                  {chooseTime && (
+                    <div
+                      style={{ fontFamily: "Work-Sans" }}
+                      className="dropdown-content"
+                    >
+                      {monthsList.map((item, i) => (
+                        <div
+                          style={{ fontFamily: "Work-Sans" }}
+                          key={item.value}
+                          onClick={() => onHandleCompareTimeMonthChange(item)}
+                          className="drop-item"
+                        >
+                          {item.month}
+                        </div>
+                      ))}
+                    </div>
                   )}
-                </span>
-                <p className="title">Choose Time</p>
-                {chooseTime && (
-                  <div className="dropdown-content">
-                    {monthsList.map((item, i) => (
-                      <div
-                        key={item.value}
-                        onClick={() => onHandleCompareTimeMonthChange(item)}
-                        className="drop-item"
-                      >
-                        {item.month}
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </>
-            </button>
-          </div>
+                </>
+              </button>
+            </div>
+          </Tippy>
         )}
 
         {dateValue && (

@@ -250,9 +250,9 @@ export const countryData = [
   },
   {
     country: "Canada",
-    alpha2: "CA",
-    alpha3: "CAN",
-    numeric: 124,
+    // alpha2: "CA",
+    // alpha3: "CAN",
+    // numeric: 124,
     latitude: 60,
     longitude: -95,
   },

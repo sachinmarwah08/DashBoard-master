@@ -4,15 +4,15 @@ import React, { useEffect, useState } from "react";
 import {
   GoogleMap,
   useJsApiLoader,
-  InfoWindow,
   MarkerF,
+  InfoWindowF,
 } from "@react-google-maps/api";
 import { getMapData } from "../../../../actions/GoogleMapApis";
 import { countryData } from "./Cordinates";
 
 const center = {
-  lat: 40,
-  lng: 70,
+  lat: 38,
+  lng: -99,
 };
 
 const containerStyle = {
@@ -21,35 +21,11 @@ const containerStyle = {
   borderRadius: "0.5rem",
 };
 
-const markers = [
-  {
-    id: 1,
-    name: "Chicago, Illinois",
-    position: { lat: 41.881832, lng: -87.623177 },
-  },
-  {
-    id: 2,
-    name: "Denver, Colorado",
-    position: { lat: 39.739235, lng: -104.99025 },
-  },
-  {
-    id: 3,
-    name: "Los Angeles, California",
-    position: { lat: 34.052235, lng: -118.243683 },
-  },
-  {
-    id: 4,
-    name: "New York, New York",
-    position: { lat: 40.712776, lng: -74.005974 },
-  },
-];
-
 function MyComponent() {
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: "AIzaSyBjcLIeVQ02aYHchflfqslJz_9NPLYfNP0", // Add your API key
   });
-  console.log(window.google, "gogol");
 
   const [activeMarker, setActiveMarker] = useState(null);
   const [mapData, setMapData] = useState();
@@ -66,9 +42,9 @@ function MyComponent() {
       // console.log(month, day, year);
 
       let fromDate = "2022-07-01";
-      let toDate = "2022-07-26";
+      let toDate = "2022-07-31";
       let country = "United States";
-      const response = await getMapData(fromDate, toDate, country);
+      const response = await getMapData(fromDate, toDate);
 
       let tempData = [...response.data];
 
@@ -100,22 +76,40 @@ function MyComponent() {
     map.fitBounds(bounds);
   };
 
-  let iconMarker = new window.google.maps.MarkerImage(
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmrCU2BSbAzpeyJx_rxUONfn8cVSwGsuF4ig&usqp=CAU",
-    null /* size is determined at runtime */,
-    null /* origin is 0,0 */,
-    null /* anchor is bottom center of the scaled image */,
-    new window.google.maps.Size(50, 50)
-  );
+  function nFormatter(num) {
+    if (num >= 1000000000) {
+      return (num / 1000000000).toFixed(1).replace(/\.0$/, "") + "G";
+    }
+    if (num >= 1000000) {
+      return (num / 1000000).toFixed(1).replace(/\.0$/, "") + "M";
+    }
+    if (num >= 1000) {
+      return (num / 1000).toFixed(1).replace(/\.0$/, "") + "k";
+    }
+    return num;
+  }
+
+  function twoDecimalPlacesIfCents(amount) {
+    return amount % 1 !== 0 ? amount.toFixed(2) : amount;
+  }
+
+  // let iconMarker = new window.google.maps.MarkerImage(
+  //   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmrCU2BSbAzpeyJx_rxUONfn8cVSwGsuF4ig&usqp=CAU",
+  //   null /* size is determined at runtime */,
+  //   null /* origin is 0,0 */,
+  //   null /* anchor is bottom center of the scaled image */,
+  //   new window.google.maps.Size(50, 50)
+  // );
 
   // const onLoad = React.useCallback(function callback(map) {
   //   const bounds = new window.google.maps.LatLngBounds();
+  //   mapData && mapData.forEach(({ position }) => bounds.extend(position));
   //   map.fitBounds(bounds);
-  //   setMap(map);
+  //   setMapData(map);
   // }, []);
 
   // const onUnmount = React.useCallback(function callback(map) {
-  //   setMap(null);
+  //   setMapData(null);
   // }, []);
 
   return isLoaded ? (
@@ -129,20 +123,134 @@ function MyComponent() {
       // onUnmount={onUnmount}
     >
       {mapData &&
-        mapData.map(({ id, name, position }) => (
-          <MarkerF
-            // icon={iconMarker}
-            key={id}
-            position={position}
-            onClick={() => handleActiveMarker(name._id)}
-          >
-            {activeMarker === id ? (
-              <InfoWindow onCloseClick={() => setActiveMarker(null)}>
-                <div>{name}</div>
-              </InfoWindow>
-            ) : null}
-          </MarkerF>
-        ))}
+        mapData.map(
+          ({
+            _id,
+            position,
+            rank,
+            count,
+            happy,
+            change_in_rank,
+            sad_per,
+            change_in_index_persentage,
+          }) => (
+            <MarkerF
+              // icon={iconMarker}
+              key={_id}
+              position={position}
+              onClick={() => handleActiveMarker(_id)}
+            >
+              {activeMarker === _id ? (
+                <InfoWindowF onCloseClick={() => setActiveMarker(null)}>
+                  <div>
+                    <div
+                      style={{
+                        fontWeight: 600,
+                        fontSize: "16px",
+                        color: "#212121",
+                        lineHeight: "24px",
+                        fontFamily: "Work-Sans",
+                      }}
+                    >
+                      {_id}
+                    </div>
+                    <pre></pre>
+                    <div
+                      style={{
+                        fontWeight: 400,
+                        fontSize: "12px",
+                        fontFamily: "Work-Sans",
+                        color: "#212121",
+                      }}
+                    >
+                      Rank:{" "}
+                      <span style={{ fontWeight: 600, color: "#F05728" }}>
+                        {rank}
+                      </span>
+                    </div>
+                    <pre></pre>
+                    <div
+                      style={{
+                        fontWeight: 400,
+                        fontSize: "12px",
+                        fontFamily: "Work-Sans",
+                        color: "#212121",
+                        marginTop: "-0.5rem",
+                      }}
+                    >
+                      Wellbeing Index :{" "}
+                      <span style={{ fontWeight: 600, color: "#F05728" }}>
+                        {nFormatter(count)}
+                      </span>
+                    </div>
+                    <pre></pre>
+                    <div
+                      style={{
+                        fontWeight: 400,
+                        fontSize: "12px",
+                        color: "#212121",
+                        fontFamily: "Work-Sans",
+                        marginTop: "-0.5rem",
+                      }}
+                    >
+                      Positive:{" "}
+                      <span style={{ fontWeight: 600, color: "#F05728" }}>
+                        {twoDecimalPlacesIfCents(happy)}%
+                      </span>
+                    </div>
+                    <pre></pre>
+                    <div
+                      style={{
+                        fontWeight: 400,
+                        fontSize: "12px",
+                        color: "#212121",
+                        fontFamily: "Work-Sans",
+                        marginTop: "-0.5rem",
+                      }}
+                    >
+                      Negative:{" "}
+                      <span style={{ fontWeight: 600, color: "#F05728" }}>
+                        {twoDecimalPlacesIfCents(sad_per)}%
+                      </span>
+                    </div>
+                    <pre></pre>
+                    <div
+                      style={{
+                        fontWeight: 400,
+                        fontSize: "12px",
+                        fontFamily: "Work-Sans",
+                        color: "#212121",
+                        marginTop: "-0.5rem",
+                      }}
+                    >
+                      Net Change in Rank:{" "}
+                      <span style={{ fontWeight: 600, color: "#F05728" }}>
+                        {change_in_rank}
+                      </span>
+                    </div>
+                    <pre></pre>
+                    <div
+                      style={{
+                        fontWeight: 400,
+                        fontSize: "12px",
+                        fontFamily: "Work-Sans",
+                        color: "#212121",
+                        marginTop: "-0.5rem",
+                      }}
+                    >
+                      Percentage Change in Wellbeing Index:{" "}
+                      <span style={{ fontWeight: 600, color: "#F05728" }}>
+                        {twoDecimalPlacesIfCents(change_in_index_persentage)}
+                      </span>
+                    </div>
+
+                    <pre></pre>
+                  </div>
+                </InfoWindowF>
+              ) : null}
+            </MarkerF>
+          )
+        )}
     </GoogleMap>
   ) : (
     <></>

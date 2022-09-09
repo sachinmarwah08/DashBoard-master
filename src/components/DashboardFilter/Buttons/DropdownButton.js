@@ -37,6 +37,7 @@ const DropdownButton = ({ icon, name, data, selectedVal, handleChange }) => {
       (option) => option.toLowerCase().indexOf(query.toLowerCase()) > -1
     );
   };
+
   return (
     <button
       onClick={() => setIsFilterActive(!isFilterActive)}
@@ -57,6 +58,8 @@ const DropdownButton = ({ icon, name, data, selectedVal, handleChange }) => {
               color: "#667085",
               fontSize: "16px",
               fontWeight: 400,
+              fontFamily: "Work-Sans",
+              width: "100%",
               outline: "none",
               margin: 0,
             }}

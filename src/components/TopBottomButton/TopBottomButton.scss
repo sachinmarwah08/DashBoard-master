@@ -9,9 +9,12 @@
     cursor: pointer;
     color: #616161;
     gap: 8px;
-    padding-right: 0.8rem;
-    padding-left: 0.8rem;
-    height: 2.3rem;
+    // padding-right: 0.8rem;
+    // padding-left: 0.8rem;
+    // height: 2.3rem;
+    padding: 0.3rem;
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
     font-size: 16px;
     font-weight: 400;
     border-radius: 4px;
@@ -24,9 +27,8 @@
     display: flex;
     align-items: center;
     top: 120%;
-    width: 85%;
+    right: 0%;
     cursor: pointer;
-    left: -1.5%;
     padding: 0.625rem;
     padding-top: 0%;
     padding-bottom: 0%;
@@ -55,6 +57,7 @@
       padding: 0.625rem;
       justify-content: space-between;
       display: flex;
+      gap: 25px;
       transition: all 0.2s;
       z-index: 100;
       color: #616161;

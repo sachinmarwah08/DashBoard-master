@@ -18,22 +18,28 @@ import { chooseTimeBarData, LineChartBarData } from "./Chart/data";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import moment from "moment";
+import infoIcon from "../../../Images/info.svg";
+import Tippy from "@tippyjs/react";
+import "tippy.js/dist/tippy.css";
+import "tippy.js/themes/light.css";
+import "tippy.js/dist/svg-arrow.css";
+import { getCountryDropdownData } from "../../../actions/DropDownApis";
 
 const LineChartData = () => {
   const navigate = useNavigate();
   const dateSelect = [
-    "Past Day ",
     "Past 7 Days",
     "Past 30 Days",
     "Past 90 Days",
-    "Past Year",
+    "This Year",
   ];
   const [selected, setSelected] = useState("Past 1 months");
-  const [selectCountry, setselectCountry] = useState("World");
+  const [selectCountry, setselectCountry] = useState("Worldwide");
   const [data, setData] = useState([]);
   const [barChartData, setBarChartData] = useState([]);
   const [LineChartData, setLineChartData] = useState([]);
-  const countrySelect = ["United States", "Canada", "World"];
+  // const countrySelect = ["United States", "Canada", "Worldwide"];
+  const [countrySelect, setCountrySelect] = useState([]);
   const [openModal, setOpenModal] = useState(false);
   const router = useLocation();
   const [addCountry, setaddCountry] = useState(false);
@@ -55,6 +61,10 @@ const LineChartData = () => {
   const onCountryNameAdd = (event) => {
     setContryNameState(event.target.value);
   };
+
+  function twoDecimalPlacesIfCents(amount) {
+    return amount % 1 !== 0 ? amount.toFixed(2) : amount;
+  }
 
   const onCountryEnterPress = async (e) => {
     if (e.key === "Enter") {
@@ -79,13 +89,20 @@ const LineChartData = () => {
           ) {
             tempBarData.series[0].data[0].y =
               response.bar_graph_data[country].happy;
-            // tempData.tooltip.pointFormat = `</strong><br/>Happy: <strong>${response.data[i].happy}</strong><br/>Sad: <strong>${response.data[i].sad_per}</strong>`;
-            // }
+            tempBarData.tooltip.headerFormat = `<strong><span style="color:#212121; font-size: 16px;">{point.key}</span></strong><br>`;
+            tempBarData.tooltip.pointFormat = `{series.name}: <strong><span  style="color:#F05728">{point.y}</span></strong><br><span style="color:#212121">Positive:<span> <strong><span style="color:#F05728">${twoDecimalPlacesIfCents(
+              response.bar_graph_data[country].happy
+            )}%</span></strong><br/>Negative: <strong><span style="color:#F05728">${twoDecimalPlacesIfCents(
+              response.bar_graph_data[country].sad
+            )}%</span></strong>`;
           }
           if (barChartData) {
             tempBarData.series[0].data[1].y = barChartData.happy;
-            // tempData.tooltip.pointFormat = `</strong><br/>Happy: <strong>${response.data[i].happy}</strong><br/>Sad: <strong>${response.data[i].sad_per}</strong>`;
-            // }
+            tempBarData.tooltip.pointFormat = `</span></strong><br><span style="color:#212121">Positive:<span> <strong><span style="color:#F05728">${twoDecimalPlacesIfCents(
+              barChartData.happy
+            )}%</span></strong><br/>Negative: <strong><span style="color:#F05728">${twoDecimalPlacesIfCents(
+              barChartData.sad
+            )}%</span></strong>`;
           }
 
           setDataForLineBarChart(tempBarData);
@@ -131,7 +148,7 @@ const LineChartData = () => {
           // setBarChartData(response.bar_graph_data);
           setLineChartData(tempData);
         } catch (error) {
-          toast.error("Server error...", {
+          toast.error("No records found in Data Lake...", {
             position: "top-right",
             autoClose: 1000,
             hideProgressBa: true,
@@ -189,8 +206,14 @@ const LineChartData = () => {
       ) {
         tempBarData.series[0].data[0].y =
           response.bar_graph_data[selectCountry].happy;
-        // tempData.tooltip.pointFormat = `</strong><br/>Happy: <strong>${response.data[i].happy}</strong><br/>Sad: <strong>${response.data[i].sad_per}</strong>`;
-        // }
+        // tempData.tooltip.headerFormat = `<strong><span style="color:#212121; font-size: 16px;">{point.key}</span></strong><br>`;
+        // tempData.tooltip.pointFormat = `</strong><br><span style="color:#212121">Positive:<span> <strong><span style="color:#F05728">${parseFloat(
+        //   response.bar_graph_data[selectCountry].happy
+        // ).toFixed(
+        //   2
+        // )}%</span></strong><br/>Negative: <strong><span style="color:#F05728">${parseFloat(
+        //   response.bar_graph_data[selectCountry].sad
+        // ).toFixed(2)}%</span></strong>`;
       }
       if (barChartData) {
         tempBarData.series[0].data[1].y = barChartData.happy;
@@ -241,7 +264,7 @@ const LineChartData = () => {
       // setBarChartData(response.bar_graph_data);
       setChooseTimeLineChartData(tempData);
     } catch (error) {
-      toast.error("Server error...", {
+      toast.error("No records found in Data Lake...", {
         position: "top-right",
         autoClose: 1000,
         hideProgressBa: true,
@@ -265,21 +288,20 @@ const LineChartData = () => {
 
       let fromDate = "2022-07-01";
       let toDate = "2022-07-31";
-      let country = "World";
+      let country = "Worldwide";
       // var currentDate = moment().format("DD-MM-YYYY");
       // var pastMonthDate = moment().subtract(1, "M").format("DD-MM-YYYY");
       // console.log(currentDate, futureMonth);
 
       const response = await compareCountry(fromDate, toDate, country);
       const responseComapreTime = await compareTime(fromDate, toDate, country);
-      console.log("response", response);
-      console.log("responseComapreTime4", responseComapreTime);
+      const countryDropdown = await getCountryDropdownData();
 
-      // setData(response, "Data");
-      setBarChartData(response.bar_graph_data.World);
-      setLineChartData(response.line_chart_data.World);
-      setBackUpLineChartData(response.line_chart_data.World);
-      setChooseTimeLineChartData(responseComapreTime.line_chart_data.World);
+      setCountrySelect(countryDropdown);
+      setBarChartData(response.bar_graph_data.Worldwide);
+      setLineChartData(response.line_chart_data.Worldwide);
+      setBackUpLineChartData(response.line_chart_data.Worldwide);
+      setChooseTimeLineChartData(responseComapreTime.line_chart_data.Worldwide);
     };
     callApi();
   }, []);
@@ -298,11 +320,36 @@ const LineChartData = () => {
       <div className="lineChart-container">
         <div className="whole-container">
           <div className="heading-content">
-            <div className="heading">Wellbeing Sentiment Score Over Time</div>
+            <div className="heading">
+              Wellbeing Analysis over Time
+              <Tippy
+                theme={"light"}
+                interactive={true}
+                content={
+                  <div
+                    style={{
+                      padding: "0.5rem",
+                      fontWeight: 400,
+                      fontFamily: "Work-Sans",
+                      fontSize: "14px",
+                    }}
+                  >
+                    <p style={{ fontWeight: 600, marginTop: 0 }}>
+                      Wellbeing Analysis over Time
+                    </p>
+                    This line graph compares the wellbeing index across
+                    countries and over time.
+                  </div>
+                }
+              >
+                <img className="info-icon" src={infoIcon}></img>
+              </Tippy>
+            </div>
+
             <div className="right-icons">
-              <button type="button" alt="downloadIcon" className="d-icon">
+              {/* <button type="button" alt="downloadIcon" className="d-icon">
                 <img alt="download-icon" src={downloadIcon}></img>
-              </button>
+              </button> */}
               <button
                 onClick={() => setOpenModal(true)}
                 type="button"
@@ -343,6 +390,7 @@ const LineChartData = () => {
               <CountryAndTimeButton
                 onClick={() => setCompareCountryActive("compareCountry")}
                 compareCountryActive={compareCountryActive}
+                compareCountryvalue="compareCountry"
                 value="compareCountry"
                 name="Compare Country"
               />
@@ -351,6 +399,7 @@ const LineChartData = () => {
                 onClick={() => setCompareCountryActive("compareTime")}
                 compareCountryActive={compareCountryActive}
                 value="compareTime"
+                compareTimevalue="compareTime"
                 name="Compare Time"
               />
             </div>

@@ -3,6 +3,10 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import xCircle from "../../../../Images/x-circle.svg";
 import threeDots from "../../../../Images/threeDots.svg";
+import Tippy from "@tippyjs/react";
+import "tippy.js/dist/tippy.css";
+import "tippy.js/themes/light.css";
+import "tippy.js/dist/svg-arrow.css";
 
 const CompareCountry = ({
   title,
@@ -28,20 +32,41 @@ const CompareCountry = ({
               <span className="faplus">
                 <FontAwesomeIcon icon={faPlus} />
               </span>
+
               <p className="title">{addCountryClickName}</p>
             </>
           </button>
         ) : (
           !isValue && (
             <div className="country-added">
-              <input
-                type="text"
-                onKeyDown={onKeyDown}
-                onChange={onChange}
-                value={value}
-                className="contry-name"
-                placeholder="Type country name"
-              />
+              <Tippy
+                theme={"light"}
+                interactive={true}
+                content={
+                  <div
+                    style={{
+                      padding: "0.5rem",
+                      fontWeight: 400,
+                      fontFamily: "Work-Sans",
+                      fontSize: "14px",
+                    }}
+                  >
+                    <p style={{ fontWeight: 600, marginTop: 0 }}>
+                      Type Country Name
+                    </p>
+                    Choose the country for comparison in the same time frame.
+                  </div>
+                }
+              >
+                <input
+                  type="text"
+                  onKeyDown={onKeyDown}
+                  onChange={onChange}
+                  value={value}
+                  className="contry-name"
+                  placeholder="Type country name"
+                />
+              </Tippy>
             </div>
           )
         )}

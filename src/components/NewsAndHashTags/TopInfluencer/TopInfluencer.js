@@ -8,10 +8,15 @@ import {
   getInfluencers,
   influencerCount,
 } from "../../../actions/TopInfluencerApis";
+import Tippy from "@tippyjs/react";
+import "tippy.js/dist/tippy.css";
+import "tippy.js/themes/light.css";
+import "tippy.js/dist/svg-arrow.css";
+import infoIcon from "../../../Images/info.svg";
 
 const TopInfluencer = () => {
   const dropdownOptions = ["Country", "Influencer", "Hashtag"];
-  const [topInfluencerFilter, setTopInfluencerFilter] = useState("Filter");
+  const [topInfluencerFilter, setTopInfluencerFilter] = useState("Filters");
   const [isRadioChecked, setIsRadioChecked] = useState(1);
   const [wordEntered, setWordEntered] = useState("");
   const [influencerCountData, setInfluencerCountData] = useState(0);
@@ -100,7 +105,31 @@ const TopInfluencer = () => {
   return (
     <div className="right-container">
       <div className="heading-content">
-        <div className="right-heading">Top Influencers</div>
+        <div className="right-heading">
+          Top Influencers
+          <Tippy
+            theme={"light"}
+            interactive={true}
+            content={
+              <div
+                style={{
+                  padding: "0.5rem",
+                  fontWeight: 400,
+                  fontFamily: "Work-Sans",
+                  fontSize: "14px",
+                }}
+              >
+                <p style={{ fontWeight: 600, marginTop: 0 }}>Top Influencers</p>
+                In this table, prominent influencers from around the world are
+                analysed and divided into categories of persons and
+                organizations.
+              </div>
+            }
+          >
+            <img className="info-icon" src={infoIcon}></img>
+          </Tippy>
+        </div>
+
         <div className="icons">
           <p className="score">
             <span className="digits">{influencerCountData}</span> Influencers
@@ -129,13 +158,6 @@ const TopInfluencer = () => {
           name="Organisation"
           checked={isRadioChecked}
           value={3}
-          onchange={handleRadioChange}
-        />
-        <RadioButton
-          radioName="topInfluencer"
-          name="Media House"
-          checked={isRadioChecked}
-          value={4}
           onchange={handleRadioChange}
         />
       </div>

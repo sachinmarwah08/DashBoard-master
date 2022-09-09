@@ -5,6 +5,11 @@ import {
   getTweetsCount,
   getTweetsDiff,
 } from "../../actions/GlobalWellBeingApis";
+import infoIcon from "../../Images/info.svg";
+import Tippy from "@tippyjs/react";
+import "tippy.js/dist/tippy.css";
+import "tippy.js/themes/light.css";
+import "tippy.js/dist/svg-arrow.css";
 
 const GlobalWellbeing = () => {
   const [data, setData] = useState(0);
@@ -23,10 +28,10 @@ const GlobalWellbeing = () => {
       // console.log(month, day, year);
 
       let fromDate = "2022-07-01";
-      let toDate = "2022-07-26";
+      let toDate = "2022-07-31";
 
       let fromDateDiff = "2022-07-01";
-      let toDateDiff = "2022-07-10";
+      let toDateDiff = "2022-07-31";
 
       const response = await getTweetsCount(fromDate, toDate);
       const diffRes = await getTweetsDiff(fromDateDiff, toDateDiff);
@@ -37,28 +42,139 @@ const GlobalWellbeing = () => {
     callApi();
   }, []);
 
+  function nFormatter(num) {
+    if (num >= 1000000000) {
+      return (num / 1000000000).toFixed(1).replace(/\.0$/, "") + "G";
+    }
+    if (num >= 1000000) {
+      return (num / 1000000).toFixed(1).replace(/\.0$/, "") + "M";
+    }
+    if (num >= 1000) {
+      return (num / 1000).toFixed(1).replace(/\.0$/, "") + "k";
+    }
+    return num;
+  }
+
+  function twoDecimalPlacesIfCents(amount) {
+    return amount % 1 !== 0 ? amount.toFixed(2) : amount;
+  }
+
   return (
     <div className="main-container">
       <div className="main-container-wrapper">
         <div className="left-content">
-          <h1 className="heading">Global Wellbeing Sentiment Index</h1>
+          <div className="insite-left-content">
+            <h1 className="heading">Global Wellbeing Index</h1>
+            <Tippy
+              theme={"light"}
+              interactive={true}
+              content={
+                <div
+                  style={{
+                    padding: "0.5rem",
+                    fontWeight: 400,
+                    fontFamily: "Work-Sans",
+                    fontSize: "14px",
+                  }}
+                >
+                  <p style={{ fontWeight: 600, marginTop: 0 }}>
+                    Global Wellbeing Index
+                  </p>
+                  This index provides insights on wellbeing rankings by country,
+                  top influencers, trending hashtags, tweets, and news stories
+                  about wellbeing, as well as categorisation of these into happy
+                  and sad emotions.
+                </div>
+              }
+            >
+              <img className="info-icon" src={infoIcon}></img>
+            </Tippy>
+          </div>
         </div>
         <div className="right-content">
           <div className="right-border"></div>
 
           <div className="column-one">
-            <p className="digit-one">{data}</p>
-            <p className="value-one">Current Day Value </p>
-            <p className="date">As of 27 August, 2022</p>
+            <p className="digit-one">{nFormatter(data)}</p>
+            <Tippy
+              theme={"light"}
+              interactive={true}
+              content={
+                <div
+                  style={{
+                    padding: "0.5rem",
+                    fontWeight: 400,
+                    fontFamily: "Work-Sans",
+                    fontSize: "14px",
+                  }}
+                >
+                  <p style={{ fontWeight: 600, marginTop: 0 }}>
+                    Current Day Value
+                  </p>
+                  This is the global wellbeing index score for the current MTD
+                  period.
+                </div>
+              }
+            >
+              <p className="value-one">Current Day Value </p>
+            </Tippy>
+
+            <p className="date">As of 31 July, 2022</p>
           </div>
 
           <div className="column-two">
-            <p className="column-two-digit-one">{absolute_change}</p>
-            <p className="value-one-tilte">Absolute Change</p>
+            <p className="column-two-digit-one">
+              {nFormatter(absolute_change)}
+            </p>
+            <Tippy
+              theme={"light"}
+              interactive={true}
+              content={
+                <div
+                  style={{
+                    padding: "0.5rem",
+                    fontWeight: 400,
+                    fontFamily: "Work-Sans",
+                    fontSize: "14px",
+                  }}
+                >
+                  <p style={{ fontWeight: 600, marginTop: 0 }}>
+                    Absolute Change
+                  </p>
+                  This represents the change in the global wellbeing index score
+                  from the preceding MTD period.
+                </div>
+              }
+            >
+              <p className="value-one-tilte">Absolute Change</p>
+            </Tippy>
           </div>
           <div className="column-two">
-            <p className="column-two-digit-one">{persentage}%</p>
-            <p className="value-one-tilte">Percentage Change</p>
+            <p className="column-two-digit-one">
+              {twoDecimalPlacesIfCents(persentage)}%
+            </p>
+            <Tippy
+              theme={"light"}
+              interactive={true}
+              content={
+                <div
+                  style={{
+                    padding: "0.5rem",
+                    fontWeight: 400,
+                    fontFamily: "Work-Sans",
+                    fontSize: "14px",
+                  }}
+                >
+                  <p style={{ fontWeight: 600, marginTop: 0 }}>
+                    Percentage Change
+                  </p>
+                  This represents the percentage change in the global wellbeing
+                  index score from the preceding MTD period.
+                </div>
+              }
+            >
+              <p className="value-one-tilte">Percentage Change</p>
+            </Tippy>
           </div>
         </div>
       </div>

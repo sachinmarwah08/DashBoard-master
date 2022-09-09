@@ -81,7 +81,7 @@ body {
 
 .rdrStaticRangeLabel {
   color: #424242;
-  font-weight: 400 !important;
+  font-weight: 100 !important;
   font-size: 14px !important;
   padding: 0.7rem !important;
   border-bottom: none !important;
@@ -112,17 +112,22 @@ body {
   }
 }
 
+.rdrMonth {
+  font-family: "Work-Sans";
+}
+
 .highcharts-tooltip {
   border: 1px solid #939596;
   background: #fff;
   display: block;
   border-radius: 14px;
-  height: 6.5rem;
-  position: absolute;
-  left: 473px;
+  height: 6.4rem !important;
+  // height: max-content !important;
+  // position: absolute;
+  // left: 473px;
   padding: 5px !important;
   line-height: 1.5rem;
-  width: 7rem !important;
+  width: 100% !important;
   white-space: normal !important;
   font-family: "Work-Sans" !important;
   // font-weight: 600 !important;
@@ -175,4 +180,61 @@ body {
 
 .rdrStaticRange {
   border: none !important;
+}
+
+.gm-ui-hover-effect {
+  padding-right: 3rem !important;
+  padding-top: 0.8rem !important;
+  width: 40px !important;
+  height: 40px !important;
+}
+
+.highcharts-xaxis-labels {
+  font-family: "Work-Sans";
+  font-weight: 500;
+  color: #616161 !important;
+}
+
+.rdrDays {
+  font-family: "Work-Sans" !important;
+  font-weight: 400 !important;
+  color: #424242 !important;
+}
+
+.tippy-box[data-theme~="light"] {
+  border-radius: 8px;
+}
+
+.recharts-tooltip-item {
+  display: flex !important;
+  justify-content: space-between !important;
+  width: 100%;
+  align-items: center !important;
+  padding-top: 0% !important;
+  gap: 0% !important;
+  padding-top: 0% !important;
+}
+
+.recharts-tooltip-item-name {
+  font-size: 20px !important;
+  color: #939596;
+  width: 100% !important;
+  // padding-top: 2rem;
+  // padding-right: 5rem;
+}
+
+.recharts-tooltip-item-separator {
+  display: none !important;
+}
+
+.recharts-tooltip-item-value {
+  font-size: 20px;
+  font-weight: 400;
+  width: max-content;
+  color: #f05728;
+}
+
+.recharts-default-tooltip {
+  width: 160px !important;
+  height: max-content !important;
 }

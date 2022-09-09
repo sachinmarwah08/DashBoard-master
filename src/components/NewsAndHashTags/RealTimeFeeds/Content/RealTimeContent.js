@@ -16,13 +16,18 @@ const Content = ({ filterData, loading }) => {
           </div> */}
           {filterData.map((item, index) => (
             <div key={index} className="left-content">
-              <h1 className="left-content-heading">
+              <a
+                href={item.url}
+                rel="noreferrer"
+                target="_blank"
+                className="left-content-heading"
+              >
                 <span className="heading-colored">
                   {/* {item.htag[0]} {""} */}
                 </span>
 
                 {item.events}
-              </h1>
+              </a>
               <p className="hashtags">
                 {/* {item.hashtags} */}
 
@@ -34,14 +39,14 @@ const Content = ({ filterData, loading }) => {
                     .join(" ")}
                 </span>
               </p>
-              <a
+              {/* <a
                 href={item.url}
                 rel="noreferrer"
                 target="_blank"
                 className="link"
               >
                 {item.url}
-              </a>
+              </a> */}
               <div className="twitter-details">
                 <img
                   alt="twitter"

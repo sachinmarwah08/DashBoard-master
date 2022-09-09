@@ -9,12 +9,16 @@ import {
   newsFlashes,
 } from "../../../actions/RealTimeFeedsApis";
 import NewsFeed from "./Content/NewsFeedContent";
+import Tippy from "@tippyjs/react";
+import "tippy.js/dist/tippy.css";
+import "tippy.js/themes/light.css";
+import "tippy.js/dist/svg-arrow.css";
 
 const RealTimeFeeds = () => {
   const [wordEntered, setWordEntered] = useState("");
   const [active, setActive] = useState("Real-time-Tweets");
-  const realTimeData = ["Influencer", "hashtags"];
-  const [realData, setRealData] = useState("Filter");
+  const realTimeData = ["Country", "Influencer", "Hashtag"];
+  const [realData, setRealData] = useState("Filters");
   const [isRadioChecked, setIsRadioChecked] = useState(1);
   const [tweets, setTweets] = useState([]);
   const [newsFeed, setNewsFeed] = useState([]);
@@ -128,7 +132,29 @@ const RealTimeFeeds = () => {
             active === "Real-time-Tweets" ? "colored-heading" : "heading"
           }`}
         >
-          <div className="tweets-heading">Real-time Tweets</div>
+          <Tippy
+            theme={"light"}
+            interactive={true}
+            content={
+              <div
+                style={{
+                  textAlign: "left",
+                  padding: "0.5rem",
+                  fontWeight: 400,
+                  fontFamily: "Work-Sans",
+                  fontSize: "14px",
+                }}
+              >
+                <p style={{ fontWeight: 600, marginTop: 0 }}>
+                  Real-time Tweets
+                </p>
+                You can access the tweet of interest based on its emotional
+                context by clicking on it.
+              </div>
+            }
+          >
+            <div className="tweets-heading">Real-time Tweets</div>
+          </Tippy>
         </button>
         <button
           onClick={() => setActive("Real-time-News")}
@@ -138,7 +164,27 @@ const RealTimeFeeds = () => {
               : "second-heading"
           }`}
         >
-          <div className="tweets-heading">Real-time News</div>
+          <Tippy
+            theme={"light"}
+            interactive={true}
+            content={
+              <div
+                style={{
+                  textAlign: "left",
+                  padding: "0.5rem",
+                  fontWeight: 400,
+                  fontFamily: "Work-Sans",
+                  fontSize: "14px",
+                }}
+              >
+                <p style={{ fontWeight: 600, marginTop: 0 }}>Real-time News</p>
+                You can access the news of interest based on its emotional
+                context by clicking on it.
+              </div>
+            }
+          >
+            <div className="tweets-heading">Real-time News</div>
+          </Tippy>
         </button>
         <div className="share-icon-btn">
           <img className="share-icon" alt="share-icon" src={shareIcon} />
@@ -147,21 +193,21 @@ const RealTimeFeeds = () => {
       <div className="realTime-radioBtn">
         <RadioButton
           radioName="realTimeTweets"
-          name="All Sentiment"
+          name="All"
           checked={isRadioChecked}
           value={1}
           onchange={handleRadioChange}
         />
         <RadioButton
           radioName="realTimeTweets"
-          name="Positive Sentiment"
+          name="Positive"
           checked={isRadioChecked}
           value={2}
           onchange={handleRadioChange}
         />
         <RadioButton
           radioName="realTimeTweets"
-          name="Negative Sentiment"
+          name="Negative"
           checked={isRadioChecked}
           value={3}
           onchange={handleRadioChange}

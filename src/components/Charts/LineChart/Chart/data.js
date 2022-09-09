@@ -74,8 +74,8 @@ export const LineChartBarData = {
     type: "column",
     height: 200,
     width: 110,
-    zoomType: "x",
-    minorGridLineWidth: "100%",
+    zoomType: false,
+    // minorGridLineWidth: "100%",
   },
 
   title: {
@@ -98,7 +98,7 @@ export const LineChartBarData = {
         width: "200%",
         fontSize: "0.688rem",
       },
-      text: "Average Comparison",
+      // text: "Average Comparison",
     },
 
     accessibility: {
@@ -135,7 +135,8 @@ export const LineChartBarData = {
 
   plotOptions: {
     series: {
-      enableMouseTracking: false,
+      // enableMouseTracking: false,
+      cursor: "pointer",
       pointPadding: 0.14,
       groupPadding: -0.2,
       borderRadius: 3,
@@ -144,24 +145,29 @@ export const LineChartBarData = {
       borderWidth: 0,
 
       dataLabels: {
-        enabled: false,
+        // enabled: false,
         pointPadding: -0.1,
-        format: "{y}%",
+        overflow: "justify",
+        format: "{value}%",
       },
     },
   },
-  // tooltip: {
-  //   valueSuffix: "%",
-  //   stickOnContact: false,
-  //   backgroundColor: "rgba(255, 255, 255, 0.93)",
-  // },
+  tooltip: {
+    shadow: true,
+    outside: true,
+    useHTML: true,
+    backgroundColor: null,
+    borderWidth: 0,
+    valueSuffix: "M",
+    stickOnContact: false,
+  },
   legend: {
     enabled: false,
   },
   series: [
     {
-      // name: "Organic farming area",
-      // color: "rgba(240, 87, 40, 0.35)",
+      name: "Index",
+      color: "rgba(240, 87, 40, 0.35)",
       // borderColor: "rgba(240, 87, 40, 0.35)",
       data: [
         { y: 34.4, color: "#F05728" },
@@ -179,8 +185,8 @@ export const chooseTimeBarData = {
     type: "column",
     height: 200,
     width: 110,
-    zoomType: "x",
-    minorGridLineWidth: "100%",
+    zoomType: false,
+    // minorGridLineWidth: "100%",
   },
 
   title: {
@@ -203,7 +209,7 @@ export const chooseTimeBarData = {
         width: "200%",
         fontSize: "0.688rem",
       },
-      text: "Average Comparison",
+      // text: "Average Comparison",
     },
 
     accessibility: {
@@ -240,7 +246,8 @@ export const chooseTimeBarData = {
 
   plotOptions: {
     series: {
-      enableMouseTracking: false,
+      // enableMouseTracking: false,
+      cursor: "pointer",
       pointPadding: 0.14,
       groupPadding: -0.2,
       borderRadius: 3,
@@ -249,24 +256,29 @@ export const chooseTimeBarData = {
       borderWidth: 0,
 
       dataLabels: {
-        enabled: false,
+        // enabled: false,
         pointPadding: -0.1,
-        format: "{y}%",
+        overflow: "justify",
+        format: "{value}%",
       },
     },
   },
-  // tooltip: {
-  //   valueSuffix: "%",
-  //   stickOnContact: false,
-  //   backgroundColor: "rgba(255, 255, 255, 0.93)",
-  // },
+  tooltip: {
+    shadow: true,
+    outside: true,
+    useHTML: true,
+    backgroundColor: null,
+    borderWidth: 0,
+    valueSuffix: "M",
+    stickOnContact: false,
+  },
   legend: {
     enabled: false,
   },
   series: [
     {
-      // name: "Organic farming area",
-      // color: "rgba(240, 87, 40, 0.35)",
+      name: "Index",
+      color: "rgba(240, 87, 40, 0.35)",
       // borderColor: "rgba(240, 87, 40, 0.35)",
       data: [
         { y: 34.4, color: "#F05728" },

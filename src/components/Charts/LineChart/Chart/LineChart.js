@@ -16,7 +16,7 @@ import {
   // Bar,
 } from "recharts";
 
-import { compareCountryData, CompareTime } from "./data";
+// import { compareCountryData, CompareTime } from "./data";
 
 const Chart = ({
   isValue,
@@ -26,6 +26,31 @@ const Chart = ({
   lineChartData,
   chooseTimeLineChartData,
 }) => {
+  function nFormatter(num) {
+    if (num >= 1000000000) {
+      return (num / 1000000000).toFixed(1).replace(/\.0$/, "") + "G";
+    }
+    if (num >= 1000000) {
+      return (num / 1000000).toFixed(1).replace(/\.0$/, "") + "M";
+    }
+    if (num >= 1000) {
+      return (num / 1000).toFixed(1).replace(/\.0$/, "") + "k";
+    }
+    return num;
+  }
+
+  // const DataFormater = (number) => {
+  //   if(number > 1000000000){
+  //     return (number/1000000000).toString() + 'B';
+  //   }else if(number > 1000000){
+  //     return (number/1000000).toString() + 'M';
+  //   }else if(number > 1000){
+  //     return (number/1000).toString() + 'K';
+  //   }else{
+  //     return number.toString();
+  //   }
+  // }
+
   return (
     <div style={{ marginTop: "1rem" }}>
       <ResponsiveContainer
@@ -51,24 +76,32 @@ const Chart = ({
             interval={"preserveStartEnd"}
             tickFormatter={(value) => value + ""}
           />
-          <YAxis stroke="#E0E0E0" />
+          <YAxis
+            tickFormatter={nFormatter}
+            type="number"
+            domain={["dataMin", "dataMax"]}
+            allowDecimals={false}
+            scale="auto"
+            stroke="#E0E0E0"
+          />
           <Tooltip
-            separator="         "
+            separator=""
             labelStyle={{
               fontWeight: "700",
-              width: "8rem",
-              color: "#14144B",
-              fontSize: "15px",
+              paddingBottom: "0.5rem",
+              color: "#000000",
+              fontSize: "20px",
+              fontFamily: "Work-Sans",
               borderColor: "#757575",
               lineHeight: "1.25rem",
               borderRadius: "0.5rem",
             }}
             wrapperStyle={{
-              width: "9rem",
-              boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2)",
+              boxShadow:
+                "-4px 0px 8px rgba(0, 0, 0, 0.08), 0px 4px 8px rgba(0, 0, 0, 0.1)",
               borderRadius: "0.5rem",
               gap: "0.625rem",
-              border: "none",
+              border: "1px solid #EEEEEE",
               outline: "none",
             }}
             itemStyle={{

@@ -7,13 +7,29 @@ import Bardata from "./data";
 import shareIcon from "../../../Images/share-2.svg";
 import TopBottomButton from "../../TopBottomButton/TopBottomButton";
 import { getBarData } from "../../../actions/BarChartApis";
+import { PuffLoader } from "react-spinners";
+import Tippy from "@tippyjs/react";
+import "tippy.js/dist/tippy.css";
+import "tippy.js/themes/light.css";
+import "tippy.js/dist/svg-arrow.css";
+import infoIcon from "../../../Images/info.svg";
 
 const BarChartComponent = () => {
   const [data, setData] = useState({});
   const barData = ["Influencer", "Hashtag"];
-  const [bardata, setBardata] = useState("Filter");
+  const [bardata, setBardata] = useState("Filters");
   const topBottomData = ["Top 10", "Bottom 10"];
   const [topBottom, setTopBottom] = useState("Top 10");
+  const [loading, setLoading] = useState(true);
+  const [heading, setHeading] = useState("Top 10 Countries Wellbeing Analysis");
+
+  const handleChange = (value) => {
+    setHeading(value);
+  };
+
+  function twoDecimalPlacesIfCents(amount) {
+    return amount % 1 !== 0 ? amount.toFixed(2) : amount;
+  }
 
   useEffect(() => {
     const callApi = async () => {
@@ -36,10 +52,16 @@ const BarChartComponent = () => {
       for (let i = 0; i < response.data.length; i++) {
         tempData.xAxis.categories.push(response.data[i]._id);
         tempData.series[0].data.push(Math.floor(response.data[i].count));
-        // tempData.tooltip.pointFormat = `</strong><br/>Happy: <strong>${response.data[i].happy}</strong><br/>Sad: <strong>${response.data[i].sad_per}</strong>`;
+        tempData.tooltip.headerFormat = `<strong><span style="color:#212121; font-size: 16px;">{point.key}</span></strong><br>`;
+        tempData.tooltip.pointFormat = `{series.name}: <strong><span  style="color:#F05728">{point.y}</span></strong><br><span style="color:#212121">Positive:<span> <strong><span style="color:#F05728">${twoDecimalPlacesIfCents(
+          response.data[i].happy
+        )}%</span></strong><br/>Negative: <strong><span style="color:#F05728">${twoDecimalPlacesIfCents(
+          response.data[i].sad_per
+        )}%</span></strong>`;
       }
 
       setData(tempData);
+      setLoading(false);
     };
     callApi();
   }, []);
@@ -50,11 +72,40 @@ const BarChartComponent = () => {
         <div className="content">
           <div className="bar-heading-wrapper">
             <div className="heading-left">
-              <h1 className="heading">
-                Countries Rankings by Wellbeing Sentiment Score
-              </h1>
+              <h1 className="heading">{heading}</h1>
+              <Tippy
+                theme={"light"}
+                interactive={true}
+                content={
+                  <div
+                    style={{
+                      padding: "0.5rem",
+                      fontWeight: 400,
+                      fontFamily: "Work-Sans",
+                      fontSize: "14px",
+                    }}
+                  >
+                    <p style={{ fontWeight: 600, marginTop: 0 }}>
+                      Countries Wellbeing Analysis
+                    </p>
+                    The analysis of the top 10 and bottom 10 countries according
+                    to their wellbeing index scores is shown in this widget. To
+                    quantify a country's wellbeing on a numerical scale,
+                    wellbeing happy and sad percentages are calculated for each
+                    country.
+                  </div>
+                }
+              >
+                <img className="info-icon" src={infoIcon}></img>
+              </Tippy>
             </div>
             <div className="btn-share">
+              <TopBottomButton
+                handleChange={handleChange}
+                setTopBottom={setTopBottom}
+                topBottomData={topBottomData}
+                topBottom={topBottom}
+              />
               <button className="share-btn">
                 <img
                   className="share-icon-bar"
@@ -65,11 +116,6 @@ const BarChartComponent = () => {
             </div>
           </div>
           <div className="filter-container">
-            <TopBottomButton
-              setTopBottom={setTopBottom}
-              topBottomData={topBottomData}
-              topBottom={topBottom}
-            />
             <Sort
               setData={setBardata}
               data={bardata}
@@ -79,7 +125,13 @@ const BarChartComponent = () => {
         </div>
         <div className="bar-chart-wrapper">
           <div className="chart-bar">
-            <HighchartsReact highcharts={Highcharts} options={data} />
+            {loading ? (
+              <div className="bar-loader">
+                <PuffLoader color="#F05728" loading={loading} size={50} />
+              </div>
+            ) : (
+              <HighchartsReact highcharts={Highcharts} options={data} />
+            )}
           </div>
         </div>
       </div>

@@ -26,6 +26,18 @@
       width: 100%;
       margin-bottom: -0.8rem;
       justify-content: space-between;
+
+      .heading-map-content {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+
+        .info-icon {
+          width: 20px;
+          height: 20px;
+          cursor: pointer;
+        }
+      }
     }
   }
 

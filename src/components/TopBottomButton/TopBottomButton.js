@@ -1,23 +1,34 @@
 import React, { useState } from "react";
 import "./TopBottomButton.scss";
-import { faArrowDownShortWide } from "@fortawesome/free-solid-svg-icons";
+import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const TopBottomButton = ({ topBottom, topBottomData, setTopBottom }) => {
+const TopBottomButton = ({
+  topBottom,
+  topBottomData,
+  setTopBottom,
+  handleChange,
+}) => {
   const [isActive, setIsActive] = useState(false);
 
   return (
     <div className="btn-wrapper">
       <button onClick={() => setIsActive(!isActive)} className="btn-container">
-        <p className="btn-heading">{topBottom}</p>
-        <FontAwesomeIcon icon={faArrowDownShortWide} />
+        <FontAwesomeIcon icon={faAngleDown} />
 
         {isActive && (
           <div className="content-container">
             {topBottomData.map((option) => (
               <>
                 <div
+                  style={{ fontFamily: "Work-Sans" }}
                   onClick={() => {
+                    handleChange(
+                      (option === topBottomData[0] &&
+                        "Top 10 Countries Wellbeing Analysis") ||
+                        (option === topBottomData[1] &&
+                          "Bottom 10 Countries Wellbeing Analysis")
+                    );
                     setTopBottom(option);
                   }}
                   className="filter-item"

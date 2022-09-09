@@ -22,21 +22,23 @@ const Button = ({ selected, setSelected, options, disabled, handleChange }) => {
       </div>
 
       {isActive && (
-        <div className="dropdown-content">
+        <div className="dropdown-content-countryData">
           {options.map((option) => (
-            <div
-              onClick={
-                disabled
-                  ? () => {}
-                  : (e) => {
-                      setSelected(option);
-                      handleChange(option);
-                      setActive(false);
-                    }
-              }
-              className="dropdown-item"
-            >
-              {option}
+            <div>
+              <div
+                onClick={
+                  disabled
+                    ? () => {}
+                    : (e) => {
+                        setSelected(option);
+                        handleChange(option);
+                        setActive(false);
+                      }
+                }
+                className="dropdown-item-countryData"
+              >
+                {option}
+              </div>
             </div>
           ))}
         </div>
