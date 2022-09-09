@@ -1,12 +1,13 @@
-import React from "react";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import xCircle from "../../../../Images/x-circle.svg";
-import threeDots from "../../../../Images/threeDots.svg";
-import Tippy from "@tippyjs/react";
-import "tippy.js/dist/tippy.css";
-import "tippy.js/themes/light.css";
-import "tippy.js/dist/svg-arrow.css";
+import React, { useContext } from 'react';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import xCircle from '../../../../Images/x-circle.svg';
+import threeDots from '../../../../Images/threeDots.svg';
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css';
+import 'tippy.js/themes/light.css';
+import 'tippy.js/dist/svg-arrow.css';
+import { FilterContext } from '../../../../context/FilterContext';
 
 const CompareCountry = ({
   title,
@@ -19,12 +20,14 @@ const CompareCountry = ({
   onChange,
   value,
 }) => {
+  const { state } = useContext(FilterContext);
+  const { countryValue } = state.filters;
   return (
     <>
       <div className="Add-country">
         <div className="country">
           <img alt="dots" src={threeDots} />
-          <p className="title">{title}</p>
+          <p className="title">{countryValue ? countryValue : title}</p>
         </div>
         {!addCountry ? (
           <button onClick={AddCountryonClick} className="country-add">
@@ -40,15 +43,15 @@ const CompareCountry = ({
           !isValue && (
             <div className="country-added">
               <Tippy
-                theme={"light"}
+                theme={'light'}
                 interactive={true}
                 content={
                   <div
                     style={{
-                      padding: "0.5rem",
+                      padding: '0.5rem',
                       fontWeight: 400,
-                      fontFamily: "Work-Sans",
-                      fontSize: "14px",
+                      fontFamily: 'Work-Sans',
+                      fontSize: '14px',
                     }}
                   >
                     <p style={{ fontWeight: 600, marginTop: 0 }}>

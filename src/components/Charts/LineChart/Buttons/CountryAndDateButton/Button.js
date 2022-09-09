@@ -1,19 +1,25 @@
-import React, { useState } from "react";
-import "./Button.scss";
-import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useContext, useState } from 'react';
+import './Button.scss';
+import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { SET_FILTERS } from '../../../../../actions/types';
+import { FilterContext } from '../../../../../context/FilterContext';
 
 const Button = ({ selected, setSelected, options, disabled, handleChange }) => {
+  const { dispatch, state } = useContext(FilterContext);
+  const {
+    filters: { countryValue },
+  } = state;
   const [isActive, setActive] = useState(false);
 
   return (
     <div className="dropdown">
       <div
-        style={disabled ? { cursor: "not-allowed" } : {}}
+        style={disabled ? { cursor: 'not-allowed' } : {}}
         onClick={disabled ? () => {} : (e) => setActive(!isActive)}
-        className={`${disabled ? "dropdown-btn-disabled" : "dropdown-btn"}`}
+        className={`${disabled ? 'dropdown-btn-disabled' : 'dropdown-btn'}`}
       >
-        {selected}
+        {countryValue ? countryValue : selected}
         {!isActive ? (
           <FontAwesomeIcon icon={faAngleDown} />
         ) : (
@@ -30,6 +36,10 @@ const Button = ({ selected, setSelected, options, disabled, handleChange }) => {
                   disabled
                     ? () => {}
                     : (e) => {
+                        dispatch({
+                          type: SET_FILTERS,
+                          payload: { field: 'countryValue', value: '' },
+                        });
                         setSelected(option);
                         handleChange(option);
                         setActive(false);
