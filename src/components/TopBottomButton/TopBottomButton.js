@@ -1,13 +1,14 @@
-import React, { useState } from "react";
-import "./TopBottomButton.scss";
-import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useState } from 'react';
+import './TopBottomButton.scss';
+import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const TopBottomButton = ({
   topBottom,
   topBottomData,
   setTopBottom,
   handleChange,
+  onTopBottomClick,
 }) => {
   const [isActive, setIsActive] = useState(false);
 
@@ -21,15 +22,16 @@ const TopBottomButton = ({
             {topBottomData.map((option) => (
               <>
                 <div
-                  style={{ fontFamily: "Work-Sans" }}
+                  style={{ fontFamily: 'Work-Sans' }}
                   onClick={() => {
                     handleChange(
                       (option === topBottomData[0] &&
-                        "Top 10 Countries Wellbeing Analysis") ||
+                        'Top 10 Countries Wellbeing Analysis') ||
                         (option === topBottomData[1] &&
-                          "Bottom 10 Countries Wellbeing Analysis")
+                          'Bottom 10 Countries Wellbeing Analysis')
                     );
                     setTopBottom(option);
+                    onTopBottomClick(option);
                   }}
                   className="filter-item"
                 >

@@ -95,6 +95,41 @@ const BarChartComponent = () => {
     setBardataFilterDrop(option);
   };
 
+  const onTopBottomClick = async (val) => {
+    const response = await getBarData(
+      fromDate,
+      toDate,
+      countryValue,
+      influencerValue,
+      hashtagValue
+    );
+
+    let tempData = JSON.parse(JSON.stringify(Bardata));
+
+    if (val === 'Top 10') {
+      response.data.sort((a, b) => b.count - a.count);
+    } else {
+      response.data.sort((a, b) => a.count - b.count);
+    }
+
+    for (let i = 0; i < response.data.length; i++) {
+      tempData.xAxis.categories.push(response.data[i]._id);
+      tempData.series[0].data.push(Math.floor(response.data[i].count));
+      tempData.tooltip.headerFormat = `<strong><span style="color:#212121; font-size: 16px;">{point.key}</span></strong><br>`;
+      tempData.tooltip.pointFormat = `{series.name}: <strong><span  style="color:#F05728">{point.y}</span></strong><br><span style="color:#212121">Positive:<span> <strong><span style="color:#F05728">${twoDecimalPlacesIfCents(
+        response.data[i].happy
+      )}%</span></strong><br/>Negative: <strong><span style="color:#F05728">${twoDecimalPlacesIfCents(
+        response.data[i].sad_per
+      )}%</span></strong>`;
+
+      // tempData.tooltip.formatter = function () {
+      //   return `${response.data[i].happy}`;
+      // };
+    }
+
+    setData(tempData);
+  };
+
   const onEnterInputClick = async (e) => {
     if (e.key === 'Enter') {
       let influencerTypedValue = '';
@@ -177,6 +212,7 @@ const BarChartComponent = () => {
                 setTopBottom={setTopBottom}
                 topBottomData={topBottomData}
                 topBottom={topBottom}
+                onTopBottomClick={onTopBottomClick}
               />
               <button className="share-btn">
                 <img
