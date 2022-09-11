@@ -1,8 +1,8 @@
-import React from "react";
-import HighchartsReact from "highcharts-react-official";
-import Highcharts from "highcharts";
-import { LineChartBarData } from "../Chart/data";
-import LineChart from "../Chart/LineChart";
+import React from 'react';
+import HighchartsReact from 'highcharts-react-official';
+import Highcharts from 'highcharts';
+import { LineChartBarData } from '../Chart/data';
+import LineChart from '../Chart/LineChart';
 
 const CompareCountryLineChart = ({
   isValue,
@@ -10,6 +10,8 @@ const CompareCountryLineChart = ({
   barData,
   lineChartData,
   dataForLineBarChart,
+  selectCountry,
+  contryNameState,
 }) => {
   // console.log(dataForLineBarChart, "linebAr");
   return (
@@ -25,7 +27,7 @@ const CompareCountryLineChart = ({
       {compareCountryActive && (
         <div
           className={`${
-            isValue ? "line-chart-bar" : "line-chart-bar-condition"
+            isValue ? 'line-chart-bar' : 'line-chart-bar-condition'
           }`}
         >
           <LineChart
@@ -33,6 +35,8 @@ const CompareCountryLineChart = ({
             lineChartData={lineChartData}
             isValue={isValue}
             compareCountryActive={compareCountryActive}
+            selectCountry={selectCountry}
+            contryNameState={contryNameState}
           />
         </div>
       )}

@@ -1,19 +1,19 @@
-import React, { useContext, useEffect, useState } from "react";
-import "./BarChart.scss";
-import Highcharts from "highcharts";
-import Sort from "../../SortFilter/Sort";
-import HighchartsReact from "highcharts-react-official";
-import Bardata from "./data";
-import shareIcon from "../../../Images/share-2.svg";
-import TopBottomButton from "../../TopBottomButton/TopBottomButton";
-import { getBarData } from "../../../actions/BarChartApis";
-import { PuffLoader } from "react-spinners";
-import Tippy from "@tippyjs/react";
-import "tippy.js/dist/tippy.css";
-import "tippy.js/themes/light.css";
-import "tippy.js/dist/svg-arrow.css";
-import { FilterContext } from "../../../context/FilterContext";
-import infoIcon from "../../../Images/info.svg";
+import React, { useContext, useEffect, useState } from 'react';
+import './BarChart.scss';
+import Highcharts from 'highcharts';
+import Sort from '../../SortFilter/Sort';
+import HighchartsReact from 'highcharts-react-official';
+import Bardata from './data';
+import shareIcon from '../../../Images/share-2.svg';
+import TopBottomButton from '../../TopBottomButton/TopBottomButton';
+import { getBarData } from '../../../actions/BarChartApis';
+import { PuffLoader } from 'react-spinners';
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css';
+import 'tippy.js/themes/light.css';
+import 'tippy.js/dist/svg-arrow.css';
+import { FilterContext } from '../../../context/FilterContext';
+import infoIcon from '../../../Images/info.svg';
 
 const BarChartComponent = () => {
   const { state } = useContext(FilterContext);
@@ -27,12 +27,13 @@ const BarChartComponent = () => {
     },
   } = state;
   const [data, setData] = useState({});
-  const barData = ["Influencer", "Hashtag"];
-  const [bardata, setBardata] = useState("Filters");
-  const topBottomData = ["Top 10", "Bottom 10"];
-  const [topBottom, setTopBottom] = useState("Top 10");
+  const barDataOption = ['Influencer', 'Hashtag'];
+  const [bardataFilterDrop, setBardataFilterDrop] = useState('Filters');
+  const topBottomData = ['Top 10', 'Bottom 10'];
+  const [topBottom, setTopBottom] = useState('Top 10');
   const [loading, setLoading] = useState(true);
-  const [heading, setHeading] = useState("Top 10 Countries Wellbeing Analysis");
+  const [heading, setHeading] = useState('Top 10 Countries Wellbeing Analysis');
+  const [inputValue, setInputValue] = useState('');
 
   const handleChange = (value) => {
     setHeading(value);
@@ -90,6 +91,53 @@ const BarChartComponent = () => {
     }
   }, [countryLineChartLoading]);
 
+  const onFilterDropClick = (option) => {
+    setBardataFilterDrop(option);
+  };
+
+  const onEnterInputClick = async (e) => {
+    if (e.key === 'Enter') {
+      let influencerTypedValue = '';
+      let hashtagTypedValue = '';
+      if (bardataFilterDrop === 'Influencer') {
+        influencerTypedValue = inputValue;
+      }
+      if (bardataFilterDrop === 'Hashtag') {
+        hashtagTypedValue = inputValue;
+      }
+      const response = await getBarData(
+        fromDate,
+        toDate,
+        countryValue,
+        influencerTypedValue,
+        hashtagTypedValue
+      );
+
+      let tempData = JSON.parse(JSON.stringify(Bardata));
+
+      for (let i = 0; i < response.data.length; i++) {
+        tempData.xAxis.categories.push(response.data[i]._id);
+        tempData.series[0].data.push(Math.floor(response.data[i].count));
+        tempData.tooltip.headerFormat = `<strong><span style="color:#212121; font-size: 16px;">{point.key}</span></strong><br>`;
+        tempData.tooltip.pointFormat = `{series.name}: <strong><span  style="color:#F05728">{point.y}</span></strong><br><span style="color:#212121">Positive:<span> <strong><span style="color:#F05728">${twoDecimalPlacesIfCents(
+          response.data[i].happy
+        )}%</span></strong><br/>Negative: <strong><span style="color:#F05728">${twoDecimalPlacesIfCents(
+          response.data[i].sad_per
+        )}%</span></strong>`;
+
+        // tempData.tooltip.formatter = function () {
+        //   return `${response.data[i].happy}`;
+        // };
+      }
+
+      setData(tempData);
+    }
+  };
+
+  const onInputChange = async (e) => {
+    setInputValue(e.target.value);
+  };
+
   return (
     <>
       <div className="wrapper">
@@ -98,15 +146,15 @@ const BarChartComponent = () => {
             <div className="heading-left">
               <h1 className="heading">{heading}</h1>
               <Tippy
-                theme={"light"}
+                theme={'light'}
                 interactive={true}
                 content={
                   <div
                     style={{
-                      padding: "0.5rem",
+                      padding: '0.5rem',
                       fontWeight: 400,
-                      fontFamily: "Work-Sans",
-                      fontSize: "14px",
+                      fontFamily: 'Work-Sans',
+                      fontSize: '14px',
                     }}
                   >
                     <p style={{ fontWeight: 600, marginTop: 0 }}>
@@ -141,9 +189,11 @@ const BarChartComponent = () => {
           </div>
           <div className="filter-container">
             <Sort
-              setData={setBardata}
-              data={bardata}
-              dropdownOptions={barData}
+              setData={onFilterDropClick}
+              data={bardataFilterDrop}
+              dropdownOptions={barDataOption}
+              onchange={onInputChange}
+              onEnterInputClick={onEnterInputClick}
             />
           </div>
         </div>
