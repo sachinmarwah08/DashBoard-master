@@ -40,8 +40,8 @@ const BubbleChart = ({ handleChange }) => {
           fromDate,
           toDate,
           countryValue,
-          hashtagValue,
-          influencerValue
+          influencerValue,
+          hashtagValue
         );
         let tempData = [...response.records];
         tempData.sort((a, b) => b.hashtag.count - a.hashtag.count);

@@ -54,7 +54,8 @@ const TopInfluencer = () => {
       toDate,
       category,
       persentile,
-      countryValue
+      countryValue,
+      influencerValue
     );
     setGetInfluencersData(getInfluencersResponse.influencers);
     setLoading(false);
@@ -110,7 +111,9 @@ const TopInfluencer = () => {
           toDate,
           category,
           persentile,
-          countryValue
+          countryValue,
+          influencerValue,
+          hashtagValue
         );
         localStorage.setItem("persentile", getInfluencersResponse.persentile);
 
@@ -141,7 +144,7 @@ const TopInfluencer = () => {
                 }}
               >
                 <p style={{ fontWeight: 600, marginTop: 0 }}>Top Influencers</p>
-                In this table, prominent influencers from around the world are
+                In this table, prominent influencers around the world are
                 analysed and divided into categories of persons and
                 organizations.
               </div>

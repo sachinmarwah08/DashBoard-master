@@ -28,7 +28,7 @@ import {
 
 const DashboardFilter = () => {
   const { state, dispatch } = useContext(FilterContext);
-  console.log(state);
+  // console.log(state);
   const { influencerValue, hashtagValue, countryValue } = state.filters;
   const [influencer, setIinfluencer] = useState([]);
   const [hashtag, sethashtag] = useState([]);

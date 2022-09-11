@@ -1,13 +1,13 @@
-import React, { useContext } from 'react';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import xCircle from '../../../../Images/x-circle.svg';
-import threeDots from '../../../../Images/threeDots.svg';
-import Tippy from '@tippyjs/react';
-import 'tippy.js/dist/tippy.css';
-import 'tippy.js/themes/light.css';
-import 'tippy.js/dist/svg-arrow.css';
-import { FilterContext } from '../../../../context/FilterContext';
+import React, { useContext } from "react";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import xCircle from "../../../../Images/x-circle.svg";
+import threeDots from "../../../../Images/threeDots.svg";
+import Tippy from "@tippyjs/react";
+import "tippy.js/dist/tippy.css";
+import "tippy.js/themes/light.css";
+import "tippy.js/dist/svg-arrow.css";
+import { FilterContext } from "../../../../context/FilterContext";
 
 const CompareCountry = ({
   title,
@@ -19,6 +19,7 @@ const CompareCountry = ({
   closeAddCountry,
   onChange,
   value,
+  options,
 }) => {
   const { state } = useContext(FilterContext);
   const { countryValue } = state.filters;
@@ -42,34 +43,42 @@ const CompareCountry = ({
         ) : (
           !isValue && (
             <div className="country-added">
-              <Tippy
-                theme={'light'}
-                interactive={true}
-                content={
-                  <div
-                    style={{
-                      padding: '0.5rem',
-                      fontWeight: 400,
-                      fontFamily: 'Work-Sans',
-                      fontSize: '14px',
-                    }}
-                  >
-                    <p style={{ fontWeight: 600, marginTop: 0 }}>
-                      Type Country Name
-                    </p>
-                    Choose the country for comparison in the same time frame.
-                  </div>
-                }
-              >
-                <input
-                  type="text"
-                  onKeyDown={onKeyDown}
-                  onChange={onChange}
-                  value={value}
-                  className="contry-name"
-                  placeholder="Type country name"
-                />
-              </Tippy>
+              <div className="container-type-country-name">
+                <Tippy
+                  theme={"light"}
+                  interactive={true}
+                  content={
+                    <div
+                      style={{
+                        padding: "0.5rem",
+                        fontWeight: 400,
+                        fontFamily: "Work-Sans",
+                        fontSize: "14px",
+                      }}
+                    >
+                      <p style={{ fontWeight: 600, marginTop: 0 }}>
+                        Type Country Name
+                      </p>
+                      Choose the country for comparison in the same time frame.
+                    </div>
+                  }
+                >
+                  <input
+                    type="text"
+                    onKeyDown={onKeyDown}
+                    onChange={onChange}
+                    value={value}
+                    className="contry-name"
+                    placeholder="Type country name"
+                  />
+                </Tippy>
+
+                {/* <div className="type-country-name-dropdown">
+                  {options.map((item) => (
+                    <div className="dropdown-item">{item}</div>
+                  ))}
+                </div> */}
+              </div>
             </div>
           )
         )}

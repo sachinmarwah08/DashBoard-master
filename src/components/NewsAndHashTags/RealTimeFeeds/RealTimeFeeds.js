@@ -121,7 +121,8 @@ const RealTimeFeeds = () => {
           toDate,
           sentiment,
           countryValue,
-          influencerValue
+          influencerValue,
+          hashtagValue
         );
 
         const newsCountResponse = await newsFlashes(
@@ -129,7 +130,8 @@ const RealTimeFeeds = () => {
           toDate,
           newsSentiment,
           countryValue,
-          influencerValue
+          influencerValue,
+          hashtagValue
         );
 
         setNewsFeed(newsCountResponse.records);
@@ -171,8 +173,8 @@ const RealTimeFeeds = () => {
                 <p style={{ fontWeight: 600, marginTop: 0 }}>
                   Real-time Tweets
                 </p>
-                You can access the tweet of interest based on its emotional
-                context by clicking on it.
+                You can access the tweet of interest based on its sentiment by
+                clicking on it.
               </div>
             }
           >
@@ -201,8 +203,8 @@ const RealTimeFeeds = () => {
                 }}
               >
                 <p style={{ fontWeight: 600, marginTop: 0 }}>Real-time News</p>
-                You can access the news of interest based on its emotional
-                context by clicking on it.
+                You can access the news of interest based on its sentiment by
+                clicking on it.
               </div>
             }
           >

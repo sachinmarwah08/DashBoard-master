@@ -161,7 +161,7 @@ const CalenderButton = ({ icon }) => {
               // onChange={item => setState([item.selection])}
               showSelectionPreview={true}
               moveRangeOnFirstSelection={false}
-              months={2}
+              months={1}
               ranges={dateState}
               direction="horizontal"
             />

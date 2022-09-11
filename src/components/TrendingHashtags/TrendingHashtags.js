@@ -50,8 +50,8 @@ const TrendingHashtags = () => {
           fromDate,
           toDate,
           countryValue,
-          hashtagValue,
-          influencerValue
+          influencerValue,
+          hashtagValue
         );
         if (response.records && response.records.length) {
           setTotalCount(response.records[0].hashtag.count);
@@ -60,7 +60,7 @@ const TrendingHashtags = () => {
         }
 
         setData(response.records);
-        console.log(response.records, "trending hashtag");
+        // console.log(response.records, "trending hashtag");
       };
       callApi();
     }
@@ -128,7 +128,7 @@ const TrendingHashtags = () => {
                     }}
                   >
                     <p style={{ fontWeight: 600, marginTop: 0 }}>Total Use</p>
-                    This widget shows how often the {hashtag} appears in various
+                    This widget shows how often {hashtag} appears in various
                     tweets about wellbeing.
                   </div>
                 }

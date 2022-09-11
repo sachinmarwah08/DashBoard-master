@@ -99,8 +99,8 @@ const GlobalWellbeing = () => {
                   </p>
                   This index provides insights on wellbeing rankings by country,
                   top influencers, trending hashtags, tweets, and news stories
-                  about wellbeing, as well as categorisation of these into happy
-                  and sad emotions.
+                  about wellbeing, as well as categorisation of these into
+                  positive and negative sentiment.
                 </div>
               }
             >

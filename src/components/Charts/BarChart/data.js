@@ -92,12 +92,13 @@ const Bardata = {
     },
   },
   tooltip: {
-    valueSuffix: "M",
+    valueSuffix: "",
     useHTML: true,
     backgroundColor: null,
     borderWidth: 0,
     shadow: true,
     outside: true,
+    followPointer: true,
     // headerFormat: "<span style="fontSize: 24px">{point.key}</span><br>",
     // pointFormat: "{series.name}: <strong>{point.y}",
     // formatter: function () {

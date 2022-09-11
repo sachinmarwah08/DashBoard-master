@@ -42,6 +42,13 @@ const Table = () => {
     return amount % 1 !== 0 ? amount.toFixed(2) : amount;
   }
 
+  function ParseFloat(str, val) {
+    str = str.toString();
+    str = str.slice(0, str.indexOf(".") + val + 1);
+    return Number(str);
+  }
+  console.log(ParseFloat("NaN", 2), "Helloooooooooparsen");
+
   return (
     <div className="table-wrapper">
       <div className="table-border">
@@ -69,13 +76,13 @@ const Table = () => {
                 <td>
                   {twoDecimalPlacesIfCents(item.rank)}{" "}
                   <span style={{ color: "#F05728" }}>
-                    ({parseFloat(item.change_in_rank).toFixed(2)})
+                    ({parseFloat(item.change_in_rank, 2)})
                   </span>
                 </td>
                 <td>
                   {nFormatter(item.count)}{" "}
                   <span style={{ color: "#F05728" }}>
-                    ({parseFloat(item.change_in_index_persentage).toFixed(2)})
+                    ({ParseFloat(item.change_in_index_persentage, 2)})
                   </span>
                 </td>
                 <td>

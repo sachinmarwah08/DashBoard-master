@@ -67,9 +67,9 @@ const MapChartComponent = () => {
                   </p>
                   This shows geography-wise wellbeing insights. It shows each
                   country's ranking for wellbeing, wellbeing index score,
-                  percentages of happiness and sadness towards wellbeing, and
-                  the net change in ranking and wellbeing index score from the
-                  previous period.
+                  percentages of positive and negative sentiment towards
+                  wellbeing, and the net change in ranking and wellbeing index
+                  score from the previous period.
                 </div>
               }
             >

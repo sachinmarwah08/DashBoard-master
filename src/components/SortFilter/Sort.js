@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import './Sort.scss';
-import filterBarLogo from '../../Images/filter.svg';
-import searchBarLogo from '../../Images/search.svg';
-import { faXmark } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { useState } from "react";
+import "./Sort.scss";
+import filterBarLogo from "../../Images/filter.svg";
+import searchBarLogo from "../../Images/search.svg";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Sort = ({
   dropdownOptions,
@@ -14,6 +14,7 @@ const Sort = ({
   filterData,
   clearData,
   onEnterInputClick,
+  influencerdata,
 }) => {
   const [isActive, setIsActive] = useState(false);
 
@@ -22,7 +23,7 @@ const Sort = ({
       <div className="bar-search">
         <input
           style={{
-            fontFamily: 'Work-Sans',
+            fontFamily: "Work-Sans",
           }}
           className="bar-search-data"
           name="search"
@@ -32,6 +33,14 @@ const Sort = ({
           type="text"
           onKeyDown={onEnterInputClick}
         />
+
+        <div className="search-bar-dropdown">
+          {influencerdata &&
+            influencerdata.map((item) => (
+              <div className="dropdown-item">{item}</div>
+            ))}
+        </div>
+
         {filterData ? (
           <FontAwesomeIcon
             onClick={clearData}
@@ -46,8 +55,6 @@ const Sort = ({
           />
         )}
       </div>
-
-      {/* <div className="searchbar-suggestions"></div> */}
 
       <div className="filter-bar-data">
         <div

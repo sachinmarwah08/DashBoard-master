@@ -112,6 +112,13 @@ function MyComponent() {
     return amount % 1 !== 0 ? amount.toFixed(2) : amount;
   }
 
+  function ParseFloat(str, val) {
+    str = str.toString();
+    str = str.slice(0, str.indexOf(".") + val + 1);
+    return Number(str);
+  }
+  // console.log(ParseFloat("NaN", 2), "Helloooooooooparsen");
+
   // let iconMarker = new window.google.maps.MarkerImage(
   //   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmrCU2BSbAzpeyJx_rxUONfn8cVSwGsuF4ig&usqp=CAU",
   //   null /* size is determined at runtime */,
@@ -175,19 +182,21 @@ function MyComponent() {
                       {_id}
                     </div>
                     <pre></pre>
-                    <div
-                      style={{
-                        fontWeight: 400,
-                        fontSize: "12px",
-                        fontFamily: "Work-Sans",
-                        color: "#212121",
-                      }}
-                    >
-                      Rank:{" "}
-                      <span style={{ fontWeight: 600, color: "#F05728" }}>
-                        {rank}
-                      </span>
-                    </div>
+                    {rank && (
+                      <div
+                        style={{
+                          fontWeight: 400,
+                          fontSize: "12px",
+                          fontFamily: "Work-Sans",
+                          color: "#212121",
+                        }}
+                      >
+                        Rank:{" "}
+                        <span style={{ fontWeight: 600, color: "#F05728" }}>
+                          {rank}
+                        </span>
+                      </div>
+                    )}
                     <pre></pre>
                     <div
                       style={{
@@ -234,6 +243,7 @@ function MyComponent() {
                       </span>
                     </div>
                     <pre></pre>
+                    {/* {change_in_rank ? ( */}
                     <div
                       style={{
                         fontWeight: 400,
@@ -248,6 +258,7 @@ function MyComponent() {
                         {change_in_rank}
                       </span>
                     </div>
+                    {/* ) : ( "" )} */}
                     <pre></pre>
                     <div
                       style={{
@@ -258,12 +269,11 @@ function MyComponent() {
                         marginTop: "-0.5rem",
                       }}
                     >
-                      Percentage Change in Wellbeing Index:{" "}
+                      Change in Wellbeing Index:{" "}
                       <span style={{ fontWeight: 600, color: "#F05728" }}>
-                        {twoDecimalPlacesIfCents(change_in_index_persentage)}
+                        {ParseFloat(change_in_index_persentage, 2)}%
                       </span>
                     </div>
-
                     <pre></pre>
                   </div>
                 </InfoWindowF>
