@@ -5,6 +5,10 @@ import "tippy.js/themes/light.css";
 import "tippy.js/dist/svg-arrow.css";
 
 const Bubble = ({ name, index, handleChange, trendingHashtag }) => {
+  const renderHashFunc = (data) => {
+    return data && data.length && data[index] && data[index]?.hashtag?.htag;
+  };
+
   return (
     <>
       <div className={`bubble-${name}`}></div>
@@ -20,9 +24,7 @@ const Bubble = ({ name, index, handleChange, trendingHashtag }) => {
             }}
           >
             <p style={{ fontWeight: 400, margin: 0, padding: "0.5rem" }}>
-              {trendingHashtag &&
-                trendingHashtag.length &&
-                trendingHashtag[index].hashtag.htag}
+              {renderHashFunc(trendingHashtag)}
             </p>
           </div>
         }
@@ -32,9 +34,10 @@ const Bubble = ({ name, index, handleChange, trendingHashtag }) => {
           className={`bubble-${name}-content`}
         >
           <span className="hashtag-title">
-            {trendingHashtag &&
+            {/* {trendingHashtag &&
               trendingHashtag.length &&
-              trendingHashtag[index].hashtag.htag}
+              trendingHashtag[index].hashtag.htag} */}
+            {renderHashFunc(trendingHashtag)}
           </span>
         </p>
       </Tippy>

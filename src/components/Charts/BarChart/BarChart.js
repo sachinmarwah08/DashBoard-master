@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./BarChart.scss";
 import Highcharts from "highcharts";
 import Sort from "../../SortFilter/Sort";
@@ -12,9 +12,20 @@ import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
 import "tippy.js/themes/light.css";
 import "tippy.js/dist/svg-arrow.css";
+import { FilterContext } from "../../../context/FilterContext";
 import infoIcon from "../../../Images/info.svg";
 
 const BarChartComponent = () => {
+  const { state } = useContext(FilterContext);
+  const {
+    loaders: { countryLineChartLoading },
+    filters: {
+      countryValue,
+      influencerValue,
+      hashtagValue,
+      dateRangeValue: { fromDate, toDate },
+    },
+  } = state;
   const [data, setData] = useState({});
   const barData = ["Influencer", "Hashtag"];
   const [bardata, setBardata] = useState("Filters");
@@ -32,39 +43,52 @@ const BarChartComponent = () => {
   }
 
   useEffect(() => {
-    const callApi = async () => {
-      // let today = Date.now();
-      // var check = moment(today);
-      // var month = check.format("M");
-      // var day = check.format("D");
-      // var year = check.format("YYYY");
-      // let fromDate = `${year}-${month}-01`;
-      // let toDate = `${year}-${month}-${day}`;
-      // console.log(month, day, year);
+    if (countryLineChartLoading) {
+      const callApi = async () => {
+        // let today = Date.now();
+        // var check = moment(today);
+        // var month = check.format("M");
+        // var day = check.format("D");
+        // var year = check.format("YYYY");
+        // let fromDate = `${year}-${month}-01`;
+        // let toDate = `${year}-${month}-${day}`;
+        // console.log(month, day, year);
 
-      let fromDate = "2022-06-01";
-      let toDate = "2022-07-31";
+        // let fromDate = "2022-06-01";
+        // let toDate = "2022-07-31";
+        // let country = "United States";
 
-      const response = await getBarData(fromDate, toDate);
+        const response = await getBarData(
+          fromDate,
+          toDate,
+          countryValue,
+          influencerValue,
+          hashtagValue
+        );
 
-      let tempData = JSON.parse(JSON.stringify(Bardata));
+        let tempData = JSON.parse(JSON.stringify(Bardata));
 
-      for (let i = 0; i < response.data.length; i++) {
-        tempData.xAxis.categories.push(response.data[i]._id);
-        tempData.series[0].data.push(Math.floor(response.data[i].count));
-        tempData.tooltip.headerFormat = `<strong><span style="color:#212121; font-size: 16px;">{point.key}</span></strong><br>`;
-        tempData.tooltip.pointFormat = `{series.name}: <strong><span  style="color:#F05728">{point.y}</span></strong><br><span style="color:#212121">Positive:<span> <strong><span style="color:#F05728">${twoDecimalPlacesIfCents(
-          response.data[i].happy
-        )}%</span></strong><br/>Negative: <strong><span style="color:#F05728">${twoDecimalPlacesIfCents(
-          response.data[i].sad_per
-        )}%</span></strong>`;
-      }
+        for (let i = 0; i < response.data.length; i++) {
+          tempData.xAxis.categories.push(response.data[i]._id);
+          tempData.series[0].data.push(Math.floor(response.data[i].count));
+          tempData.tooltip.headerFormat = `<strong><span style="color:#212121; font-size: 16px;">{point.key}</span></strong><br>`;
+          tempData.tooltip.pointFormat = `{series.name}: <strong><span  style="color:#F05728">{point.y}</span></strong><br><span style="color:#212121">Positive:<span> <strong><span style="color:#F05728">${twoDecimalPlacesIfCents(
+            response.data[i].happy
+          )}%</span></strong><br/>Negative: <strong><span style="color:#F05728">${twoDecimalPlacesIfCents(
+            response.data[i].sad_per
+          )}%</span></strong>`;
 
-      setData(tempData);
-      setLoading(false);
-    };
-    callApi();
-  }, []);
+          // tempData.tooltip.formatter = function () {
+          //   return `${response.data[i].happy}`;
+          // };
+        }
+
+        setData(tempData);
+        setLoading(false);
+      };
+      callApi();
+    }
+  }, [countryLineChartLoading]);
 
   return (
     <>

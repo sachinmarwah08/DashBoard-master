@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { getTrendingHashtagData } from "../../actions/TrendingHashtagsApis";
 import background from "../../Images/hashtag-bg.svg";
 import Tippy from "@tippyjs/react";
@@ -6,32 +6,51 @@ import "tippy.js/dist/tippy.css";
 import "tippy.js/themes/light.css";
 import "tippy.js/dist/svg-arrow.css";
 import Bubble from "./Bubble";
+import { FilterContext } from "../../context/FilterContext";
 
 const BubbleChart = ({ handleChange }) => {
+  const { state } = useContext(FilterContext);
+  const {
+    loaders: { countryLineChartLoading },
+    filters: {
+      countryValue,
+      influencerValue,
+      hashtagValue,
+      dateRangeValue: { fromDate, toDate },
+    },
+  } = state;
   const [trendingHashtag, setTrendingHashtag] = useState([]);
 
   useEffect(() => {
-    const callApi = async () => {
-      // let today = Date.now();
-      // var check = moment(today);
-      // var month = check.format("M");
-      // var day = check.format("D");
-      // var year = check.format("YYYY");
-      // let fromDate = `${year}-${month}-01`;
-      // let toDate = `${year}-${month}-${day}`;
-      // console.log(month, day, year);
+    if (countryLineChartLoading) {
+      const callApi = async () => {
+        // let today = Date.now();
+        // var check = moment(today);
+        // var month = check.format("M");
+        // var day = check.format("D");
+        // var year = check.format("YYYY");
+        // let fromDate = `${year}-${month}-01`;
+        // let toDate = `${year}-${month}-${day}`;
+        // console.log(month, day, year);
 
-      let fromDate = "2022-06-01";
-      let toDate = "2022-07-31";
+        // let fromDate = "2022-07-01";
+        // let toDate = "2022-07-31";
 
-      const response = await getTrendingHashtagData(fromDate, toDate);
-      let tempData = [...response.records];
-      tempData.sort((a, b) => b.hashtag.count - a.hashtag.count);
+        const response = await getTrendingHashtagData(
+          fromDate,
+          toDate,
+          countryValue,
+          hashtagValue,
+          influencerValue
+        );
+        let tempData = [...response.records];
+        tempData.sort((a, b) => b.hashtag.count - a.hashtag.count);
 
-      setTrendingHashtag(tempData);
-    };
-    callApi();
-  }, []);
+        setTrendingHashtag(tempData);
+      };
+      callApi();
+    }
+  }, [countryLineChartLoading]);
 
   return (
     <div className="trending-bubble-content">

@@ -44,6 +44,9 @@ const Sort = ({
           />
         )}
       </div>
+
+      {/* <div className="searchbar-suggestions"></div> */}
+
       <div className="filter-bar-data">
         <div
           onClick={() => {

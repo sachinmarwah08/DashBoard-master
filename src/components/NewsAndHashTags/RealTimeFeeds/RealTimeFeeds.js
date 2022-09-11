@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./RealTimeFeeds.scss";
 import RealTimeFeed from "./Content/RealTimeContent";
 import shareIcon from "../../../Images/share-2.svg";
@@ -13,8 +13,19 @@ import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
 import "tippy.js/themes/light.css";
 import "tippy.js/dist/svg-arrow.css";
+import { FilterContext } from "../../../context/FilterContext";
 
 const RealTimeFeeds = () => {
+  const { state } = useContext(FilterContext);
+  const {
+    loaders: { countryLineChartLoading },
+    filters: {
+      countryValue,
+      influencerValue,
+      hashtagValue,
+      dateRangeValue: { fromDate, toDate },
+    },
+  } = state;
   const [wordEntered, setWordEntered] = useState("");
   const [active, setActive] = useState("Real-time-Tweets");
   const realTimeData = ["Country", "Influencer", "Hashtag"];
@@ -27,8 +38,8 @@ const RealTimeFeeds = () => {
 
   const handleRadioChange = async (value) => {
     setLoading(true);
-    let tweetsFromDate = "2022-07-01";
-    let tweetsToDate = "2022-07-31";
+    // let tweetsFromDate = "2022-07-01";
+    // let tweetsToDate = "2022-07-31";
     let sentiment = "All";
     if (value === 2) {
       sentiment = "Positive";
@@ -36,8 +47,8 @@ const RealTimeFeeds = () => {
       sentiment = "Negative";
     }
 
-    let newsFromDate = "2022-07-01";
-    let newsToDate = "2022-07-31";
+    // let newsFromDate = "2022-07-01";
+    // let newsToDate = "2022-07-31";
     let newsSentiment = "All";
     if (value === 2) {
       newsSentiment = "Positive";
@@ -48,16 +59,22 @@ const RealTimeFeeds = () => {
     setIsRadioChecked(value);
 
     const newsCountResponse = await newsFlashes(
-      newsFromDate,
-      newsToDate,
-      newsSentiment
+      fromDate,
+      toDate,
+      newsSentiment,
+      countryValue,
+      influencerValue,
+      hashtagValue
     );
     setNewsFeed(newsCountResponse.records);
 
     const tweetsCountResponse = await getSocialMediaFlashes(
-      tweetsFromDate,
-      tweetsToDate,
-      sentiment
+      fromDate,
+      toDate,
+      sentiment,
+      countryValue,
+      influencerValue,
+      hashtagValue
     );
     setTweets(tweetsCountResponse.records);
     setLoading(false);
@@ -80,43 +97,49 @@ const RealTimeFeeds = () => {
   };
 
   useEffect(() => {
-    const callApi = async () => {
-      // let today = Date.now();
-      // var check = moment(today);
-      // var month = check.format("M");
-      // var day = check.format("D");
-      // var year = check.format("YYYY");
-      // let fromDate = `${year}-${month}-01`;
-      // let toDate = `${year}-${month}-${day}`;
-      // console.log(month, day, year);
+    if (countryLineChartLoading) {
+      const callApi = async () => {
+        // let today = Date.now();
+        // var check = moment(today);
+        // var month = check.format("M");
+        // var day = check.format("D");
+        // var year = check.format("YYYY");
+        // let fromDate = `${year}-${month}-01`;
+        // let toDate = `${year}-${month}-${day}`;
+        // console.log(month, day, year);
 
-      let tweetsFromDate = "2022-07-01";
-      let tweetsToDate = "2022-07-31";
-      let sentiment = "All";
+        // let tweetsFromDate = "2022-07-01";
+        // let tweetsToDate = "2022-07-31";
+        let sentiment = "All";
 
-      let newsFromDate = "2022-07-01";
-      let newsToDate = "2022-07-31";
-      let newsSentiment = "All";
+        // let newsFromDate = "2022-07-01";
+        // let newsToDate = "2022-07-31";
+        let newsSentiment = "All";
 
-      const tweetsCountResponse = await getSocialMediaFlashes(
-        tweetsFromDate,
-        tweetsToDate,
-        sentiment
-      );
+        const tweetsCountResponse = await getSocialMediaFlashes(
+          fromDate,
+          toDate,
+          sentiment,
+          countryValue,
+          influencerValue
+        );
 
-      const newsCountResponse = await newsFlashes(
-        newsFromDate,
-        newsToDate,
-        newsSentiment
-      );
+        const newsCountResponse = await newsFlashes(
+          fromDate,
+          toDate,
+          newsSentiment,
+          countryValue,
+          influencerValue
+        );
 
-      setNewsFeed(newsCountResponse.records);
-      setTweets(tweetsCountResponse.records);
-      setTweetsDataBackup(tweetsCountResponse.records);
-      setLoading(false);
-    };
-    callApi();
-  }, []);
+        setNewsFeed(newsCountResponse.records);
+        setTweets(tweetsCountResponse.records);
+        setTweetsDataBackup(tweetsCountResponse.records);
+        setLoading(false);
+      };
+      callApi();
+    }
+  }, [countryLineChartLoading]);
 
   const clearData = () => {
     setTweets(tweetsDataBackup);
@@ -186,9 +209,9 @@ const RealTimeFeeds = () => {
             <div className="tweets-heading">Real-time News</div>
           </Tippy>
         </button>
-        <div className="share-icon-btn">
+        {/* <div className="share-icon-btn">
           <img className="share-icon" alt="share-icon" src={shareIcon} />
-        </div>
+        </div> */}
       </div>
       <div className="realTime-radioBtn">
         <RadioButton

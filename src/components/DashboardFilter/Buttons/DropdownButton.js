@@ -94,7 +94,12 @@ const DropdownButton = ({ icon, name, data, selectedVal, handleChange }) => {
                 className="dropdown-filter-item"
               >
                 <ul style={{ margin: "0%", padding: "0%" }}>
-                  <li className="dropdown-list">{option}</li>
+                  <li
+                    style={{ fontFamily: "Work-Sans", color: "#616161" }}
+                    className="dropdown-list"
+                  >
+                    {option}
+                  </li>
                 </ul>
               </div>
             ))}

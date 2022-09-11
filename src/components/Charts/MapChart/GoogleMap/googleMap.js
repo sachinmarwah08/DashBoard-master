@@ -1,6 +1,6 @@
 /*global google */
 
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   GoogleMap,
   useJsApiLoader,
@@ -9,6 +9,7 @@ import {
 } from "@react-google-maps/api";
 import { getMapData } from "../../../../actions/GoogleMapApis";
 import { countryData } from "./Cordinates";
+import { FilterContext } from "../../../../context/FilterContext";
 
 const center = {
   lat: 38,
@@ -22,6 +23,16 @@ const containerStyle = {
 };
 
 function MyComponent() {
+  const { state } = useContext(FilterContext);
+  const {
+    loaders: { countryLineChartLoading },
+    filters: {
+      countryValue,
+      influencerValue,
+      hashtagValue,
+      dateRangeValue: { fromDate, toDate },
+    },
+  } = state;
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: "AIzaSyBjcLIeVQ02aYHchflfqslJz_9NPLYfNP0", // Add your API key
@@ -31,37 +42,45 @@ function MyComponent() {
   const [mapData, setMapData] = useState();
 
   useEffect(() => {
-    const callApi = async () => {
-      // let today = Date.now();
-      // var check = moment(today);
-      // var month = check.format("M");
-      // var day = check.format("D");
-      // var year = check.format("YYYY");
-      // let fromDate = `${year}-${month}-01`;
-      // let toDate = `${year}-${month}-${day}`;
-      // console.log(month, day, year);
+    if (countryLineChartLoading) {
+      const callApi = async () => {
+        // let today = Date.now();
+        // var check = moment(today);
+        // var month = check.format("M");
+        // var day = check.format("D");
+        // var year = check.format("YYYY");
+        // let fromDate = `${year}-${month}-01`;
+        // let toDate = `${year}-${month}-${day}`;
+        // console.log(month, day, year);
 
-      let fromDate = "2022-07-01";
-      let toDate = "2022-07-31";
-      let country = "United States";
-      const response = await getMapData(fromDate, toDate);
+        // let fromDate = "2022-07-01";
+        // let toDate = "2022-07-31";
+        // let country = "United States";
+        const response = await getMapData(
+          fromDate,
+          toDate,
+          countryValue,
+          influencerValue,
+          hashtagValue
+        );
 
-      let tempData = [...response.data];
+        let tempData = [...response.data];
 
-      for (let i = 0; i < tempData.length; i++) {
-        for (let j = 0; j < countryData.length; j++) {
-          if (tempData[i]._id === countryData[j].country) {
-            tempData[i]["position"] = {
-              lat: countryData[j]["latitude"],
-              lng: countryData[j]["longitude"],
-            };
+        for (let i = 0; i < tempData.length; i++) {
+          for (let j = 0; j < countryData.length; j++) {
+            if (tempData[i]._id === countryData[j].country) {
+              tempData[i]["position"] = {
+                lat: countryData[j]["latitude"],
+                lng: countryData[j]["longitude"],
+              };
+            }
           }
         }
-      }
-      setMapData(tempData);
-    };
-    callApi();
-  }, []);
+        setMapData(tempData);
+      };
+      callApi();
+    }
+  }, [countryLineChartLoading]);
 
   const handleActiveMarker = (marker) => {
     if (marker === activeMarker) {
@@ -71,9 +90,9 @@ function MyComponent() {
   };
 
   const handleOnLoad = (map) => {
-    const bounds = new google.maps.LatLngBounds();
-    mapData && mapData.forEach(({ position }) => bounds.extend(position));
-    map.fitBounds(bounds);
+    // const bounds = new google.maps.LatLngBounds();
+    // mapData && mapData.forEach(({ position }) => bounds.extend(position));
+    // map.fitBounds(bounds);
   };
 
   function nFormatter(num) {
@@ -118,7 +137,7 @@ function MyComponent() {
       mapContainerStyle={containerStyle}
       margin="auto"
       center={center}
-      zoom={2}
+      zoom={4}
       onLoad={handleOnLoad}
       // onUnmount={onUnmount}
     >
@@ -138,7 +157,8 @@ function MyComponent() {
               // icon={iconMarker}
               key={_id}
               position={position}
-              onClick={() => handleActiveMarker(_id)}
+              onMouseOver={() => handleActiveMarker(_id)}
+              onMouseOut={() => handleActiveMarker()}
             >
               {activeMarker === _id ? (
                 <InfoWindowF onCloseClick={() => setActiveMarker(null)}>

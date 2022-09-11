@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Sort from "../../SortFilter/Sort";
 import "./TopInfluencer.scss";
 import shareIcon from "../../../Images/share-2.svg";
@@ -13,8 +13,19 @@ import "tippy.js/dist/tippy.css";
 import "tippy.js/themes/light.css";
 import "tippy.js/dist/svg-arrow.css";
 import infoIcon from "../../../Images/info.svg";
+import { FilterContext } from "../../../context/FilterContext";
 
 const TopInfluencer = () => {
+  const { state } = useContext(FilterContext);
+  const {
+    loaders: { countryLineChartLoading },
+    filters: {
+      countryValue,
+      influencerValue,
+      hashtagValue,
+      dateRangeValue: { fromDate, toDate },
+    },
+  } = state;
   const dropdownOptions = ["Country", "Influencer", "Hashtag"];
   const [topInfluencerFilter, setTopInfluencerFilter] = useState("Filters");
   const [isRadioChecked, setIsRadioChecked] = useState(1);
@@ -27,8 +38,8 @@ const TopInfluencer = () => {
   const handleRadioChange = async (value) => {
     setLoading(true);
     const persentile = localStorage.getItem("persentile");
-    let fromDate = "2022-07-01";
-    let toDate = "2022-07-31";
+    // let fromDate = "2022-07-01";
+    // let toDate = "2022-07-31";
     let category = "ALL";
     if (value === 2) {
       category = "PERSON";
@@ -42,7 +53,8 @@ const TopInfluencer = () => {
       fromDate,
       toDate,
       category,
-      persentile
+      persentile,
+      countryValue
     );
     setGetInfluencersData(getInfluencersResponse.influencers);
     setLoading(false);
@@ -65,42 +77,51 @@ const TopInfluencer = () => {
   };
 
   useEffect(() => {
-    const callApi = async () => {
-      // let today = Date.now();
-      // var check = moment(today);
-      // var month = check.format("M");
-      // var day = check.format("D");
-      // var year = check.format("YYYY");
-      // let fromDate = `${year}-${month}-01`;
-      // let toDate = `${year}-${month}-${day}`;
-      // console.log(month, day, year);
+    if (countryLineChartLoading) {
+      const callApi = async () => {
+        // let today = Date.now();
+        // var check = moment(today);
+        // var month = check.format("M");
+        // var day = check.format("D");
+        // var year = check.format("YYYY");
+        // let fromDate = `${year}-${month}-01`;
+        // let toDate = `${year}-${month}-${day}`;
+        // console.log(month, day, year);
 
-      let influencerCountFromDate = "2022-07-01";
-      let influencerCountToDate = "2022-07-31";
+        // let influencerCountFromDate = "2022-07-01";
+        // let influencerCountToDate = "2022-07-31";
 
-      let fromDate = "2022-07-01";
-      let toDate = "2022-07-31";
-      let category = "ALL";
+        // let fromDate = "2022-07-01";
+        // let toDate = "2022-07-31";
+        let category = "ALL";
 
-      const influencerCountResponse = await influencerCount(
-        influencerCountFromDate,
-        influencerCountToDate
-      );
+        const persentile = localStorage.getItem("persentile") || 0;
 
-      const getInfluencersResponse = await getInfluencers(
-        fromDate,
-        toDate,
-        category
-      );
-      localStorage.setItem("persentile", getInfluencersResponse.persentile);
+        const influencerCountResponse = await influencerCount(
+          fromDate,
+          toDate,
+          countryValue,
+          influencerValue,
+          hashtagValue
+        );
 
-      setInfluencerCountData(influencerCountResponse.count);
-      setGetInfluencersData(getInfluencersResponse.influencers);
-      setInfluencerDataBackup(getInfluencersResponse.influencers);
-      setLoading(false);
-    };
-    callApi();
-  }, []);
+        const getInfluencersResponse = await getInfluencers(
+          fromDate,
+          toDate,
+          category,
+          persentile,
+          countryValue
+        );
+        localStorage.setItem("persentile", getInfluencersResponse.persentile);
+
+        setInfluencerCountData(influencerCountResponse.count);
+        setGetInfluencersData(getInfluencersResponse.influencers);
+        setInfluencerDataBackup(getInfluencersResponse.influencers);
+        setLoading(false);
+      };
+      callApi();
+    }
+  }, [countryLineChartLoading]);
 
   return (
     <div className="right-container">
@@ -134,7 +155,7 @@ const TopInfluencer = () => {
           <p className="score">
             <span className="digits">{influencerCountData}</span> Influencers
           </p>
-          <img alt="share-icon" className="share-img" src={shareIcon} />
+          {/* <img alt="share-icon" className="share-img" src={shareIcon} /> */}
         </div>
       </div>
 

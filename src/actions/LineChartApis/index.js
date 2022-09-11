@@ -1,11 +1,19 @@
 import baseApi from "../../apis";
 
-export const compareCountry = async (from_date, to_date, country) => {
+export const compareCountry = async (
+  from_date,
+  to_date,
+  country,
+  username,
+  htag
+) => {
   const response = await baseApi().get("/api/v1/get-country-line-chart-data", {
     params: {
       from_date,
       to_date,
       country,
+      username,
+      htag,
     },
   });
   if (response) {
@@ -13,7 +21,13 @@ export const compareCountry = async (from_date, to_date, country) => {
     return data;
   }
 };
-export const compareTime = async (from_date, to_date, country) => {
+export const compareTime = async (
+  from_date,
+  to_date,
+  country,
+  username,
+  htag
+) => {
   const response = await baseApi().get(
     "/api/v1/get-country-time-line-chart-data",
     {
@@ -21,6 +35,8 @@ export const compareTime = async (from_date, to_date, country) => {
         from_date,
         to_date,
         country,
+        username,
+        htag,
       },
     }
   );

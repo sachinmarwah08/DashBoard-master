@@ -51,6 +51,10 @@ const Chart = ({
   //   }
   // }
 
+  function renderTooltip() {
+    return <div>Custom content</div>;
+  }
+
   return (
     <div style={{ marginTop: "1rem" }}>
       <ResponsiveContainer
@@ -69,6 +73,7 @@ const Chart = ({
           {/* <PolarGrid strokeDasharray="3 3" /> */}
           {/* <CartesianGrid horizontal={true} vertical={false} /> */}
           <XAxis
+            style={{ fontFamily: "Work-Sans" }}
             dataKey={compareTimeActive ? "week" : "_id"}
             stroke="#757575"
             fontWeight={400}
@@ -77,6 +82,7 @@ const Chart = ({
             tickFormatter={(value) => value + ""}
           />
           <YAxis
+            style={{ fontFamily: "Work-Sans" }}
             tickFormatter={nFormatter}
             type="number"
             domain={["dataMin", "dataMax"]}
@@ -85,6 +91,7 @@ const Chart = ({
             stroke="#E0E0E0"
           />
           <Tooltip
+            // content={renderTooltip}
             separator=""
             labelStyle={{
               fontWeight: "700",

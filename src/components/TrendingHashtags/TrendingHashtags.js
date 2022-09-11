@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./TrendingHashtags.scss";
 import sentiment from "../../Images/trendingIconOne.svg";
 import trending from "../../Images/trendingIconTwo.svg";
@@ -11,8 +11,19 @@ import "tippy.js/themes/light.css";
 import "tippy.js/dist/svg-arrow.css";
 import infoIcon from "../../Images/info.svg";
 import { getTrendingHashtagData } from "../../actions/TrendingHashtagsApis";
+import { FilterContext } from "../../context/FilterContext";
 
 const TrendingHashtags = () => {
+  const { state } = useContext(FilterContext);
+  const {
+    loaders: { countryLineChartLoading },
+    filters: {
+      countryValue,
+      influencerValue,
+      hashtagValue,
+      dateRangeValue: { fromDate, toDate },
+    },
+  } = state;
   const [trendingFilter, setTrendingFilter] = useState("Filters");
   const realTimeData = ["Country", "Influencer", "Hashtag"];
   const [data, setData] = useState([]);
@@ -21,31 +32,39 @@ const TrendingHashtags = () => {
   const [hashtag, setHashtag] = useState("");
 
   useEffect(() => {
-    const callApi = async () => {
-      // let today = Date.now();
-      // var check = moment(today);
-      // var month = check.format("M");
-      // var day = check.format("D");
-      // var year = check.format("YYYY");
-      // let fromDate = `${year}-${month}-01`;
-      // let toDate = `${year}-${month}-${day}`;
-      // console.log(month, day, year);
+    if (countryLineChartLoading) {
+      const callApi = async () => {
+        // let today = Date.now();
+        // var check = moment(today);
+        // var month = check.format("M");
+        // var day = check.format("D");
+        // var year = check.format("YYYY");
+        // let fromDate = `${year}-${month}-01`;
+        // let toDate = `${year}-${month}-${day}`;
+        // console.log(month, day, year);
 
-      let fromDate = "2022-06-01";
-      let toDate = "2022-07-31";
+        // let fromDate = "2022-07-01";
+        // let toDate = "2022-07-31";
 
-      const response = await getTrendingHashtagData(fromDate, toDate);
-      if (response.records && response.records.length) {
-        setTotalCount(response.records[0].hashtag.count);
-        setTotalConnections(response.records[0].connection);
-        setHashtag(response.records[0].hashtag.htag);
-      }
+        const response = await getTrendingHashtagData(
+          fromDate,
+          toDate,
+          countryValue,
+          hashtagValue,
+          influencerValue
+        );
+        if (response.records && response.records.length) {
+          setTotalCount(response.records[0].hashtag.count);
+          setTotalConnections(response.records[0].connection);
+          setHashtag(response.records[0].hashtag.htag);
+        }
 
-      setData(response.records);
-      console.log(response.records, "trending hashtag");
-    };
-    callApi();
-  }, []);
+        setData(response.records);
+        console.log(response.records, "trending hashtag");
+      };
+      callApi();
+    }
+  }, [countryLineChartLoading]);
 
   const handleChange = (index) => {
     setTotalCount(data && data.length && data[index].hashtag.count);

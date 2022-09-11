@@ -1,3 +1,5 @@
+import HighchartsReact from "highcharts-react-official";
+
 const Bardata = {
   chart: {
     type: "bar",
@@ -98,7 +100,9 @@ const Bardata = {
     outside: true,
     // headerFormat: "<span style="fontSize: 24px">{point.key}</span><br>",
     // pointFormat: "{series.name}: <strong>{point.y}",
-
+    // formatter: function () {
+    //   return "Extra data: <b>" + "{point.data}" + "</b>";
+    // },
     stickOnContact: false,
     style: {
       zIndex: 899999999999,

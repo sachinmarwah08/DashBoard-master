@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./GlobalWellbeing.scss";
 // import moment from "moment";
 import {
@@ -10,37 +10,54 @@ import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
 import "tippy.js/themes/light.css";
 import "tippy.js/dist/svg-arrow.css";
+import { FilterContext } from "../../context/FilterContext";
 
 const GlobalWellbeing = () => {
+  const { state } = useContext(FilterContext);
+  const {
+    loaders: { countryLineChartLoading },
+    filters: {
+      countryValue,
+      dateRangeValue: { fromDate, toDate },
+    },
+  } = state;
   const [data, setData] = useState(0);
   const [absoluteData, setAbsoluteData] = useState({});
   const { absolute_change = 0, persentage = 0 } = absoluteData;
 
   useEffect(() => {
-    const callApi = async () => {
-      // let today = Date.now();
-      // var check = moment(today);
-      // var month = check.format("M");
-      // var day = check.format("D");
-      // var year = check.format("YYYY");
-      // let fromDate = `${year}-${month}-01`;
-      // let toDate = `${year}-${month}-${day}`;
-      // console.log(month, day, year);
+    if (countryLineChartLoading) {
+      const callApi = async () => {
+        // let today = Date.now();
+        // var check = moment(today);
+        // var month = check.format("M");
+        // var day = check.format("D");
+        // var year = check.format("YYYY");
+        // let fromDate = `${year}-${month}-01`;
+        // let toDate = `${year}-${month}-${day}`;
+        // console.log(month, day, year);
 
-      let fromDate = "2022-07-01";
-      let toDate = "2022-07-31";
+        // let fromDate = "2022-07-01";
+        // let toDate = "2022-07-31";
 
-      let fromDateDiff = "2022-07-01";
-      let toDateDiff = "2022-07-31";
+        // let fromDateDiff = "2022-07-01";
+        // let toDateDiff = "2022-07-31";
 
-      const response = await getTweetsCount(fromDate, toDate);
-      const diffRes = await getTweetsDiff(fromDateDiff, toDateDiff);
+        const response = await getTweetsCount(fromDate, toDate, countryValue);
+        const diffRes = await getTweetsDiff(
+          // fromDateDiff,
+          fromDate,
+          toDate,
+          // toDateDiff,
+          countryValue
+        );
 
-      setData(response.pos_neg_tweet_count);
-      setAbsoluteData(diffRes);
-    };
-    callApi();
-  }, []);
+        setData(response.pos_neg_tweet_count);
+        setAbsoluteData(diffRes);
+      };
+      callApi();
+    }
+  }, [countryLineChartLoading]);
 
   function nFormatter(num) {
     if (num >= 1000000000) {

@@ -51,6 +51,7 @@ const Button = ({
         }
       >
         <button
+          style={{ fontFamily: "Work-Sans" }}
           onClick={onClick}
           className={`${
             compareCountryActive === value
