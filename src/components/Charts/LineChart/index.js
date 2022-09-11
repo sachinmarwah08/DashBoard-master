@@ -31,7 +31,10 @@ const LineChartData = () => {
   const { state, dispatch } = useContext(FilterContext);
   const {
     loaders: { countryLineChartLoading },
-    filters: { countryValue },
+    filters: {
+      countryValue,
+      dateRangeValue: { fromDate, toDate },
+    },
   } = state;
   const navigate = useNavigate();
   const dateSelect = [
@@ -294,8 +297,8 @@ const LineChartData = () => {
         // let toDate = `${year}-${month}-${day}`;
         // console.log(month, day, year);
 
-        let fromDate = '2022-07-01';
-        let toDate = '2022-07-31';
+        // let fromDate = '2022-07-01';
+        // let toDate = '2022-07-31';
         let country = countryValue || 'Worldwide';
         // var currentDate = moment().format("DD-MM-YYYY");
         // var pastMonthDate = moment().subtract(1, "M").format("DD-MM-YYYY");

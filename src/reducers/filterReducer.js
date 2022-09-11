@@ -1,6 +1,7 @@
 import {
   RESET_FILTERS,
   SET_FILTERS,
+  TOGGLE_CALENDER,
   UPDATE_ALL_LOADERS_TRUE,
   UPDATE_LOADERS,
 } from '../actions/types';
@@ -14,6 +15,14 @@ const filterReducer = (state, action) => {
         filters: {
           ...state.filters,
           [payload.field]: payload.value,
+        },
+      };
+    case TOGGLE_CALENDER:
+      return {
+        ...state,
+        filters: {
+          ...state.filters,
+          calenderToggler: !state.filters.calenderToggler,
         },
       };
     case RESET_FILTERS:

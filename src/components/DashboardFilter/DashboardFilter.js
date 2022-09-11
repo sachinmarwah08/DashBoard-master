@@ -19,6 +19,7 @@ import { FilterContext } from '../../context/FilterContext';
 import {
   RESET_FILTERS,
   SET_FILTERS,
+  TOGGLE_CALENDER,
   UPDATE_ALL_LOADERS_TRUE,
 } from '../../actions/types';
 
@@ -77,6 +78,7 @@ const DashboardFilter = () => {
 
   const onApplyAllClick = () => {
     dispatch({ type: UPDATE_ALL_LOADERS_TRUE });
+    dispatch({ type: TOGGLE_CALENDER });
   };
 
   const onResetFiltersClick = () => {
