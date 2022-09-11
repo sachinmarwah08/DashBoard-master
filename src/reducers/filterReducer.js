@@ -1,4 +1,5 @@
 import {
+  CLOSE_CALENDER,
   RESET_FILTERS,
   SET_FILTERS,
   TOGGLE_CALENDER,
@@ -23,6 +24,14 @@ const filterReducer = (state, action) => {
         filters: {
           ...state.filters,
           calenderToggler: !state.filters.calenderToggler,
+        },
+      };
+    case CLOSE_CALENDER:
+      return {
+        ...state,
+        filters: {
+          ...state.filters,
+          calenderToggler: false,
         },
       };
     case RESET_FILTERS:

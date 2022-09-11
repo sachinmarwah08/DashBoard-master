@@ -17,6 +17,7 @@ import 'tippy.js/themes/light.css';
 import 'tippy.js/dist/svg-arrow.css';
 import { FilterContext } from '../../context/FilterContext';
 import {
+  CLOSE_CALENDER,
   RESET_FILTERS,
   SET_FILTERS,
   TOGGLE_CALENDER,
@@ -78,7 +79,7 @@ const DashboardFilter = () => {
 
   const onApplyAllClick = () => {
     dispatch({ type: UPDATE_ALL_LOADERS_TRUE });
-    dispatch({ type: TOGGLE_CALENDER });
+    dispatch({ type: CLOSE_CALENDER });
   };
 
   const onResetFiltersClick = () => {
