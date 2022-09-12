@@ -60,7 +60,7 @@ const Bardata = {
 
   yAxis: {
     min: 0,
-    max: 75000,
+    max: 21000,
 
     tickInterval: 0,
     title: {
@@ -104,6 +104,9 @@ const Bardata = {
     // formatter: function () {
     //   return "Extra data: <b>" + "{point.data}" + "</b>";
     // },
+    pointFormat:
+      '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+      '<td style="padding:0"><b>{point.y}k</b></td></tr>',
     stickOnContact: false,
     style: {
       zIndex: 899999999999,

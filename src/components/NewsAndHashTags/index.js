@@ -1,4 +1,5 @@
 import React from "react";
+import { useInView } from "react-intersection-observer";
 import "./index.scss";
 import RealTimeFeeds from "./RealTimeFeeds/RealTimeFeeds";
 import TopInfluencer from "./TopInfluencer/TopInfluencer";

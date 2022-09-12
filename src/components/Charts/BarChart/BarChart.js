@@ -67,6 +67,12 @@ const BarChartComponent = () => {
   //   return amount % 1 !== 0 ? amount.toFixed(2) : amount;
   // }
 
+  function kFormatter(num) {
+    return Math.abs(num) > 999
+      ? Math.sign(num) * (Math.abs(num) / 1000).toFixed(1) + "k"
+      : Math.sign(num) * Math.abs(num);
+  }
+
   useEffect(() => {
     if (countryLineChartLoading) {
       const callApi = async () => {
@@ -97,16 +103,18 @@ const BarChartComponent = () => {
 
         let tempData = JSON.parse(JSON.stringify(Bardata));
 
-        for (let i = 0; i < response.data.length; i++) {
+        for (let i = 1; i < response.data.length; i++) {
           tempData.xAxis.categories.push(response.data[i]._id);
           tempData.series[0].data.push(Math.floor(response.data[i].count));
           tempData.tooltip.headerFormat = `<strong><span style="color:#212121; font-size: 16px;">{point.key}</span></strong><br>`;
-          tempData.tooltip.pointFormat = `{series.name}: <strong><span  style="color:#F05728">{point.y}</span></strong><br><span style="color:#212121">Positive:<span> <strong><span style="color:#F05728">${response.data[i].happy}%</span></strong><br/>Negative: <strong><span style="color:#F05728">${response.data[i].sad_per}%</span></strong>`;
+          tempData.tooltip.pointFormat = `{series.name}: <strong><span  style="color:#F05728">{point.y}</span>`;
 
           // tempData.tooltip.formatter = function () {
           //   return `${response.data[i].happy}`;
           // };
         }
+        // tempData = tempData.filter((item, i) => i > 0);
+
         setInfluencerData(getInfluenser);
         setInfluencerBackupdata(getInfluenser);
         sethashtag(hashtagDataResponse);
@@ -263,7 +271,7 @@ const BarChartComponent = () => {
                 <img className="info-icon" src={infoIcon}></img>
               </Tippy>
             </div>
-            <div className="btn-share">
+            {/* <div className="btn-share">
               <TopBottomButton
                 handleChange={handleChange}
                 setTopBottom={setTopBottom}
@@ -278,7 +286,7 @@ const BarChartComponent = () => {
                   src={shareIcon}
                 />
               </button>
-            </div>
+            </div> */}
           </div>
           <div className="filter-container">
             <Sort

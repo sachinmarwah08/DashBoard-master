@@ -30,6 +30,34 @@ const TrendingHashtags = () => {
   const [totalCount, setTotalCount] = useState("");
   const [totalConnections, setTotalConnections] = useState("");
   const [hashtag, setHashtag] = useState("");
+  const [inputValue, setInputValue] = useState("");
+  const [influencerdata, setInfluencerData] = useState([]);
+  const [influencerBackupdata, setInfluencerBackupdata] = useState([]);
+  const [hashtagBackupdata, setHashtagBackupdata] = useState([]);
+  const [hashtagdropdwon, sethashtagdropdwon] = useState([]);
+  const [showInfluencerHashtag, setShowInfluencerHashtag] = useState(false);
+  const [countryDataDropdown, setCountryDataDropdown] = useState([]);
+  const [countryBackupdata, setCountryBackupdata] = useState([]);
+
+  const onInputChange = async (e) => {
+    setInputValue(e.target.value);
+    setShowInfluencerHashtag(true);
+    let tempData = [...influencerBackupdata];
+    let tempHasgtagData = [...hashtagBackupdata];
+    let tempCountryData = [...countryBackupdata];
+    const newFilter = tempData.filter((value) => {
+      return value.toLowerCase().includes(inputValue.toLowerCase());
+    });
+    const hashtagFilter = tempHasgtagData.filter((value) => {
+      return value.toLowerCase().includes(inputValue.toLowerCase());
+    });
+    const countryFilter = tempCountryData.filter((value) => {
+      return value.toLowerCase().includes(inputValue.toLowerCase());
+    });
+    setCountryDataDropdown(countryFilter);
+    sethashtagdropdwon(hashtagFilter);
+    setInfluencerData(newFilter);
+  };
 
   useEffect(() => {
     if (countryLineChartLoading) {

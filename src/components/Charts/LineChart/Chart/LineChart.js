@@ -58,14 +58,11 @@ const Chart = ({
     return <div>Custom content</div>;
   }
 
-  console.log("chooseTimeLineChartData", chooseTimeLineChartData);
+  console.log("chooseTimeLineChartData", lineChartData);
 
   return (
     <div style={{ marginTop: "1rem" }}>
-      <ResponsiveContainer
-        width="100%"
-        aspect={isValue || dateValue ? 3.6 : 4.2}
-      >
+      <ResponsiveContainer width="100%" aspect={4.2}>
         <LineChart
           data={
             (compareCountryActive && lineChartData) ||

@@ -138,7 +138,7 @@ const TopInfluencer = () => {
         // let toDate = "2022-07-31";
         let category = "ALL";
 
-        const persentile = localStorage.getItem("persentile");
+        const persentile = localStorage.getItem("persentile") || 0;
 
         const influencerCountResponse = await influencerCount(
           fromDate,
@@ -263,6 +263,7 @@ const TopInfluencer = () => {
     localStorage.setItem("persentile", getInfluencersResponse.persentile);
     setInfluencerCountData(influencerCountResponse.count);
     setGetInfluencersData(getInfluencersResponse.influencers);
+    console.log(getInfluencersResponse.influencers, "inital");
     setInfluencerDataBackup(getInfluencersResponse.influencers);
   };
 

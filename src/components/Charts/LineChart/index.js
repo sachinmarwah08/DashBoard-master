@@ -26,9 +26,15 @@ import "tippy.js/dist/svg-arrow.css";
 import { getCountryDropdownData } from "../../../actions/DropDownApis";
 import { UPDATE_LOADERS } from "../../../actions/types";
 import { FilterContext } from "../../../context/FilterContext";
+import { useInView } from "react-intersection-observer";
 
 const LineChartData = () => {
   const { state, dispatch } = useContext(FilterContext);
+  // const { ref, inView, entry } = useInView({
+  //   /* Optional options */
+  //   threshold: 0,
+  // });
+  // console.log("inView", inView);
   const {
     loaders: { countryLineChartLoading },
     filters: {
@@ -70,9 +76,9 @@ const LineChartData = () => {
     navigate("/");
   };
 
-  // const onCountryNameAdd = (event) => {
-  //   setContryNameState(event.target.value);
-  // };
+  const onCountryNameAdd = (event) => {
+    setContryNameState(event.target.value);
+  };
 
   function twoDecimalPlacesIfCents(amount) {
     return amount % 1 !== 0 ? amount.toFixed(2) : amount;
@@ -311,8 +317,8 @@ const LineChartData = () => {
       }
     } else {
       let country = option;
-      // let fromDate = "2022-07-01";
-      // let toDate = "2022-07-31";
+      // let fromDate = "2022-08-01";
+      // let toDate = "2022-09-31";
 
       const response = await compareCountry(fromDate, toDate, country);
       response.line_chart_data[country].sort(
@@ -331,8 +337,8 @@ const LineChartData = () => {
   };
 
   const onHandleCompareTimeMonthChange = async (item) => {
-    // let fromDate = "2022-07-01";
-    // let toDate = "2022-07-31";
+    // let fromDate = "2022-09-01";
+    // let toDate = "2022-09-12";
 
     try {
       setDateValue(item.month);
@@ -421,27 +427,6 @@ const LineChartData = () => {
     }
   };
 
-  const [filterData, setFilterData] = useState([]);
-  const [wordEntered, setWordEntered] = useState("");
-  const [backupData, setBackupData] = useState([]);
-  const [showdropdown, setShowdropdown] = useState(false);
-
-  const handleFilter = (event) => {
-    let tempData = [...backupData];
-    const searchWord = event.target.value;
-    setWordEntered(searchWord);
-    const newFilter = tempData.filter((value) => {
-      return value.toLowerCase().includes(searchWord.toLowerCase());
-    });
-
-    setFilterData(newFilter);
-  };
-
-  const click = (value) => {
-    setWordEntered(value);
-    setShowdropdown(false);
-  };
-
   useEffect(() => {
     if (countryLineChartLoading) {
       const callApi = async () => {
@@ -454,8 +439,8 @@ const LineChartData = () => {
         // let toDate = `${year}-${month}-${day}`;
         // console.log(month, day, year);
 
-        // let fromDate = '2022-07-01';
-        // let toDate = '2022-07-31';
+        // let fromDatetime = "2022-08-01";
+        // let toDatetime = "2022-09-12";
         let country = countryValue || "Worldwide";
         // var currentDate = moment().format("DD-MM-YYYY");
         // var pastMonthDate = moment().subtract(1, "M").format("DD-MM-YYYY");
@@ -469,13 +454,14 @@ const LineChartData = () => {
           hashtagValue
         );
         const responseComapreTime = await compareTime(
+          // fromDatetime,
+          // toDatetime,
           fromDate,
           toDate,
           country,
           influencerValue,
           hashtagValue
         );
-
         const countryDropdown = await getCountryDropdownData();
 
         response.line_chart_data[country].sort(
@@ -489,8 +475,6 @@ const LineChartData = () => {
           item[country] = item.count;
         });
         console.log("...............jkl", response.line_chart_data[country]);
-        setBackupData(countryDropdown);
-        setFilterData(countryDropdown);
         setCountrySelect(countryDropdown);
         setBarChartData(response.bar_graph_data[country]);
         setLineChartData(response.line_chart_data[country]);
@@ -555,14 +539,14 @@ const LineChartData = () => {
               {/* <button type="button" alt="downloadIcon" className="d-icon">
                 <img alt="download-icon" src={downloadIcon}></img>
               </button> */}
-              <button
+              {/* <button
                 onClick={() => setOpenModal(true)}
                 type="button"
                 alt="shareIcon"
                 className="s-icon"
               >
                 <img alt="share-icon" src={shareIcon}></img>
-              </button>
+              </button> */}
             </div>
           </div>
 
@@ -574,19 +558,21 @@ const LineChartData = () => {
                 <CountryAndDateButton
                   disabled={false}
                   // disabled={isValue}
+                  // value={inputValue}
                   options={countrySelect}
                   handleChange={handleChange}
                   selected={selectCountry}
+                  // onChange={handleFilter}
                   setSelected={setselectCountry}
                 />
               </div>
               <div className="select-date-btn">
-                <CountryAndDateButton
+                {/* <CountryAndDateButton
                   disabled={dateValue}
                   options={dateSelect}
                   selected={selected}
                   setSelected={setSelected}
-                />
+                /> */}
               </div>
             </div>
 
@@ -624,11 +610,8 @@ const LineChartData = () => {
               addCountryClickName="Add country"
               isValue={isValue}
               onKeyDown={onCountryEnterPress}
-              onChange={handleFilter}
-              value={wordEntered}
-              click={click}
-              filterData={filterData}
-              wordEntered={wordEntered}
+              onChange={onCountryNameAdd}
+              value={contryNameState}
             />
           )}
 
