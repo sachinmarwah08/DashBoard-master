@@ -10,10 +10,36 @@ import DashboardFilter from "./DashboardFilter/DashboardFilter";
 import FilterProvider from "../context/FilterContext";
 
 const Main = () => {
-  const [loader, serLoader] = useState(false);
+  // const [filterData, setFilterData] = useState([]);
+  // const [wordEntered, setWordEntered] = useState("");
+  // const [close, setClose] = useState(false);
+
+  // const handleFilter = (event) => {
+  //   const searchWord = event.target.value;
+  //   setWordEntered(searchWord);
+  //   const newFilter = data.filter((value) => {
+  //     return value.toLowerCase().includes(searchWord.toLowerCase());
+  //   });
+
+  //   setFilterData(newFilter);
+  // };
+
+  // const click = (value) => {
+  //   setWordEntered(value);
+  //   setClose(false);
+  // };
+
   return (
     <>
-      <div></div>
+      {/* <div>
+        <input type="text" value={wordEntered} onChange={handleFilter} />
+
+        <div>
+          {filterData.map((item) => (
+            <div onClick={() => click(item)}>{item}</div>
+          ))}
+        </div>
+      </div> */}
       <FilterProvider>
         <Header />
         <GlobalWellbeing />

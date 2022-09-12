@@ -138,7 +138,7 @@ const TopInfluencer = () => {
         // let toDate = "2022-07-31";
         let category = "ALL";
 
-        const persentile = localStorage.getItem("persentile") || 0;
+        const persentile = localStorage.getItem("persentile");
 
         const influencerCountResponse = await influencerCount(
           fromDate,

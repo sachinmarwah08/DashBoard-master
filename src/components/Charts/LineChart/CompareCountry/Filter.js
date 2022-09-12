@@ -19,10 +19,13 @@ const CompareCountry = ({
   closeAddCountry,
   onChange,
   value,
-  options,
+  filterData,
+  click,
+  wordEntered,
 }) => {
   const { state } = useContext(FilterContext);
   const { countryValue } = state.filters;
+
   return (
     <>
       <div className="Add-country">
@@ -72,16 +75,23 @@ const CompareCountry = ({
                     placeholder="Type country name"
                   />
                 </Tippy>
-
-                {/* <div className="type-country-name-dropdown">
-                  {options.map((item) => (
-                    <div className="dropdown-item">{item}</div>
-                  ))}
-                </div> */}
+                {wordEntered && (
+                  <div className="type-country-name-dropdown">
+                    {filterData.map((item) => (
+                      <div
+                        onClick={() => click(item)}
+                        className="dropdown-item"
+                      >
+                        {item}
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
           )
         )}
+
         {isValue && (
           <div className="country-added">
             <span className="circle-line-added-country"></span>

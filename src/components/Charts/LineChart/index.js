@@ -70,9 +70,9 @@ const LineChartData = () => {
     navigate("/");
   };
 
-  const onCountryNameAdd = (event) => {
-    setContryNameState(event.target.value);
-  };
+  // const onCountryNameAdd = (event) => {
+  //   setContryNameState(event.target.value);
+  // };
 
   function twoDecimalPlacesIfCents(amount) {
     return amount % 1 !== 0 ? amount.toFixed(2) : amount;
@@ -421,6 +421,27 @@ const LineChartData = () => {
     }
   };
 
+  const [filterData, setFilterData] = useState([]);
+  const [wordEntered, setWordEntered] = useState("");
+  const [backupData, setBackupData] = useState([]);
+  const [showdropdown, setShowdropdown] = useState(false);
+
+  const handleFilter = (event) => {
+    let tempData = [...backupData];
+    const searchWord = event.target.value;
+    setWordEntered(searchWord);
+    const newFilter = tempData.filter((value) => {
+      return value.toLowerCase().includes(searchWord.toLowerCase());
+    });
+
+    setFilterData(newFilter);
+  };
+
+  const click = (value) => {
+    setWordEntered(value);
+    setShowdropdown(false);
+  };
+
   useEffect(() => {
     if (countryLineChartLoading) {
       const callApi = async () => {
@@ -454,6 +475,7 @@ const LineChartData = () => {
           influencerValue,
           hashtagValue
         );
+
         const countryDropdown = await getCountryDropdownData();
 
         response.line_chart_data[country].sort(
@@ -467,6 +489,8 @@ const LineChartData = () => {
           item[country] = item.count;
         });
         console.log("...............jkl", response.line_chart_data[country]);
+        setBackupData(countryDropdown);
+        setFilterData(countryDropdown);
         setCountrySelect(countryDropdown);
         setBarChartData(response.bar_graph_data[country]);
         setLineChartData(response.line_chart_data[country]);
@@ -600,8 +624,11 @@ const LineChartData = () => {
               addCountryClickName="Add country"
               isValue={isValue}
               onKeyDown={onCountryEnterPress}
-              onChange={onCountryNameAdd}
-              value={contryNameState}
+              onChange={handleFilter}
+              value={wordEntered}
+              click={click}
+              filterData={filterData}
+              wordEntered={wordEntered}
             />
           )}
 
