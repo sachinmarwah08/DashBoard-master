@@ -33,6 +33,8 @@ const LineChartData = () => {
     loaders: { countryLineChartLoading },
     filters: {
       countryValue,
+      influencerValue,
+      hashtagValue,
       dateRangeValue: { fromDate, toDate },
     },
   } = state;
@@ -84,8 +86,8 @@ const LineChartData = () => {
           .includes(e.target.value.toLowerCase())
       ) {
         setIsValue(true);
-        let fromDate = "2022-07-01";
-        let toDate = "2022-07-31";
+        // let fromDate = "2022-07-01";
+        // let toDate = "2022-07-31";
         let country = e.target.value;
         try {
           const response = await compareCountry(fromDate, toDate, country);
@@ -200,8 +202,8 @@ const LineChartData = () => {
           .includes(contryNameState.toLowerCase())
       ) {
         setIsValue(true);
-        let fromDate = "2022-07-01";
-        let toDate = "2022-07-31";
+        // let fromDate = "2022-07-01";
+        // let toDate = "2022-07-31";
         let country = contryNameState;
         try {
           const dropResponse = await compareCountry(fromDate, toDate, option);
@@ -309,8 +311,8 @@ const LineChartData = () => {
       }
     } else {
       let country = option;
-      let fromDate = "2022-07-01";
-      let toDate = "2022-07-31";
+      // let fromDate = "2022-07-01";
+      // let toDate = "2022-07-31";
 
       const response = await compareCountry(fromDate, toDate, country);
       response.line_chart_data[country].sort(
@@ -329,8 +331,8 @@ const LineChartData = () => {
   };
 
   const onHandleCompareTimeMonthChange = async (item) => {
-    let fromDate = "2022-07-01";
-    let toDate = "2022-07-31";
+    // let fromDate = "2022-07-01";
+    // let toDate = "2022-07-31";
 
     try {
       setDateValue(item.month);
@@ -397,8 +399,13 @@ const LineChartData = () => {
           }
         }
       }
+
       // tempData.sort((a, b) => b._id.split("-")[2] - a._id.split("-")[2]);
       console.log("tempData", tempData);
+      tempData.forEach((item) => {
+        item[selectCountry] = item.count;
+        item[selectCountry] = item.compare;
+      });
 
       // setBarChartData(response.bar_graph_data);
       setChooseTimeLineChartData(tempData);
@@ -433,11 +440,19 @@ const LineChartData = () => {
         // var pastMonthDate = moment().subtract(1, "M").format("DD-MM-YYYY");
         // console.log(currentDate, futureMonth);
 
-        const response = await compareCountry(fromDate, toDate, country);
+        const response = await compareCountry(
+          fromDate,
+          toDate,
+          country,
+          influencerValue,
+          hashtagValue
+        );
         const responseComapreTime = await compareTime(
           fromDate,
           toDate,
-          country
+          country,
+          influencerValue,
+          hashtagValue
         );
         const countryDropdown = await getCountryDropdownData();
 
@@ -446,6 +461,9 @@ const LineChartData = () => {
         );
 
         response.line_chart_data[country].forEach((item) => {
+          item[country] = item.count;
+        });
+        responseComapreTime.line_chart_data[country].forEach((item) => {
           item[country] = item.count;
         });
         console.log("...............jkl", response.line_chart_data[country]);
@@ -622,6 +640,8 @@ const LineChartData = () => {
               compareTimeActive={compareCountryActive === "compareTime"}
               chooseTimeLineChartData={chooseTimeLineChartData}
               chooseTimeBarDataState={chooseTimeBarDataState}
+              selectCountry={selectCountry}
+              contryNameState={selectCountry}
             />
           )}
         </div>

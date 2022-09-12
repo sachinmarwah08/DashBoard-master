@@ -41,6 +41,7 @@ const DashboardFilter = () => {
       const influencerDataResponse = await getInfluencerDropdownData();
       const hashtagDataResponse = await getHashtagDropdownData();
       setCountry(countryDataResponse);
+      console.log(countryDataResponse, "country Data");
       setIinfluencer(influencerDataResponse);
       sethashtag(hashtagDataResponse);
     };

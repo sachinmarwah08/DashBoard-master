@@ -53,9 +53,12 @@ const Chart = ({
   //   }
   // }
 
-  function renderTooltip() {
+  function renderTooltip(item) {
+    console.log("item", item);
     return <div>Custom content</div>;
   }
+
+  console.log("chooseTimeLineChartData", chooseTimeLineChartData);
 
   return (
     <div style={{ marginTop: "1rem" }}>
@@ -93,7 +96,7 @@ const Chart = ({
             stroke="#E0E0E0"
           />
           <Tooltip
-            // content={renderTooltip}
+            // content={(item, index) => renderTooltip(item, index)}
             separator=""
             labelStyle={{
               fontWeight: "700",

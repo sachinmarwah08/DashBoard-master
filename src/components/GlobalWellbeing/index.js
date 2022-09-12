@@ -76,6 +76,12 @@ const GlobalWellbeing = () => {
     return amount % 1 !== 0 ? amount.toFixed(2) : amount;
   }
 
+  function kFormatter(num) {
+    return Math.abs(num) > 999
+      ? Math.sign(num) * (Math.abs(num) / 1000).toFixed(1) + "k"
+      : Math.sign(num) * Math.abs(num);
+  }
+
   return (
     <div className="main-container">
       <div className="main-container-wrapper">
@@ -141,7 +147,7 @@ const GlobalWellbeing = () => {
 
           <div className="column-two">
             <p className="column-two-digit-one">
-              {nFormatter(absolute_change)}
+              {kFormatter(absolute_change)}
             </p>
             <Tippy
               theme={"light"}

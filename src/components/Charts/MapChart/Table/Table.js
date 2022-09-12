@@ -2,28 +2,28 @@ import React, { useEffect, useState } from "react";
 import "./Table.scss";
 import { getMapData } from "../../../../actions/GoogleMapApis/index";
 
-const Table = () => {
-  const [data, setData] = useState([]);
+const Table = ({ tableData }) => {
+  // const [data, setData] = useState([]);
 
-  useEffect(() => {
-    const callApi = async () => {
-      // let today = Date.now();
-      // var check = moment(today);
-      // var month = check.format("M");
-      // var day = check.format("D");
-      // var year = check.format("YYYY");
-      // let fromDate = `${year}-${month}-01`;
-      // let toDate = `${year}-${month}-${day}`;
-      // console.log(month, day, year);
+  // useEffect(() => {
+  //   const callApi = async () => {
+  //     // let today = Date.now();
+  //     // var check = moment(today);
+  //     // var month = check.format("M");
+  //     // var day = check.format("D");
+  //     // var year = check.format("YYYY");
+  //     // let fromDate = `${year}-${month}-01`;
+  //     // let toDate = `${year}-${month}-${day}`;
+  //     // console.log(month, day, year);
 
-      let fromDate = "2022-07-01";
-      let toDate = "2022-07-31";
+  //     let fromDate = "2022-07-01";
+  //     let toDate = "2022-07-31";
 
-      const response = await getMapData(fromDate, toDate);
-      setData(response.data);
-    };
-    callApi();
-  }, []);
+  //     const response = await getMapData(fromDate, toDate);
+  //     setData(response.data);
+  //   };
+  //   callApi();
+  // }, []);
 
   function nFormatter(num) {
     if (num >= 1000000000) {
@@ -38,9 +38,9 @@ const Table = () => {
     return num;
   }
 
-  function twoDecimalPlacesIfCents(amount) {
-    return amount % 1 !== 0 ? amount.toFixed(2) : amount;
-  }
+  // function twoDecimalPlacesIfCents(amount) {
+  //   return amount % 1 !== 0 ? amount.toFixed(2) : amount;
+  // }
 
   function ParseFloat(str, val) {
     str = str.toString();
@@ -63,7 +63,7 @@ const Table = () => {
             </tr>
           </thead>
           <tbody style={{ marginTop: "0.5rem", height: "24.5rem" }}>
-            {data.map((item) => (
+            {tableData.map((item) => (
               <tr
                 key={item.id}
                 style={{
@@ -74,7 +74,7 @@ const Table = () => {
               >
                 <td style={{ textAlign: "left" }}>{item._id}</td>
                 <td>
-                  {twoDecimalPlacesIfCents(item.rank)}{" "}
+                  {parseFloat(item.rank, 2)}{" "}
                   <span style={{ color: "#F05728" }}>
                     ({parseFloat(item.change_in_rank, 2)})
                   </span>

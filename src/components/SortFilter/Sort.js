@@ -15,6 +15,9 @@ const Sort = ({
   clearData,
   onEnterInputClick,
   influencerdata,
+  onDropDownClick,
+  inputValue,
+  showInfluencerHashtag,
 }) => {
   const [isActive, setIsActive] = useState(false);
 
@@ -33,13 +36,19 @@ const Sort = ({
           type="text"
           onKeyDown={onEnterInputClick}
         />
-
-        <div className="search-bar-dropdown">
-          {influencerdata &&
-            influencerdata.map((item) => (
-              <div className="dropdown-item">{item}</div>
-            ))}
-        </div>
+        {showInfluencerHashtag && inputValue && (
+          <div className="search-bar-dropdown">
+            {influencerdata &&
+              influencerdata.map((item) => (
+                <div
+                  onClick={() => onDropDownClick(item)}
+                  className="dropdown-item"
+                >
+                  {item}
+                </div>
+              ))}
+          </div>
+        )}
 
         {filterData ? (
           <FontAwesomeIcon

@@ -9,6 +9,8 @@ const CompareTimeLineChart = ({
   compareTimeActive,
   chooseTimeLineChartData,
   chooseTimeBarDataState,
+  selectCountry,
+  contryNameState,
 }) => {
   return (
     <>
@@ -30,6 +32,8 @@ const CompareTimeLineChart = ({
             dateValue={dateValue}
             compareTimeActive={compareTimeActive}
             chooseTimeLineChartData={chooseTimeLineChartData}
+            selectCountry={selectCountry}
+            contryNameState={contryNameState}
           />
         </div>
       )}

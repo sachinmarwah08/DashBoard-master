@@ -3,7 +3,7 @@ import HighchartsReact from "highcharts-react-official";
 const Bardata = {
   chart: {
     type: "bar",
-    height: 500,
+    height: 470,
     zoomType: false,
   },
 
@@ -60,7 +60,7 @@ const Bardata = {
 
   yAxis: {
     min: 0,
-    max: 30,
+    max: 75000,
 
     tickInterval: 0,
     title: {

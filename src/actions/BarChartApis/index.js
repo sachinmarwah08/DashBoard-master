@@ -5,7 +5,8 @@ export const getBarData = async (
   to_date,
   country,
   username,
-  htag
+  htag,
+  order
 ) => {
   const response = await baseApi().get("/api/v1/country-bar-chart-data", {
     params: {
@@ -14,6 +15,7 @@ export const getBarData = async (
       country,
       username,
       htag,
+      order,
     },
   });
   if (response) {
