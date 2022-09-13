@@ -1,6 +1,7 @@
 /*global google */
-import React from "react";
-import { GoogleMap, MarkerF, InfoWindowF } from "@react-google-maps/api";
+import React, { useContext } from 'react';
+import { GoogleMap, MarkerF, InfoWindowF } from '@react-google-maps/api';
+import { FilterContext } from '../../../../context/FilterContext';
 
 const center = {
   lat: 38,
@@ -8,9 +9,9 @@ const center = {
 };
 
 const containerStyle = {
-  width: "auto",
-  height: "100%",
-  borderRadius: "0.5rem",
+  width: 'auto',
+  height: '100%',
+  borderRadius: '0.5rem',
 };
 
 function MyComponent({
@@ -21,25 +22,28 @@ function MyComponent({
   mapDataApi,
   activeMarker,
 }) {
+  const { state } = useContext(FilterContext);
+  // console.log(state);
+  const { influencerValue, hashtagValue, countryValue } = state.filters;
   function twoDecimalPlacesIfCents(amount) {
     return amount % 1 !== 0 ? amount.toFixed(2) : amount;
   }
 
   function ParseFloat(str, val) {
     str = str.toString();
-    str = str.slice(0, str.indexOf(".") + val + 1);
+    str = str.slice(0, str.indexOf('.') + val + 1);
     return Number(str);
   }
 
   function nFormatter(num) {
     if (num >= 1000000000) {
-      return (num / 1000000000).toFixed(1).replace(/\.0$/, "") + "G";
+      return (num / 1000000000).toFixed(1).replace(/\.0$/, '') + 'G';
     }
     if (num >= 1000000) {
-      return (num / 1000000).toFixed(1).replace(/\.0$/, "") + "M";
+      return (num / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
     }
     if (num >= 1000) {
-      return (num / 1000).toFixed(1).replace(/\.0$/, "") + "k";
+      return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
     }
     return num;
   }
@@ -98,10 +102,10 @@ function MyComponent({
                     <div
                       style={{
                         fontWeight: 600,
-                        fontSize: "16px",
-                        color: "#212121",
-                        lineHeight: "24px",
-                        fontFamily: "Work-Sans",
+                        fontSize: '16px',
+                        color: '#212121',
+                        lineHeight: '24px',
+                        fontFamily: 'Work-Sans',
                       }}
                     >
                       {_id}
@@ -111,13 +115,13 @@ function MyComponent({
                       <div
                         style={{
                           fontWeight: 400,
-                          fontSize: "12px",
-                          fontFamily: "Work-Sans",
-                          color: "#212121",
+                          fontSize: '12px',
+                          fontFamily: 'Work-Sans',
+                          color: '#212121',
                         }}
                       >
-                        Rank:{" "}
-                        <span style={{ fontWeight: 600, color: "#F05728" }}>
+                        Rank:{' '}
+                        <span style={{ fontWeight: 600, color: '#F05728' }}>
                           {rank}
                         </span>
                       </div>
@@ -126,14 +130,14 @@ function MyComponent({
                     <div
                       style={{
                         fontWeight: 400,
-                        fontSize: "12px",
-                        fontFamily: "Work-Sans",
-                        color: "#212121",
-                        marginTop: "-0.5rem",
+                        fontSize: '12px',
+                        fontFamily: 'Work-Sans',
+                        color: '#212121',
+                        marginTop: '-0.5rem',
                       }}
                     >
-                      Wellbeing Index :{" "}
-                      <span style={{ fontWeight: 600, color: "#F05728" }}>
+                      Wellbeing Index :{' '}
+                      <span style={{ fontWeight: 600, color: '#F05728' }}>
                         {nFormatter(count)}
                       </span>
                     </div>
@@ -141,61 +145,65 @@ function MyComponent({
                     <div
                       style={{
                         fontWeight: 400,
-                        fontSize: "12px",
-                        color: "#212121",
-                        fontFamily: "Work-Sans",
-                        marginTop: "-0.5rem",
+                        fontSize: '12px',
+                        color: '#212121',
+                        fontFamily: 'Work-Sans',
+                        marginTop: '-0.5rem',
                       }}
                     >
-                      Positive:{" "}
-                      <span style={{ fontWeight: 600, color: "#F05728" }}>
+                      Positive:{' '}
+                      <span style={{ fontWeight: 600, color: '#F05728' }}>
                         {twoDecimalPlacesIfCents(happy)}%
                       </span>
                     </div>
                     <pre></pre>
+
                     <div
                       style={{
                         fontWeight: 400,
-                        fontSize: "12px",
-                        color: "#212121",
-                        fontFamily: "Work-Sans",
-                        marginTop: "-0.5rem",
+                        fontSize: '12px',
+                        color: '#212121',
+                        fontFamily: 'Work-Sans',
+                        marginTop: '-0.5rem',
                       }}
                     >
-                      Negative:{" "}
-                      <span style={{ fontWeight: 600, color: "#F05728" }}>
+                      Negative:{' '}
+                      <span style={{ fontWeight: 600, color: '#F05728' }}>
                         {twoDecimalPlacesIfCents(sad_per)}%
                       </span>
                     </div>
+
                     <pre></pre>
                     {/* {change_in_rank ? ( */}
-                    <div
-                      style={{
-                        fontWeight: 400,
-                        fontSize: "12px",
-                        fontFamily: "Work-Sans",
-                        color: "#212121",
-                        marginTop: "-0.5rem",
-                      }}
-                    >
-                      Net Change in Rank:{" "}
-                      <span style={{ fontWeight: 600, color: "#F05728" }}>
-                        {change_in_rank}
-                      </span>
-                    </div>
+                    {!influencerValue && !hashtagValue && !countryValue && (
+                      <div
+                        style={{
+                          fontWeight: 400,
+                          fontSize: '12px',
+                          fontFamily: 'Work-Sans',
+                          color: '#212121',
+                          marginTop: '-0.5rem',
+                        }}
+                      >
+                        Net Change in Rank:{' '}
+                        <span style={{ fontWeight: 600, color: '#F05728' }}>
+                          {change_in_rank}
+                        </span>
+                      </div>
+                    )}
                     {/* ) : ( "" )} */}
                     <pre></pre>
                     <div
                       style={{
                         fontWeight: 400,
-                        fontSize: "12px",
-                        fontFamily: "Work-Sans",
-                        color: "#212121",
-                        marginTop: "-0.5rem",
+                        fontSize: '12px',
+                        fontFamily: 'Work-Sans',
+                        color: '#212121',
+                        marginTop: '-0.5rem',
                       }}
                     >
-                      Change in Wellbeing Index:{" "}
-                      <span style={{ fontWeight: 600, color: "#F05728" }}>
+                      Change in Wellbeing Index:{' '}
+                      <span style={{ fontWeight: 600, color: '#F05728' }}>
                         {ParseFloat(change_in_index_persentage, 2)}%
                       </span>
                     </div>

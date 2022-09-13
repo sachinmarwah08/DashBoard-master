@@ -1,23 +1,23 @@
-import React, { useState, useEffect, useContext } from "react";
-import Sort from "../../SortFilter/Sort";
-import "./TopInfluencer.scss";
-import RadioButton from "../../RadioButton/RadioButton";
-import Content from "./Content";
+import React, { useState, useEffect, useContext } from 'react';
+import Sort from '../../SortFilter/Sort';
+import './TopInfluencer.scss';
+import RadioButton from '../../RadioButton/RadioButton';
+import Content from './Content';
 import {
   getInfluencers,
   influencerCount,
-} from "../../../actions/TopInfluencerApis";
-import Tippy from "@tippyjs/react";
-import "tippy.js/dist/tippy.css";
-import "tippy.js/themes/light.css";
-import "tippy.js/dist/svg-arrow.css";
-import infoIcon from "../../../Images/info.svg";
-import { FilterContext } from "../../../context/FilterContext";
+} from '../../../actions/TopInfluencerApis';
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css';
+import 'tippy.js/themes/light.css';
+import 'tippy.js/dist/svg-arrow.css';
+import infoIcon from '../../../Images/info.svg';
+import { FilterContext } from '../../../context/FilterContext';
 import {
   getCountryDropdownData,
   getHashtagDropdownData,
   getInfluencerDropdownData,
-} from "../../../actions/DropDownApis";
+} from '../../../actions/DropDownApis';
 
 const TopInfluencer = () => {
   const { state } = useContext(FilterContext);
@@ -30,15 +30,15 @@ const TopInfluencer = () => {
       dateRangeValue: { fromDate, toDate },
     },
   } = state;
-  const dropdownOptions = ["Country", "Influencer", "Hashtag"];
-  const [topInfluencerFilter, setTopInfluencerFilter] = useState("Filters");
+  const dropdownOptions = ['Country', 'Influencer', 'Hashtag'];
+  const [topInfluencerFilter, setTopInfluencerFilter] = useState('Filters');
   const [isRadioChecked, setIsRadioChecked] = useState(1);
-  const [wordEntered, setWordEntered] = useState("");
+  const [wordEntered, setWordEntered] = useState('');
   const [influencerCountData, setInfluencerCountData] = useState(0);
   const [getInfluencersData, setGetInfluencersData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [influencerDataBackup, setInfluencerDataBackup] = useState([]);
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState('');
   const [influencerdata, setInfluencerData] = useState([]);
   const [influencerBackupdata, setInfluencerBackupdata] = useState([]);
   const [hashtagBackupdata, setHashtagBackupdata] = useState([]);
@@ -46,17 +46,19 @@ const TopInfluencer = () => {
   const [showInfluencerHashtag, setShowInfluencerHashtag] = useState(false);
   const [countryDataDropdown, setCountryDataDropdown] = useState([]);
   const [countryBackupdata, setCountryBackupdata] = useState([]);
+  const [globalBackupData, setGlobalBackupData] = useState([]);
+  const [influencerCountDataBackup, setInfluencerCountDataBackup] = useState(0);
 
   const handleRadioChange = async (value) => {
     setLoading(true);
-    const persentile = localStorage.getItem("persentile");
+    const persentile = localStorage.getItem('persentile');
     // let fromDate = "2022-07-01";
     // let toDate = "2022-07-31";
-    let category = "ALL";
+    let category = 'ALL';
     if (value === 2) {
-      category = "PERSON";
+      category = 'PERSON';
     } else if (value === 3) {
-      category = "ORGANIZATION";
+      category = 'ORGANIZATION';
     }
     setLoading(false);
     setIsRadioChecked(value);
@@ -75,48 +77,59 @@ const TopInfluencer = () => {
 
   const handleFilter = (e) => {
     setInputValue(e.target.value);
-    let influencerTypedValue = "";
-    let hashtagTypedValue = "";
-    let countryTypedValue = "";
-    if (topInfluencerFilter === "Influencer") {
-      influencerTypedValue = inputValue;
-      setShowInfluencerHashtag(true);
+    if (topInfluencerFilter === 'Filters') {
+      let tempData = [...globalBackupData];
+      console.log('influencerDataBackup', influencerDataBackup);
+      const newFilter = tempData.filter((value) => {
+        return value.toLowerCase().includes(inputValue.toLowerCase());
+      });
+      console.log('newFilter', newFilter);
+      setGetInfluencersData(newFilter);
+    } else {
+      let influencerTypedValue = '';
+      let hashtagTypedValue = '';
+      let countryTypedValue = '';
+      if (topInfluencerFilter === 'Influencer') {
+        influencerTypedValue = inputValue;
+        setShowInfluencerHashtag(true);
+      }
+      if (topInfluencerFilter === 'Hashtag') {
+        hashtagTypedValue = inputValue;
+        setShowInfluencerHashtag(true);
+      }
+      if (topInfluencerFilter === 'Country') {
+        countryTypedValue = inputValue;
+        setShowInfluencerHashtag(true);
+      }
+      let tempDatadrodown = [...influencerBackupdata];
+      let tempHasgtagData = [...hashtagBackupdata];
+      let tempCountryData = [...countryBackupdata];
+      // let tempData = [...influencerDataBackup];
+      // const newFilter = tempData.filter((value) => {
+      //   return value.toLowerCase().includes(inputValue.toLowerCase());
+      // });
+      const influencerFilter = tempDatadrodown.filter((value) => {
+        return value.toLowerCase().includes(inputValue.toLowerCase());
+      });
+      const hashtagFilter = tempHasgtagData.filter((value) => {
+        return value.toLowerCase().includes(inputValue.toLowerCase());
+      });
+      const countryFilter = tempCountryData.filter((value) => {
+        return value.toLowerCase().includes(inputValue.toLowerCase());
+      });
+      setCountryDataDropdown(countryFilter);
+      sethashtag(hashtagFilter);
+      setInfluencerData(influencerFilter);
+      // setGetInfluencersData(newFilter);
     }
-    if (topInfluencerFilter === "Hashtag") {
-      hashtagTypedValue = inputValue;
-      setShowInfluencerHashtag(true);
-    }
-    if (topInfluencerFilter === "Country") {
-      countryTypedValue = inputValue;
-      setShowInfluencerHashtag(true);
-    }
-    let tempDatadrodown = [...influencerBackupdata];
-    let tempHasgtagData = [...hashtagBackupdata];
-    let tempCountryData = [...countryBackupdata];
-    // let tempData = [...influencerDataBackup];
-    // const newFilter = tempData.filter((value) => {
-    //   return value.toLowerCase().includes(inputValue.toLowerCase());
-    // });
-    const influencerFilter = tempDatadrodown.filter((value) => {
-      return value.toLowerCase().includes(inputValue.toLowerCase());
-    });
-    const hashtagFilter = tempHasgtagData.filter((value) => {
-      return value.toLowerCase().includes(inputValue.toLowerCase());
-    });
-    const countryFilter = tempCountryData.filter((value) => {
-      return value.toLowerCase().includes(inputValue.toLowerCase());
-    });
-    setCountryDataDropdown(countryFilter);
-    sethashtag(hashtagFilter);
-    setInfluencerData(influencerFilter);
-    // setGetInfluencersData(newFilter);
   };
 
   const clearData = () => {
-    setTopInfluencerFilter("Filter");
-    setGetInfluencersData(influencerBackupdata);
-    setInputValue("");
-    setInfluencerCountData();
+    setTopInfluencerFilter('Filter');
+    console.log('influencerBackupdata', influencerBackupdata);
+    setGetInfluencersData(globalBackupData);
+    setInputValue('');
+    setInfluencerCountData(influencerCountDataBackup);
   };
 
   useEffect(() => {
@@ -136,9 +149,9 @@ const TopInfluencer = () => {
 
         // let fromDate = "2022-07-01";
         // let toDate = "2022-07-31";
-        let category = "ALL";
+        let category = 'ALL';
 
-        const persentile = localStorage.getItem("persentile") || 0;
+        const persentile = localStorage.getItem('persentile') || 0;
 
         const influencerCountResponse = await influencerCount(
           fromDate,
@@ -157,7 +170,7 @@ const TopInfluencer = () => {
           influencerValue,
           hashtagValue
         );
-        localStorage.setItem("persentile", getInfluencersResponse.persentile);
+        localStorage.setItem('persentile', getInfluencersResponse.persentile);
 
         const getInfluenser = await getInfluencerDropdownData();
         const hashtagDataResponse = await getHashtagDropdownData();
@@ -170,7 +183,9 @@ const TopInfluencer = () => {
         sethashtag(hashtagDataResponse);
         setHashtagBackupdata(hashtagDataResponse);
         setInfluencerCountData(influencerCountResponse.count);
+        setInfluencerCountDataBackup(influencerCountResponse.count);
         setGetInfluencersData(getInfluencersResponse.influencers);
+        setGlobalBackupData(getInfluencersResponse.influencers);
         // setInfluencerDataBackup(getInfluencersResponse.influencers);
         setLoading(false);
       };
@@ -183,22 +198,22 @@ const TopInfluencer = () => {
   };
 
   const onEnterInputClick = async (e) => {
-    if (e.key === "Enter") {
-      let influencerTypedValue = "";
-      let hashtagTypedValue = "";
-      let countryTypedValue = "";
-      if (topInfluencerFilter === "Influencer") {
+    if (e.key === 'Enter') {
+      let influencerTypedValue = '';
+      let hashtagTypedValue = '';
+      let countryTypedValue = '';
+      if (topInfluencerFilter === 'Influencer') {
         influencerTypedValue = inputValue;
       }
-      if (topInfluencerFilter === "Hashtag") {
+      if (topInfluencerFilter === 'Hashtag') {
         hashtagTypedValue = inputValue;
       }
-      if (topInfluencerFilter === "Country") {
+      if (topInfluencerFilter === 'Country') {
         countryTypedValue = inputValue;
       }
-      let category = "ALL";
+      let category = 'ALL';
 
-      const persentile = localStorage.getItem("persentile") || 0;
+      const persentile = localStorage.getItem('persentile') || 0;
 
       const influencerCountResponse = await influencerCount(
         fromDate,
@@ -217,7 +232,7 @@ const TopInfluencer = () => {
         influencerTypedValue,
         hashtagTypedValue
       );
-      localStorage.setItem("persentile", getInfluencersResponse.persentile);
+      localStorage.setItem('persentile', getInfluencersResponse.persentile);
       setInfluencerCountData(influencerCountResponse.count);
       setGetInfluencersData(getInfluencersResponse.influencers);
       setInfluencerDataBackup(getInfluencersResponse.influencers);
@@ -227,21 +242,21 @@ const TopInfluencer = () => {
   const onDropDownClick = async (val) => {
     setInputValue(val);
     setShowInfluencerHashtag(false);
-    let influencerTypedValue = "";
-    let hashtagTypedValue = "";
-    let countryTypedValue = "";
-    if (topInfluencerFilter === "Influencer") {
+    let influencerTypedValue = '';
+    let hashtagTypedValue = '';
+    let countryTypedValue = '';
+    if (topInfluencerFilter === 'Influencer') {
       influencerTypedValue = val;
     }
-    if (topInfluencerFilter === "Hashtag") {
+    if (topInfluencerFilter === 'Hashtag') {
       hashtagTypedValue = val;
     }
-    if (topInfluencerFilter === "Country") {
+    if (topInfluencerFilter === 'Country') {
       countryTypedValue = val;
     }
-    let category = "ALL";
+    let category = 'ALL';
 
-    const persentile = localStorage.getItem("persentile") || 0;
+    const persentile = localStorage.getItem('persentile') || 0;
 
     const influencerCountResponse = await influencerCount(
       fromDate,
@@ -260,7 +275,7 @@ const TopInfluencer = () => {
       influencerTypedValue,
       hashtagTypedValue
     );
-    localStorage.setItem("persentile", getInfluencersResponse.persentile);
+    localStorage.setItem('persentile', getInfluencersResponse.persentile);
     setInfluencerCountData(influencerCountResponse.count);
     setGetInfluencersData(getInfluencersResponse.influencers);
     setInfluencerDataBackup(getInfluencersResponse.influencers);
@@ -272,15 +287,15 @@ const TopInfluencer = () => {
         <div className="right-heading">
           Top Influencers
           <Tippy
-            theme={"light"}
+            theme={'light'}
             interactive={true}
             content={
               <div
                 style={{
-                  padding: "0.5rem",
+                  padding: '0.5rem',
                   fontWeight: 400,
-                  fontFamily: "Work-Sans",
-                  fontSize: "14px",
+                  fontFamily: 'Work-Sans',
+                  fontSize: '14px',
                 }}
               >
                 <p style={{ fontWeight: 600, marginTop: 0 }}>Top Influencers</p>
@@ -329,11 +344,11 @@ const TopInfluencer = () => {
       <div className="trending-sort">
         <Sort
           influencerdata={
-            (topInfluencerFilter === "Influencer" && influencerdata) ||
-            (topInfluencerFilter === "Hashtag" && hashtag) ||
-            (topInfluencerFilter === "Country" && countryDataDropdown)
+            (topInfluencerFilter === 'Influencer' && influencerdata) ||
+            (topInfluencerFilter === 'Hashtag' && hashtag) ||
+            (topInfluencerFilter === 'Country' && countryDataDropdown)
           }
-          filterData={influencerdata.length}
+          filterData={inputValue}
           clearData={clearData}
           onchange={handleFilter}
           setData={onFilterDropClick}

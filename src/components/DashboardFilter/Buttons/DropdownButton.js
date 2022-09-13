@@ -1,22 +1,29 @@
-import React, { useState, useRef, useEffect } from "react";
-import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useState, useRef, useEffect } from 'react';
+import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const DropdownButton = ({ icon, name, data, selectedVal, handleChange }) => {
+const DropdownButton = ({
+  icon,
+  name,
+  data,
+  selectedVal,
+  handleChange,
+  disabled,
+}) => {
   const [isFilterActive, setIsFilterActive] = useState(false);
 
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState('');
   const [isOpen, setIsOpen] = useState(false);
 
   const inputRef = useRef(null);
 
   useEffect(() => {
-    document.addEventListener("click", toggle);
-    return () => document.removeEventListener("click", toggle);
+    document.addEventListener('click', toggle);
+    return () => document.removeEventListener('click', toggle);
   }, []);
 
   const selectOption = (option) => {
-    setQuery(() => "");
+    setQuery(() => '');
     handleChange(option);
     setIsOpen((isOpen) => !isOpen);
   };
@@ -29,7 +36,7 @@ const DropdownButton = ({ icon, name, data, selectedVal, handleChange }) => {
     if (query) return query;
     if (selectedVal) return selectedVal;
 
-    return "";
+    return '';
   };
 
   const filter = (data) => {
@@ -40,11 +47,11 @@ const DropdownButton = ({ icon, name, data, selectedVal, handleChange }) => {
 
   return (
     <button
-      onClick={() => setIsFilterActive(!isFilterActive)}
+      onClick={disabled ? () => {} : () => setIsFilterActive(!isFilterActive)}
       className={`${
         isFilterActive
-          ? " dropdown-filter-button-colored"
-          : "dropdown-filter-button"
+          ? ' dropdown-filter-button-colored'
+          : 'dropdown-filter-button'
       }`}
     >
       <div className="dropdown-filter-content">
@@ -53,16 +60,17 @@ const DropdownButton = ({ icon, name, data, selectedVal, handleChange }) => {
 
           <input
             style={{
-              backgroundColor: "transparent",
-              border: "none",
-              color: "#667085",
-              fontSize: "16px",
+              backgroundColor: 'transparent',
+              border: 'none',
+              color: '#667085',
+              fontSize: '16px',
               fontWeight: 400,
-              fontFamily: "Work-Sans",
-              width: "100%",
-              outline: "none",
+              fontFamily: 'Work-Sans',
+              width: '100%',
+              outline: 'none',
               margin: 0,
             }}
+            disabled={disabled}
             className="dropdown-input"
             ref={inputRef}
             placeholder={name}
@@ -93,9 +101,9 @@ const DropdownButton = ({ icon, name, data, selectedVal, handleChange }) => {
                 onClick={() => selectOption(option)}
                 className="dropdown-filter-item"
               >
-                <ul style={{ margin: "0%", padding: "0%" }}>
+                <ul style={{ margin: '0%', padding: '0%' }}>
                   <li
-                    style={{ fontFamily: "Work-Sans", color: "#616161" }}
+                    style={{ fontFamily: 'Work-Sans', color: '#616161' }}
                     className="dropdown-list"
                   >
                     {option}

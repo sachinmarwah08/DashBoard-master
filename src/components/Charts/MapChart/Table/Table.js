@@ -1,8 +1,12 @@
-import React, { useEffect, useState } from "react";
-import "./Table.scss";
-import { getMapData } from "../../../../actions/GoogleMapApis/index";
+import React, { useContext, useEffect, useState } from 'react';
+import './Table.scss';
+import { getMapData } from '../../../../actions/GoogleMapApis/index';
+import { FilterContext } from '../../../../context/FilterContext';
 
 const Table = ({ tableData }) => {
+  const { state } = useContext(FilterContext);
+  // console.log(state);
+  const { influencerValue, hashtagValue, countryValue } = state.filters;
   // const [data, setData] = useState([]);
 
   // useEffect(() => {
@@ -27,13 +31,13 @@ const Table = ({ tableData }) => {
 
   function nFormatter(num) {
     if (num >= 1000000000) {
-      return (num / 1000000000).toFixed(1).replace(/\.0$/, "") + "G";
+      return (num / 1000000000).toFixed(1).replace(/\.0$/, '') + 'G';
     }
     if (num >= 1000000) {
-      return (num / 1000000).toFixed(1).replace(/\.0$/, "") + "M";
+      return (num / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
     }
     if (num >= 1000) {
-      return (num / 1000).toFixed(1).replace(/\.0$/, "") + "k";
+      return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
     }
     return num;
   }
@@ -44,10 +48,10 @@ const Table = ({ tableData }) => {
 
   function ParseFloat(str, val) {
     str = str.toString();
-    str = str.slice(0, str.indexOf(".") + val + 1);
+    str = str.slice(0, str.indexOf('.') + val + 1);
     return Number(str);
   }
-  console.log(ParseFloat("NaN", 2), "Helloooooooooparsen");
+  console.log(ParseFloat('NaN', 2), 'Helloooooooooparsen');
 
   return (
     <div className="table-wrapper">
@@ -55,33 +59,37 @@ const Table = ({ tableData }) => {
         <table class="fixed_header">
           <thead>
             <tr>
-              <th style={{ textAlign: "left" }}>Country</th>
-              <th>Rank</th>
+              <th style={{ textAlign: 'left' }}>Country</th>
+              {!influencerValue && !hashtagValue && !countryValue && (
+                <th>Rank</th>
+              )}
               <th>Index</th>
               <th>Happy</th>
               <th>Sad</th>
             </tr>
           </thead>
-          <tbody style={{ marginTop: "0.5rem", height: "24.5rem" }}>
+          <tbody style={{ marginTop: '0.5rem', height: '24.5rem' }}>
             {tableData.map((item) => (
               <tr
                 key={item.id}
                 style={{
-                  borderBottom: "1px solid #eeeeee",
-                  paddingTop: "1rem",
-                  paddingBottom: "1rem",
+                  borderBottom: '1px solid #eeeeee',
+                  paddingTop: '1rem',
+                  paddingBottom: '1rem',
                 }}
               >
-                <td style={{ textAlign: "left" }}>{item._id}</td>
+                <td style={{ textAlign: 'left' }}>{item._id}</td>
+                {!influencerValue && !hashtagValue && !countryValue && (
+                  <td>
+                    {parseFloat(item.rank, 2)}{' '}
+                    <span style={{ color: '#F05728' }}>
+                      ({parseFloat(item.change_in_rank, 2)})
+                    </span>
+                  </td>
+                )}
                 <td>
-                  {parseFloat(item.rank, 2)}{" "}
-                  <span style={{ color: "#F05728" }}>
-                    ({parseFloat(item.change_in_rank, 2)})
-                  </span>
-                </td>
-                <td>
-                  {nFormatter(item.count)}{" "}
-                  <span style={{ color: "#F05728" }}>
+                  {nFormatter(item.count)}{' '}
+                  <span style={{ color: '#F05728' }}>
                     ({ParseFloat(item.change_in_index_persentage, 2)})
                   </span>
                 </td>

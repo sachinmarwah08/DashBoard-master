@@ -1,23 +1,23 @@
-import React, { useContext, useEffect, useState } from "react";
-import "./BarChart.scss";
-import Highcharts from "highcharts";
-import Sort from "../../SortFilter/Sort";
-import HighchartsReact from "highcharts-react-official";
-import Bardata from "./data";
-import shareIcon from "../../../Images/share-2.svg";
-import TopBottomButton from "../../TopBottomButton/TopBottomButton";
-import { getBarData } from "../../../actions/BarChartApis";
-import { PuffLoader } from "react-spinners";
-import Tippy from "@tippyjs/react";
-import "tippy.js/dist/tippy.css";
-import "tippy.js/themes/light.css";
-import "tippy.js/dist/svg-arrow.css";
-import { FilterContext } from "../../../context/FilterContext";
-import infoIcon from "../../../Images/info.svg";
+import React, { useContext, useEffect, useState } from 'react';
+import './BarChart.scss';
+import Highcharts from 'highcharts';
+import Sort from '../../SortFilter/Sort';
+import HighchartsReact from 'highcharts-react-official';
+import Bardata from './data';
+import shareIcon from '../../../Images/share-2.svg';
+import TopBottomButton from '../../TopBottomButton/TopBottomButton';
+import { getBarData } from '../../../actions/BarChartApis';
+import { PuffLoader } from 'react-spinners';
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css';
+import 'tippy.js/themes/light.css';
+import 'tippy.js/dist/svg-arrow.css';
+import { FilterContext } from '../../../context/FilterContext';
+import infoIcon from '../../../Images/info.svg';
 import {
   getHashtagDropdownData,
   getInfluencerDropdownData,
-} from "../../../actions/DropDownApis";
+} from '../../../actions/DropDownApis';
 
 const BarChartComponent = () => {
   const { state } = useContext(FilterContext);
@@ -31,13 +31,13 @@ const BarChartComponent = () => {
     },
   } = state;
   const [data, setData] = useState({});
-  const barDataOption = ["Influencer", "Hashtag"];
-  const [bardataFilterDrop, setBardataFilterDrop] = useState("Filters");
-  const topBottomData = ["Top 10", "Bottom 10"];
-  const [topBottom, setTopBottom] = useState("Top 10");
+  const barDataOption = ['Influencer', 'Hashtag'];
+  const [bardataFilterDrop, setBardataFilterDrop] = useState('Filters');
+  const topBottomData = ['Top 10', 'Bottom 10'];
+  const [topBottom, setTopBottom] = useState('Top 10');
   const [loading, setLoading] = useState(true);
-  const [heading, setHeading] = useState("Top 10 Countries Wellbeing Analysis");
-  const [inputValue, setInputValue] = useState("");
+  const [heading, setHeading] = useState('Top 10 Countries Wellbeing Analysis');
+  const [inputValue, setInputValue] = useState('');
   const [influencerdata, setInfluencerData] = useState([]);
   const [influencerBackupdata, setInfluencerBackupdata] = useState([]);
   const [hashtagBackupdata, setHashtagBackupdata] = useState([]);
@@ -82,7 +82,7 @@ const BarChartComponent = () => {
         // let fromDate = "2022-06-01";
         // let toDate = "2022-07-31";
         // let country = "United States";
-        let order = "des";
+        let order = 'des';
 
         const response = await getBarData(
           fromDate,
@@ -96,9 +96,12 @@ const BarChartComponent = () => {
         const hashtagDataResponse = await getHashtagDropdownData();
 
         let tempData = JSON.parse(JSON.stringify(Bardata));
+        let maxValue = 50;
 
         for (let i = 0; i < response.data.length; i++) {
+          maxValue = Math.max(maxValue, response.data[i].count);
           tempData.xAxis.categories.push(response.data[i]._id);
+
           tempData.series[0].data.push(Math.floor(response.data[i].count));
           tempData.tooltip.headerFormat = `<strong><span style="color:#212121; font-size: 16px;">{point.key}</span></strong><br>`;
           tempData.tooltip.pointFormat = `{series.name}: <strong><span  style="color:#F05728">{point.y}</span></strong><br><span style="color:#212121">Positive:<span> <strong><span style="color:#F05728">${response.data[i].happy}%</span></strong><br/>Negative: <strong><span style="color:#F05728">${response.data[i].sad_per}%</span></strong>`;
@@ -107,6 +110,7 @@ const BarChartComponent = () => {
           //   return `${response.data[i].happy}`;
           // };
         }
+        tempData.yAxis.max = maxValue;
         setInfluencerData(getInfluenser);
         setInfluencerBackupdata(getInfluenser);
         sethashtag(hashtagDataResponse);
@@ -123,11 +127,11 @@ const BarChartComponent = () => {
   };
 
   const onTopBottomClick = async (val) => {
-    let order = "des";
-    if (val === "Top 10") {
-      order = "des";
-    } else if (val === "Bottom 10") {
-      order = "asc";
+    let order = 'des';
+    if (val === 'Top 10') {
+      order = 'des';
+    } else if (val === 'Bottom 10') {
+      order = 'asc';
     }
 
     const response = await getBarData(
@@ -161,13 +165,13 @@ const BarChartComponent = () => {
   };
 
   const onEnterInputClick = async (e) => {
-    if (e.key === "Enter") {
-      let influencerTypedValue = "";
-      let hashtagTypedValue = "";
-      if (bardataFilterDrop === "Influencer") {
+    if (e.key === 'Enter') {
+      let influencerTypedValue = '';
+      let hashtagTypedValue = '';
+      if (bardataFilterDrop === 'Influencer') {
         influencerTypedValue = inputValue;
       }
-      if (bardataFilterDrop === "Hashtag") {
+      if (bardataFilterDrop === 'Hashtag') {
         hashtagTypedValue = inputValue;
       }
       const response = await getBarData(
@@ -198,12 +202,12 @@ const BarChartComponent = () => {
   const onDropDownClick = async (val) => {
     setInputValue(val);
     setShowInfluencerHashtag(false);
-    let influencerTypedValue = "";
-    let hashtagTypedValue = "";
-    if (bardataFilterDrop === "Influencer") {
+    let influencerTypedValue = '';
+    let hashtagTypedValue = '';
+    if (bardataFilterDrop === 'Influencer') {
       influencerTypedValue = val;
     }
-    if (bardataFilterDrop === "Hashtag") {
+    if (bardataFilterDrop === 'Hashtag') {
       hashtagTypedValue = val;
     }
     const response = await getBarData(
@@ -238,15 +242,15 @@ const BarChartComponent = () => {
             <div className="heading-left">
               <h1 className="heading">{heading}</h1>
               <Tippy
-                theme={"light"}
+                theme={'light'}
                 interactive={true}
                 content={
                   <div
                     style={{
-                      padding: "0.5rem",
+                      padding: '0.5rem',
                       fontWeight: 400,
-                      fontFamily: "Work-Sans",
-                      fontSize: "14px",
+                      fontFamily: 'Work-Sans',
+                      fontSize: '14px',
                     }}
                   >
                     <p style={{ fontWeight: 600, marginTop: 0 }}>
@@ -283,7 +287,7 @@ const BarChartComponent = () => {
           <div className="filter-container">
             <Sort
               influencerdata={
-                bardataFilterDrop === "Influencer" ? influencerdata : hashtag
+                bardataFilterDrop === 'Influencer' ? influencerdata : hashtag
               }
               setData={onFilterDropClick}
               data={bardataFilterDrop}

@@ -1,35 +1,37 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
-import "./DashboardFilter.scss";
-import DropdownButton from "./Buttons/DropdownButton";
-import userIcon from "../../Images/userIcon.svg";
-import hashtagIcon from "../../Images/hashtagIcon.svg";
-import locationIcon from "../../Images/locationIcon.svg";
-import calenderIcon from "../../Images/calenderIcon.svg";
-import CalenderButton from "./Buttons/CalenderButton";
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import './DashboardFilter.scss';
+import DropdownButton from './Buttons/DropdownButton';
+import userIcon from '../../Images/userIcon.svg';
+import hashtagIcon from '../../Images/hashtagIcon.svg';
+import locationIcon from '../../Images/locationIcon.svg';
+import calenderIcon from '../../Images/calenderIcon.svg';
+import CalenderButton from './Buttons/CalenderButton';
 import {
   getCountryDropdownData,
   getHashtagDropdownData,
   getInfluencerDropdownData,
-} from "../../actions/DropDownApis";
-import Tippy from "@tippyjs/react";
-import "tippy.js/dist/tippy.css";
-import "tippy.js/themes/light.css";
-import "tippy.js/dist/svg-arrow.css";
-import { FilterContext } from "../../context/FilterContext";
+} from '../../actions/DropDownApis';
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css';
+import 'tippy.js/themes/light.css';
+import 'tippy.js/dist/svg-arrow.css';
+import { FilterContext } from '../../context/FilterContext';
 import {
   RESET_FILTERS,
   SET_FILTERS,
   UPDATE_ALL_LOADERS_TRUE,
   TOGGLE_CALENDER,
   CLOSE_CALENDER,
-} from "../../actions/types";
+} from '../../actions/types';
 // import filter from "../../Images/filter.svg";
 // import Modal from "../Modal/Modal";
 
 const DashboardFilter = () => {
   const { state, dispatch } = useContext(FilterContext);
   // console.log(state);
-  const { influencerValue, hashtagValue, countryValue } = state.filters;
+  const { influencerValue, hashtagValue, countryValue, filterActive } =
+    state.filters;
+  console.log('filterActive', filterActive);
   const [influencer, setIinfluencer] = useState([]);
   const [hashtag, sethashtag] = useState([]);
   const [country, setCountry] = useState([]);
@@ -41,7 +43,7 @@ const DashboardFilter = () => {
       const influencerDataResponse = await getInfluencerDropdownData();
       const hashtagDataResponse = await getHashtagDropdownData();
       setCountry(countryDataResponse);
-      console.log(countryDataResponse, "country Data");
+      console.log(countryDataResponse, 'country Data');
       setIinfluencer(influencerDataResponse);
       sethashtag(hashtagDataResponse);
     };
@@ -50,13 +52,13 @@ const DashboardFilter = () => {
 
   const headerRef = useRef();
   if (typeof document !== `undefined`) {
-    document.addEventListener("scroll", function () {
+    document.addEventListener('scroll', function () {
       if (headerRef.current) {
         const documentTop =
           document.body.scrollTop || document.documentElement.scrollTop;
         if (documentTop > 280)
-          headerRef.current.classList.add("global-filter-btn");
-        else headerRef.current.classList.remove("hide-filter-icon");
+          headerRef.current.classList.add('global-filter-btn');
+        else headerRef.current.classList.remove('hide-filter-icon');
       }
     });
   }
@@ -64,19 +66,19 @@ const DashboardFilter = () => {
   const onInfluencerChange = (val) => {
     dispatch({
       type: SET_FILTERS,
-      payload: { field: "influencerValue", value: val },
+      payload: { field: 'influencerValue', value: val },
     });
   };
   const onHashTagChange = (val) => {
     dispatch({
       type: SET_FILTERS,
-      payload: { field: "hashtagValue", value: val },
+      payload: { field: 'hashtagValue', value: val },
     });
   };
   const onCountryChange = (val) => {
     dispatch({
       type: SET_FILTERS,
-      payload: { field: "countryValue", value: val },
+      payload: { field: 'countryValue', value: val },
     });
   };
 
@@ -96,15 +98,15 @@ const DashboardFilter = () => {
         <div className="buttons-wrapper">
           <div className="dropdown-btn-wrapper">
             <Tippy
-              theme={"light"}
+              theme={'light'}
               interactive={true}
               content={
                 <div
                   style={{
-                    padding: "0.5rem",
+                    padding: '0.5rem',
                     fontWeight: 400,
-                    fontFamily: "Work-Sans",
-                    fontSize: "14px",
+                    fontFamily: 'Work-Sans',
+                    fontSize: '14px',
                   }}
                 >
                   <p style={{ fontWeight: 600, marginTop: 0 }}>Influencers</p>
@@ -120,20 +122,21 @@ const DashboardFilter = () => {
                   handleChange={(val) => onInfluencerChange(val)}
                   icon={userIcon}
                   name="Search influencer"
+                  disabled={!filterActive}
                 />
               </div>
             </Tippy>
 
             <Tippy
-              theme={"light"}
+              theme={'light'}
               interactive={true}
               content={
                 <div
                   style={{
-                    padding: "0.5rem",
+                    padding: '0.5rem',
                     fontWeight: 400,
-                    fontFamily: "Work-Sans",
-                    fontSize: "14px",
+                    fontFamily: 'Work-Sans',
+                    fontSize: '14px',
                   }}
                 >
                   <p style={{ fontWeight: 600, marginTop: 0 }}>
@@ -151,20 +154,21 @@ const DashboardFilter = () => {
                   handleChange={(val) => onHashTagChange(val)}
                   icon={hashtagIcon}
                   name="Search hashtag"
+                  disabled={!filterActive}
                 />
               </div>
             </Tippy>
 
             <Tippy
-              theme={"light"}
+              theme={'light'}
               interactive={true}
               content={
                 <div
                   style={{
-                    padding: "0.5rem",
+                    padding: '0.5rem',
                     fontWeight: 400,
-                    fontFamily: "Work-Sans",
-                    fontSize: "14px",
+                    fontFamily: 'Work-Sans',
+                    fontSize: '14px',
                   }}
                 >
                   <p style={{ fontWeight: 600, marginTop: 0 }}>Country</p>
@@ -180,24 +184,25 @@ const DashboardFilter = () => {
                   handleChange={(val) => onCountryChange(val)}
                   icon={locationIcon}
                   name="Search country"
+                  disabled={!filterActive}
                 />
               </div>
             </Tippy>
 
-            <CalenderButton icon={calenderIcon} />
+            <CalenderButton disabled={!filterActive} icon={calenderIcon} />
           </div>
 
           <div className="apply-reset-btn">
             <button
-              onClick={onApplyAllClick}
-              style={{ fontFamily: "Work-Sans" }}
+              onClick={filterActive ? onApplyAllClick : () => {}}
+              style={{ fontFamily: 'Work-Sans' }}
               className="apply-btn"
             >
               Apply
             </button>
             <button
-              onClick={onResetFiltersClick}
-              style={{ fontFamily: "Work-Sans" }}
+              onClick={filterActive ? onResetFiltersClick : () => {}}
+              style={{ fontFamily: 'Work-Sans' }}
               className="reset-btn"
             >
               Reset

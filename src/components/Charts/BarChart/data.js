@@ -1,8 +1,8 @@
-import HighchartsReact from "highcharts-react-official";
+import HighchartsReact from 'highcharts-react-official';
 
 const Bardata = {
   chart: {
-    type: "bar",
+    type: 'bar',
     height: 470,
     zoomType: false,
   },
@@ -16,7 +16,7 @@ const Bardata = {
 
   title: {
     style: {
-      display: "none",
+      display: 'none',
     },
     text: null,
   },
@@ -44,13 +44,13 @@ const Bardata = {
 
     title: {
       style: {
-        display: "none",
+        display: 'none',
       },
       text: null,
     },
 
     accessibility: {
-      description: "Countries",
+      description: 'Countries',
     },
   },
 
@@ -65,34 +65,34 @@ const Bardata = {
     tickInterval: 0,
     title: {
       style: {
-        display: "none",
+        display: 'none',
       },
       text: null,
     },
 
     labels: {
       style: {
-        display: "none",
+        display: 'none',
       },
-      overflow: "justify",
-      format: "{value}%",
+      overflow: 'justify',
+      format: '{value}%',
     },
   },
   plotOptions: {
     series: {
-      cursor: "pointer",
+      cursor: 'pointer',
       pointPadding: -0.1,
       borderRadius: 3,
     },
     bar: {
       dataLabels: {
         enabled: false,
-        format: "{y}%",
+        format: '{y}%',
       },
     },
   },
   tooltip: {
-    valueSuffix: "",
+    valueSuffix: '',
     useHTML: true,
     backgroundColor: null,
     borderWidth: 0,
@@ -107,7 +107,7 @@ const Bardata = {
     stickOnContact: false,
     style: {
       zIndex: 899999999999,
-      fontFamily: "Work-Sans",
+      fontFamily: 'Work-Sans',
     },
   },
   legend: {
@@ -115,11 +115,11 @@ const Bardata = {
   },
   series: [
     {
-      name: "Index",
-      fontFamily: "Work-Sans",
+      name: 'Index',
+      fontFamily: 'Work-Sans',
       fontWeight: 700,
-      fontSize: "16px",
-      color: "rgba(240, 87, 40, 0.35)",
+      fontSize: '16px',
+      color: 'rgba(240, 87, 40, 0.35)',
       // borderColor: "rgba(240, 87, 40, 0.35)",
       // data: [27, 25, 23, 21, 19, 17, 15, 13, 11, 9, 7, 5, 3, 1.5],
       data: [],

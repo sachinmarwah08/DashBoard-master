@@ -1,6 +1,6 @@
-import React, { useContext, useState } from "react";
-import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useContext, useState } from 'react';
+import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   // addDays,
   endOfDay,
@@ -16,19 +16,19 @@ import {
   isSameDay,
   addDays,
   // differenceInCalendarDays,
-} from "date-fns";
-import { DateRangePicker, defaultStaticRanges } from "react-date-range";
-import "react-date-range/dist/styles.css"; // main style file
-import "react-date-range/dist/theme/default.css";
-import Tippy from "@tippyjs/react";
-import "tippy.js/dist/tippy.css";
-import "tippy.js/themes/light.css";
-import "tippy.js/dist/svg-arrow.css";
-import { FilterContext } from "../../../context/FilterContext";
-import moment from "moment";
-import { TOGGLE_CALENDER } from "../../../actions/types";
+} from 'date-fns';
+import { DateRangePicker, defaultStaticRanges } from 'react-date-range';
+import 'react-date-range/dist/styles.css'; // main style file
+import 'react-date-range/dist/theme/default.css';
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css';
+import 'tippy.js/themes/light.css';
+import 'tippy.js/dist/svg-arrow.css';
+import { FilterContext } from '../../../context/FilterContext';
+import moment from 'moment';
+import { TOGGLE_CALENDER } from '../../../actions/types';
 
-const CalenderButton = ({ icon }) => {
+const CalenderButton = ({ icon, disabled }) => {
   const { state, dispatch } = useContext(FilterContext);
   const {
     filters: { calenderToggler },
@@ -42,7 +42,7 @@ const CalenderButton = ({ icon }) => {
     {
       startDate: new Date(),
       endDate: addDays(new Date(), 7),
-      key: "selection",
+      key: 'selection',
     },
   ]);
 
@@ -55,12 +55,12 @@ const CalenderButton = ({ icon }) => {
   function handleSelect(ranges) {
     setDateState([ranges.selection]);
     let dateObj = {
-      fromDate: moment(ranges.selection.startDate).format("YYYY-MM-DD"),
-      toDate: moment(ranges.selection.endDate).format("YYYY-MM-DD"),
+      fromDate: moment(ranges.selection.startDate).format('YYYY-MM-DD'),
+      toDate: moment(ranges.selection.endDate).format('YYYY-MM-DD'),
     };
     dispatch({
-      type: "SET_FILTERS",
-      payload: { field: "dateRangeValue", value: dateObj },
+      type: 'SET_FILTERS',
+      payload: { field: 'dateRangeValue', value: dateObj },
     });
     // setStartDate(ranges.selection.startDate);
     // setEndDate(ranges.selection.endDate);
@@ -75,15 +75,15 @@ const CalenderButton = ({ icon }) => {
 
   return (
     <Tippy
-      theme={"light"}
+      theme={'light'}
       interactive={true}
       content={
         <div
           style={{
-            padding: "0.5rem",
+            padding: '0.5rem',
             fontWeight: 400,
-            fontFamily: "Work-Sans",
-            fontSize: "14px",
+            fontFamily: 'Work-Sans',
+            fontSize: '14px',
           }}
         >
           <p style={{ fontWeight: 600, marginTop: 0 }}>Date picker</p>
@@ -93,17 +93,17 @@ const CalenderButton = ({ icon }) => {
       }
     >
       <button
-        onClick={onFilterBUttonClick}
+        onClick={disabled ? () => {} : onFilterBUttonClick}
         className={`${
           calenderToggler
-            ? "dropdown-filter-button-calender-colored"
-            : "dropdown-filter-button-calender"
+            ? 'dropdown-filter-button-calender-colored'
+            : 'dropdown-filter-button-calender'
         }`}
       >
         <div className="dropdown-filter-content-calender">
           <div className="filter-content">
             <img className="user-Icon" src={icon}></img>
-            <p style={{ fontFamily: "Work-Sans" }} className="filter-title">
+            <p style={{ fontFamily: 'Work-Sans' }} className="filter-title">
               Select Dates
             </p>
           </div>
@@ -155,7 +155,7 @@ const CalenderButton = ({ icon }) => {
               //   },
               // },
               // ]}
-              rangeColors={["#F05728", "#F05728", "#F05728"]}
+              rangeColors={['#F05728', '#F05728', '#F05728']}
               // ranges={[selectionRange]}
               onChange={handleSelect}
               // onChange={item => setState([item.selection])}
