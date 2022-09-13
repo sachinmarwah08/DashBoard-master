@@ -12,6 +12,11 @@ import "tippy.js/dist/svg-arrow.css";
 import infoIcon from "../../Images/info.svg";
 import { getTrendingHashtagData } from "../../actions/TrendingHashtagsApis";
 import { FilterContext } from "../../context/FilterContext";
+import {
+  getCountryDropdownData,
+  getHashtagDropdownData,
+  getInfluencerDropdownData,
+} from "../../actions/DropDownApis";
 
 const TrendingHashtags = () => {
   const { state } = useContext(FilterContext);
@@ -59,6 +64,10 @@ const TrendingHashtags = () => {
     setInfluencerData(newFilter);
   };
 
+  const onFilterDropClick = (option) => {
+    setTrendingFilter(option);
+  };
+
   useEffect(() => {
     if (countryLineChartLoading) {
       const callApi = async () => {
@@ -74,6 +83,10 @@ const TrendingHashtags = () => {
         // let fromDate = "2022-07-01";
         // let toDate = "2022-07-31";
 
+        const getInfluenser = await getInfluencerDropdownData();
+        const hashtagDataResponse = await getHashtagDropdownData();
+        const countryDataResponse = await getCountryDropdownData();
+
         const response = await getTrendingHashtagData(
           fromDate,
           toDate,
@@ -86,7 +99,12 @@ const TrendingHashtags = () => {
           setTotalConnections(response.records[0].connection);
           setHashtag(response.records[0].hashtag.htag);
         }
-
+        setCountryDataDropdown(countryDataResponse);
+        setCountryBackupdata(countryDataResponse);
+        setInfluencerData(getInfluenser);
+        setInfluencerBackupdata(getInfluenser);
+        sethashtagdropdwon(hashtagDataResponse);
+        setHashtagBackupdata(hashtagDataResponse);
         setData(response.records);
         // console.log(response.records, "trending hashtag");
       };
@@ -98,6 +116,66 @@ const TrendingHashtags = () => {
     setTotalCount(data && data.length && data[index].hashtag.count);
     setTotalConnections(data && data.length && data[index].connection);
     setHashtag(data && data.length && data[index].hashtag.htag);
+  };
+
+  const onEnterInputClick = async (e) => {
+    if (e.key === "Enter") {
+      let influencerTypedValue = "";
+      let hashtagTypedValue = "";
+      let countryTypedValue = "";
+      if (trendingFilter === "Influencer") {
+        influencerTypedValue = inputValue;
+      }
+      if (trendingFilter === "Hashtag") {
+        hashtagTypedValue = inputValue;
+      }
+      if (trendingFilter === "Country") {
+        countryTypedValue = inputValue;
+      }
+      const response = await getTrendingHashtagData(
+        fromDate,
+        toDate,
+        countryValue,
+        influencerValue,
+        hashtagValue
+      );
+      if (response.records && response.records.length) {
+        setTotalCount(response.records[0].hashtag.count);
+        setTotalConnections(response.records[0].connection);
+        setHashtag(response.records[0].hashtag.htag);
+      }
+      setData(response.records);
+    }
+  };
+
+  const onDropDownClick = async (val) => {
+    setInputValue(val);
+    setShowInfluencerHashtag(false);
+    let influencerTypedValue = "";
+    let hashtagTypedValue = "";
+    let countryTypedValue = "";
+    if (trendingFilter === "Influencer") {
+      influencerTypedValue = inputValue;
+    }
+    if (trendingFilter === "Hashtag") {
+      hashtagTypedValue = inputValue;
+    }
+    if (trendingFilter === "Country") {
+      countryTypedValue = inputValue;
+    }
+    const response = await getTrendingHashtagData(
+      fromDate,
+      toDate,
+      countryValue,
+      influencerValue,
+      hashtagValue
+    );
+    if (response.records && response.records.length) {
+      setTotalCount(response.records[0].hashtag.count);
+      setTotalConnections(response.records[0].connection);
+      setHashtag(response.records[0].hashtag.htag);
+    }
+    setData(response.records);
   };
 
   return (
@@ -129,9 +207,20 @@ const TrendingHashtags = () => {
           </Tippy>
         </div>
         <Sort
+          influencerdata={
+            (trendingFilter === "Influencer" && influencerdata) ||
+            (trendingFilter === "Hashtag" && hashtagdropdwon) ||
+            (trendingFilter === "Country" && countryDataDropdown)
+          }
           data={trendingFilter}
           setData={setTrendingFilter}
           dropdownOptions={realTimeData}
+          onchange={onInputChange}
+          onEnterInputClick={onEnterInputClick}
+          onDropDownClick={onDropDownClick}
+          inputValue={inputValue}
+          showInfluencerHashtag={showInfluencerHashtag}
+          value={inputValue}
         />
         <div className="hashtags-wrapper">
           <div className="left-trending-content">
