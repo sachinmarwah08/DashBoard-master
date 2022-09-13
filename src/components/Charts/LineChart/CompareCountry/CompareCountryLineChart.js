@@ -16,14 +16,14 @@ const CompareCountryLineChart = ({
   // console.log(dataForLineBarChart, "linebAr");
   return (
     <>
-      {isValue && (
+      {/* {isValue && (
         <div className="bar-chart-line">
           <HighchartsReact
             highcharts={Highcharts}
             options={dataForLineBarChart}
           />
         </div>
-      )}
+      )} */}
       {compareCountryActive && (
         <div
           className={`${

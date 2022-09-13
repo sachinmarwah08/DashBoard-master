@@ -278,6 +278,7 @@ const TopInfluencer = () => {
     localStorage.setItem('persentile', getInfluencersResponse.persentile);
     setInfluencerCountData(influencerCountResponse.count);
     setGetInfluencersData(getInfluencersResponse.influencers);
+    console.log(getInfluencersResponse.influencers, "inital");
     setInfluencerDataBackup(getInfluencersResponse.influencers);
   };
 

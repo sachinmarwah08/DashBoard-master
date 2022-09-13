@@ -13,7 +13,6 @@ const Main = () => {
   const [loader, serLoader] = useState(false);
   return (
     <>
-      <div></div>
       <FilterProvider>
         <Header />
         <GlobalWellbeing />

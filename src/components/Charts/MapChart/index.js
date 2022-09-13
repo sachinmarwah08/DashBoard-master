@@ -299,9 +299,9 @@ const MapChartComponent = () => {
                 src={Table}
               ></img>
             </button>
-            <button>
+            {/* <button>
               <img alt="BigArrow" className="bigArrow" src={shareIcon}></img>
-            </button>
+            </button> */}
           </div>
         </div>
         {show === "map" && (

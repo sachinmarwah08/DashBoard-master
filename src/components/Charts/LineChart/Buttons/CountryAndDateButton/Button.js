@@ -20,6 +20,7 @@ const Button = ({ selected, setSelected, options, disabled, handleChange }) => {
         className={`${disabled ? "dropdown-btn-disabled" : "dropdown-btn"}`}
       >
         {selected}
+        {/* <input type="text" onChange={onChange} value={value} /> */}
         {!isActive ? (
           <FontAwesomeIcon icon={faAngleDown} />
         ) : (

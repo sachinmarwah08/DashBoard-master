@@ -4,8 +4,8 @@ import { GoogleMap, MarkerF, InfoWindowF } from '@react-google-maps/api';
 import { FilterContext } from '../../../../context/FilterContext';
 
 const center = {
-  lat: 38,
-  lng: -99,
+  lat: 20,
+  lng: 77,
 };
 
 const containerStyle = {
@@ -47,7 +47,6 @@ function MyComponent({
     }
     return num;
   }
-
   // let iconMarker = new window.google.maps.MarkerImage(
   //   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmrCU2BSbAzpeyJx_rxUONfn8cVSwGsuF4ig&usqp=CAU",
   //   null /* size is determined at runtime */,
@@ -90,7 +89,7 @@ function MyComponent({
             change_in_index_persentage,
           }) => (
             <MarkerF
-              // icon={iconMarker}
+              // icon={icon}
               key={_id}
               position={position}
               onMouseOver={() => handleActiveMarker(_id)}

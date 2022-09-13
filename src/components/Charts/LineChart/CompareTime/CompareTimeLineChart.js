@@ -14,14 +14,14 @@ const CompareTimeLineChart = ({
 }) => {
   return (
     <>
-      {dateValue && (
+      {/* {dateValue && (
         <div className="bar-chart-line">
           <HighchartsReact
             highcharts={Highcharts}
             options={chooseTimeBarDataState}
           />
         </div>
-      )}
+      )} */}
       {compareTimeActive && (
         <div
           className={`${
