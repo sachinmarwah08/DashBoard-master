@@ -32,7 +32,7 @@ export const getInfluencers = async (
   htag
 ) => {
   const response = await baseApi().get(
-    "/api/v1/get-influencers-social-media-impact?page=1",
+    "/api/v1/get-influencers-social-media-impact",
     {
       params: {
         from_date,

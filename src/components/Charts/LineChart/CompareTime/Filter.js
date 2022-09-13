@@ -27,38 +27,38 @@ const CompareTime = ({
   const [monthsList, setMonthsList] = useState([]);
 
   const fullMonthsList = [
-    {
-      value: "01",
-      month: "January, 2022",
-    },
-    {
-      value: "02",
-      month: "February, 2022",
-    },
-    {
-      value: "03",
-      month: "March, 2022",
-    },
-    {
-      value: "04",
-      month: "April, 2022",
-    },
-    {
-      value: "05",
-      month: "May, 2022",
-    },
-    {
-      value: "06",
-      month: "June, 2022",
-    },
+    // {
+    //   value: "01",
+    //   month: "January, 2022",
+    // },
+    // {
+    //   value: "02",
+    //   month: "February, 2022",
+    // },
+    // {
+    //   value: "03",
+    //   month: "March, 2022",
+    // },
+    // {
+    //   value: "04",
+    //   month: "April, 2022",
+    // },
+    // {
+    //   value: "05",
+    //   month: "May, 2022",
+    // },
+    // {
+    //   value: "06",
+    //   month: "June, 2022",
+    // },
     // {
     //   value: "07",
     //   month: "July",
     // },
-    // {
-    //   value: "08",
-    //   month: "August",
-    // },
+    {
+      value: "08",
+      month: "August, 2022",
+    },
     // {
     //   value: "09",
     //   month: "September",
@@ -89,7 +89,7 @@ const CompareTime = ({
       <div className="Add-country">
         <div className="country">
           <img alt="threeDots" src={threeDots} />
-          <p className="title">July, 2022</p>
+          <p className="title">September, 2022</p>
           {/* <p className="title">{`${month} ${year}`}</p> */}
         </div>
 

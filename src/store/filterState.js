@@ -8,6 +8,7 @@ export const initialFilterState = {
       toDate: "2022-09-12",
     },
     calenderToggler: false,
+    filterActive: false,
   },
   loaders: {
     countryLineChartLoading: true,

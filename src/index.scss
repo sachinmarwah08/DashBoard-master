@@ -112,6 +112,12 @@ body {
   }
 }
 
+.recharts-tooltip-wrapper {
+  width: auto;
+  padding: 0.8rem;
+  padding-left: 0;
+}
+
 .rdrMonth {
   font-family: "Work-Sans";
 }
@@ -121,7 +127,7 @@ body {
   background: #fff;
   display: block;
   border-radius: 14px;
-  height: 6.4rem !important;
+  height: 3.4rem !important;
   // height: max-content !important;
   // position: absolute;
   // left: 473px;

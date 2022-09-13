@@ -10,7 +10,7 @@ const Content = ({ topInfluencerData, loading }) => {
         </div>
       ) : (
         <div className="right-content-wrapper">
-          {topInfluencerData.map((item, index) => (
+          {topInfluencerData.slice(0, 15).map((item, index) => (
             <div key={index} className="right-content">
               <ul style={{ listStyle: "none", margin: "0%", padding: "0%" }}>
                 <li

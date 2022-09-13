@@ -46,6 +46,8 @@ const TopInfluencer = () => {
   const [showInfluencerHashtag, setShowInfluencerHashtag] = useState(false);
   const [countryDataDropdown, setCountryDataDropdown] = useState([]);
   const [countryBackupdata, setCountryBackupdata] = useState([]);
+  const [globalBackupData, setGlobalBackupData] = useState([]);
+  const [influencerCountDataBackup, setInfluencerCountDataBackup] = useState(0);
 
   const handleRadioChange = async (value) => {
     setLoading(true);
@@ -75,48 +77,59 @@ const TopInfluencer = () => {
 
   const handleFilter = (e) => {
     setInputValue(e.target.value);
-    let influencerTypedValue = "";
-    let hashtagTypedValue = "";
-    let countryTypedValue = "";
-    if (topInfluencerFilter === "Influencer") {
-      influencerTypedValue = inputValue;
-      setShowInfluencerHashtag(true);
+    if (topInfluencerFilter === "Filters") {
+      let tempData = [...globalBackupData];
+      console.log("influencerDataBackup", influencerDataBackup);
+      const newFilter = tempData.filter((value) => {
+        return value.toLowerCase().includes(inputValue.toLowerCase());
+      });
+      console.log("newFilter", newFilter);
+      setGetInfluencersData(newFilter);
+    } else {
+      let influencerTypedValue = "";
+      let hashtagTypedValue = "";
+      let countryTypedValue = "";
+      if (topInfluencerFilter === "Influencer") {
+        influencerTypedValue = inputValue;
+        setShowInfluencerHashtag(true);
+      }
+      if (topInfluencerFilter === "Hashtag") {
+        hashtagTypedValue = inputValue;
+        setShowInfluencerHashtag(true);
+      }
+      if (topInfluencerFilter === "Country") {
+        countryTypedValue = inputValue;
+        setShowInfluencerHashtag(true);
+      }
+      let tempDatadrodown = [...influencerBackupdata];
+      let tempHasgtagData = [...hashtagBackupdata];
+      let tempCountryData = [...countryBackupdata];
+      // let tempData = [...influencerDataBackup];
+      // const newFilter = tempData.filter((value) => {
+      //   return value.toLowerCase().includes(inputValue.toLowerCase());
+      // });
+      const influencerFilter = tempDatadrodown.filter((value) => {
+        return value.toLowerCase().includes(inputValue.toLowerCase());
+      });
+      const hashtagFilter = tempHasgtagData.filter((value) => {
+        return value.toLowerCase().includes(inputValue.toLowerCase());
+      });
+      const countryFilter = tempCountryData.filter((value) => {
+        return value.toLowerCase().includes(inputValue.toLowerCase());
+      });
+      setCountryDataDropdown(countryFilter);
+      sethashtag(hashtagFilter);
+      setInfluencerData(influencerFilter);
+      // setGetInfluencersData(newFilter);
     }
-    if (topInfluencerFilter === "Hashtag") {
-      hashtagTypedValue = inputValue;
-      setShowInfluencerHashtag(true);
-    }
-    if (topInfluencerFilter === "Country") {
-      countryTypedValue = inputValue;
-      setShowInfluencerHashtag(true);
-    }
-    let tempDatadrodown = [...influencerBackupdata];
-    let tempHasgtagData = [...hashtagBackupdata];
-    let tempCountryData = [...countryBackupdata];
-    // let tempData = [...influencerDataBackup];
-    // const newFilter = tempData.filter((value) => {
-    //   return value.toLowerCase().includes(inputValue.toLowerCase());
-    // });
-    const influencerFilter = tempDatadrodown.filter((value) => {
-      return value.toLowerCase().includes(inputValue.toLowerCase());
-    });
-    const hashtagFilter = tempHasgtagData.filter((value) => {
-      return value.toLowerCase().includes(inputValue.toLowerCase());
-    });
-    const countryFilter = tempCountryData.filter((value) => {
-      return value.toLowerCase().includes(inputValue.toLowerCase());
-    });
-    setCountryDataDropdown(countryFilter);
-    sethashtag(hashtagFilter);
-    setInfluencerData(influencerFilter);
-    // setGetInfluencersData(newFilter);
   };
 
   const clearData = () => {
     setTopInfluencerFilter("Filter");
-    setGetInfluencersData(influencerBackupdata);
+    console.log("influencerBackupdata", influencerBackupdata);
+    setGetInfluencersData(globalBackupData);
     setInputValue("");
-    setInfluencerCountData();
+    setInfluencerCountData(influencerCountDataBackup);
   };
 
   useEffect(() => {
@@ -170,7 +183,9 @@ const TopInfluencer = () => {
         sethashtag(hashtagDataResponse);
         setHashtagBackupdata(hashtagDataResponse);
         setInfluencerCountData(influencerCountResponse.count);
+        setInfluencerCountDataBackup(influencerCountResponse.count);
         setGetInfluencersData(getInfluencersResponse.influencers);
+        setGlobalBackupData(getInfluencersResponse.influencers);
         // setInfluencerDataBackup(getInfluencersResponse.influencers);
         setLoading(false);
       };
@@ -334,7 +349,7 @@ const TopInfluencer = () => {
             (topInfluencerFilter === "Hashtag" && hashtag) ||
             (topInfluencerFilter === "Country" && countryDataDropdown)
           }
-          filterData={influencerdata.length}
+          filterData={inputValue}
           clearData={clearData}
           onchange={handleFilter}
           setData={onFilterDropClick}

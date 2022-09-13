@@ -1,6 +1,7 @@
 /*global google */
-import React from "react";
+import React, { useContext } from "react";
 import { GoogleMap, MarkerF, InfoWindowF } from "@react-google-maps/api";
+import { FilterContext } from "../../../../context/FilterContext";
 
 const center = {
   lat: 20,
@@ -21,6 +22,9 @@ function MyComponent({
   mapDataApi,
   activeMarker,
 }) {
+  const { state } = useContext(FilterContext);
+  // console.log(state);
+  const { influencerValue, hashtagValue, countryValue } = state.filters;
   function twoDecimalPlacesIfCents(amount) {
     return amount % 1 !== 0 ? amount.toFixed(2) : amount;
   }
@@ -152,6 +156,7 @@ function MyComponent({
                       </span>
                     </div>
                     <pre></pre>
+
                     <div
                       style={{
                         fontWeight: 400,
@@ -166,22 +171,25 @@ function MyComponent({
                         {twoDecimalPlacesIfCents(sad_per)}%
                       </span>
                     </div>
+
                     <pre></pre>
                     {/* {change_in_rank ? ( */}
-                    <div
-                      style={{
-                        fontWeight: 400,
-                        fontSize: "12px",
-                        fontFamily: "Work-Sans",
-                        color: "#212121",
-                        marginTop: "-0.5rem",
-                      }}
-                    >
-                      Net Change in Rank:{" "}
-                      <span style={{ fontWeight: 600, color: "#F05728" }}>
-                        {change_in_rank}
-                      </span>
-                    </div>
+                    {!influencerValue && !hashtagValue && !countryValue && (
+                      <div
+                        style={{
+                          fontWeight: 400,
+                          fontSize: "12px",
+                          fontFamily: "Work-Sans",
+                          color: "#212121",
+                          marginTop: "-0.5rem",
+                        }}
+                      >
+                        Net Change in Rank:{" "}
+                        <span style={{ fontWeight: 600, color: "#F05728" }}>
+                          {change_in_rank}
+                        </span>
+                      </div>
+                    )}
                     {/* ) : ( "" )} */}
                     <pre></pre>
                     <div

@@ -60,7 +60,7 @@ const Bardata = {
 
   yAxis: {
     min: 0,
-    max: 21000,
+    max: 100,
 
     tickInterval: 0,
     title: {
