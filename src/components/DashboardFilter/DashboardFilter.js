@@ -1,28 +1,30 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
-import "./DashboardFilter.scss";
-import DropdownButton from "./Buttons/DropdownButton";
-import userIcon from "../../Images/userIcon.svg";
-import hashtagIcon from "../../Images/hashtagIcon.svg";
-import locationIcon from "../../Images/locationIcon.svg";
-import calenderIcon from "../../Images/calenderIcon.svg";
-import CalenderButton from "./Buttons/CalenderButton";
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import './DashboardFilter.scss';
+import DropdownButton from './Buttons/DropdownButton';
+import userIcon from '../../Images/userIcon.svg';
+import hashtagIcon from '../../Images/hashtagIcon.svg';
+import locationIcon from '../../Images/locationIcon.svg';
+import calenderIcon from '../../Images/calenderIcon.svg';
+import CalenderButton from './Buttons/CalenderButton';
 import {
   getCountryDropdownData,
   getHashtagDropdownData,
   getInfluencerDropdownData,
-} from "../../actions/DropDownApis";
-import Tippy from "@tippyjs/react";
-import "tippy.js/dist/tippy.css";
-import "tippy.js/themes/light.css";
-import "tippy.js/dist/svg-arrow.css";
-import { FilterContext } from "../../context/FilterContext";
+} from '../../actions/DropDownApis';
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css';
+import 'tippy.js/themes/light.css';
+import 'tippy.js/dist/svg-arrow.css';
+import { FilterContext } from '../../context/FilterContext';
 import {
   RESET_FILTERS,
   SET_FILTERS,
   UPDATE_ALL_LOADERS_TRUE,
   TOGGLE_CALENDER,
   CLOSE_CALENDER,
-} from "../../actions/types";
+  SET_DROP_DATA,
+} from '../../actions/types';
+import NewDropdownButton from './Buttons/NewDropDownButton';
 // import filter from "../../Images/filter.svg";
 // import Modal from "../Modal/Modal";
 
@@ -30,33 +32,55 @@ const DashboardFilter = () => {
   const { state, dispatch } = useContext(FilterContext);
   // console.log(state);
   const { influencerValue, hashtagValue, countryValue } = state.filters;
+  const { countryDropData } = state.data;
   const [influencer, setIinfluencer] = useState([]);
   const [hashtag, sethashtag] = useState([]);
-  const [country, setCountry] = useState([]);
+  // const [country, setCountry] = useState([]);
   const [openModal, setOpenModal] = useState(false);
+  const [countryPage, setCountryPage] = useState(1);
 
   useEffect(() => {
     const callApi = async () => {
-      const countryDataResponse = await getCountryDropdownData();
+      //////////////////////////////////////////////////////////////
+      const countryDataResponse = await getCountryDropdownData(countryPage);
+      dispatch({
+        type: SET_DROP_DATA,
+        payload: { field: 'countryDropData', value: countryDataResponse },
+      });
+
+      //////////////////////////////////////////////////////////
       const influencerDataResponse = await getInfluencerDropdownData();
       const hashtagDataResponse = await getHashtagDropdownData();
-      setCountry(countryDataResponse);
-      console.log(countryDataResponse, "country Data");
+      // setCountry(countryDataResponse);
+      console.log(countryDataResponse, 'country Data');
       setIinfluencer(influencerDataResponse);
       sethashtag(hashtagDataResponse);
     };
     callApi();
   }, []);
 
+  const onLoadMoreCountry = async () => {
+    const countryDataResponse = await getCountryDropdownData(countryPage + 1);
+    dispatch({
+      type: SET_DROP_DATA,
+      payload: {
+        field: 'countryDropData',
+        value: [...countryDropData, ...countryDataResponse],
+      },
+    });
+    // setCountry([...country, ...countryDataResponse]);
+    setCountryPage(countryPage + 1);
+  };
+
   const headerRef = useRef();
   if (typeof document !== `undefined`) {
-    document.addEventListener("scroll", function () {
+    document.addEventListener('scroll', function () {
       if (headerRef.current) {
         const documentTop =
           document.body.scrollTop || document.documentElement.scrollTop;
         if (documentTop > 280)
-          headerRef.current.classList.add("global-filter-btn");
-        else headerRef.current.classList.remove("hide-filter-icon");
+          headerRef.current.classList.add('global-filter-btn');
+        else headerRef.current.classList.remove('hide-filter-icon');
       }
     });
   }
@@ -64,19 +88,19 @@ const DashboardFilter = () => {
   const onInfluencerChange = (val) => {
     dispatch({
       type: SET_FILTERS,
-      payload: { field: "influencerValue", value: val },
+      payload: { field: 'influencerValue', value: val },
     });
   };
   const onHashTagChange = (val) => {
     dispatch({
       type: SET_FILTERS,
-      payload: { field: "hashtagValue", value: val },
+      payload: { field: 'hashtagValue', value: val },
     });
   };
   const onCountryChange = (val) => {
     dispatch({
       type: SET_FILTERS,
-      payload: { field: "countryValue", value: val },
+      payload: { field: 'countryValue', value: val },
     });
   };
 
@@ -96,15 +120,15 @@ const DashboardFilter = () => {
         <div className="buttons-wrapper">
           <div className="dropdown-btn-wrapper">
             <Tippy
-              theme={"light"}
+              theme={'light'}
               interactive={true}
               content={
                 <div
                   style={{
-                    padding: "0.5rem",
+                    padding: '0.5rem',
                     fontWeight: 400,
-                    fontFamily: "Work-Sans",
-                    fontSize: "14px",
+                    fontFamily: 'Work-Sans',
+                    fontSize: '14px',
                   }}
                 >
                   <p style={{ fontWeight: 600, marginTop: 0 }}>Influencers</p>
@@ -125,15 +149,15 @@ const DashboardFilter = () => {
             </Tippy>
 
             <Tippy
-              theme={"light"}
+              theme={'light'}
               interactive={true}
               content={
                 <div
                   style={{
-                    padding: "0.5rem",
+                    padding: '0.5rem',
                     fontWeight: 400,
-                    fontFamily: "Work-Sans",
-                    fontSize: "14px",
+                    fontFamily: 'Work-Sans',
+                    fontSize: '14px',
                   }}
                 >
                   <p style={{ fontWeight: 600, marginTop: 0 }}>
@@ -156,15 +180,15 @@ const DashboardFilter = () => {
             </Tippy>
 
             <Tippy
-              theme={"light"}
+              theme={'light'}
               interactive={true}
               content={
                 <div
                   style={{
-                    padding: "0.5rem",
+                    padding: '0.5rem',
                     fontWeight: 400,
-                    fontFamily: "Work-Sans",
-                    fontSize: "14px",
+                    fontFamily: 'Work-Sans',
+                    fontSize: '14px',
                   }}
                 >
                   <p style={{ fontWeight: 600, marginTop: 0 }}>Country</p>
@@ -174,12 +198,13 @@ const DashboardFilter = () => {
               }
             >
               <div>
-                <DropdownButton
-                  data={country}
+                <NewDropdownButton
+                  data={countryDropData}
                   selectedVal={countryValue}
                   handleChange={(val) => onCountryChange(val)}
                   icon={locationIcon}
                   name="Search country"
+                  onLoadMoreCountry={onLoadMoreCountry}
                 />
               </div>
             </Tippy>
@@ -190,14 +215,14 @@ const DashboardFilter = () => {
           <div className="apply-reset-btn">
             <button
               onClick={onApplyAllClick}
-              style={{ fontFamily: "Work-Sans" }}
+              style={{ fontFamily: 'Work-Sans' }}
               className="apply-btn"
             >
               Apply
             </button>
             <button
               onClick={onResetFiltersClick}
-              style={{ fontFamily: "Work-Sans" }}
+              style={{ fontFamily: 'Work-Sans' }}
               className="reset-btn"
             >
               Reset

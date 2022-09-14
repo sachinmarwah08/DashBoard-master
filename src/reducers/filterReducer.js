@@ -1,11 +1,12 @@
 import {
   CLOSE_CALENDER,
   RESET_FILTERS,
+  SET_DROP_DATA,
   SET_FILTERS,
   TOGGLE_CALENDER,
   UPDATE_ALL_LOADERS_TRUE,
   UPDATE_LOADERS,
-} from "../actions/types";
+} from '../actions/types';
 
 const filterReducer = (state, action) => {
   const { type, payload } = action;
@@ -15,6 +16,14 @@ const filterReducer = (state, action) => {
         ...state,
         filters: {
           ...state.filters,
+          [payload.field]: payload.value,
+        },
+      };
+    case SET_DROP_DATA:
+      return {
+        ...state,
+        data: {
+          ...state.data,
           [payload.field]: payload.value,
         },
       };
@@ -39,9 +48,9 @@ const filterReducer = (state, action) => {
         ...state,
         filters: {
           ...state.filters,
-          influencerValue: "",
-          hashtagValue: "",
-          countryValue: "",
+          influencerValue: '',
+          hashtagValue: '',
+          countryValue: '',
         },
         loaders: {
           ...state.loaders,
