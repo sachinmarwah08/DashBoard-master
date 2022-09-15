@@ -18,61 +18,7 @@ import {
   getHashtagDropdownData,
   getInfluencerDropdownData,
 } from "../../../actions/DropDownApis";
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from "recharts";
-
-const newBar = [
-  {
-    name: "Page A",
-    uv: 3000,
-    pv: 1398,
-    amt: 2210,
-  },
-  {
-    name: "Page B",
-    uv: 3000,
-    pv: 1398,
-    amt: 2210,
-  },
-  {
-    name: "Page C",
-    uv: 2000,
-    pv: 9800,
-    amt: 2290,
-  },
-  {
-    name: "Page D",
-    uv: 2780,
-    pv: 3908,
-    amt: 2000,
-  },
-  {
-    name: "Page E",
-    uv: 1890,
-    pv: 4800,
-    amt: 2181,
-  },
-  {
-    name: "Page F",
-    uv: 2390,
-    pv: 3800,
-    amt: 2500,
-  },
-  {
-    name: "Page G",
-    uv: 3490,
-    pv: 4300,
-    amt: 2100,
-  },
-];
+import BarChartData from "./BarChartData";
 
 const BarChartComponent = () => {
   const { state } = useContext(FilterContext);
@@ -85,7 +31,7 @@ const BarChartComponent = () => {
       dateRangeValue: { fromDate, toDate },
     },
   } = state;
-  const [data, setData] = useState({});
+  const [data, setData] = useState([]);
   const barDataOption = ["Influencer", "Hashtag"];
   const [bardataFilterDrop, setBardataFilterDrop] = useState("Filters");
   // const topBottomData = ["Top 10", "Bottom 10"];
@@ -160,16 +106,10 @@ const BarChartComponent = () => {
         for (let i = 0; i < response.data.length; i++) {
           maxValue = Math.max(maxValue, response.data[i].count);
           tempData.xAxis.categories.push(response.data[i]._id);
-
           tempData.series[0].data.push(Math.floor(response.data[i].count));
-          tempData.tooltip.headerFormat = `<strong><span style="color:#212121; font-size: 16px;">{point.key}</span></strong><br>`;
-          tempData.tooltip.pointFormat = `{series.name}: <strong><span  style="color:#F05728">{point.y}</span></strong>`;
-
-          // tempData.tooltip.formatter = function () {
-          //   return `${response.data[i].happy}`;
-          // };
         }
         tempData.yAxis.max = maxValue;
+
         setInfluencerData(getInfluenser);
         setInfluencerBackupdata(getInfluenser);
         sethashtag(hashtagDataResponse);
@@ -374,20 +314,7 @@ const BarChartComponent = () => {
               </div>
             ) : (
               // <HighchartsReact highcharts={Highcharts} options={data} />
-              <ResponsiveContainer width="100%" height="100%" aspect="auto">
-                <BarChart data={newBar} layout="vertical">
-                  <XAxis type="number" hide />
-                  <YAxis
-                    dataKey="name"
-                    fill="#212121"
-                    fontWeight={400}
-                    fontSize="12px"
-                    type="category"
-                  />
-                  <Tooltip cursor={{ fill: "transparent" }} />
-                  <Bar dataKey="pv" fill="#F05728" radius={[6, 6, 6, 6]} />
-                </BarChart>
-              </ResponsiveContainer>
+              <BarChartData />
             )}
           </div>
         </div>
