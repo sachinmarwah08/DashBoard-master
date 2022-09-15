@@ -245,9 +245,9 @@ body {
   height: max-content !important;
 }
 
-.recharts-responsive-container {
-  margin-left: 0.8rem;
-}
+// .recharts-responsive-container {
+//   margin-left: 0.8rem;
+// }
 
 .dropdown-list-two {
   list-style: none;
@@ -258,4 +258,17 @@ body {
   &:hover {
     background-color: #fef5f2;
   }
+}
+
+.recharts-bar {
+  opacity: 0.5;
+  border-radius: 4px;
+}
+
+.recharts-cartesian-axis-tick-line {
+  display: none;
+}
+.recharts-cartesian-axis-line {
+  color: #f0f0f0;
+  opacity: 0.5;
 }

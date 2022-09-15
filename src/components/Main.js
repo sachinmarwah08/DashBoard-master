@@ -15,6 +15,16 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { useEffect, useState, useRef, useCallback } from "react";
 import { getUsers } from "./../api";
 import { getInfluencers } from "../actions/TopInfluencerApis";
+// import {
+//   BarChart,
+//   Bar,
+//   XAxis,
+//   YAxis,
+//   CartesianGrid,
+//   Tooltip,
+//   Legend,
+//   ResponsiveContainer,
+// } from "recharts";
 
 const Main = () => {
   // const [users, setUsers] = useState([]);
@@ -68,6 +78,7 @@ const Main = () => {
       </div>
 
       {loading && "loading"} */}
+
       <FilterProvider>
         <Header />
         <GlobalWellbeing />

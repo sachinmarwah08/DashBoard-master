@@ -150,7 +150,7 @@ const Chart = ({
   console.log("chooseTimeLineChartData", chooseTimeLineChartData);
 
   return (
-    <div style={{ marginTop: "1rem" }}>
+    <div style={{ marginTop: "1rem", marginLeft: "1rem" }}>
       <ResponsiveContainer width="100%" aspect={4.2}>
         <LineChart
           data={

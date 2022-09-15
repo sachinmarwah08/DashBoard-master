@@ -18,6 +18,61 @@ import {
   getHashtagDropdownData,
   getInfluencerDropdownData,
 } from "../../../actions/DropDownApis";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
+
+const newBar = [
+  {
+    name: "Page A",
+    uv: 3000,
+    pv: 1398,
+    amt: 2210,
+  },
+  {
+    name: "Page B",
+    uv: 3000,
+    pv: 1398,
+    amt: 2210,
+  },
+  {
+    name: "Page C",
+    uv: 2000,
+    pv: 9800,
+    amt: 2290,
+  },
+  {
+    name: "Page D",
+    uv: 2780,
+    pv: 3908,
+    amt: 2000,
+  },
+  {
+    name: "Page E",
+    uv: 1890,
+    pv: 4800,
+    amt: 2181,
+  },
+  {
+    name: "Page F",
+    uv: 2390,
+    pv: 3800,
+    amt: 2500,
+  },
+  {
+    name: "Page G",
+    uv: 3490,
+    pv: 4300,
+    amt: 2100,
+  },
+];
 
 const BarChartComponent = () => {
   const { state } = useContext(FilterContext);
@@ -45,15 +100,15 @@ const BarChartComponent = () => {
   const [showInfluencerHashtag, setShowInfluencerHashtag] = useState(false);
   const [barBackupData, setBarBackupData] = useState([]);
 
-  const handleChange = (value) => {
-    setHeading(value);
-  };
+  // const handleChange = (value) => {
+  //   setHeading(value);
+  // };
 
-  function kFormatter(num) {
-    return Math.abs(num) > 999
-      ? Math.sign(num) * (Math.abs(num) / 1000).toFixed(1) + "k"
-      : Math.sign(num) * Math.abs(num);
-  }
+  // function kFormatter(num) {
+  //   return Math.abs(num) > 999
+  //     ? Math.sign(num) * (Math.abs(num) / 1000).toFixed(1) + "k"
+  //     : Math.sign(num) * Math.abs(num);
+  // }
 
   const onInputChange = async (e) => {
     setInputValue(e.target.value);
@@ -318,7 +373,21 @@ const BarChartComponent = () => {
                 <PuffLoader color="#F05728" loading={loading} size={50} />
               </div>
             ) : (
-              <HighchartsReact highcharts={Highcharts} options={data} />
+              // <HighchartsReact highcharts={Highcharts} options={data} />
+              <ResponsiveContainer width="100%" height="100%" aspect="auto">
+                <BarChart data={newBar} layout="vertical">
+                  <XAxis type="number" hide />
+                  <YAxis
+                    dataKey="name"
+                    fill="#212121"
+                    fontWeight={400}
+                    fontSize="12px"
+                    type="category"
+                  />
+                  <Tooltip cursor={{ fill: "transparent" }} />
+                  <Bar dataKey="pv" fill="#F05728" radius={[6, 6, 6, 6]} />
+                </BarChart>
+              </ResponsiveContainer>
             )}
           </div>
         </div>
