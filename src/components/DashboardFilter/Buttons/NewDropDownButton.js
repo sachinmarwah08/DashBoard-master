@@ -18,10 +18,29 @@ const NewDropdownButton = ({
   selectedVal,
   handleChange,
   onLoadMoreCountry,
+  countryPage,
 }) => {
   const [isFilterActive, setIsFilterActive] = useState(false);
   const [query, setQuery] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+
+  function useOutsideAlerter(ref) {
+    useEffect(() => {
+      function handleClickOutside(event) {
+        if (ref.current && !ref.current.contains(event.target)) {
+          // alert("You clicked outside of me!");
+          setIsFilterActive(false);
+        }
+      }
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }, [ref]);
+  }
+
+  const wrapperRef = useRef(null);
+  useOutsideAlerter(wrapperRef);
 
   const inputRef = useRef(null);
 
@@ -69,18 +88,16 @@ const NewDropdownButton = ({
     parent,
   }) {
     return (
-      <div style={style}>
-        {/* {filter(data).map((option, index) => ( */}
-        <CellMeasurer
-          key={key}
-          cache={cache.current}
-          parent={parent}
-          columnIndex={0}
-          rowIndex={index}
-        >
+      <CellMeasurer
+        key={key}
+        cache={cache.current}
+        parent={parent}
+        columnIndex={0}
+        rowIndex={index}
+      >
+        <div style={style}>
+          {/* {filter(data).map((option, index) => ( */}
           <div
-            // style={{ padding: "1rem", paddingLeft: 0 }}
-
             onClick={() => selectOption(data[index])}
             className="dropdown-filter-item"
           >
@@ -93,9 +110,9 @@ const NewDropdownButton = ({
               </li>
             </ul>
           </div>
-        </CellMeasurer>
-        {/* ))} */}
-      </div>
+          {/* ))} */}
+        </div>
+      </CellMeasurer>
     );
   }
 
@@ -110,6 +127,7 @@ const NewDropdownButton = ({
 
   return (
     <button
+      ref={wrapperRef}
       onClick={() => setIsFilterActive(!isFilterActive)}
       className={`${
         isFilterActive
@@ -163,7 +181,7 @@ const NewDropdownButton = ({
                 width={100}
                 height={100}
                 loadMoreRows={onLoadMoreCountry}
-                rowCount={100}
+                rowCount={data.length + 1}
               >
                 {({ onRowsRendered, registerChild }) => (
                   <AutoSizer>
