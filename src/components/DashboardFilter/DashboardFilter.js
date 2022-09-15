@@ -35,7 +35,7 @@ const DashboardFilter = () => {
   const { countryDropData } = state.data;
   const [influencer, setIinfluencer] = useState([]);
   const [hashtag, sethashtag] = useState([]);
-  // const [country, setCountry] = useState([]);
+  const [country, setCountry] = useState([]);
   const [openModal, setOpenModal] = useState(false);
   const [countryPage, setCountryPage] = useState(1);
 
@@ -47,6 +47,7 @@ const DashboardFilter = () => {
         type: SET_DROP_DATA,
         payload: { field: 'countryDropData', value: countryDataResponse },
       });
+      setCountry(countryDataResponse);
 
       //////////////////////////////////////////////////////////
       const influencerDataResponse = await getInfluencerDropdownData();
@@ -68,7 +69,7 @@ const DashboardFilter = () => {
         value: [...countryDropData, ...countryDataResponse],
       },
     });
-    // setCountry([...country, ...countryDataResponse]);
+    setCountry([...country, ...countryDataResponse]);
     setCountryPage(countryPage + 1);
   };
 
@@ -205,6 +206,8 @@ const DashboardFilter = () => {
                   icon={locationIcon}
                   name="Search country"
                   onLoadMoreCountry={onLoadMoreCountry}
+                  backupData={country}
+                  filedToUpdate="countryDropData"
                 />
               </div>
             </Tippy>
