@@ -3,33 +3,33 @@ import "./Footer.scss";
 import logo from "../../../Images/logo.svg";
 import appleLogo from "../../../Images/appleLogo.png";
 import googlePlayLogo from "../../../Images/googlePlayLogo.png";
-import { useInView } from "react-intersection-observer";
+// import { useInView } from "react-intersection-observer";
 import { FilterContext } from "../../../context/FilterContext";
 import { SET_FILTERS } from "../../../actions/types";
 
 const Footer = () => {
   const { state, dispatch } = useContext(FilterContext);
-  const { ref, inView } = useInView({
-    /* Optional options */
-    threshold: 0,
-  });
+  // const { ref, inView } = useInView({
+  //   /* Optional options */
+  //   threshold: 0,
+  // });
 
   const {
     filters: { filterActive },
   } = state;
 
-  useEffect(() => {
-    if (inView && !filterActive) {
-      console.log(filterActive);
-      dispatch({
-        type: SET_FILTERS,
-        payload: { field: "filterActive", value: true },
-      });
-    }
-  }, [inView]);
+  // useEffect(() => {
+  //   if (inView && !filterActive) {
+  //     console.log(filterActive);
+  //     dispatch({
+  //       type: SET_FILTERS,
+  //       payload: { field: "filterActive", value: true },
+  //     });
+  //   }
+  // }, [inView]);
   console.log("filterActive", filterActive);
   return (
-    <footer ref={ref} className="footer-wrapper">
+    <footer className="footer-wrapper">
       <div className="footer-inside-wrapper">
         <div className="footer-left-container">
           <div className="footer-column-one">
