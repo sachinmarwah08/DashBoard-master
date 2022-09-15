@@ -169,6 +169,7 @@ const Chart = ({
             stroke="#757575"
             fontWeight={400}
             fontSize="0.875rem"
+            dy={8}
             interval={"preserveStartEnd"}
             tickFormatter={(value) => value + ""}
           />
@@ -176,6 +177,7 @@ const Chart = ({
             style={{ fontFamily: "Work-Sans" }}
             tickFormatter={nFormatter}
             type="number"
+            dy={-4}
             domain={["dataMin", "dataMax"]}
             allowDecimals={false}
             scale="auto"
