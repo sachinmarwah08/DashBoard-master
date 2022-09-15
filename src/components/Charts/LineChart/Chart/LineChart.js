@@ -77,18 +77,36 @@ const Chart = ({
             width: "100%",
           }}
         >
-          <p
-            style={{
-              fontSize: "20px",
-              color: "#000000",
-              fontWeight: 700,
-              marginTop: 0,
-              marginBottom: 0,
-              padding: "0.5rem",
-            }}
-          >
-            {item.payload[0].payload._id}
-          </p>
+          {lineChartData && (
+            <p
+              style={{
+                fontSize: "20px",
+                color: "#000000",
+                fontWeight: 700,
+                marginTop: 0,
+                marginBottom: 0,
+                padding: "0.5rem",
+              }}
+            >
+              {item.payload[0].payload._id}
+            </p>
+          )}
+
+          {chooseTimeLineChartData && (
+            <p
+              style={{
+                fontSize: "20px",
+                color: "#000000",
+                fontWeight: 700,
+                marginTop: 0,
+                marginBottom: 0,
+                padding: "0.5rem",
+              }}
+            >
+              {item.payload[0].payload.week}
+            </p>
+          )}
+
           <div
             style={{
               width: "100%",
@@ -118,7 +136,7 @@ const Chart = ({
               >
                 {contryNameState}
               </span>
-              <span style={{ fontSize: "20px", color: "#F05728" }}>
+              <span style={{ fontSize: "20px", color: "#2A00FF" }}>
                 {twoDecimalPlacesIfCents(item.payload[1].payload.compare)}
               </span>
             </div>
@@ -133,10 +151,7 @@ const Chart = ({
 
   return (
     <div style={{ marginTop: "1rem" }}>
-      <ResponsiveContainer
-        width="100%"
-        aspect={isValue || dateValue ? 3.6 : 4.2}
-      >
+      <ResponsiveContainer width="100%" aspect={4.2}>
         <LineChart
           data={
             (compareCountryActive && lineChartData) ||

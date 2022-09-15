@@ -8,7 +8,7 @@ import "tippy.js/dist/svg-arrow.css";
 import Bubble from "./Bubble";
 import { FilterContext } from "../../context/FilterContext";
 
-const BubbleChart = ({ handleChange }) => {
+const BubbleChart = ({ handleChange, trendingHashtag, setTrendingHashtag }) => {
   const { state } = useContext(FilterContext);
   const {
     loaders: { countryLineChartLoading },
@@ -19,7 +19,6 @@ const BubbleChart = ({ handleChange }) => {
       dateRangeValue: { fromDate, toDate },
     },
   } = state;
-  const [trendingHashtag, setTrendingHashtag] = useState([]);
 
   useEffect(() => {
     if (countryLineChartLoading) {

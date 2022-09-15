@@ -238,6 +238,7 @@ const RealTimeFeeds = () => {
   };
 
   const onEnterInputClick = async (e) => {
+    setShowInfluencerHashtag(false);
     if (e.key === "Enter") {
       let influencerTypedValue = "";
       let hashtagTypedValue = "";

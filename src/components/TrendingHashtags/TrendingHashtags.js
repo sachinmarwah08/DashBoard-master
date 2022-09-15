@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./TrendingHashtags.scss";
-import sentiment from "../../Images/trendingIconOne.svg";
+// import sentiment from "../../Images/trendingIconOne.svg";
 import trending from "../../Images/trendingIconTwo.svg";
 import totalUse from "../../Images/trendingIconThree.svg";
 import Sort from "../SortFilter/Sort";
@@ -43,10 +43,14 @@ const TrendingHashtags = () => {
   const [showInfluencerHashtag, setShowInfluencerHashtag] = useState(false);
   const [countryDataDropdown, setCountryDataDropdown] = useState([]);
   const [countryBackupdata, setCountryBackupdata] = useState([]);
+  const [trendingHashtag, setTrendingHashtag] = useState([]);
 
   const onInputChange = async (e) => {
     setInputValue(e.target.value);
     setShowInfluencerHashtag(true);
+    if (trendingFilter === "Filters") {
+      setShowInfluencerHashtag(false);
+    }
     let tempData = [...influencerBackupdata];
     let tempHasgtagData = [...hashtagBackupdata];
     let tempCountryData = [...countryBackupdata];
@@ -119,6 +123,7 @@ const TrendingHashtags = () => {
   };
 
   const onEnterInputClick = async (e) => {
+    setShowInfluencerHashtag(false);
     if (e.key === "Enter") {
       let influencerTypedValue = "";
       let hashtagTypedValue = "";
@@ -135,15 +140,28 @@ const TrendingHashtags = () => {
       const response = await getTrendingHashtagData(
         fromDate,
         toDate,
-        countryValue,
-        influencerValue,
-        hashtagValue
+        countryTypedValue,
+        influencerTypedValue,
+        hashtagTypedValue
       );
       if (response.records && response.records.length) {
         setTotalCount(response.records[0].hashtag.count);
         setTotalConnections(response.records[0].connection);
         setHashtag(response.records[0].hashtag.htag);
       }
+
+      const responseBubbleChart = await getTrendingHashtagData(
+        fromDate,
+        toDate,
+        countryTypedValue,
+        influencerTypedValue,
+        hashtagTypedValue
+      );
+      let tempData = [...responseBubbleChart.records];
+      tempData.sort((a, b) => b.hashtag.count - a.hashtag.count);
+      // setTotalCount(tempData);
+      // setTotalConnections(tempData);
+      setTrendingHashtag(tempData);
       setData(response.records);
     }
   };
@@ -166,9 +184,9 @@ const TrendingHashtags = () => {
     const response = await getTrendingHashtagData(
       fromDate,
       toDate,
-      countryValue,
-      influencerValue,
-      hashtagValue
+      countryTypedValue,
+      influencerTypedValue,
+      hashtagTypedValue
     );
     if (response.records && response.records.length) {
       setTotalCount(response.records[0].hashtag.count);
@@ -213,7 +231,7 @@ const TrendingHashtags = () => {
             (trendingFilter === "Country" && countryDataDropdown)
           }
           data={trendingFilter}
-          setData={setTrendingFilter}
+          setData={onFilterDropClick}
           dropdownOptions={realTimeData}
           onchange={onInputChange}
           onEnterInputClick={onEnterInputClick}
@@ -285,7 +303,11 @@ const TrendingHashtags = () => {
           </div>
 
           <div className="right-trending-content">
-            <BubbleChart handleChange={handleChange} />
+            <BubbleChart
+              trendingHashtag={trendingHashtag}
+              setTrendingHashtag={setTrendingHashtag}
+              handleChange={handleChange}
+            />
           </div>
         </div>
         <p className="note">

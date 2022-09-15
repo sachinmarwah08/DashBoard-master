@@ -6,11 +6,20 @@ import {
   TOGGLE_CALENDER,
   UPDATE_ALL_LOADERS_TRUE,
   UPDATE_LOADERS,
-} from '../actions/types';
+  SET_LOADERS,
+} from "../actions/types";
 
 const filterReducer = (state, action) => {
   const { type, payload } = action;
   switch (type) {
+    case SET_LOADERS:
+      return {
+        ...state,
+        filters: {
+          ...state.filters,
+          [payload.field]: payload.value,
+        },
+      };
     case SET_FILTERS:
       return {
         ...state,
@@ -48,13 +57,14 @@ const filterReducer = (state, action) => {
         ...state,
         filters: {
           ...state.filters,
-          influencerValue: '',
-          hashtagValue: '',
-          countryValue: '',
+          influencerValue: "",
+          hashtagValue: "",
+          countryValue: "",
         },
         loaders: {
           ...state.loaders,
           countryLineChartLoading: true,
+          topInfluencerLoading: true,
         },
       };
     case UPDATE_LOADERS:
@@ -71,6 +81,7 @@ const filterReducer = (state, action) => {
         loaders: {
           ...state.loaders,
           countryLineChartLoading: true,
+          topInfluencerLoading: true,
         },
       };
     default:

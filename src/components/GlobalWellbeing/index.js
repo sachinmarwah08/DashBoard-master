@@ -82,6 +82,26 @@ const GlobalWellbeing = () => {
       : Math.sign(num) * Math.abs(num);
   }
 
+  var date = new Date().getDate();
+  var year = new Date().getFullYear();
+
+  let monthsArray = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  let month = new Date().getMonth();
+  let monthName = monthsArray[month];
+
   return (
     <div className="main-container">
       <div className="main-container-wrapper">
@@ -142,7 +162,9 @@ const GlobalWellbeing = () => {
               <p className="value-one">Current Day Value </p>
             </Tippy>
 
-            <p className="date">As of 31 July, 2022</p>
+            <p className="date">
+              As of {date} {monthName}, {year}
+            </p>
           </div>
 
           <div className="column-two">

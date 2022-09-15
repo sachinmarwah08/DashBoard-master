@@ -1,17 +1,17 @@
-import React, { useState, useRef, useEffect, useContext } from 'react';
-import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { useState, useRef, useEffect, useContext } from "react";
+import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   AutoSizer,
   InfiniteLoader,
   List,
   CellMeasurerCache,
   CellMeasurer,
-} from 'react-virtualized';
-import 'react-virtualized/styles.css';
-import { getCountryDropdownData } from '../../../actions/DropDownApis';
-import { SET_DROP_DATA } from '../../../actions/types';
-import { FilterContext } from '../../../context/FilterContext';
+} from "react-virtualized";
+import "react-virtualized/styles.css";
+import { getCountryDropdownData } from "../../../actions/DropDownApis";
+import { SET_DROP_DATA } from "../../../actions/types";
+import { FilterContext } from "../../../context/FilterContext";
 
 const NewDropdownButton = ({
   icon,
@@ -26,7 +26,7 @@ const NewDropdownButton = ({
 }) => {
   const { dispatch } = useContext(FilterContext);
   const [isFilterActive, setIsFilterActive] = useState(false);
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
   const [isOpen, setIsOpen] = useState(false);
 
   function useOutsideAlerter(ref) {
@@ -37,9 +37,9 @@ const NewDropdownButton = ({
           setIsFilterActive(false);
         }
       }
-      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener("mousedown", handleClickOutside);
       return () => {
-        document.removeEventListener('mousedown', handleClickOutside);
+        document.removeEventListener("mousedown", handleClickOutside);
       };
     }, [ref]);
   }
@@ -57,12 +57,12 @@ const NewDropdownButton = ({
   );
 
   useEffect(() => {
-    document.addEventListener('click', toggle);
-    return () => document.removeEventListener('click', toggle);
+    document.addEventListener("click", toggle);
+    return () => document.removeEventListener("click", toggle);
   }, []);
 
   const selectOption = (option) => {
-    setQuery(() => '');
+    setQuery(() => "");
     handleChange(option);
     setIsOpen((isOpen) => !isOpen);
   };
@@ -75,19 +75,19 @@ const NewDropdownButton = ({
     if (query) return query;
     if (selectedVal) return selectedVal;
 
-    return '';
+    return "";
   };
 
-  const filter = (data) => {
-    return data.filter(
-      (option) => option.toLowerCase().indexOf(query.toLowerCase()) > -1
-    );
-  };
+  // const filter = (data) => {
+  //   return data.filter(
+  //     (option) => option.toLowerCase().indexOf(query.toLowerCase()) > -1
+  //   );
+  // };
 
   const onInputChange = (e) => {
     let tempData = [...backupData];
     setIsFilterActive(true);
-    console.log('data', data);
+    console.log("data", data);
     tempData = tempData.filter(
       (option) => option.toLowerCase().indexOf(query.toLowerCase()) > -1
     );
@@ -98,8 +98,9 @@ const NewDropdownButton = ({
         value: tempData,
       },
     });
-    console.log('tempData', tempData);
-    console.log('backupData', backupData);
+
+    console.log("tempData", tempData);
+    console.log("backupData", backupData);
     setQuery(e.target.value);
   };
 
@@ -125,9 +126,9 @@ const NewDropdownButton = ({
             onClick={() => selectOption(data[index])}
             className="dropdown-filter-item"
           >
-            <ul style={{ margin: '0%', padding: '0%' }}>
+            <ul style={{ margin: "0%", padding: "0%" }}>
               <li
-                style={{ fontFamily: 'Work-Sans', color: '#616161' }}
+                style={{ fontFamily: "Work-Sans", color: "#616161" }}
                 className="dropdown-list"
               >
                 {data[index]}
@@ -156,8 +157,8 @@ const NewDropdownButton = ({
       onClick={() => setIsFilterActive(!isFilterActive)}
       className={`${
         isFilterActive
-          ? ' dropdown-filter-button-colored'
-          : 'dropdown-filter-button'
+          ? " dropdown-filter-button-colored"
+          : "dropdown-filter-button"
       }`}
     >
       <div className="dropdown-filter-content">
@@ -166,14 +167,14 @@ const NewDropdownButton = ({
 
           <input
             style={{
-              backgroundColor: 'transparent',
-              border: 'none',
-              color: '#667085',
-              fontSize: '16px',
+              backgroundColor: "transparent",
+              border: "none",
+              color: "#667085",
+              fontSize: "16px",
               fontWeight: 400,
-              fontFamily: 'Work-Sans',
-              width: '100%',
-              outline: 'none',
+              fontFamily: "Work-Sans",
+              width: "100%",
+              outline: "none",
               margin: 0,
             }}
             className="dropdown-input"

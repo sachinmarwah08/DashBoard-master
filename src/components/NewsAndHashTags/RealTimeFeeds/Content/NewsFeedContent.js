@@ -11,7 +11,12 @@ const NewsFeedContent = ({ filterData, loading }) => {
       ) : (
         <div className="left-content-wrapper">
           {filterData.map((item, index) => (
-            <div key={index} className="left-content">
+            <div
+              key={index}
+              className={`${
+                filterData.length === 0 ? "left-content-noData" : "left-content"
+              }`}
+            >
               <a
                 href={item.url}
                 rel="noreferrer"

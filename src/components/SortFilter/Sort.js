@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./Sort.scss";
 import filterBarLogo from "../../Images/filter.svg";
 import searchBarLogo from "../../Images/search.svg";
@@ -20,6 +20,24 @@ const Sort = ({
   showInfluencerHashtag,
 }) => {
   const [isActive, setIsActive] = useState(false);
+
+  function useOutsideAlerter(ref) {
+    useEffect(() => {
+      function handleClickOutside(event) {
+        if (ref.current && !ref.current.contains(event.target)) {
+          // alert("You clicked outside of me!");
+          setIsActive(false);
+        }
+      }
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }, [ref]);
+  }
+
+  const wrapperRef = useRef(null);
+  useOutsideAlerter(wrapperRef);
 
   return (
     <div className="search-bar-filter">
@@ -65,7 +83,7 @@ const Sort = ({
         )}
       </div>
 
-      <div className="filter-bar-data">
+      <div ref={wrapperRef} className="filter-bar-data">
         <div
           onClick={() => {
             setIsActive(!isActive);

@@ -85,7 +85,6 @@
       max-height: 20rem;
       overflow: hidden;
       position: absolute;
-
       animation: growDown 300ms ease-in-out forwards;
       transform-origin: top center;
 
@@ -105,7 +104,7 @@
         height: 14rem;
         margin: 0.3rem;
         margin-left: 0%;
-        overflow: scroll;
+        // overflow: scroll;
         overflow-x: hidden;
 
         .dropdown-filter-item {
@@ -120,6 +119,15 @@
 
           .dropdown-list {
             list-style: none;
+            padding-left: 0.5rem;
+            color: #101828;
+            &:hover {
+              background-color: #fef5f2;
+            }
+          }
+          .dropdown-list-two {
+            list-style: none;
+            padding-left: 0.5rem;
             color: #101828;
             &:hover {
               background-color: #fef5f2;

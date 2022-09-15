@@ -248,3 +248,14 @@ body {
 .recharts-responsive-container {
   margin-left: 0.8rem;
 }
+
+.dropdown-list-two {
+  list-style: none;
+  padding-left: 0.5rem;
+  padding: 1rem;
+  text-align: left;
+  color: #101828;
+  &:hover {
+    background-color: #fef5f2;
+  }
+}

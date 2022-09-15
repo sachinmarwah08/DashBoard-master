@@ -26,7 +26,7 @@ import "tippy.js/dist/svg-arrow.css";
 import { getCountryDropdownData } from "../../../actions/DropDownApis";
 import { UPDATE_LOADERS } from "../../../actions/types";
 import { FilterContext } from "../../../context/FilterContext";
-// import { useInView } from 'react-intersection-observer';
+import { useInView } from "react-intersection-observer";
 
 const LineChartData = () => {
   const { state, dispatch } = useContext(FilterContext);
@@ -196,6 +196,7 @@ const LineChartData = () => {
 
   const closeAddCountry = () => {
     setLineChartData(backUpLineChartData);
+
     setContryNameState("");
     setIsValue(false);
   };
@@ -421,12 +422,18 @@ const LineChartData = () => {
   };
 
   const onHandleCompareTimeMonthChange = async (item) => {
-    // let fromDate = "2022-09-01";
-    // let toDate = "2022-09-12";
+    let fromDateCompareTime = "2022-08-01";
+    let toDateCompareTime = "2022-09-12";
 
     try {
       setDateValue(item.month);
-      const response = await compareTime(fromDate, toDate, selectCountry);
+      const response = await compareTime(
+        // fromDate,
+        // toDate,
+        fromDateCompareTime,
+        toDateCompareTime,
+        selectCountry
+      );
 
       let tempBarData = JSON.parse(JSON.stringify(chooseTimeBarData));
       console.log(response.bar_graph_data[selectCountry]);

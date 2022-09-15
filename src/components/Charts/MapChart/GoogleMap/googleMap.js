@@ -3,11 +3,6 @@ import React, { useContext } from "react";
 import { GoogleMap, MarkerF, InfoWindowF } from "@react-google-maps/api";
 import { FilterContext } from "../../../../context/FilterContext";
 
-const center = {
-  lat: 20,
-  lng: 77,
-};
-
 const containerStyle = {
   width: "auto",
   height: "100%",
@@ -21,6 +16,10 @@ function MyComponent({
   handleActiveMarker,
   mapDataApi,
   activeMarker,
+  setReCenterMap,
+  reCenterMap,
+  center,
+  influencerdata,
 }) {
   const { state } = useContext(FilterContext);
   // console.log(state);
@@ -73,7 +72,7 @@ function MyComponent({
       margin="auto"
       center={center}
       zoom={5}
-      onLoad={handleOnLoad}
+      onLoad={(reCenterMap) => setReCenterMap(reCenterMap)}
       // onUnmount={onUnmount}
     >
       {mapDataApi &&
@@ -92,8 +91,8 @@ function MyComponent({
               // icon={icon}
               key={_id}
               position={position}
-              onMouseOver={() => handleActiveMarker(_id)}
-              onMouseOut={() => handleActiveMarker()}
+              onClick={() => handleActiveMarker(_id)}
+              // onMouseOut={() => handleActiveMarker()}
             >
               {activeMarker === _id ? (
                 <InfoWindowF onCloseClick={() => setActiveMarker(null)}>
@@ -174,23 +173,26 @@ function MyComponent({
 
                     <pre></pre>
                     {/* {change_in_rank ? ( */}
-                    {!influencerValue && !hashtagValue && !countryValue && (
-                      <div
-                        style={{
-                          fontWeight: 400,
-                          fontSize: "12px",
-                          fontFamily: "Work-Sans",
-                          color: "#212121",
-                          marginTop: "-0.5rem",
-                        }}
-                      >
-                        Net Change in Rank:{" "}
-                        <span style={{ fontWeight: 600, color: "#F05728" }}>
-                          {change_in_rank}
-                        </span>
-                      </div>
-                    )}
-                    {/* ) : ( "" )} */}
+                    {!influencerValue &&
+                      !hashtagValue &&
+                      !countryValue &&
+                      !influencerdata && (
+                        <div
+                          style={{
+                            fontWeight: 400,
+                            fontSize: "12px",
+                            fontFamily: "Work-Sans",
+                            color: "#212121",
+                            marginTop: "-0.5rem",
+                          }}
+                        >
+                          Net Change in Rank:{" "}
+                          <span style={{ fontWeight: 600, color: "#F05728" }}>
+                            {change_in_rank}
+                          </span>
+                        </div>
+                      )}
+
                     <pre></pre>
                     <div
                       style={{

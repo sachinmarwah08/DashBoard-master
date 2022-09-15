@@ -33,7 +33,7 @@ const TopInfluencer = () => {
   const dropdownOptions = ["Country", "Influencer", "Hashtag"];
   const [topInfluencerFilter, setTopInfluencerFilter] = useState("Filters");
   const [isRadioChecked, setIsRadioChecked] = useState(1);
-  const [wordEntered, setWordEntered] = useState("");
+  // const [wordEntered, setWordEntered] = useState("");
   const [influencerCountData, setInfluencerCountData] = useState(0);
   const [getInfluencersData, setGetInfluencersData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -51,9 +51,21 @@ const TopInfluencer = () => {
 
   const handleRadioChange = async (value) => {
     setLoading(true);
-    const persentile = localStorage.getItem("persentile");
+    // const persentile = localStorage.getItem("persentile");
     // let fromDate = "2022-07-01";
     // let toDate = "2022-07-31";
+    let countryTypedValue = "";
+    let influencerTypedValue = "";
+    let hashtagTypedValue = "";
+    if (topInfluencerFilter === "Influencer") {
+      influencerTypedValue = inputValue;
+    }
+    if (topInfluencerFilter === "Hashtag") {
+      hashtagTypedValue = inputValue;
+    }
+    if (topInfluencerFilter === "Country") {
+      countryTypedValue = inputValue;
+    }
     let category = "ALL";
     if (value === 2) {
       category = "PERSON";
@@ -67,9 +79,10 @@ const TopInfluencer = () => {
       fromDate,
       toDate,
       category,
-      persentile,
-      countryValue,
-      influencerValue
+      // persentile,
+      countryTypedValue,
+      influencerTypedValue,
+      hashtagTypedValue
     );
     setGetInfluencersData(getInfluencersResponse.influencers);
     setLoading(false);
@@ -86,21 +99,6 @@ const TopInfluencer = () => {
       console.log("newFilter", newFilter);
       setGetInfluencersData(newFilter);
     } else {
-      let influencerTypedValue = "";
-      let hashtagTypedValue = "";
-      let countryTypedValue = "";
-      if (topInfluencerFilter === "Influencer") {
-        influencerTypedValue = inputValue;
-        setShowInfluencerHashtag(true);
-      }
-      if (topInfluencerFilter === "Hashtag") {
-        hashtagTypedValue = inputValue;
-        setShowInfluencerHashtag(true);
-      }
-      if (topInfluencerFilter === "Country") {
-        countryTypedValue = inputValue;
-        setShowInfluencerHashtag(true);
-      }
       let tempDatadrodown = [...influencerBackupdata];
       let tempHasgtagData = [...hashtagBackupdata];
       let tempCountryData = [...countryBackupdata];
@@ -126,7 +124,6 @@ const TopInfluencer = () => {
 
   const clearData = () => {
     setTopInfluencerFilter("Filter");
-    console.log("influencerBackupdata", influencerBackupdata);
     setGetInfluencersData(globalBackupData);
     setInputValue("");
     setInfluencerCountData(influencerCountDataBackup);
@@ -151,7 +148,7 @@ const TopInfluencer = () => {
         // let toDate = "2022-07-31";
         let category = "ALL";
 
-        const persentile = localStorage.getItem("persentile") || 0;
+        // const persentile = localStorage.getItem("persentile");
 
         const influencerCountResponse = await influencerCount(
           fromDate,
@@ -165,12 +162,12 @@ const TopInfluencer = () => {
           fromDate,
           toDate,
           category,
-          persentile,
+          // persentile,
           countryValue,
           influencerValue,
           hashtagValue
         );
-        localStorage.setItem("persentile", getInfluencersResponse.persentile);
+        // localStorage.setItem("persentile", getInfluencersResponse.persentile);
 
         const getInfluenser = await getInfluencerDropdownData();
         const hashtagDataResponse = await getHashtagDropdownData();
@@ -186,6 +183,8 @@ const TopInfluencer = () => {
         setInfluencerCountDataBackup(influencerCountResponse.count);
         setGetInfluencersData(getInfluencersResponse.influencers);
         setGlobalBackupData(getInfluencersResponse.influencers);
+        console.log(getInfluencersResponse.influencers, "sdmanxasjnx");
+        // console.log(getInfluencersResponse.influencers, "influencer");
         // setInfluencerDataBackup(getInfluencersResponse.influencers);
         setLoading(false);
       };
@@ -193,15 +192,58 @@ const TopInfluencer = () => {
     }
   }, [countryLineChartLoading]);
 
+  /////////////////////////////////////////////////////////////
+
+  // const [users, setUsers] = useState([]);
+  // const [page, setPage] = useState(1);
+  // const [loading, setLoading] = useState(true);
+
+  // useEffect(() => {
+  //   const loadUsers = async () => {
+  //     setLoading(true);
+  //     const newUsers = await getUsers(page);
+  //     setUsers((prev) => [...prev, ...newUsers]);
+  //     setLoading(false);
+  //   };
+  //   loadUsers();
+  // }, [page]);
+
+  // const observer = useRef();
+  // const lastUserRef = useCallback(
+  //   (node) => {
+  //     if (loading) return;
+  //     if (observer.current) observer.current.disconnect();
+  //     observer.current = new IntersectionObserver((entries) => {
+  //       if (entries[0].isIntersecting) {
+  //         setPage((page) => page + 1);
+  //       }
+  //     });
+  //     if (node) observer.current.observe(node);
+  //   },
+  //   [loading]
+  // );
+
+  // const userList = users.map((item, index) =>
+  //   users.length === index + 1 ? (
+  //     <li ref={lastUserRef} key={index}>
+  //       {item}
+  //     </li>
+  //   ) : (
+  //     <li key={index}>{item}</li>
+  //   )
+  // );
+
+  //////////////////////////////////////////////////////////////
   const onFilterDropClick = (option) => {
     setTopInfluencerFilter(option);
   };
 
   const onEnterInputClick = async (e) => {
+    setShowInfluencerHashtag(false);
     if (e.key === "Enter") {
+      let countryTypedValue = "";
       let influencerTypedValue = "";
       let hashtagTypedValue = "";
-      let countryTypedValue = "";
       if (topInfluencerFilter === "Influencer") {
         influencerTypedValue = inputValue;
       }
@@ -213,7 +255,7 @@ const TopInfluencer = () => {
       }
       let category = "ALL";
 
-      const persentile = localStorage.getItem("persentile") || 0;
+      // const persentile = localStorage.getItem("persentile");
 
       const influencerCountResponse = await influencerCount(
         fromDate,
@@ -227,12 +269,12 @@ const TopInfluencer = () => {
         fromDate,
         toDate,
         category,
-        persentile,
+        // persentile,
         countryTypedValue,
         influencerTypedValue,
         hashtagTypedValue
       );
-      localStorage.setItem("persentile", getInfluencersResponse.persentile);
+      // localStorage.setItem("persentile", getInfluencersResponse.persentile);
       setInfluencerCountData(influencerCountResponse.count);
       setGetInfluencersData(getInfluencersResponse.influencers);
       setInfluencerDataBackup(getInfluencersResponse.influencers);
@@ -242,9 +284,9 @@ const TopInfluencer = () => {
   const onDropDownClick = async (val) => {
     setInputValue(val);
     setShowInfluencerHashtag(false);
+    let countryTypedValue = "";
     let influencerTypedValue = "";
     let hashtagTypedValue = "";
-    let countryTypedValue = "";
     if (topInfluencerFilter === "Influencer") {
       influencerTypedValue = val;
     }
@@ -256,7 +298,7 @@ const TopInfluencer = () => {
     }
     let category = "ALL";
 
-    const persentile = localStorage.getItem("persentile") || 0;
+    // const persentile = localStorage.getItem("persentile");
 
     const influencerCountResponse = await influencerCount(
       fromDate,
@@ -270,12 +312,12 @@ const TopInfluencer = () => {
       fromDate,
       toDate,
       category,
-      persentile,
+      // persentile,
       countryTypedValue,
       influencerTypedValue,
       hashtagTypedValue
     );
-    localStorage.setItem("persentile", getInfluencersResponse.persentile);
+    // localStorage.setItem("persentile", getInfluencersResponse.persentile);
     setInfluencerCountData(influencerCountResponse.count);
     setGetInfluencersData(getInfluencersResponse.influencers);
     console.log(getInfluencersResponse.influencers, "inital");

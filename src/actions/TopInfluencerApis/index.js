@@ -26,10 +26,11 @@ export const getInfluencers = async (
   from_date,
   to_date,
   category,
-  persentile,
+  // persentile,
   country,
   username,
-  htag
+  htag,
+  page
 ) => {
   const response = await baseApi().get(
     "/api/v1/get-influencers-social-media-impact",
@@ -38,10 +39,11 @@ export const getInfluencers = async (
         from_date,
         to_date,
         category,
-        persentile,
+        // persentile,
         country,
         username,
         htag,
+        page: page,
       },
     }
   );

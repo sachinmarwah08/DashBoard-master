@@ -90,7 +90,7 @@ const Table = ({ tableData }) => {
                 <td>
                   {nFormatter(item.count)}{" "}
                   <span style={{ color: "#F05728" }}>
-                    ({ParseFloat(item.change_in_index_persentage, 2)})
+                    ({ParseFloat(item.change_in_index_persentage, 2)}%)
                   </span>
                 </td>
                 <td>

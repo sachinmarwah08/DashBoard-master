@@ -20,17 +20,18 @@ import {
   getInfluencerDropdownData,
 } from "../../../actions/DropDownApis";
 import TableData from "../MapChart/Table/Table";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLocationArrow } from "@fortawesome/free-solid-svg-icons";
 
 const MapChartComponent = () => {
+  // const [wordEntered, setWordEntered] = useState();
   const mapData = ["Country", "Influencer", "Hashtag"];
   const [mapdata, setMapData] = useState("Filters");
   const [show, setShow] = useState("map");
   const [tableData, setTableData] = useState([]);
   const [tableBackupData, setTableBackupData] = useState([]);
-  const [wordEntered, setWordEntered] = useState();
   const [activeMarker, setActiveMarker] = useState(null);
   const [mapDataApi, setMapDataApi] = useState();
-  const { state } = useContext(FilterContext);
   const [inputValue, setInputValue] = useState("");
   const [influencerdata, setInfluencerData] = useState([]);
   const [influencerBackupdata, setInfluencerBackupdata] = useState([]);
@@ -39,7 +40,11 @@ const MapChartComponent = () => {
   const [showInfluencerHashtag, setShowInfluencerHashtag] = useState(false);
   const [countryDataDropdown, setCountryDataDropdown] = useState([]);
   const [countryBackupdata, setCountryBackupdata] = useState([]);
+  const [reCenterMap, setReCenterMap] = useState(
+    /** @type google.maps.Map */ (null)
+  );
 
+  const { state } = useContext(FilterContext);
   const {
     loaders: { countryLineChartLoading },
     filters: {
@@ -57,22 +62,37 @@ const MapChartComponent = () => {
 
   const onInputChange = async (e) => {
     setInputValue(e.target.value);
-    setShowInfluencerHashtag(true);
-    let tempData = [...influencerBackupdata];
-    let tempHasgtagData = [...hashtagBackupdata];
-    let tempCountryData = [...countryBackupdata];
-    const newFilter = tempData.filter((value) => {
-      return value.toLowerCase().includes(inputValue.toLowerCase());
-    });
-    const hashtagFilter = tempHasgtagData.filter((value) => {
-      return value.toLowerCase().includes(inputValue.toLowerCase());
-    });
-    const countryFilter = tempCountryData.filter((value) => {
-      return value.toLowerCase().includes(inputValue.toLowerCase());
-    });
-    setCountryDataDropdown(countryFilter);
-    sethashtag(hashtagFilter);
-    setInfluencerData(newFilter);
+    if (mapdata === "Filters") {
+      let tempTableData = [...tableBackupData];
+      const tableFilter = tempTableData.filter((value) => {
+        return value._id.toLowerCase().includes(inputValue.toLowerCase());
+      });
+      setTableData(tableFilter);
+    } else {
+      setShowInfluencerHashtag(true);
+      let tempData = [...influencerBackupdata];
+      let tempHasgtagData = [...hashtagBackupdata];
+      let tempCountryData = [...countryBackupdata];
+      const newFilter = tempData.filter((value) => {
+        return value.toLowerCase().includes(inputValue.toLowerCase());
+      });
+      const hashtagFilter = tempHasgtagData.filter((value) => {
+        return value.toLowerCase().includes(inputValue.toLowerCase());
+      });
+      const countryFilter = tempCountryData.filter((value) => {
+        return value.toLowerCase().includes(inputValue.toLowerCase());
+      });
+      setCountryDataDropdown(countryFilter);
+      sethashtag(hashtagFilter);
+      setInfluencerData(newFilter);
+    }
+  };
+
+  const clearData = () => {
+    setTableData(tableBackupData);
+    setShowInfluencerHashtag(false);
+    setInputValue("");
+    setMapData("Filters");
   };
 
   useEffect(() => {
@@ -134,6 +154,7 @@ const MapChartComponent = () => {
   };
 
   const onEnterInputClick = async (e) => {
+    setShowInfluencerHashtag(false);
     if (e.key === "Enter") {
       let influencerTypedValue = "";
       let hashtagTypedValue = "";
@@ -167,8 +188,8 @@ const MapChartComponent = () => {
           }
         }
       }
-
       setMapDataApi(tempData);
+      setTableData(response.data);
     }
   };
 
@@ -209,6 +230,7 @@ const MapChartComponent = () => {
     }
 
     setMapDataApi(tempData);
+    setTableData(response.data);
   };
 
   const handleActiveMarker = (marker) => {
@@ -249,6 +271,11 @@ const MapChartComponent = () => {
   //   setWordEntered("");
   // };
   // console.log(tableData, "dataaaaaaaaaaaaa");
+
+  const center = {
+    lat: 20,
+    lng: 77,
+  };
   return (
     <div className="map-wrapper">
       <div className="content-map">
@@ -283,6 +310,12 @@ const MapChartComponent = () => {
           </div>
 
           <div className="side-logos">
+            {show === "map" && (
+              <button onClick={() => reCenterMap.panTo(center)}>
+                {/* <img alt="BigArrow" className="bigArrow" src={shareIcon}></img> */}
+                <FontAwesomeIcon className="navigator" icon={faLocationArrow} />
+              </button>
+            )}
             <button onClick={() => setShow("map")}>
               <img
                 alt="WorldMap"
@@ -299,9 +332,6 @@ const MapChartComponent = () => {
                 src={Table}
               ></img>
             </button>
-            {/* <button>
-              <img alt="BigArrow" className="bigArrow" src={shareIcon}></img>
-            </button> */}
           </div>
         </div>
         {show === "map" && (
@@ -327,12 +357,20 @@ const MapChartComponent = () => {
             <div className="bar-map-wrapper">
               <div className="chart-map">
                 <GoogleMap
+                  influencerdata={
+                    mapdata === "Country" ||
+                    mapdata === "Influencer" ||
+                    mapData === "Hashtag"
+                  }
                   isLoaded={isLoaded}
                   setActiveMarker={setActiveMarker}
                   handleOnLoad={handleOnLoad}
                   handleActiveMarker={handleActiveMarker}
                   mapDataApi={mapDataApi}
                   activeMarker={activeMarker}
+                  setReCenterMap={setReCenterMap}
+                  reCenterMap={reCenterMap}
+                  center={center}
                 />
               </div>
             </div>
@@ -349,6 +387,7 @@ const MapChartComponent = () => {
                 }
                 setData={onFilterDropClick}
                 data={mapdata}
+                filterData={inputValue}
                 dropdownOptions={mapData}
                 onchange={onInputChange}
                 onEnterInputClick={onEnterInputClick}
@@ -356,6 +395,7 @@ const MapChartComponent = () => {
                 inputValue={inputValue}
                 showInfluencerHashtag={showInfluencerHashtag}
                 value={inputValue}
+                clearData={clearData}
               />
             </div>
             <div className="bar-map-wrapper">
