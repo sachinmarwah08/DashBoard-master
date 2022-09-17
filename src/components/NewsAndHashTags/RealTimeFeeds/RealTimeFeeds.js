@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import "./RealTimeFeeds.scss";
 import RealTimeFeed from "./Content/RealTimeContent";
-import shareIcon from "../../../Images/share-2.svg";
+// import shareIcon from "../../../Images/share-2.svg";
 import Sort from "../../SortFilter/Sort";
 import RadioButton from "../../RadioButton/RadioButton";
 import {
@@ -54,8 +54,7 @@ const RealTimeFeeds = () => {
 
   const handleRadioChange = async (value) => {
     setLoading(true);
-    // let tweetsFromDate = "2022-07-01";
-    // let tweetsToDate = "2022-07-31";
+
     let sentiment = "All";
     if (value === 2) {
       sentiment = "Positive";
@@ -63,8 +62,6 @@ const RealTimeFeeds = () => {
       sentiment = "Negative";
     }
 
-    // let newsFromDate = "2022-07-01";
-    // let newsToDate = "2022-07-31";
     let newsSentiment = "All";
     if (value === 2) {
       newsSentiment = "Positive";
@@ -143,15 +140,7 @@ const RealTimeFeeds = () => {
       let tempDatadrodown = [...influencerBackupdata];
       let tempHasgtagData = [...hashtagBackupdata];
       let tempCountryData = [...countryBackupdata];
-      // let tempData = [...tweetsDataBackup];
-      // const newFilter = tempData.filter((value) => {
-      //   return (
-      //     value.username.toLowerCase().includes(tempData.toLowerCase()) ||
-      //     // value.htag.toLowerCase().includes(searchWord.toLowerCase()) ||
-      //     value.events.toLowerCase().includes(tempData.toLowerCase()) ||
-      //     value.url.toLowerCase().includes(tempData.toLowerCase())
-      //   );
-      // });
+
       const influencerFilter = tempDatadrodown.filter((value) => {
         return value.toLowerCase().includes(inputValue.toLowerCase());
       });
@@ -164,7 +153,6 @@ const RealTimeFeeds = () => {
       setCountryDataDropdown(countryFilter);
       sethashtag(hashtagFilter);
       setInfluencerData(influencerFilter);
-      // setTweets(newFilter);
     }
   };
 
@@ -240,9 +228,9 @@ const RealTimeFeeds = () => {
   const onEnterInputClick = async (e) => {
     setShowInfluencerHashtag(false);
     if (e.key === "Enter") {
+      let countryTypedValue = "";
       let influencerTypedValue = "";
       let hashtagTypedValue = "";
-      let countryTypedValue = "";
       if (realData === "Influencer") {
         influencerTypedValue = inputValue;
       }
@@ -254,8 +242,6 @@ const RealTimeFeeds = () => {
       }
       let sentiment = "All";
 
-      // let newsFromDate = "2022-07-01";
-      // let newsToDate = "2022-07-31";
       let newsSentiment = "All";
 
       const tweetsCountResponse = await getSocialMediaFlashes(
@@ -284,9 +270,9 @@ const RealTimeFeeds = () => {
   const onDropDownClick = async (val) => {
     setInputValue(val);
     setShowInfluencerHashtag(false);
+    let countryTypedValue = "";
     let influencerTypedValue = "";
     let hashtagTypedValue = "";
-    let countryTypedValue = "";
     if (realData === "Influencer") {
       influencerTypedValue = val;
     }
@@ -298,8 +284,6 @@ const RealTimeFeeds = () => {
     }
     let sentiment = "All";
 
-    // let newsFromDate = "2022-07-01";
-    // let newsToDate = "2022-07-31";
     let newsSentiment = "All";
 
     const tweetsCountResponse = await getSocialMediaFlashes(

@@ -1,11 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./BarChart.scss";
-import Highcharts from "highcharts";
 import Sort from "../../SortFilter/Sort";
-import HighchartsReact from "highcharts-react-official";
-import Bardata from "./data";
-import shareIcon from "../../../Images/share-2.svg";
-import TopBottomButton from "../../TopBottomButton/TopBottomButton";
+// import shareIcon from "../../../Images/share-2.svg";
+// import TopBottomButton from "../../TopBottomButton/TopBottomButton";
 import { getBarData } from "../../../actions/BarChartApis";
 import { PuffLoader } from "react-spinners";
 import Tippy from "@tippyjs/react";
@@ -36,8 +33,8 @@ const BarChartComponent = () => {
   const [bardataFilterDrop, setBardataFilterDrop] = useState("Filters");
   // const topBottomData = ["Top 10", "Bottom 10"];
   // const [topBottom, setTopBottom] = useState("Top 10");
-  const [loading, setLoading] = useState(true);
   const [heading, setHeading] = useState("Top 10 Countries Wellbeing Analysis");
+  const [loading, setLoading] = useState(true);
   const [inputValue, setInputValue] = useState("");
   const [influencerdata, setInfluencerData] = useState([]);
   const [influencerBackupdata, setInfluencerBackupdata] = useState([]);
@@ -49,12 +46,6 @@ const BarChartComponent = () => {
   // const handleChange = (value) => {
   //   setHeading(value);
   // };
-
-  // function kFormatter(num) {
-  //   return Math.abs(num) > 999
-  //     ? Math.sign(num) * (Math.abs(num) / 1000).toFixed(1) + "k"
-  //     : Math.sign(num) * Math.abs(num);
-  // }
 
   const onInputChange = async (e) => {
     setInputValue(e.target.value);
@@ -86,7 +77,6 @@ const BarChartComponent = () => {
         // let fromDate = "2022-06-01";
         // let toDate = "2022-07-31";
         // let country = "United States";
-        // let order = "asc";
         let order = "des";
 
         const response = await getBarData(
@@ -100,15 +90,16 @@ const BarChartComponent = () => {
         const getInfluenser = await getInfluencerDropdownData();
         const hashtagDataResponse = await getHashtagDropdownData();
 
-        let tempData = JSON.parse(JSON.stringify(Bardata));
-        let maxValue = 50;
+        let tempData = [];
 
         for (let i = 0; i < response.data.length; i++) {
-          maxValue = Math.max(maxValue, response.data[i].count);
-          tempData.xAxis.categories.push(response.data[i]._id);
-          tempData.series[0].data.push(Math.floor(response.data[i].count));
+          tempData.push({
+            name: response.data[i]._id,
+            pv: response.data[i].count,
+            happy: response.data[i].happy,
+            sad_per: response.data[i].sad_per,
+          });
         }
-        tempData.yAxis.max = maxValue;
 
         setInfluencerData(getInfluenser);
         setInfluencerBackupdata(getInfluenser);
@@ -175,25 +166,27 @@ const BarChartComponent = () => {
       if (bardataFilterDrop === "Hashtag") {
         hashtagTypedValue = inputValue;
       }
+
+      let order = "des";
+
       const response = await getBarData(
         fromDate,
         toDate,
         countryValue,
         influencerTypedValue,
-        hashtagTypedValue
+        hashtagTypedValue,
+        order
       );
 
-      let tempData = JSON.parse(JSON.stringify(Bardata));
+      let tempData = [];
 
       for (let i = 0; i < response.data.length; i++) {
-        tempData.xAxis.categories.push(response.data[i]._id);
-        tempData.series[0].data.push(Math.floor(response.data[i].count));
-        tempData.tooltip.headerFormat = `<strong><span style="color:#212121; font-size: 16px;">{point.key}</span></strong><br>`;
-        tempData.tooltip.pointFormat = `{series.name}: <strong><span  style="color:#F05728">{point.y}</span></strong>`;
-
-        // tempData.tooltip.formatter = function () {
-        //   return `${response.data[i].happy}`;
-        // };
+        tempData.push({
+          name: response.data[i]._id,
+          pv: response.data[i].count,
+          happy: response.data[i].happy,
+          sad_per: response.data[i].sad_per,
+        });
       }
 
       setData(tempData);
@@ -219,13 +212,15 @@ const BarChartComponent = () => {
       hashtagTypedValue
     );
 
-    let tempData = JSON.parse(JSON.stringify(Bardata));
+    let tempData = [];
 
     for (let i = 0; i < response.data.length; i++) {
-      tempData.xAxis.categories.push(response.data[i]._id);
-      tempData.series[0].data.push(Math.floor(response.data[i].count));
-      tempData.tooltip.headerFormat = `<strong><span style="color:#212121; font-size: 16px;">{point.key}</span></strong><br>`;
-      tempData.tooltip.pointFormat = `{series.name}: <strong><span  style="color:#F05728">{point.y}</span></strong>`;
+      tempData.push({
+        name: response.data[i]._id,
+        pv: response.data[i].count,
+        happy: response.data[i].happy,
+        sad_per: response.data[i].sad_per,
+      });
     }
 
     setData(tempData);
@@ -312,9 +307,10 @@ const BarChartComponent = () => {
               <div className="bar-loader">
                 <PuffLoader color="#F05728" loading={loading} size={50} />
               </div>
+            ) : data.length === 0 ? (
+              ""
             ) : (
-              // <HighchartsReact highcharts={Highcharts} options={data} />
-              <BarChartData />
+              <BarChartData data={data} />
             )}
           </div>
         </div>

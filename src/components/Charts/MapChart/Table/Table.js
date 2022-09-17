@@ -64,8 +64,8 @@ const Table = ({ tableData }) => {
                 <th>Rank</th>
               )}
               <th>Index</th>
-              <th>Happy</th>
-              <th>Sad</th>
+              <th>Positive</th>
+              <th>Negative</th>
             </tr>
           </thead>
           <tbody style={{ marginTop: "0.5rem", height: "24.5rem" }}>

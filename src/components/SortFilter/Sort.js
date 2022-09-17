@@ -95,7 +95,16 @@ const Sort = ({
             src={filterBarLogo}
             className="filter-logo-img"
           ></img>
+
           {data}
+          {/* {influencerdata && (
+            <FontAwesomeIcon
+              onClick={clearData}
+              className="close-icon-image"
+              icon={faXmark}
+            />
+          )} */}
+
           {isActive && (
             <div className="content-container">
               {dropdownOptions.map((option) => (

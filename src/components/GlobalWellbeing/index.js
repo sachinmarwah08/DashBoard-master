@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import "./GlobalWellbeing.scss";
 // import moment from "moment";
 import {
@@ -11,6 +11,7 @@ import "tippy.js/dist/tippy.css";
 import "tippy.js/themes/light.css";
 import "tippy.js/dist/svg-arrow.css";
 import { FilterContext } from "../../context/FilterContext";
+import { BeatLoader } from "react-spinners";
 
 const GlobalWellbeing = () => {
   const { state } = useContext(FilterContext);
@@ -24,6 +25,7 @@ const GlobalWellbeing = () => {
   const [data, setData] = useState(0);
   const [absoluteData, setAbsoluteData] = useState({});
   const { absolute_change = 0, persentage = 0 } = absoluteData;
+  const [loader, setLoader] = useState(true);
 
   useEffect(() => {
     if (countryLineChartLoading) {
@@ -54,6 +56,7 @@ const GlobalWellbeing = () => {
 
         setData(response.pos_neg_tweet_count);
         setAbsoluteData(diffRes);
+        setLoader(false);
       };
       callApi();
     }
@@ -138,7 +141,14 @@ const GlobalWellbeing = () => {
           <div className="right-border"></div>
 
           <div className="column-one">
-            <p className="digit-one">{nFormatter(data)}</p>
+            {loader ? (
+              <div className="trendingHashtag-loader">
+                <BeatLoader color="#F05728" loading={loader} size={10} />
+              </div>
+            ) : (
+              <p className="digit-one">{nFormatter(data)}</p>
+            )}
+
             <Tippy
               theme={"light"}
               interactive={true}
@@ -168,9 +178,16 @@ const GlobalWellbeing = () => {
           </div>
 
           <div className="column-two">
-            <p className="column-two-digit-one">
-              {kFormatter(absolute_change)}
-            </p>
+            {loader ? (
+              <div className="trendingHashtag-loader">
+                <BeatLoader color="#F05728" loading={loader} size={10} />
+              </div>
+            ) : (
+              <p className="column-two-digit-one">
+                {kFormatter(absolute_change)}
+              </p>
+            )}
+
             <Tippy
               theme={"light"}
               interactive={true}
@@ -195,9 +212,16 @@ const GlobalWellbeing = () => {
             </Tippy>
           </div>
           <div className="column-two">
-            <p className="column-two-digit-one">
-              {twoDecimalPlacesIfCents(persentage)}%
-            </p>
+            {loader ? (
+              <div className="trendingHashtag-loader">
+                <BeatLoader color="#F05728" loading={loader} size={10} />
+              </div>
+            ) : (
+              <p className="column-two-digit-one">
+                {twoDecimalPlacesIfCents(persentage)}%
+              </p>
+            )}
+
             <Tippy
               theme={"light"}
               interactive={true}

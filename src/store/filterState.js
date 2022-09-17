@@ -1,3 +1,7 @@
+import moment from "moment/moment";
+
+const formatDate = moment().format("YYYY-MM-DD");
+
 export const initialFilterState = {
   filters: {
     influencerValue: "",
@@ -5,7 +9,7 @@ export const initialFilterState = {
     countryValue: "",
     dateRangeValue: {
       fromDate: "2022-09-01",
-      toDate: "2022-09-15",
+      toDate: formatDate,
     },
     calenderToggler: false,
     filterActive: false,

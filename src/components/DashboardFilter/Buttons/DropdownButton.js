@@ -1,9 +1,8 @@
-import React, { useState, useRef, useEffect, useCallback } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import InfiniteScroll from "react-infinite-scroll-component";
+
 import { BeatLoader } from "react-spinners";
-import { getUsers } from "../../../api";
 
 const DropdownButton = ({
   icon,

@@ -245,9 +245,25 @@ body {
   height: max-content !important;
 }
 
+.dropdown-list-two {
+  list-style: none;
+  padding-left: 0.5rem;
+  padding: 1rem;
+  text-align: left;
+  color: #101828;
+  &:hover {
+    background-color: #fef5f2;
+  }
+}
+
 // .recharts-responsive-container {
 //   margin-left: 0.8rem;
 // }
+
+.recharts-tooltip-wrapper {
+  padding: 1rem;
+  background-color: white;
+}
 
 .dropdown-list-two {
   list-style: none;
@@ -260,15 +276,15 @@ body {
   }
 }
 
-.recharts-bar {
-  opacity: 0.5;
-  border-radius: 4px;
-}
+// .recharts-bar {
+//   opacity: 0.35;
+//   border-radius: 4px;
+// }
 
 .recharts-cartesian-axis-tick-line {
   display: none;
 }
 .recharts-cartesian-axis-line {
   color: #f0f0f0;
-  opacity: 0.5;
+  opacity: 0.15;
 }

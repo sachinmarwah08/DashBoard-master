@@ -17,6 +17,7 @@ import {
   getHashtagDropdownData,
   getInfluencerDropdownData,
 } from "../../actions/DropDownApis";
+import { PuffLoader } from "react-spinners";
 
 const TrendingHashtags = () => {
   const { state } = useContext(FilterContext);
@@ -44,6 +45,7 @@ const TrendingHashtags = () => {
   const [countryDataDropdown, setCountryDataDropdown] = useState([]);
   const [countryBackupdata, setCountryBackupdata] = useState([]);
   const [trendingHashtag, setTrendingHashtag] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const onInputChange = async (e) => {
     setInputValue(e.target.value);
@@ -110,6 +112,7 @@ const TrendingHashtags = () => {
         sethashtagdropdwon(hashtagDataResponse);
         setHashtagBackupdata(hashtagDataResponse);
         setData(response.records);
+        setLoading(false);
         // console.log(response.records, "trending hashtag");
       };
       callApi();
@@ -197,125 +200,133 @@ const TrendingHashtags = () => {
   };
 
   return (
-    <div className="trend-wrapper">
-      <div className="content">
-        <div className="heading">
-          Trending Hashtags
-          <Tippy
-            theme={"light"}
-            interactive={true}
-            content={
-              <div
-                style={{
-                  padding: "0.5rem",
-                  fontWeight: 400,
-                  fontFamily: "Work-Sans",
-                  fontSize: "14px",
-                }}
-              >
-                <p style={{ fontWeight: 600, marginTop: 0 }}>
-                  Trending Hashtags
-                </p>
-                This graph displays the top trending hashtags used in tweets
-                about wellbeing along with their associations.
-              </div>
+    <>
+      <div className="trend-wrapper">
+        {/* {loading ? (
+          <div className="trendingHashtag-loader">
+            <PuffLoader color="#F05728" loading={loading} size={50} />
+          </div>
+        ) : ( */}
+        <div className="content">
+          <div className="heading">
+            Trending Hashtags
+            <Tippy
+              theme={"light"}
+              interactive={true}
+              content={
+                <div
+                  style={{
+                    padding: "0.5rem",
+                    fontWeight: 400,
+                    fontFamily: "Work-Sans",
+                    fontSize: "14px",
+                  }}
+                >
+                  <p style={{ fontWeight: 600, marginTop: 0 }}>
+                    Trending Hashtags
+                  </p>
+                  This graph displays the top trending hashtags used in tweets
+                  about wellbeing along with their associations.
+                </div>
+              }
+            >
+              <img className="info-icon" src={infoIcon}></img>
+            </Tippy>
+          </div>
+          <Sort
+            influencerdata={
+              (trendingFilter === "Influencer" && influencerdata) ||
+              (trendingFilter === "Hashtag" && hashtagdropdwon) ||
+              (trendingFilter === "Country" && countryDataDropdown)
             }
-          >
-            <img className="info-icon" src={infoIcon}></img>
-          </Tippy>
-        </div>
-        <Sort
-          influencerdata={
-            (trendingFilter === "Influencer" && influencerdata) ||
-            (trendingFilter === "Hashtag" && hashtagdropdwon) ||
-            (trendingFilter === "Country" && countryDataDropdown)
-          }
-          data={trendingFilter}
-          setData={onFilterDropClick}
-          dropdownOptions={realTimeData}
-          onchange={onInputChange}
-          onEnterInputClick={onEnterInputClick}
-          onDropDownClick={onDropDownClick}
-          inputValue={inputValue}
-          showInfluencerHashtag={showInfluencerHashtag}
-          value={inputValue}
-        />
-        <div className="hashtags-wrapper">
-          <div className="left-trending-content">
-            {/* <div className="trending-content">
+            data={trendingFilter}
+            setData={onFilterDropClick}
+            dropdownOptions={realTimeData}
+            onchange={onInputChange}
+            onEnterInputClick={onEnterInputClick}
+            onDropDownClick={onDropDownClick}
+            inputValue={inputValue}
+            showInfluencerHashtag={showInfluencerHashtag}
+            value={inputValue}
+          />
+          <div className="hashtags-wrapper">
+            <div className="left-trending-content">
+              {/* <div className="trending-content">
               <img src={sentiment}></img>
               <span className="trending-heading">Hashtag</span>
               <span className="trending-score">
                 {data && data.length && data[0].hashtag.htag}
               </span>
             </div> */}
-            <div className="trending-content">
-              <Tippy
-                theme={"light"}
-                interactive={true}
-                content={
-                  <div
-                    style={{
-                      padding: "0.5rem",
-                      fontWeight: 400,
-                      fontFamily: "Work-Sans",
-                      fontSize: "14px",
-                    }}
-                  >
-                    <p style={{ fontWeight: 600, marginTop: 0 }}>Total Use</p>
-                    This widget shows how often {hashtag} appears in various
-                    tweets about wellbeing.
-                  </div>
-                }
-              >
-                <img src={trending}></img>
-              </Tippy>
-              <span className="trending-heading">Total Use</span>
-              <span className="trending-score">{totalCount}</span>
-            </div>
-            <div className="trending-content">
-              <Tippy
-                theme={"light"}
-                interactive={true}
-                content={
-                  <div
-                    style={{
-                      padding: "0.5rem",
-                      fontWeight: 400,
-                      fontFamily: "Work-Sans",
-                      fontSize: "14px",
-                    }}
-                  >
-                    <p style={{ fontWeight: 600, marginTop: 0 }}>
-                      Total Connections
-                    </p>
-                    This widget shows the frequency with which {hashtag} is used
-                    in association with other trending hashtags.
-                  </div>
-                }
-              >
-                <img src={totalUse}></img>
-              </Tippy>
+              <div className="trending-content">
+                <Tippy
+                  theme={"light"}
+                  interactive={true}
+                  content={
+                    <div
+                      style={{
+                        padding: "0.5rem",
+                        fontWeight: 400,
+                        fontFamily: "Work-Sans",
+                        fontSize: "14px",
+                      }}
+                    >
+                      <p style={{ fontWeight: 600, marginTop: 0 }}>Total Use</p>
+                      This widget shows how often {hashtag} appears in various
+                      tweets about wellbeing.
+                    </div>
+                  }
+                >
+                  <img src={trending}></img>
+                </Tippy>
+                <span className="trending-heading">Total Use</span>
+                <span className="trending-score">{totalCount}</span>
+              </div>
+              <div className="trending-content">
+                <Tippy
+                  theme={"light"}
+                  interactive={true}
+                  content={
+                    <div
+                      style={{
+                        padding: "0.5rem",
+                        fontWeight: 400,
+                        fontFamily: "Work-Sans",
+                        fontSize: "14px",
+                      }}
+                    >
+                      <p style={{ fontWeight: 600, marginTop: 0 }}>
+                        Total Connections
+                      </p>
+                      This widget shows the frequency with which {hashtag} is
+                      used in association with other trending hashtags.
+                    </div>
+                  }
+                >
+                  <img src={totalUse}></img>
+                </Tippy>
 
-              <span className="trending-heading">Total Connections</span>
-              <span className="trending-score">{totalConnections}</span>
+                <span className="trending-heading">Total Connections</span>
+                <span className="trending-score">{totalConnections}</span>
+              </div>
+            </div>
+
+            <div className="right-trending-content">
+              <BubbleChart
+                trendingHashtag={trendingHashtag}
+                setTrendingHashtag={setTrendingHashtag}
+                handleChange={handleChange}
+              />
             </div>
           </div>
-
-          <div className="right-trending-content">
-            <BubbleChart
-              trendingHashtag={trendingHashtag}
-              setTrendingHashtag={setTrendingHashtag}
-              handleChange={handleChange}
-            />
-          </div>
+          <p className="note">
+            * Clicking on the hashtag bubble will provide insights about its
+            usage and connections
+          </p>
         </div>
-        <p className="note">
-          * Clicking on the hashtag bubble will provide insights about its usage
-          and connections
-        </p>
+        {/* )} */}
       </div>
-    </div>
+    </>
   );
 };
 

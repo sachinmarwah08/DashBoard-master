@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./index.scss";
 import { useLocation, useNavigate } from "react-router-dom";
-import downloadIcon from "../../../Images/download-2.svg";
-import shareIcon from "../../../Images/share-3.svg";
+// import downloadIcon from "../../../Images/download-2.svg";
+// import shareIcon from "../../../Images/share-3.svg";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CountryAndDateButton from "./Buttons/CountryAndDateButton/Button";
@@ -17,7 +17,7 @@ import { compareCountry, compareTime } from "../../../actions/LineChartApis";
 import { chooseTimeBarData, LineChartBarData } from "./Chart/data";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import moment from "moment";
+// import moment from "moment";
 import infoIcon from "../../../Images/info.svg";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
@@ -26,7 +26,7 @@ import "tippy.js/dist/svg-arrow.css";
 import { getCountryDropdownData } from "../../../actions/DropDownApis";
 import { UPDATE_LOADERS } from "../../../actions/types";
 import { FilterContext } from "../../../context/FilterContext";
-import { useInView } from "react-intersection-observer";
+// import { useInView } from "react-intersection-observer";
 
 const LineChartData = () => {
   const { state, dispatch } = useContext(FilterContext);
@@ -34,7 +34,7 @@ const LineChartData = () => {
   //   /* Optional options */
   //   threshold: 0,
   // });
-  // console.log("inView", inView);
+
   const {
     loaders: { countryLineChartLoading },
     filters: {
@@ -44,14 +44,17 @@ const LineChartData = () => {
       dateRangeValue: { fromDate, toDate },
     },
   } = state;
+
   const navigate = useNavigate();
+
   const dateSelect = [
     "Past 7 Days",
     "Past 30 Days",
     "Past 90 Days",
     "This Year",
   ];
-  const [selected, setSelected] = useState("Past 1 months");
+
+  // const [selected, setSelected] = useState("Past 1 months");
   const [selectCountry, setselectCountry] = useState("Worldwide");
   const [data, setData] = useState([]);
   const [barChartData, setBarChartData] = useState([]);
@@ -71,6 +74,7 @@ const LineChartData = () => {
   const [dataForLineBarChart, setDataForLineBarChart] = useState();
   const [chooseTimeLineChartData, setChooseTimeLineChartData] = useState([]);
   const [chooseTimeBarDataState, setChooseTimeBarDataState] = useState();
+  const [loading, setLoading] = useState(true);
 
   const navigateHome = () => {
     navigate("/");
@@ -566,6 +570,7 @@ const LineChartData = () => {
           item[country] = item.count;
         });
         console.log("...............jkl", response.line_chart_data[country]);
+        setLoading(false);
         setCountrySelect(countryDropdown);
         setBarChartData(response.bar_graph_data[country]);
         setLineChartData(response.line_chart_data[country]);
@@ -726,6 +731,7 @@ const LineChartData = () => {
         <div className="chart">
           {compareCountryActive === "compareCountry" && (
             <CompareCountryLineChart
+              loading={loading}
               barData={barChartData}
               dataForLineBarChart={dataForLineBarChart}
               lineChartData={LineChartData}

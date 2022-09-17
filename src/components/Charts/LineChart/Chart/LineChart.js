@@ -30,9 +30,9 @@ const Chart = ({
   contryNameState,
 }) => {
   const { state } = useContext(FilterContext);
-  // console.log(state);
   const { influencerValue, hashtagValue, countryValue, filterActive } =
     state.filters;
+
   function nFormatter(num) {
     if (num >= 1000000000) {
       return (num / 1000000000).toFixed(1).replace(/\.0$/, "") + "G";
@@ -46,22 +46,10 @@ const Chart = ({
     return num;
   }
 
-  // const DataFormater = (number) => {
-  //   if(number > 1000000000){
-  //     return (number/1000000000).toString() + 'B';
-  //   }else if(number > 1000000){
-  //     return (number/1000000).toString() + 'M';
-  //   }else if(number > 1000){
-  //     return (number/1000).toString() + 'K';
-  //   }else{
-  //     return number.toString();
-  //   }
-  // }
-
-  function ParseFloat(str, val) {
-    str = str.toString();
-    str = str.slice(0, str.indexOf(".") + val + 1);
-    return Number(str);
+  function kFormatter(num) {
+    return Math.abs(num) > 999
+      ? Math.sign(num) * (Math.abs(num) / 1000).toFixed(1) + "k"
+      : Math.sign(num) * Math.abs(num);
   }
 
   function twoDecimalPlacesIfCents(amount) {
@@ -73,26 +61,95 @@ const Chart = ({
     if (item && item.payload && item.payload.length) {
       return (
         <div
-          style={{
-            width: "100%",
-          }}
+        // style={{
+        //   width: "100%",
+        //   display: "flex",
+        //   background: "white",
+        //   borderRadius: "0.5rem",
+        //   flexDirection: "column",
+        // }}
         >
           {lineChartData && (
-            <p
-              style={{
-                fontSize: "20px",
-                color: "#000000",
-                fontWeight: 700,
-                marginTop: 0,
-                marginBottom: 0,
-                padding: "0.5rem",
-              }}
-            >
-              {item.payload[0].payload._id}
-            </p>
+            <>
+              <p
+                style={{
+                  fontSize: "20px",
+                  color: "#000000",
+                  fontWeight: 700,
+                  marginTop: 0,
+                  marginBottom: "0.5rem",
+                  width: "max-content",
+                }}
+              >
+                {item.payload[0].payload._id}
+              </p>
+
+              <div
+                style={{
+                  fontSize: "20px",
+                  color: "#000000",
+                  fontWeight: 700,
+                  gap: "25px",
+                  display: "flex",
+                  marginBottom: "0.5rem",
+                  justifyContent: "space-between",
+                }}
+              >
+                <span
+                  style={{
+                    fontSize: "20px",
+                    color: "#939596",
+                    width: "max-content",
+                  }}
+                >
+                  {countryValue ? countryValue : selectCountry}
+                </span>
+                <span
+                  style={{
+                    fontSize: "20px",
+                    color: "#F05728",
+                    width: "max-content",
+                  }}
+                >
+                  {kFormatter(item.payload[0].payload.count)}
+                </span>
+              </div>
+
+              {item.payload[1] && item.payload[1].payload && (
+                <div
+                  style={{
+                    fontSize: "20px",
+                    color: "#000000",
+                    fontWeight: 700,
+                    gap: "25px",
+                    display: "flex",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <span
+                    style={{
+                      fontSize: "20px",
+                      color: "#939596",
+                      width: "max-content",
+                    }}
+                  >
+                    {contryNameState}
+                  </span>
+                  <span
+                    style={{
+                      fontSize: "20px",
+                      color: "#2A00FF",
+                      width: "max-content",
+                    }}
+                  >
+                    {kFormatter(item.payload[1].payload.compare)}
+                  </span>
+                </div>
+              )}
+            </>
           )}
 
-          {chooseTimeLineChartData && (
+          {/* {chooseTimeLineChartData && (
             <p
               style={{
                 fontSize: "20px",
@@ -140,7 +197,7 @@ const Chart = ({
                 {twoDecimalPlacesIfCents(item.payload[1].payload.compare)}
               </span>
             </div>
-          )}
+          )} */}
         </div>
       );
     }
@@ -168,8 +225,8 @@ const Chart = ({
             dataKey={compareTimeActive ? "week" : "_id"}
             stroke="#757575"
             fontWeight={400}
-            fontSize="0.875rem"
             dy={8}
+            fontSize="0.875rem"
             interval={"preserveStartEnd"}
             tickFormatter={(value) => value + ""}
           />
@@ -199,25 +256,11 @@ const Chart = ({
             wrapperStyle={{
               boxShadow:
                 "-4px 0px 8px rgba(0, 0, 0, 0.08), 0px 4px 8px rgba(0, 0, 0, 0.1)",
-              background: "white",
               borderRadius: "0.5rem",
-              gap: "0.625rem",
               zIndex: "99999999999999999999999999999999999999999",
               border: "1px solid #EEEEEE",
               outline: "none",
             }}
-            // itemStyle={{
-            //   gap: "2.5rem",
-            //   color: "#939596",
-            //   zIndex: "999999999999999",
-            // }}
-            // contentStyle={{
-            //   backgroundColor: "white",
-            //   border: "none",
-            //   zIndex: "999999999999999",
-            //   borderRadius: "0.5rem",
-            //   color: "Black",
-            // }}
           />
           {/* <Legend /> */}
           <Line

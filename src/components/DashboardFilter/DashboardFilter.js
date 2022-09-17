@@ -38,6 +38,8 @@ const DashboardFilter = () => {
   const [influencer, setInfluencer] = useState([]);
   const [hashtag, sethashtag] = useState([]);
   const [country, setCountry] = useState([]);
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(true);
   // console.log(state);
   // const { countryDropData, hashtagDropData, influencerDropData } = state.data;
   // const [openModal, setOpenModal] = useState(false);
@@ -161,10 +163,6 @@ const DashboardFilter = () => {
   const onResetFiltersClick = () => {
     dispatch({ type: RESET_FILTERS });
   };
-
-  // const [users, setUsers] = useState([]);
-  const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const loadUsers = async () => {

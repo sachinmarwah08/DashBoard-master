@@ -21,6 +21,14 @@
     padding: 0.8rem;
     padding-bottom: 0.3rem;
 
+    .googleMap-loader {
+      width: 100%;
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      height: 100%;
+    }
+
     .heading-map {
       display: flex;
       width: 100%;

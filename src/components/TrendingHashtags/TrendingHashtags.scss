@@ -5,6 +5,14 @@
   border-radius: 8px;
   height: auto;
 
+  .trendingHashtag-loader {
+    width: 100%;
+    height: 35rem;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+  }
+
   .note {
     top: 43rem;
     justify-content: end;

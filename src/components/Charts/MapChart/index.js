@@ -22,6 +22,7 @@ import {
 import TableData from "../MapChart/Table/Table";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationArrow } from "@fortawesome/free-solid-svg-icons";
+import { PuffLoader } from "react-spinners";
 
 const MapChartComponent = () => {
   // const [wordEntered, setWordEntered] = useState();
@@ -40,6 +41,7 @@ const MapChartComponent = () => {
   const [showInfluencerHashtag, setShowInfluencerHashtag] = useState(false);
   const [countryDataDropdown, setCountryDataDropdown] = useState([]);
   const [countryBackupdata, setCountryBackupdata] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [reCenterMap, setReCenterMap] = useState(
     /** @type google.maps.Map */ (null)
   );
@@ -144,6 +146,7 @@ const MapChartComponent = () => {
         setMapDataApi(tempData);
         setTableData(response.data);
         setTableBackupData(response.data);
+        setLoading(false);
       };
       callApi();
     }
@@ -246,32 +249,6 @@ const MapChartComponent = () => {
     // map.fitBounds(bounds);
   };
 
-  // const handleFilter = (event) => {
-  //   let tempData = [...tableBackupData];
-  //   const searchWord = event.target.value;
-  //   setWordEntered(searchWord);
-  //   const newFilter = tempData.filter((value) => {
-  //     return (
-  //       value._id.toLowerCase().includes(searchWord.toLowerCase()) ||
-  //       value.rank.toLowerCase().includes(searchWord.toLowerCase()) ||
-  //       value.change_in_rank.toLowerCase().includes(searchWord.toLowerCase()) ||
-  //       value.change_in_index_persentage
-  //         .toLowerCase()
-  //         .includes(searchWord.toLowerCase()) ||
-  //       value.happy.toLowerCase().includes(searchWord.toLowerCase()) ||
-  //       value.sad_per.toLowerCase().includes(searchWord.toLowerCase())
-  //     );
-  //   });
-
-  //   setTableData(newFilter);
-  // };
-
-  // const clearData = () => {
-  //   setTableData(tableBackupData);
-  //   setWordEntered("");
-  // };
-  // console.log(tableData, "dataaaaaaaaaaaaa");
-
   const center = {
     lat: 20,
     lng: 77,
@@ -356,22 +333,28 @@ const MapChartComponent = () => {
             </div>
             <div className="bar-map-wrapper">
               <div className="chart-map">
-                <GoogleMap
-                  influencerdata={
-                    mapdata === "Country" ||
-                    mapdata === "Influencer" ||
-                    mapData === "Hashtag"
-                  }
-                  isLoaded={isLoaded}
-                  setActiveMarker={setActiveMarker}
-                  handleOnLoad={handleOnLoad}
-                  handleActiveMarker={handleActiveMarker}
-                  mapDataApi={mapDataApi}
-                  activeMarker={activeMarker}
-                  setReCenterMap={setReCenterMap}
-                  reCenterMap={reCenterMap}
-                  center={center}
-                />
+                {loading ? (
+                  <div className="googleMap-loader">
+                    <PuffLoader color="#F05728" loading={loading} size={50} />
+                  </div>
+                ) : (
+                  <GoogleMap
+                    influencerdata={
+                      mapdata === "Country" ||
+                      mapdata === "Influencer" ||
+                      mapData === "Hashtag"
+                    }
+                    isLoaded={isLoaded}
+                    setActiveMarker={setActiveMarker}
+                    handleOnLoad={handleOnLoad}
+                    handleActiveMarker={handleActiveMarker}
+                    mapDataApi={mapDataApi}
+                    activeMarker={activeMarker}
+                    setReCenterMap={setReCenterMap}
+                    reCenterMap={reCenterMap}
+                    center={center}
+                  />
+                )}
               </div>
             </div>
           </>
@@ -400,7 +383,13 @@ const MapChartComponent = () => {
             </div>
             <div className="bar-map-wrapper">
               <div className="chart-map">
-                <TableData tableData={tableData} />
+                {loading ? (
+                  <div className="googleMap-loader">
+                    <PuffLoader color="#F05728" loading={loading} size={50} />
+                  </div>
+                ) : (
+                  <TableData tableData={tableData} />
+                )}
               </div>
             </div>
           </>

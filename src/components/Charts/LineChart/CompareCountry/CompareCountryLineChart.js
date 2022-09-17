@@ -1,8 +1,9 @@
 import React from "react";
-import HighchartsReact from "highcharts-react-official";
-import Highcharts from "highcharts";
-import { LineChartBarData } from "../Chart/data";
+// import HighchartsReact from "highcharts-react-official";
+// import Highcharts from "highcharts";
+// import { LineChartBarData } from "../Chart/data";
 import LineChart from "../Chart/LineChart";
+import { PuffLoader } from "react-spinners";
 
 const CompareCountryLineChart = ({
   isValue,
@@ -12,6 +13,7 @@ const CompareCountryLineChart = ({
   dataForLineBarChart,
   selectCountry,
   contryNameState,
+  loading,
 }) => {
   // console.log(dataForLineBarChart, "linebAr");
   return (
@@ -30,14 +32,20 @@ const CompareCountryLineChart = ({
             isValue ? "line-chart-bar" : "line-chart-bar-condition"
           }`}
         >
-          <LineChart
-            barData={barData}
-            lineChartData={lineChartData}
-            isValue={isValue}
-            compareCountryActive={compareCountryActive}
-            selectCountry={selectCountry}
-            contryNameState={contryNameState}
-          />
+          {loading ? (
+            <div className="lineChart-loader">
+              <PuffLoader color="#F05728" loading={loading} size={50} />
+            </div>
+          ) : (
+            <LineChart
+              barData={barData}
+              lineChartData={lineChartData}
+              isValue={isValue}
+              compareCountryActive={compareCountryActive}
+              selectCountry={selectCountry}
+              contryNameState={contryNameState}
+            />
+          )}
         </div>
       )}
     </>

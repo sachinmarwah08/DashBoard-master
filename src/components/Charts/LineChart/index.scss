@@ -52,6 +52,14 @@
   .line-chart-bar-condition {
     width: 100%;
   }
+
+  .lineChart-loader {
+    width: 100%;
+    height: 21rem;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+  }
 }
 
 .lineChart-container {
