@@ -3,6 +3,7 @@ import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { BeatLoader } from "react-spinners";
+import { debounce } from "throttle-debounce";
 
 const DropdownButton = ({
   icon,
@@ -12,6 +13,7 @@ const DropdownButton = ({
   handleChange,
   lastUserRef,
   loading,
+  onSearch,
 }) => {
   const [isFilterActive, setIsFilterActive] = useState(false);
 
@@ -67,6 +69,14 @@ const DropdownButton = ({
   const wrapperRef = useRef(null);
   useOutsideAlerter(wrapperRef);
 
+  const debounceSearch = debounce(
+    1000,
+    (num) => {
+      onSearch(num);
+    },
+    { atBegin: false }
+  );
+
   return (
     <button
       ref={wrapperRef}
@@ -101,6 +111,7 @@ const DropdownButton = ({
             name="searchTerm"
             onChange={(e) => {
               setQuery(e.target.value);
+              debounceSearch(e.target.value);
               handleChange(null);
             }}
             onClick={toggle}

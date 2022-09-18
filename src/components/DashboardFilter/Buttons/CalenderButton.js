@@ -37,11 +37,13 @@ const CalenderButton = ({ icon }) => {
 
   // const [startDate, setStartDate] = useState(new Date());
   // const [endDate, setEndDate] = useState(new Date());
+  var date = new Date();
+  var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
 
   const [dateState, setDateState] = useState([
     {
-      startDate: new Date(),
-      endDate: addDays(new Date(), 7),
+      startDate: firstDay,
+      endDate: date,
       key: "selection",
     },
   ]);

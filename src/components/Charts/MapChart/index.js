@@ -45,6 +45,7 @@ const MapChartComponent = () => {
   const [reCenterMap, setReCenterMap] = useState(
     /** @type google.maps.Map */ (null)
   );
+  const [hideRank, setHideRank] = useState(false);
 
   const { state } = useContext(FilterContext);
   const {
@@ -95,6 +96,7 @@ const MapChartComponent = () => {
     setShowInfluencerHashtag(false);
     setInputValue("");
     setMapData("Filters");
+    setHideRank(false);
   };
 
   useEffect(() => {
@@ -193,6 +195,7 @@ const MapChartComponent = () => {
       }
       setMapDataApi(tempData);
       setTableData(response.data);
+      setHideRank(true);
     }
   };
 
@@ -388,7 +391,7 @@ const MapChartComponent = () => {
                     <PuffLoader color="#F05728" loading={loading} size={50} />
                   </div>
                 ) : (
-                  <TableData tableData={tableData} />
+                  <TableData tableData={tableData} hideRank={hideRank} />
                 )}
               </div>
             </div>

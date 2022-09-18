@@ -1,9 +1,10 @@
 import baseApi from "../../apis";
 
-export const getCountryDropdownData = async (page) => {
+export const getCountryDropdownData = async (page, country) => {
   const response = await baseApi().get("/api/v1/get-list-of-country-v2", {
     params: {
-      page: page,
+      page,
+      country,
     },
   });
   if (response) {
@@ -12,10 +13,11 @@ export const getCountryDropdownData = async (page) => {
   }
 };
 
-export const getInfluencerDropdownData = async (page) => {
+export const getInfluencerDropdownData = async (page, username) => {
   const response = await baseApi().get("/api/v1/get-list-of-username-v2", {
     params: {
-      page: page,
+      page,
+      username,
     },
   });
   if (response) {
@@ -24,10 +26,11 @@ export const getInfluencerDropdownData = async (page) => {
   }
 };
 
-export const getHashtagDropdownData = async (page) => {
+export const getHashtagDropdownData = async (page, htag) => {
   const response = await baseApi().get("/api/v1/get-list-of-hash-tag-v2", {
     params: {
-      page: page,
+      page,
+      htag,
     },
   });
   if (response) {

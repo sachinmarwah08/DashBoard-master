@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, {
+  useState,
+  useEffect,
+  useContext,
+  useCallback,
+  useRef,
+} from "react";
 import Sort from "../../SortFilter/Sort";
 import "./TopInfluencer.scss";
 import RadioButton from "../../RadioButton/RadioButton";
@@ -33,7 +39,6 @@ const TopInfluencer = () => {
   const dropdownOptions = ["Country", "Influencer", "Hashtag"];
   const [topInfluencerFilter, setTopInfluencerFilter] = useState("Filters");
   const [isRadioChecked, setIsRadioChecked] = useState(1);
-  // const [wordEntered, setWordEntered] = useState("");
   const [influencerCountData, setInfluencerCountData] = useState(0);
   const [getInfluencersData, setGetInfluencersData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -48,10 +53,11 @@ const TopInfluencer = () => {
   const [countryBackupdata, setCountryBackupdata] = useState([]);
   const [globalBackupData, setGlobalBackupData] = useState([]);
   const [influencerCountDataBackup, setInfluencerCountDataBackup] = useState(0);
+  const [page, setPage] = useState(1);
 
   const handleRadioChange = async (value) => {
     setLoading(true);
-    // const persentile = localStorage.getItem("persentile");
+    const persentile = localStorage.getItem("persentile");
     // let fromDate = "2022-07-01";
     // let toDate = "2022-07-31";
     let countryTypedValue = "";
@@ -79,10 +85,10 @@ const TopInfluencer = () => {
       fromDate,
       toDate,
       category,
-      // persentile,
-      countryTypedValue,
-      influencerTypedValue,
-      hashtagTypedValue
+      "",
+      countryTypedValue || countryValue,
+      influencerTypedValue || influencerValue,
+      hashtagTypedValue || hashtagValue
     );
     setGetInfluencersData(getInfluencersResponse.influencers);
     setLoading(false);
@@ -90,6 +96,7 @@ const TopInfluencer = () => {
 
   const handleFilter = (e) => {
     setInputValue(e.target.value);
+    setShowInfluencerHashtag(true);
     if (topInfluencerFilter === "Filters") {
       let tempData = [...globalBackupData];
       console.log("influencerDataBackup", influencerDataBackup);
@@ -102,10 +109,7 @@ const TopInfluencer = () => {
       let tempDatadrodown = [...influencerBackupdata];
       let tempHasgtagData = [...hashtagBackupdata];
       let tempCountryData = [...countryBackupdata];
-      // let tempData = [...influencerDataBackup];
-      // const newFilter = tempData.filter((value) => {
-      //   return value.toLowerCase().includes(inputValue.toLowerCase());
-      // });
+
       const influencerFilter = tempDatadrodown.filter((value) => {
         return value.toLowerCase().includes(inputValue.toLowerCase());
       });
@@ -118,7 +122,6 @@ const TopInfluencer = () => {
       setCountryDataDropdown(countryFilter);
       sethashtag(hashtagFilter);
       setInfluencerData(influencerFilter);
-      // setGetInfluencersData(newFilter);
     }
   };
 
@@ -148,26 +151,22 @@ const TopInfluencer = () => {
         // let toDate = "2022-07-31";
         let category = "ALL";
 
-        // const persentile = localStorage.getItem("persentile");
-
-        const influencerCountResponse = await influencerCount(
-          fromDate,
-          toDate,
-          countryValue,
-          influencerValue,
-          hashtagValue
-        );
+        const persentile =
+          !countryValue && !influencerValue && !hashtagValue
+            ? localStorage.getItem("persentile")
+            : "";
 
         const getInfluencersResponse = await getInfluencers(
           fromDate,
           toDate,
           category,
-          // persentile,
+          persentile,
           countryValue,
           influencerValue,
-          hashtagValue
+          hashtagValue,
+          page
         );
-        // localStorage.setItem("persentile", getInfluencersResponse.persentile);
+        localStorage.setItem("persentile", getInfluencersResponse.persentile);
 
         const getInfluenser = await getInfluencerDropdownData();
         const hashtagDataResponse = await getHashtagDropdownData();
@@ -179,10 +178,21 @@ const TopInfluencer = () => {
         setInfluencerBackupdata(getInfluenser);
         sethashtag(hashtagDataResponse);
         setHashtagBackupdata(hashtagDataResponse);
-        setInfluencerCountData(influencerCountResponse.count);
-        setInfluencerCountDataBackup(influencerCountResponse.count);
         setGetInfluencersData(getInfluencersResponse.influencers);
         setGlobalBackupData(getInfluencersResponse.influencers);
+
+        try {
+          const influencerCountResponse = await influencerCount(
+            fromDate,
+            toDate,
+            countryValue,
+            influencerValue,
+            hashtagValue
+          );
+
+          setInfluencerCountData(influencerCountResponse.count);
+          setInfluencerCountDataBackup(influencerCountResponse.count);
+        } catch (error) {}
         console.log(getInfluencersResponse.influencers, "sdmanxasjnx");
         // console.log(getInfluencersResponse.influencers, "influencer");
         // setInfluencerDataBackup(getInfluencersResponse.influencers);
@@ -194,46 +204,53 @@ const TopInfluencer = () => {
 
   /////////////////////////////////////////////////////////////
 
-  // const [users, setUsers] = useState([]);
-  // const [page, setPage] = useState(1);
-  // const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    console.log("inputValue", inputValue);
+    const loadUsers = async () => {
+      let category = "ALL";
+      const persentile = localStorage.getItem("persentile");
+      setLoading(true);
 
-  // useEffect(() => {
-  //   const loadUsers = async () => {
-  //     setLoading(true);
-  //     const newUsers = await getUsers(page);
-  //     setUsers((prev) => [...prev, ...newUsers]);
-  //     setLoading(false);
-  //   };
-  //   loadUsers();
-  // }, [page]);
+      const getInfluencersResponse = await getInfluencers(
+        fromDate,
+        toDate,
+        category,
+        persentile,
+        countryValue,
+        influencerValue,
+        hashtagValue,
+        page
+      );
 
-  // const observer = useRef();
-  // const lastUserRef = useCallback(
-  //   (node) => {
-  //     if (loading) return;
-  //     if (observer.current) observer.current.disconnect();
-  //     observer.current = new IntersectionObserver((entries) => {
-  //       if (entries[0].isIntersecting) {
-  //         setPage((page) => page + 1);
-  //       }
-  //     });
-  //     if (node) observer.current.observe(node);
-  //   },
-  //   [loading]
-  // );
+      setGetInfluencersData((prev) => [
+        ...prev,
+        ...getInfluencersResponse.influencers,
+      ]);
+      localStorage.setItem("persentile", getInfluencersResponse.persentile);
+      setLoading(false);
+    };
+    if (!inputValue && !countryValue && !influencerValue && !hashtagValue) {
+      loadUsers();
+    }
+  }, [page]);
 
-  // const userList = users.map((item, index) =>
-  //   users.length === index + 1 ? (
-  //     <li ref={lastUserRef} key={index}>
-  //       {item}
-  //     </li>
-  //   ) : (
-  //     <li key={index}>{item}</li>
-  //   )
-  // );
+  const observer = useRef();
+  const lastUserRef = useCallback(
+    (node) => {
+      if (loading) return;
+      if (observer.current) observer.current.disconnect();
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && !inputValue) {
+          setPage((page) => page + 1);
+        }
+      });
+      if (node) observer.current.observe(node);
+    },
+    [loading]
+  );
 
-  //////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////
+
   const onFilterDropClick = (option) => {
     setTopInfluencerFilter(option);
   };
@@ -255,29 +272,33 @@ const TopInfluencer = () => {
       }
       let category = "ALL";
 
-      // const persentile = localStorage.getItem("persentile");
+      const persentile = "";
+      try {
+        const getInfluencersResponse = await getInfluencers(
+          fromDate,
+          toDate,
+          category,
+          persentile,
+          countryTypedValue,
+          influencerTypedValue,
+          hashtagTypedValue
+        );
+        setGetInfluencersData(getInfluencersResponse.influencers);
+        setInfluencerDataBackup(getInfluencersResponse.influencers);
+        // localStorage.setItem("persentile", getInfluencersResponse.persentile);
+      } catch (error) {}
 
-      const influencerCountResponse = await influencerCount(
-        fromDate,
-        toDate,
-        countryTypedValue,
-        influencerTypedValue,
-        hashtagTypedValue
-      );
+      try {
+        const influencerCountResponse = await influencerCount(
+          fromDate,
+          toDate,
+          countryTypedValue,
+          influencerTypedValue,
+          hashtagTypedValue
+        );
 
-      const getInfluencersResponse = await getInfluencers(
-        fromDate,
-        toDate,
-        category,
-        // persentile,
-        countryTypedValue,
-        influencerTypedValue,
-        hashtagTypedValue
-      );
-      // localStorage.setItem("persentile", getInfluencersResponse.persentile);
-      setInfluencerCountData(influencerCountResponse.count);
-      setGetInfluencersData(getInfluencersResponse.influencers);
-      setInfluencerDataBackup(getInfluencersResponse.influencers);
+        setInfluencerCountData(influencerCountResponse.count);
+      } catch (error) {}
     }
   };
 
@@ -405,7 +426,11 @@ const TopInfluencer = () => {
         />
       </div>
 
-      <Content topInfluencerData={getInfluencersData} loading={loading} />
+      <Content
+        lastUserRef={lastUserRef}
+        topInfluencerData={getInfluencersData}
+        loading={loading}
+      />
     </div>
   );
 };

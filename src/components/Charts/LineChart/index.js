@@ -1,4 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, {
+  useContext,
+  useEffect,
+  useState,
+  useRef,
+  useCallback,
+} from "react";
 import "./index.scss";
 import { useLocation, useNavigate } from "react-router-dom";
 // import downloadIcon from "../../../Images/download-2.svg";
@@ -26,6 +32,7 @@ import "tippy.js/dist/svg-arrow.css";
 import { getCountryDropdownData } from "../../../actions/DropDownApis";
 import { UPDATE_LOADERS } from "../../../actions/types";
 import { FilterContext } from "../../../context/FilterContext";
+import moment from "moment";
 // import { useInView } from "react-intersection-observer";
 
 const LineChartData = () => {
@@ -75,6 +82,7 @@ const LineChartData = () => {
   const [chooseTimeLineChartData, setChooseTimeLineChartData] = useState([]);
   const [chooseTimeBarDataState, setChooseTimeBarDataState] = useState();
   const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(1);
 
   const navigateHome = () => {
     navigate("/");
@@ -426,17 +434,18 @@ const LineChartData = () => {
   };
 
   const onHandleCompareTimeMonthChange = async (item) => {
-    let fromDateCompareTime = "2022-08-01";
-    let toDateCompareTime = "2022-09-12";
-
+    // setLoadingf(true)
+    let fromDateCompareTime = "2022-05-01";
+    let toDateCompareTime = moment().format("YYYY-MM-DD");
+    let country = item;
     try {
-      setDateValue(item.month);
+      setDateValue(item);
       const response = await compareTime(
         // fromDate,
         // toDate,
         fromDateCompareTime,
         toDateCompareTime,
-        selectCountry
+        item
       );
 
       let tempBarData = JSON.parse(JSON.stringify(chooseTimeBarData));
@@ -466,6 +475,12 @@ const LineChartData = () => {
       setChooseTimeBarDataState(tempBarData);
 
       let tempData = [...chooseTimeLineChartData];
+      console.log("initial world tempData", tempData);
+
+      console.log(
+        "response.line_chart_data[country]",
+        response.line_chart_data[country]
+      );
       for (let i = 0; i < tempData.length; i++) {
         tempData[i]["compare"] = 0;
       }
@@ -474,17 +489,17 @@ const LineChartData = () => {
       if (
         response &&
         response.line_chart_data &&
-        response.line_chart_data[selectCountry] &&
-        response.line_chart_data[selectCountry].length
+        response.line_chart_data[country] &&
+        response.line_chart_data[country].length
       ) {
-        let countryData = response.line_chart_data[selectCountry];
+        let countryData = response.line_chart_data[country];
 
         for (let i = 0; i < countryData.length; i++) {
           for (let j = 0; j < tempData.length; j++) {
-            if (!equal_ids.includes(tempData[j].week)) {
-              equal_ids.push(tempData[j].week);
+            if (!equal_ids.includes(tempData[j].MonthValue)) {
+              equal_ids.push(tempData[j].MonthValue);
             }
-            if (countryData[i].week === tempData[j].week) {
+            if (countryData[i].MonthValue === tempData[j].MonthValue) {
               if (countryData[i]) {
                 tempData[j]["compare"] = countryData[i].count;
               }
@@ -493,7 +508,7 @@ const LineChartData = () => {
         }
 
         for (let i = 0; i < countryData.length; i++) {
-          if (!equal_ids.includes(countryData[i].week)) {
+          if (!equal_ids.includes(countryData[i].MonthValue)) {
             countryData[i]["compare"] = countryData[i]["count"];
             countryData[i]["count"] = 0;
             tempData.push(countryData[i]);
@@ -502,15 +517,20 @@ const LineChartData = () => {
       }
 
       // tempData.sort((a, b) => b._id.split("-")[2] - a._id.split("-")[2]);
-      console.log("tempData", tempData);
+      console.log(" final tempData", tempData);
       tempData.forEach((item) => {
-        item[selectCountry] = item.count;
-        item[selectCountry] = item.compare;
+        item["MonthName"] = getTheNameOfMonth(item.MonthValue - 1);
       });
+      // tempData.forEach((item) => {
+      //   item[country] = item.count;
+      //   item[country] = item.compare;
+      // });
 
       // setBarChartData(response.bar_graph_data);
       setChooseTimeLineChartData(tempData);
+      // setLoadingf(false)
     } catch (error) {
+      // setLoadingf(false)
       toast.error("No records found in Data Lake...", {
         position: "top-right",
         autoClose: 1000,
@@ -520,6 +540,22 @@ const LineChartData = () => {
         toastClassName: "dark-toast",
       });
     }
+  };
+
+  const getTheNameOfMonth = (month) => {
+    let months = [
+      "",
+      "",
+      "",
+      "",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+    ];
+    return months[month];
   };
 
   useEffect(() => {
@@ -534,10 +570,10 @@ const LineChartData = () => {
         // let toDate = `${year}-${month}-${day}`;
         // console.log(month, day, year);
 
-        // let fromDatetime = "2022-08-01";
+        let fromDatetime = "2022-05-01";
         // let toDatetime = "2022-09-12";
         let country = countryValue || "Worldwide";
-        // var currentDate = moment().format("DD-MM-YYYY");
+        var currentDate = moment().format("YYYY-MM-DD");
         // var pastMonthDate = moment().subtract(1, "M").format("DD-MM-YYYY");
         // console.log(currentDate, futureMonth);
 
@@ -551,8 +587,8 @@ const LineChartData = () => {
         const responseComapreTime = await compareTime(
           // fromDatetime,
           // toDatetime,
-          fromDate,
-          toDate,
+          fromDatetime,
+          currentDate,
           country,
           influencerValue,
           hashtagValue
@@ -568,8 +604,12 @@ const LineChartData = () => {
         });
         responseComapreTime.line_chart_data[country].forEach((item) => {
           item[country] = item.count;
+          item["MonthName"] = getTheNameOfMonth(item.MonthValue - 1);
         });
-        console.log("...............jkl", response.line_chart_data[country]);
+        console.log(
+          "...............jkl responseComapreTime",
+          responseComapreTime.line_chart_data[country]
+        );
         setLoading(false);
         setCountrySelect(countryDropdown);
         setBarChartData(response.bar_graph_data[country]);
@@ -590,6 +630,35 @@ const LineChartData = () => {
     }
     // eslint-disable-next-line
   }, [countryLineChartLoading]);
+
+  /////////////////////////////////////////////////////////////
+  useEffect(() => {
+    const loadUsers = async () => {
+      setLoading(true);
+      const countryData = await getCountryDropdownData(page);
+      setCountrySelect((prev) => [...prev, ...countryData]);
+    };
+    loadUsers();
+  }, [page]);
+
+  const observer = useRef();
+
+  const lastUserRef = useCallback(
+    (node) => {
+      if (loading) return;
+      if (observer.current) observer.current.disconnect();
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          setPage((page) => page + 1);
+        }
+      });
+      if (node) observer.current.observe(node);
+    },
+    [loading]
+  );
+
+  /////////////////////////////////////////////////////////////
+
   return (
     <>
       {router.pathname === "/LineChart" ? <Header /> : ""}
@@ -722,6 +791,8 @@ const LineChartData = () => {
               chooseTime={chooseTime}
               // chooseTimeDropdownClick={() => setDateValue("July, 2022")}
               setDateClick={() => setDateValue("")}
+              title={selectCountry}
+              countrySelect={countrySelect}
             />
           )}
         </div>

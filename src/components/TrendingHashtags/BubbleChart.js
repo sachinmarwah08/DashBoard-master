@@ -43,7 +43,9 @@ const BubbleChart = ({ handleChange, trendingHashtag, setTrendingHashtag }) => {
           hashtagValue
         );
         let tempData = [...response.records];
-        tempData.sort((a, b) => b.hashtag.count - a.hashtag.count);
+        if (!hashtagValue) {
+          tempData.sort((a, b) => b.hashtag.count - a.hashtag.count);
+        }
 
         setTrendingHashtag(tempData);
       };

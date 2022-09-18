@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, {
+  useState,
+  useEffect,
+  useContext,
+  useRef,
+  useCallback,
+} from "react";
 import "./RealTimeFeeds.scss";
 import RealTimeFeed from "./Content/RealTimeContent";
 // import shareIcon from "../../../Images/share-2.svg";
@@ -33,7 +39,10 @@ const RealTimeFeeds = () => {
   } = state;
   const [wordEntered, setWordEntered] = useState("");
   const [active, setActive] = useState("Real-time-Tweets");
-  const realTimeData = ["Country", "Influencer", "Hashtag"];
+  const realTimeData =
+    active === "Real-time-Tweets"
+      ? ["Country", "Influencer", "Hashtag"]
+      : ["Country"];
   const [realData, setRealData] = useState("Filters");
   const [isRadioChecked, setIsRadioChecked] = useState(1);
   const [tweets, setTweets] = useState([]);
@@ -50,10 +59,22 @@ const RealTimeFeeds = () => {
   const [countryDataDropdown, setCountryDataDropdown] = useState([]);
   const [countryBackupdata, setCountryBackupdata] = useState([]);
   const [globalBackupData, setGlobalBackupData] = useState([]);
-  // const [influencerCountDataBackup, setInfluencerCountDataBackup] = useState(0);
+  const [page, setPage] = useState(1);
 
   const handleRadioChange = async (value) => {
     setLoading(true);
+    let countryTypedValue = "";
+    let influencerTypedValue = "";
+    let hashtagTypedValue = "";
+    if (realData === "Influencer") {
+      influencerTypedValue = inputValue;
+    }
+    if (realData === "Hashtag") {
+      hashtagTypedValue = inputValue;
+    }
+    if (realData === "Country") {
+      countryTypedValue = inputValue;
+    }
 
     let sentiment = "All";
     if (value === 2) {
@@ -75,9 +96,9 @@ const RealTimeFeeds = () => {
       fromDate,
       toDate,
       newsSentiment,
-      countryValue,
-      influencerValue,
-      hashtagValue
+      countryTypedValue || countryValue,
+      influencerTypedValue || influencerValue,
+      hashtagTypedValue || hashtagValue
     );
     setNewsFeed(newsCountResponse.records);
 
@@ -85,9 +106,9 @@ const RealTimeFeeds = () => {
       fromDate,
       toDate,
       sentiment,
-      countryValue,
-      influencerValue,
-      hashtagValue
+      countryTypedValue || countryValue,
+      influencerTypedValue || influencerValue,
+      hashtagTypedValue || hashtagValue
     );
     setTweets(tweetsCountResponse.records);
     setLoading(false);
@@ -95,6 +116,7 @@ const RealTimeFeeds = () => {
 
   const handleFilter = (e) => {
     setInputValue(e.target.value);
+    setShowInfluencerHashtag(true);
     if (realData === "Filters") {
       let tempData = [...newDataBackup];
       console.log("influencerDataBackup", newDataBackup);
@@ -122,21 +144,6 @@ const RealTimeFeeds = () => {
       console.log("newFilter", newFilter);
       setTweets(newFilter);
     } else {
-      let influencerTypedValue = "";
-      let hashtagTypedValue = "";
-      let countryTypedValue = "";
-      if (realData === "Influencer") {
-        influencerTypedValue = inputValue;
-        setShowInfluencerHashtag(true);
-      }
-      if (realData === "Hashtag") {
-        hashtagTypedValue = inputValue;
-        setShowInfluencerHashtag(true);
-      }
-      if (realData === "Country") {
-        countryTypedValue = inputValue;
-        setShowInfluencerHashtag(true);
-      }
       let tempDatadrodown = [...influencerBackupdata];
       let tempHasgtagData = [...hashtagBackupdata];
       let tempCountryData = [...countryBackupdata];
@@ -221,6 +228,59 @@ const RealTimeFeeds = () => {
     }
   }, [countryLineChartLoading]);
 
+  /////////////////////////////////////////////////////////////
+
+  useEffect(() => {
+    console.log("inputValue", inputValue);
+    const loadUsers = async () => {
+      let sentiment = "ALL";
+      let newsSentiment = "All";
+      setLoading(true);
+
+      const tweetsCountResponse = await getSocialMediaFlashes(
+        fromDate,
+        toDate,
+        sentiment,
+        countryValue,
+        influencerValue,
+        hashtagValue
+      );
+
+      const newsCountResponse = await newsFlashes(
+        fromDate,
+        toDate,
+        newsSentiment,
+        countryValue,
+        influencerValue,
+        hashtagValue
+      );
+
+      setTweets((prev) => [...prev, ...tweetsCountResponse.records]);
+      setNewsFeed((prev) => [...prev, ...newsCountResponse.records]);
+      setLoading(false);
+    };
+    if (!inputValue && !countryValue && !influencerValue && !hashtagValue) {
+      loadUsers();
+    }
+  }, [page]);
+
+  const observer = useRef();
+  const lastUserRef = useCallback(
+    (node) => {
+      if (loading) return;
+      if (observer.current) observer.current.disconnect();
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && !inputValue) {
+          setPage((page) => page + 1);
+        }
+      });
+      if (node) observer.current.observe(node);
+    },
+    [loading]
+  );
+
+  /////////////////////////////////////////////////////////////
+
   const onFilterDropClick = (option) => {
     setRealData(option);
   };
@@ -240,8 +300,8 @@ const RealTimeFeeds = () => {
       if (realData === "Country") {
         countryTypedValue = inputValue;
       }
-      let sentiment = "All";
 
+      let sentiment = "All";
       let newsSentiment = "All";
 
       const tweetsCountResponse = await getSocialMediaFlashes(
@@ -421,7 +481,11 @@ const RealTimeFeeds = () => {
       </div>
 
       {active === "Real-time-Tweets" && (
-        <RealTimeFeed filterData={tweets} loading={loading} />
+        <RealTimeFeed
+          lastUserRef={lastUserRef}
+          filterData={tweets}
+          loading={loading}
+        />
       )}
       {active === "Real-time-News" && (
         <NewsFeed filterData={newsFeed} loading={loading} />

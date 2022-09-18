@@ -56,7 +56,7 @@ const LineBarChart = () => {
               border: "1px solid #939596",
               outline: "none",
             }}
-            content={(item, index) => renderTooltip(item, index)}
+            // content={(item, index) => renderTooltip(item, index)}
             cursor={{ fill: "transparent" }}
           />
           <Bar cursor="pointer" dataKey="pv">

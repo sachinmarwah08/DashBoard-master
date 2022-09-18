@@ -30,6 +30,8 @@ import {
   CLOSE_CALENDER,
   // SET_DROP_DATA,
 } from "../../actions/types";
+// import { debounce } from "debounce";
+import { debounce } from "throttle-debounce";
 // import NewDropdownButton from "./Buttons/NewDropdownButton";
 
 const DashboardFilter = () => {
@@ -40,87 +42,6 @@ const DashboardFilter = () => {
   const [country, setCountry] = useState([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
-  // console.log(state);
-  // const { countryDropData, hashtagDropData, influencerDropData } = state.data;
-  // const [openModal, setOpenModal] = useState(false);
-  // const [countryPage, setCountryPage] = useState(1);
-  // const [hasgtagPage, setHashtagPage] = useState(1);
-  // const [influencerPage, setInfluencerPage] = useState(1);
-  // const [test, setTest] = useState(1);
-
-  // useEffect(() => {
-  //   const callApi = async () => {
-  //     //////////////////////////////////////////////////////////////
-  //     const countryDataResponse = await getCountryDropdownData(countryPage);
-  //     dispatch({
-  //       type: SET_DROP_DATA,
-  //       payload: { field: "countryDropData", value: countryDataResponse },
-  //     });
-  //     setCountry(countryDataResponse);
-
-  //     //////////////////////////////////////////////////////////
-
-  //     const hashtagDataResponse = await getHashtagDropdownData(hasgtagPage);
-  //     dispatch({
-  //       type: SET_DROP_DATA,
-  //       payload: { field: "hashtagDropData", value: hashtagDataResponse },
-  //     });
-  //     sethashtag(hashtagDataResponse);
-
-  //     //////////////////////////////////////////////////////////
-
-  //     const influencerDataResponse = await getInfluencerDropdownData(
-  //       influencerPage
-  //     );
-  //     dispatch({
-  //       type: SET_DROP_DATA,
-  //       payload: { field: "influencerDropData", value: influencerDataResponse },
-  //     });
-  //     setIinfluencer(influencerDataResponse);
-  //   };
-  //   callApi();
-  // }, []);
-
-  // const onLoadMoreCountry = async () => {
-  //   const countryDataResponse = await getCountryDropdownData(countryPage + 1);
-  //   dispatch({
-  //     type: SET_DROP_DATA,
-  //     payload: {
-  //       field: "countryDropData",
-  //       value: [...countryDropData, ...countryDataResponse],
-  //     },
-  //   });
-  //   setCountry([...country, ...countryDataResponse]);
-  //   setCountryPage(countryPage + 1);
-  // };
-
-  // const onLoadMoreHashtag = async () => {
-  //   const hashtagDataResponse = await getHashtagDropdownData(hasgtagPage + 1);
-  //   dispatch({
-  //     type: SET_DROP_DATA,
-  //     payload: {
-  //       field: "hashtagDropData",
-  //       value: [...hashtagDropData, ...hashtagDataResponse],
-  //     },
-  //   });
-  //   sethashtag([...hashtag, ...hashtagDataResponse]);
-  //   setHashtagPage(hasgtagPage + 1);
-  // };
-
-  // const onLoadMoreInfluncer = async () => {
-  //   const influencerDataResponse = await getInfluencerDropdownData(
-  //     influencerPage + 1
-  //   );
-  //   dispatch({
-  //     type: SET_DROP_DATA,
-  //     payload: {
-  //       field: "influencerDropData",
-  //       value: [...influencerDropData, ...influencerDataResponse],
-  //     },
-  //   });
-  //   setIinfluencer([...influencer, ...influencerDataResponse]);
-  //   setInfluencerPage(influencerPage + 1);
-  // };
 
   const headerRef = useRef();
   if (typeof document !== `undefined`) {
@@ -195,6 +116,27 @@ const DashboardFilter = () => {
     [loading]
   );
 
+  const onInfluencerInputChange = async (searchValue) => {
+    setLoading(true);
+    const influencerData = await getInfluencerDropdownData(1, searchValue);
+    setInfluencer(influencerData);
+    setLoading(false);
+  };
+
+  const onHashtagInputChange = async (searchValue) => {
+    setLoading(true);
+    const hashtagData = await getHashtagDropdownData(1, searchValue);
+    sethashtag(hashtagData);
+    setLoading(false);
+  };
+
+  const onCountryInputChange = async (searchValue) => {
+    setLoading(true);
+    const countryData = await getCountryDropdownData(1, searchValue);
+    setCountry(countryData);
+    setLoading(false);
+  };
+
   return (
     <>
       <div className="filter-wrapper">
@@ -227,17 +169,8 @@ const DashboardFilter = () => {
                   icon={userIcon}
                   name="Search influencer"
                   loading={loading}
+                  onSearch={onInfluencerInputChange}
                 />
-                {/* <NewDropdownButton
-                  data={influencerDropData}
-                  selectedVal={influencerValue}
-                  handleChange={(val) => onInfluencerChange(val)}
-                  icon={userIcon}
-                  name="Search influencer"
-                  onLoadMoreCountry={onLoadMoreInfluncer}
-                  backupData={influencer}
-                  filedToUpdate="influencerDropData"
-                /> */}
               </div>
             </Tippy>
 
@@ -270,17 +203,8 @@ const DashboardFilter = () => {
                   icon={hashtagIcon}
                   name="Search hashtag"
                   loading={loading}
+                  onSearch={onHashtagInputChange}
                 />
-                {/* <NewDropdownButton
-                  data={hashtagDropData}
-                  selectedVal={hashtagValue}
-                  handleChange={(val) => onHashTagChange(val)}
-                  icon={hashtagIcon}
-                  name="Search hashtag"
-                  onLoadMoreCountry={onLoadMoreHashtag}
-                  backupData={hashtag}
-                  filedToUpdate="hashtagDropData"
-                /> */}
               </div>
             </Tippy>
 
@@ -303,16 +227,6 @@ const DashboardFilter = () => {
               }
             >
               <div>
-                {/* <NewDropdownButton
-                  data={countryDropData}
-                  selectedVal={countryValue}
-                  handleChange={(val) => onCountryChange(val)}
-                  icon={locationIcon}
-                  name="Search country"
-                  onLoadMoreCountry={onLoadMoreCountry}
-                  backupData={country}
-                  filedToUpdate="countryDropData"
-                /> */}
                 <DropdownButton
                   lastUserRef={lastUserRef}
                   data={country}
@@ -321,6 +235,7 @@ const DashboardFilter = () => {
                   icon={locationIcon}
                   name="Search Country"
                   loading={loading}
+                  onSearch={onCountryInputChange}
                 />
               </div>
             </Tippy>

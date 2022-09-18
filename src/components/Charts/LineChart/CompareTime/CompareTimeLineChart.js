@@ -2,6 +2,7 @@ import React from "react";
 // import HighchartsReact from "highcharts-react-official";
 // import Highcharts from "highcharts";
 // import { LineChartBarData } from "../Chart/data";
+import LineBarChart from "../Chart/LineBarChart";
 import LineChart from "../Chart/LineChart";
 
 const CompareTimeLineChart = ({
@@ -16,10 +17,7 @@ const CompareTimeLineChart = ({
     <>
       {/* {dateValue && (
         <div className="bar-chart-line">
-          <HighchartsReact
-            highcharts={Highcharts}
-            options={chooseTimeBarDataState}
-          />
+          <LineBarChart />
         </div>
       )} */}
       {compareTimeActive && (

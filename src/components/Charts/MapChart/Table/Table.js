@@ -3,7 +3,7 @@ import "./Table.scss";
 import { getMapData } from "../../../../actions/GoogleMapApis/index";
 import { FilterContext } from "../../../../context/FilterContext";
 
-const Table = ({ tableData }) => {
+const Table = ({ tableData, hideRank }) => {
   const { state } = useContext(FilterContext);
   // console.log(state);
   const { influencerValue, hashtagValue, countryValue } = state.filters;
@@ -60,9 +60,10 @@ const Table = ({ tableData }) => {
           <thead>
             <tr>
               <th style={{ textAlign: "left" }}>Country</th>
-              {!influencerValue && !hashtagValue && !countryValue && (
-                <th>Rank</th>
-              )}
+              {!influencerValue &&
+                !hashtagValue &&
+                !countryValue &&
+                !hideRank && <th>Rank</th>}
               <th>Index</th>
               <th>Positive</th>
               <th>Negative</th>
@@ -79,14 +80,17 @@ const Table = ({ tableData }) => {
                 }}
               >
                 <td style={{ textAlign: "left" }}>{item._id}</td>
-                {!influencerValue && !hashtagValue && !countryValue && (
-                  <td>
-                    {parseFloat(item.rank, 2)}{" "}
-                    <span style={{ color: "#F05728" }}>
-                      ({parseFloat(item.change_in_rank, 2)})
-                    </span>
-                  </td>
-                )}
+                {!influencerValue &&
+                  !hashtagValue &&
+                  !countryValue &&
+                  !hideRank && (
+                    <td>
+                      {parseFloat(item.rank, 2)}{" "}
+                      <span style={{ color: "#F05728" }}>
+                        ({parseFloat(item.change_in_rank, 2)})
+                      </span>
+                    </td>
+                  )}
                 <td>
                   {nFormatter(item.count)}{" "}
                   <span style={{ color: "#F05728" }}>

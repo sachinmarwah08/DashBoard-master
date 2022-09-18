@@ -100,10 +100,18 @@ const TrendingHashtags = () => {
           influencerValue,
           hashtagValue
         );
+        console.log(
+          "////////////////////////////////////////////response//////",
+          response
+        );
         if (response.records && response.records.length) {
           setTotalCount(response.records[0].hashtag.count);
           setTotalConnections(response.records[0].connection);
           setHashtag(response.records[0].hashtag.htag);
+        } else {
+          setTotalCount(0);
+          setTotalConnections(0);
+          setHashtag([]);
         }
         setCountryDataDropdown(countryDataResponse);
         setCountryBackupdata(countryDataResponse);

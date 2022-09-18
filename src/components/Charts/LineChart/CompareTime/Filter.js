@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import xCircle from "../../../../Images/x-circle.svg";
 import threeDots from "../../../../Images/threeDots.svg";
 import { faAngleUp, faAngleDown } from "@fortawesome/free-solid-svg-icons";
@@ -8,6 +8,7 @@ import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
 import "tippy.js/themes/light.css";
 import "tippy.js/dist/svg-arrow.css";
+import { FilterContext } from "../../../../context/FilterContext";
 
 const CompareTime = ({
   title,
@@ -17,7 +18,13 @@ const CompareTime = ({
   chooseTimeDropdownClick,
   onHandleCompareTimeMonthChange,
   setDateClick,
+  countrySelect,
+  lastUserRef,
 }) => {
+  const { dispatch, state } = useContext(FilterContext);
+  const {
+    filters: { countryValue },
+  } = state;
   const date = Date.now();
   var check = moment(date);
   // console.log("check", check, date);
@@ -25,6 +32,11 @@ const CompareTime = ({
   const month = check.format("MMMM"); // => ('January','February.....)
   const year = check.format("YYYY"); // => ('2012','2013' ...)
   const [monthsList, setMonthsList] = useState([]);
+  const [countryDropValues, setCountryDropValues] = useState([]);
+
+  // useEffect(() => {
+  //   const countryDropdown = await getCountryDropdownData();
+  // },[])
 
   const fullMonthsList = [
     // {
@@ -84,12 +96,18 @@ const CompareTime = ({
 
     setMonthsList(fullMonthsList);
   }, []);
+
+  console.log(
+    "conutryValueconutryValueconutryValueconutryValueconutryValue",
+    countryValue
+  );
   return (
     <>
       <div className="Add-country">
         <div className="country">
           <img alt="threeDots" src={threeDots} />
-          <p className="title">September, 2022</p>
+          <p className="title">{countryValue ? countryValue : title}</p>
+          {/* <p className="title">September, 2022</p> */}
           {/* <p className="title">{`${month} ${year}`}</p> */}
         </div>
 
@@ -134,14 +152,14 @@ const CompareTime = ({
                       style={{ fontFamily: "Work-Sans" }}
                       className="dropdown-content"
                     >
-                      {monthsList.map((item, i) => (
+                      {countrySelect.map((item, i) => (
                         <div
                           style={{ fontFamily: "Work-Sans" }}
                           key={item.value}
                           onClick={() => onHandleCompareTimeMonthChange(item)}
                           className="drop-item"
                         >
-                          {item.month}
+                          {item}
                         </div>
                       ))}
                     </div>

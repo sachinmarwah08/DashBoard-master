@@ -16,6 +16,7 @@ import {
   // Bar,
 } from "recharts";
 import { FilterContext } from "../../../../context/FilterContext";
+import { BeatLoader } from "react-spinners";
 
 // import { compareCountryData, CompareTime } from "./data";
 
@@ -60,15 +61,7 @@ const Chart = ({
     console.log("item", item);
     if (item && item.payload && item.payload.length) {
       return (
-        <div
-        // style={{
-        //   width: "100%",
-        //   display: "flex",
-        //   background: "white",
-        //   borderRadius: "0.5rem",
-        //   flexDirection: "column",
-        // }}
-        >
+        <div>
           {lineChartData && (
             <>
               <p
@@ -149,7 +142,7 @@ const Chart = ({
             </>
           )}
 
-          {/* {chooseTimeLineChartData && (
+          {chooseTimeLineChartData && (
             <p
               style={{
                 fontSize: "20px",
@@ -157,47 +150,74 @@ const Chart = ({
                 fontWeight: 700,
                 marginTop: 0,
                 marginBottom: 0,
-                padding: "0.5rem",
               }}
             >
-              {item.payload[0].payload.week}
+              {item.payload[0].payload.MonthValue}
             </p>
           )}
 
           <div
             style={{
-              width: "100%",
-              padding: "0.5rem",
+              fontSize: "20px",
+              color: "#000000",
+              fontWeight: 700,
+              gap: "25px",
               display: "flex",
+              marginBottom: "0.5rem",
               justifyContent: "space-between",
             }}
           >
-            <span style={{ fontSize: "20px", color: "#939596", width: "100%" }}>
+            <span
+              style={{
+                fontSize: "20px",
+                color: "#939596",
+                width: "max-content",
+              }}
+            >
               {countryValue ? countryValue : selectCountry}
             </span>
-            <span style={{ fontSize: "20px", color: "#F05728" }}>
-              {twoDecimalPlacesIfCents(item.payload[0].payload.count)}
+            <span
+              style={{
+                fontSize: "20px",
+                color: "#F05728",
+                width: "max-content",
+              }}
+            >
+              {kFormatter(item.payload[0].payload.count)}
             </span>
           </div>
           {item.payload[1] && item.payload[1].payload && (
             <div
               style={{
-                width: "100%",
-                padding: "0.5rem",
+                fontSize: "20px",
+                color: "#000000",
+                fontWeight: 700,
+                gap: "25px",
                 display: "flex",
+                marginBottom: "0.5rem",
                 justifyContent: "space-between",
               }}
             >
               <span
-                style={{ fontSize: "20px", color: "#939596", width: "100%" }}
+                style={{
+                  fontSize: "20px",
+                  color: "#939596",
+                  width: "max-content",
+                }}
               >
                 {contryNameState}
               </span>
-              <span style={{ fontSize: "20px", color: "#2A00FF" }}>
+              <span
+                style={{
+                  fontSize: "20px",
+                  color: "#2A00FF",
+                  width: "max-content",
+                }}
+              >
                 {twoDecimalPlacesIfCents(item.payload[1].payload.compare)}
               </span>
             </div>
-          )} */}
+          )}
         </div>
       );
     }
@@ -222,7 +242,7 @@ const Chart = ({
           {/* <CartesianGrid horizontal={true} vertical={false} /> */}
           <XAxis
             style={{ fontFamily: "Work-Sans" }}
-            dataKey={compareTimeActive ? "week" : "_id"}
+            dataKey={compareTimeActive ? "MonthName" : "_id"}
             stroke="#757575"
             fontWeight={400}
             dy={8}
@@ -242,17 +262,6 @@ const Chart = ({
           />
           <Tooltip
             content={(item, index) => renderTooltip(item, index)}
-            separator=""
-            // labelStyle={{
-            //   fontWeight: "700",
-            //   paddingBottom: "0.5rem",
-            //   color: "#000000",
-            //   fontSize: "20px",
-            //   fontFamily: "Work-Sans",
-            //   borderColor: "#757575",
-            //   lineHeight: "1.25rem",
-            //   borderRadius: "0.5rem",
-            // }}
             wrapperStyle={{
               boxShadow:
                 "-4px 0px 8px rgba(0, 0, 0, 0.08), 0px 4px 8px rgba(0, 0, 0, 0.1)",
@@ -286,6 +295,9 @@ const Chart = ({
           ) : (
             ""
           )}
+          <div className="trendingHashtag-loader">
+            <BeatLoader color="#F05728" loading={true} size={10} />
+          </div>
         </LineChart>
       </ResponsiveContainer>
     </div>

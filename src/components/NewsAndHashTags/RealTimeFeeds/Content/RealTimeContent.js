@@ -1,45 +1,47 @@
 import React from "react";
 import twitterLogo from "../../../../Images/TwitterLogo.svg";
-import PuffLoader from "react-spinners/PuffLoader";
+import FadeLoader from "react-spinners/FadeLoader";
 
-const Content = ({ filterData, loading }) => {
+const Content = ({ filterData, loading, lastUserRef }) => {
   return (
     <>
       {loading ? (
         <div className="loader">
-          <PuffLoader color="#F05728" loading={loading} size={50} />
+          <FadeLoader color="#F05728" loading={loading} size={50} />
         </div>
       ) : (
         <div className="left-content-wrapper">
-          {/* <div className="loader">
-            <PuffLoader color="#F05728" loading={loading} size={50} />
-          </div> */}
-          {filterData.map((item, index) => (
-            <div key={index} className="left-content">
-              <a
-                href={item.url}
-                rel="noreferrer"
-                target="_blank"
-                className="left-content-heading"
+          {filterData.map((item, index) =>
+            filterData.length === index + 1 ? (
+              <div
+                lastUserRef={lastUserRef}
+                key={index}
+                className="left-content"
               >
-                <span className="heading-colored">
-                  {/* {item.htag[0]} {""} */}
-                </span>
+                <a
+                  href={item.url}
+                  rel="noreferrer"
+                  target="_blank"
+                  className="left-content-heading"
+                >
+                  <span className="heading-colored">
+                    {/* {item.htag[0]} {""} */}
+                  </span>
 
-                {item.events}
-              </a>
-              <p className="hashtags">
-                {/* {item.hashtags} */}
+                  {item.events}
+                </a>
+                <p className="hashtags">
+                  {/* {item.hashtags} */}
 
-                <span className="hashtags-colored">
-                  {item.htag
-                    .filter((item) => {
-                      return item.length >= 1;
-                    })
-                    .join(" ")}
-                </span>
-              </p>
-              {/* <a
+                  <span className="hashtags-colored">
+                    {item.htag
+                      .filter((item) => {
+                        return item.length >= 1;
+                      })
+                      .join(" ")}
+                  </span>
+                </p>
+                {/* <a
                 href={item.url}
                 rel="noreferrer"
                 target="_blank"
@@ -47,16 +49,63 @@ const Content = ({ filterData, loading }) => {
               >
                 {item.url}
               </a> */}
-              <div className="twitter-details">
-                <img
-                  alt="twitter"
-                  className="twitter-logo"
-                  src={twitterLogo}
-                ></img>
-                <p className="username">@{item.username}</p>
+                <div className="twitter-details">
+                  <img
+                    alt="twitter"
+                    className="twitter-logo"
+                    src={twitterLogo}
+                  ></img>
+                  <p className="username">@{item.username}</p>
+                </div>
               </div>
-            </div>
-          ))}
+            ) : (
+              <div
+                lastUserRef={lastUserRef}
+                key={index}
+                className="left-content"
+              >
+                <a
+                  href={item.url}
+                  rel="noreferrer"
+                  target="_blank"
+                  className="left-content-heading"
+                >
+                  <span className="heading-colored">
+                    {/* {item.htag[0]} {""} */}
+                  </span>
+
+                  {item.events}
+                </a>
+                <p className="hashtags">
+                  {/* {item.hashtags} */}
+
+                  <span className="hashtags-colored">
+                    {item.htag
+                      .filter((item) => {
+                        return item.length >= 1;
+                      })
+                      .join(" ")}
+                  </span>
+                </p>
+                {/* <a
+                  href={item.url}
+                  rel="noreferrer"
+                  target="_blank"
+                  className="link"
+                >
+                  {item.url}
+                </a> */}
+                <div className="twitter-details">
+                  <img
+                    alt="twitter"
+                    className="twitter-logo"
+                    src={twitterLogo}
+                  ></img>
+                  <p className="username">@{item.username}</p>
+                </div>
+              </div>
+            )
+          )}
         </div>
       )}
     </>

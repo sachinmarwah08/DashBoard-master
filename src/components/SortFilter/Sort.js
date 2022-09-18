@@ -39,6 +39,8 @@ const Sort = ({
   const wrapperRef = useRef(null);
   useOutsideAlerter(wrapperRef);
 
+  console.log(showInfluencerHashtag, inputValue, influencerdata, "sbdjhbxjbks");
+
   return (
     <div className="search-bar-filter">
       <div className="bar-search">

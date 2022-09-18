@@ -19,7 +19,7 @@ const Button = ({ selected, setSelected, options, disabled, handleChange }) => {
         onClick={disabled ? () => {} : (e) => setActive(!isActive)}
         className={`${disabled ? "dropdown-btn-disabled" : "dropdown-btn"}`}
       >
-        {selected}
+        {countryValue ? countryValue : selected}
         {/* <input type="text" onChange={onChange} value={value} /> */}
         {!isActive ? (
           <FontAwesomeIcon icon={faAngleDown} />
@@ -31,25 +31,23 @@ const Button = ({ selected, setSelected, options, disabled, handleChange }) => {
       {isActive && (
         <div className="dropdown-content-countryData">
           {options.map((option) => (
-            <div>
-              <div
-                onClick={
-                  disabled
-                    ? () => {}
-                    : (e) => {
-                        dispatch({
-                          type: SET_FILTERS,
-                          payload: { field: "countryValue", value: "" },
-                        });
-                        setSelected(option);
-                        handleChange(option);
-                        setActive(false);
-                      }
-                }
-                className="dropdown-item-countryData"
-              >
-                {option}
-              </div>
+            <div
+              onClick={
+                disabled
+                  ? () => {}
+                  : (e) => {
+                      dispatch({
+                        type: SET_FILTERS,
+                        payload: { field: "countryValue", value: "" },
+                      });
+                      setSelected(option);
+                      handleChange(option);
+                      setActive(false);
+                    }
+              }
+              className="dropdown-item-countryData"
+            >
+              {option}
             </div>
           ))}
         </div>
