@@ -81,15 +81,13 @@ const LineChartData = () => {
   const [dataForLineBarChart, setDataForLineBarChart] = useState();
   const [chooseTimeLineChartData, setChooseTimeLineChartData] = useState([]);
   const [chooseTimeBarDataState, setChooseTimeBarDataState] = useState();
+  const [countryDropBackUpData, setCountryDropBackUpData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
+  const [showDropDown, setShowDropDown] = useState(false);
 
   const navigateHome = () => {
     navigate("/");
-  };
-
-  const onCountryNameAdd = (event) => {
-    setContryNameState(event.target.value);
   };
 
   function twoDecimalPlacesIfCents(amount) {
@@ -215,6 +213,7 @@ const LineChartData = () => {
 
   const handleChange = async (option) => {
     console.log("hiiiii", chooseTime);
+    setLoading(true);
     if (contryNameState && isValue) {
       if (
         countrySelect
@@ -331,7 +330,14 @@ const LineChartData = () => {
       }
     } else if (dateValue && chooseTime) {
       // setDateValue(item.month);
-      const response = await compareTime(fromDate, toDate, selectCountry);
+      let country = selectCountry;
+      let fromDateCompareTime = "2022-05-01";
+      let toDateCompareTime = moment().format("YYYY-MM-DD");
+      const response = await compareTime(
+        fromDateCompareTime,
+        toDateCompareTime,
+        country
+      );
 
       let tempBarData = JSON.parse(JSON.stringify(chooseTimeBarData));
       console.log(response.bar_graph_data[selectCountry]);
@@ -375,7 +381,7 @@ const LineChartData = () => {
 
         for (let i = 0; i < countryData.length; i++) {
           for (let j = 0; j < tempData.length; j++) {
-            if (!equal_ids.includes(tempData[j].week)) {
+            if (!equal_ids.includes(tempData[j].MonthValue)) {
               equal_ids.push(tempData[j].week);
             }
             if (countryData[i].week === tempData[j].week) {
@@ -408,13 +414,16 @@ const LineChartData = () => {
       let country = option;
       // let fromDate = "2022-08-01";
       // let toDate = "2022-09-31";
+      let fromDateCompareTime = "2022-05-01";
+      let toDateCompareTime = moment().format("YYYY-MM-DD");
 
       const response = await compareCountry(fromDate, toDate, country);
+
       const responseComapreTime = await compareTime(
         // fromDatetime,
         // toDatetime,
-        fromDate,
-        toDate,
+        fromDateCompareTime,
+        toDateCompareTime,
         option
       );
       setChooseTimeLineChartData(responseComapreTime.line_chart_data[option]);
@@ -425,16 +434,26 @@ const LineChartData = () => {
       response.line_chart_data[country].forEach((item) => {
         item[country] = item.count;
       });
+      responseComapreTime.line_chart_data[country].forEach((item) => {
+        item[country] = item.count;
+        item["MonthName"] = getTheNameOfMonth(item.MonthValue - 1);
+      });
+      console.log(
+        "...............jkl responseComapreTime",
+        responseComapreTime.line_chart_data[country]
+      );
 
       setData(response, "Data");
       setBarChartData(response.bar_graph_data[option]);
       setLineChartData(response.line_chart_data[option]);
       setBackUpLineChartData(response.line_chart_data[option]);
+      setLoading(false);
     }
   };
 
   const onHandleCompareTimeMonthChange = async (item) => {
-    // setLoadingf(true)
+    setLoading(true);
+
     let fromDateCompareTime = "2022-05-01";
     let toDateCompareTime = moment().format("YYYY-MM-DD");
     let country = item;
@@ -528,9 +547,9 @@ const LineChartData = () => {
 
       // setBarChartData(response.bar_graph_data);
       setChooseTimeLineChartData(tempData);
-      // setLoadingf(false)
+      setLoading(false);
     } catch (error) {
-      // setLoadingf(false)
+      setLoading(false);
       toast.error("No records found in Data Lake...", {
         position: "top-right",
         autoClose: 1000,
@@ -548,18 +567,19 @@ const LineChartData = () => {
       "",
       "",
       "",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
+      "May, 2022",
+      "June, 2022",
+      "July, 2022",
+      "August, 2022",
+      "September, 2022",
+      "October, 2022",
     ];
     return months[month];
   };
 
   useEffect(() => {
     if (countryLineChartLoading) {
+      setLoading(true);
       const callApi = async () => {
         // let today = Date.now();
         // var check = moment(today);
@@ -610,14 +630,15 @@ const LineChartData = () => {
           "...............jkl responseComapreTime",
           responseComapreTime.line_chart_data[country]
         );
-        setLoading(false);
         setCountrySelect(countryDropdown);
+        setCountryDropBackUpData(countryDropdown);
         setBarChartData(response.bar_graph_data[country]);
         setLineChartData(response.line_chart_data[country]);
         setBackUpLineChartData(response.line_chart_data[country]);
         setChooseTimeLineChartData(
           responseComapreTime.line_chart_data[country]
         );
+        setLoading(false);
         dispatch({
           type: UPDATE_LOADERS,
           payload: {
@@ -633,11 +654,12 @@ const LineChartData = () => {
 
   /////////////////////////////////////////////////////////////
   useEffect(() => {
+    setLoading(true);
     const loadUsers = async () => {
-      setLoading(true);
       const countryData = await getCountryDropdownData(page);
       setCountrySelect((prev) => [...prev, ...countryData]);
     };
+    setLoading(false);
     loadUsers();
   }, [page]);
 
@@ -657,7 +679,45 @@ const LineChartData = () => {
     [loading]
   );
 
+  const onCountryNameAdd = (event) => {
+    // setShowDropDown(true);
+    setContryNameState(event.target.value);
+    // let tempCountryFilter = [...countryDropBackUpData];
+    // const countryFilter = tempCountryFilter.filter((value) => {
+    //   return value.toLowerCase().includes(contryNameState.toLowerCase());
+    // });
+    // setCountrySelect(countryFilter);
+  };
+
+  // const onCountryInputChange = async (searchValue) => {
+  //   // setLoading(true);
+  //   const countryData = await getCountryDropdownData(1, searchValue);
+  //   setCountrySelect(countryData);
+  //   setLoading(false);
+  // };
+
+  // const onDropDownClick = (value) => {
+  //   setContryNameState(value);
+  //   setShowDropDown(false);
+  // };
+
   /////////////////////////////////////////////////////////////
+
+  // const handleFilter = (event) => {
+  //   setselectCountry(event.target.value);
+  //   let tempDataDrop = [...countryDropBackUpData];
+  //   const countryFilter = tempDataDrop.filter((value) => {
+  //     return value.toLowerCase().includes(selectCountry.toLowerCase());
+  //   });
+  //   setCountrySelect(countryFilter);
+  // };
+
+  // const onCountryInputChange = async (searchValue) => {
+  //   // setLoading(true);
+  //   const countryDropData = await getCountryDropdownData(1, searchValue);
+  //   setCountrySelect(countryDropData);
+  //   setLoading(false);
+  // };
 
   return (
     <>
@@ -722,13 +782,14 @@ const LineChartData = () => {
               <div className="select-country-btn">
                 <CountryAndDateButton
                   disabled={false}
-                  // disabled={isValue}
-                  // value={inputValue}
                   options={countrySelect}
                   handleChange={handleChange}
                   selected={selectCountry}
-                  // onChange={handleFilter}
                   setSelected={setselectCountry}
+                  loading={loading}
+                  lastUserRef={lastUserRef}
+                  // onSearch={onCountryInputChange}
+                  // handleFilter={handleFilter}
                 />
               </div>
               <div className="select-date-btn">
@@ -777,6 +838,11 @@ const LineChartData = () => {
               onKeyDown={onCountryEnterPress}
               onChange={onCountryNameAdd}
               value={contryNameState}
+              options={countrySelect}
+              // lastUserRef={lastUserRef}
+              // onDropDownClick={onDropDownClick}
+              // showDropDown={showDropDown}
+              // onCountryInputChange={onCountryInputChange}
             />
           )}
 
@@ -819,7 +885,8 @@ const LineChartData = () => {
               chooseTimeLineChartData={chooseTimeLineChartData}
               chooseTimeBarDataState={chooseTimeBarDataState}
               selectCountry={selectCountry}
-              contryNameState={selectCountry}
+              contryNameState={chooseTime}
+              loading={loading}
             />
           )}
         </div>

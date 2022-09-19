@@ -1,4 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import "./TrendingHashtags.scss";
 // import sentiment from "../../Images/trendingIconOne.svg";
 import trending from "../../Images/trendingIconTwo.svg";
@@ -17,7 +23,7 @@ import {
   getHashtagDropdownData,
   getInfluencerDropdownData,
 } from "../../actions/DropDownApis";
-import { PuffLoader } from "react-spinners";
+import { BeatLoader } from "react-spinners";
 
 const TrendingHashtags = () => {
   const { state } = useContext(FilterContext);
@@ -46,10 +52,17 @@ const TrendingHashtags = () => {
   const [countryBackupdata, setCountryBackupdata] = useState([]);
   const [trendingHashtag, setTrendingHashtag] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(1);
+
+  function kFormatter(num) {
+    return Math.abs(num) > 999
+      ? Math.sign(num) * (Math.abs(num) / 1000).toFixed(1) + "k"
+      : Math.sign(num) * Math.abs(num);
+  }
 
   const onInputChange = async (e) => {
-    setInputValue(e.target.value);
     setShowInfluencerHashtag(true);
+    setInputValue(e.target.value);
     if (trendingFilter === "Filters") {
       setShowInfluencerHashtag(false);
     }
@@ -70,12 +83,34 @@ const TrendingHashtags = () => {
     setInfluencerData(newFilter);
   };
 
+  const onInfluencerInputChange = async (searchValue) => {
+    if (trendingFilter === "Country") {
+      setLoading(true);
+      const countryData = await getCountryDropdownData(1, searchValue);
+      setCountryDataDropdown(countryData);
+      setLoading(false);
+    }
+    if (trendingFilter === "Influencer") {
+      setLoading(true);
+      const influencerData = await getInfluencerDropdownData(1, searchValue);
+      setInfluencerData(influencerData);
+      setLoading(false);
+    }
+    if (trendingFilter === "Hashtag") {
+      setLoading(true);
+      const hashtagData = await getHashtagDropdownData(1, searchValue);
+      sethashtagdropdwon(hashtagData);
+      setLoading(false);
+    }
+  };
+
   const onFilterDropClick = (option) => {
     setTrendingFilter(option);
   };
 
   useEffect(() => {
     if (countryLineChartLoading) {
+      setLoading(true);
       const callApi = async () => {
         // let today = Date.now();
         // var check = moment(today);
@@ -127,6 +162,38 @@ const TrendingHashtags = () => {
     }
   }, [countryLineChartLoading]);
 
+  useEffect(() => {
+    const loadUsers = async () => {
+      // setLoading(true);
+      const countryData = await getCountryDropdownData(page);
+      setCountryDataDropdown((prev) => [...prev, ...countryData]);
+
+      const HashtagData = await getHashtagDropdownData(page);
+      sethashtagdropdwon((prev) => [...prev, ...HashtagData]);
+
+      const influencerData = await getInfluencerDropdownData(page);
+      setInfluencerData((prev) => [...prev, ...influencerData]);
+      setLoading(false);
+    };
+    loadUsers();
+  }, [page]);
+
+  const observer = useRef();
+
+  const lastUserRef = useCallback(
+    (node) => {
+      if (loading) return;
+      if (observer.current) observer.current.disconnect();
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && !inputValue) {
+          setPage((page) => page + 1);
+        }
+      });
+      if (node) observer.current.observe(node);
+    },
+    [loading]
+  );
+
   const handleChange = (index) => {
     setTotalCount(data && data.length && data[index].hashtag.count);
     setTotalConnections(data && data.length && data[index].connection);
@@ -136,6 +203,7 @@ const TrendingHashtags = () => {
   const onEnterInputClick = async (e) => {
     setShowInfluencerHashtag(false);
     if (e.key === "Enter") {
+      setLoading(true);
       let influencerTypedValue = "";
       let hashtagTypedValue = "";
       let countryTypedValue = "";
@@ -169,17 +237,31 @@ const TrendingHashtags = () => {
         hashtagTypedValue
       );
       let tempData = [...responseBubbleChart.records];
-      tempData.sort((a, b) => b.hashtag.count - a.hashtag.count);
+
+      if (!trendingFilter === "Influencer") {
+        tempData.sort((a, b) => b.hashtag.count - a.hashtag.count);
+      }
+
+      if (!trendingFilter === "Hashtag") {
+        tempData.sort((a, b) => b.hashtag.count - a.hashtag.count);
+      }
+
+      if (!trendingFilter === "Country") {
+        tempData.sort((a, b) => b.hashtag.count - a.hashtag.count);
+      }
+
       // setTotalCount(tempData);
       // setTotalConnections(tempData);
       setTrendingHashtag(tempData);
       setData(response.records);
+      setLoading(false);
     }
   };
 
   const onDropDownClick = async (val) => {
     setInputValue(val);
     setShowInfluencerHashtag(false);
+    setLoading(true);
     let influencerTypedValue = "";
     let hashtagTypedValue = "";
     let countryTypedValue = "";
@@ -205,16 +287,12 @@ const TrendingHashtags = () => {
       setHashtag(response.records[0].hashtag.htag);
     }
     setData(response.records);
+    setLoading(false);
   };
 
   return (
     <>
       <div className="trend-wrapper">
-        {/* {loading ? (
-          <div className="trendingHashtag-loader">
-            <PuffLoader color="#F05728" loading={loading} size={50} />
-          </div>
-        ) : ( */}
         <div className="content">
           <div className="heading">
             Trending Hashtags
@@ -256,6 +334,8 @@ const TrendingHashtags = () => {
             inputValue={inputValue}
             showInfluencerHashtag={showInfluencerHashtag}
             value={inputValue}
+            lastUserRef={lastUserRef}
+            onSearch={onInfluencerInputChange}
           />
           <div className="hashtags-wrapper">
             <div className="left-trending-content">
@@ -288,7 +368,13 @@ const TrendingHashtags = () => {
                   <img src={trending}></img>
                 </Tippy>
                 <span className="trending-heading">Total Use</span>
-                <span className="trending-score">{totalCount}</span>
+                {loading ? (
+                  <BeatLoader color="#F05728" loading={loading} size={10} />
+                ) : (
+                  <span className="trending-score">
+                    {kFormatter(totalCount)}
+                  </span>
+                )}
               </div>
               <div className="trending-content">
                 <Tippy
@@ -313,9 +399,14 @@ const TrendingHashtags = () => {
                 >
                   <img src={totalUse}></img>
                 </Tippy>
-
                 <span className="trending-heading">Total Connections</span>
-                <span className="trending-score">{totalConnections}</span>
+                {loading ? (
+                  <BeatLoader color="#F05728" loading={loading} size={10} />
+                ) : (
+                  <span className="trending-score">
+                    {kFormatter(totalConnections)}
+                  </span>
+                )}
               </div>
             </div>
 
@@ -324,6 +415,9 @@ const TrendingHashtags = () => {
                 trendingHashtag={trendingHashtag}
                 setTrendingHashtag={setTrendingHashtag}
                 handleChange={handleChange}
+                loading={loading}
+                setLoading={setLoading}
+                trendingFilter={trendingFilter}
               />
             </div>
           </div>
@@ -332,7 +426,6 @@ const TrendingHashtags = () => {
             usage and connections
           </p>
         </div>
-        {/* )} */}
       </div>
     </>
   );

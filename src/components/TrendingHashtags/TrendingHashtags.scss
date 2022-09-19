@@ -484,8 +484,9 @@
             justify-content: center;
             cursor: pointer;
             top: 25.8rem;
-            width: 100%;
-            left: 2.4rem;
+            width: 2rem;
+            overflow: hidden;
+            left: 1.4rem;
 
             .hashtag-title {
               font-weight: 700;
@@ -990,7 +991,8 @@
             text-align: center;
             justify-content: center;
             cursor: pointer;
-            top: 17.5rem;
+            top: 17.2rem;
+            height: 1.5rem;
             width: 3rem;
             left: 15.77rem;
             overflow: hidden;
@@ -1000,7 +1002,7 @@
               font-size: 12px;
               width: 2rem;
               // line-height: 32px;
-
+              overflow: hidden;
               text-align: center;
               letter-spacing: 0.15px;
               color: white;

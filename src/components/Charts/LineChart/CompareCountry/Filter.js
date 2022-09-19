@@ -1,4 +1,10 @@
-import React, { useContext } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import xCircle from "../../../../Images/x-circle.svg";
@@ -8,6 +14,7 @@ import "tippy.js/dist/tippy.css";
 import "tippy.js/themes/light.css";
 import "tippy.js/dist/svg-arrow.css";
 import { FilterContext } from "../../../../context/FilterContext";
+import { getCountryDropdownData } from "../../../../actions/DropDownApis";
 
 const CompareCountry = ({
   title,
@@ -20,9 +27,14 @@ const CompareCountry = ({
   onChange,
   value,
   options,
+  lastUserRef,
+  onDropDownClick,
+  showDropDown,
+  onCountryInputChange,
 }) => {
   const { state } = useContext(FilterContext);
   const { countryValue } = state.filters;
+
   return (
     <>
       <div className="Add-country">
@@ -66,6 +78,10 @@ const CompareCountry = ({
                   <input
                     type="text"
                     onKeyDown={onKeyDown}
+                    // onChange={(e) => {
+                    //   onCountryInputChange(e.target.value);
+                    //   onChange;
+                    // }}
                     onChange={onChange}
                     value={value}
                     className="contry-name"
@@ -73,11 +89,40 @@ const CompareCountry = ({
                   />
                 </Tippy>
 
-                {/* <div className="type-country-name-dropdown">
-                  {options.map((item) => (
-                    <div className="dropdown-item">{item}</div>
-                  ))}
-                </div> */}
+                {/* {addCountry && (
+                  <div className="type-country-name-dropdown">
+                    <div className="overflow-wrapper">
+                      {options.map((item, index) =>
+                        options.length === index + 1 ? (
+                          <div className="dropdown-item">
+                            <ul style={{ margin: "0", padding: "0" }}>
+                              <li
+                                onClick={() => onDropDownClick(item)}
+                                ref={lastUserRef}
+                                className="dropdown-list"
+                              >
+                                {item}
+                              </li>
+                            </ul>
+                          </div>
+                        ) : (
+                          <div className="dropdown-item">
+                            <ul style={{ margin: "0", padding: "0" }}>
+                              <li
+                                onClick={() => onDropDownClick(item)}
+                                ref={lastUserRef}
+                                style={{ listStyle: "none" }}
+                                className="dropdown-list"
+                              >
+                                {item}
+                              </li>
+                            </ul>
+                          </div>
+                        )
+                      )}
+                    </div>
+                  </div>
+                )} */}
               </div>
             </div>
           )

@@ -1,4 +1,10 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, {
+  useState,
+  useContext,
+  useEffect,
+  useRef,
+  useCallback,
+} from "react";
 import "./index.scss";
 import WorldMap from "../../../Images/earth-rc.svg";
 import Table from "../../../Images/tableIcon.svg";
@@ -22,10 +28,9 @@ import {
 import TableData from "../MapChart/Table/Table";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationArrow } from "@fortawesome/free-solid-svg-icons";
-import { PuffLoader } from "react-spinners";
+import { FadeLoader } from "react-spinners";
 
 const MapChartComponent = () => {
-  // const [wordEntered, setWordEntered] = useState();
   const mapData = ["Country", "Influencer", "Hashtag"];
   const [mapdata, setMapData] = useState("Filters");
   const [show, setShow] = useState("map");
@@ -46,6 +51,7 @@ const MapChartComponent = () => {
     /** @type google.maps.Map */ (null)
   );
   const [hideRank, setHideRank] = useState(false);
+  const [page, setPage] = useState(1);
 
   const { state } = useContext(FilterContext);
   const {
@@ -91,6 +97,27 @@ const MapChartComponent = () => {
     }
   };
 
+  const onInfluencerInputChange = async (searchValue) => {
+    if (mapdata === "Country") {
+      setLoading(true);
+      const countryData = await getCountryDropdownData(1, searchValue);
+      setCountryDataDropdown(countryData);
+      setLoading(false);
+    }
+    if (mapdata === "Influencer") {
+      setLoading(true);
+      const influencerData = await getInfluencerDropdownData(1, searchValue);
+      setInfluencerData(influencerData);
+      setLoading(false);
+    }
+    if (mapdata === "Hashtag") {
+      setLoading(true);
+      const hashtagData = await getHashtagDropdownData(1, searchValue);
+      sethashtag(hashtagData);
+      setLoading(false);
+    }
+  };
+
   const clearData = () => {
     setTableData(tableBackupData);
     setShowInfluencerHashtag(false);
@@ -101,6 +128,7 @@ const MapChartComponent = () => {
 
   useEffect(() => {
     if (countryLineChartLoading) {
+      setLoading(true);
       const callApi = async () => {
         // let today = Date.now();
         // var check = moment(today);
@@ -154,6 +182,38 @@ const MapChartComponent = () => {
     }
   }, [countryLineChartLoading]);
 
+  useEffect(() => {
+    const loadUsers = async () => {
+      // setLoading(true);
+      const countryData = await getCountryDropdownData(page);
+      setCountryDataDropdown((prev) => [...prev, ...countryData]);
+
+      const HashtagData = await getHashtagDropdownData(page);
+      sethashtag((prev) => [...prev, ...HashtagData]);
+
+      const influencerData = await getInfluencerDropdownData(page);
+      setInfluencerData((prev) => [...prev, ...influencerData]);
+      setLoading(false);
+    };
+    loadUsers();
+  }, [page]);
+
+  const observer = useRef();
+
+  const lastUserRef = useCallback(
+    (node) => {
+      if (loading) return;
+      if (observer.current) observer.current.disconnect();
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          setPage((page) => page + 1);
+        }
+      });
+      if (node) observer.current.observe(node);
+    },
+    [loading]
+  );
+
   const onFilterDropClick = (option) => {
     setMapData(option);
   };
@@ -161,9 +221,10 @@ const MapChartComponent = () => {
   const onEnterInputClick = async (e) => {
     setShowInfluencerHashtag(false);
     if (e.key === "Enter") {
+      setLoading(true);
+      let countryTypedValue = "";
       let influencerTypedValue = "";
       let hashtagTypedValue = "";
-      let countryTypedValue = "";
       if (mapdata === "Influencer") {
         influencerTypedValue = inputValue;
       }
@@ -196,15 +257,17 @@ const MapChartComponent = () => {
       setMapDataApi(tempData);
       setTableData(response.data);
       setHideRank(true);
+      setLoading(false);
     }
   };
 
   const onDropDownClick = async (val) => {
     setInputValue(val);
     setShowInfluencerHashtag(false);
+    setLoading(true);
+    let countryTypedValue = "";
     let influencerTypedValue = "";
     let hashtagTypedValue = "";
-    let countryTypedValue = "";
     if (mapdata === "Influencer") {
       influencerTypedValue = val;
     }
@@ -237,6 +300,7 @@ const MapChartComponent = () => {
 
     setMapDataApi(tempData);
     setTableData(response.data);
+    setLoading(false);
   };
 
   const handleActiveMarker = (marker) => {
@@ -332,13 +396,15 @@ const MapChartComponent = () => {
                 inputValue={inputValue}
                 showInfluencerHashtag={showInfluencerHashtag}
                 value={inputValue}
+                lastUserRef={lastUserRef}
+                onSearch={onInfluencerInputChange}
               />
             </div>
             <div className="bar-map-wrapper">
               <div className="chart-map">
                 {loading ? (
                   <div className="googleMap-loader">
-                    <PuffLoader color="#F05728" loading={loading} size={50} />
+                    <FadeLoader color="#F05728" loading={loading} size={50} />
                   </div>
                 ) : (
                   <GoogleMap
@@ -382,13 +448,15 @@ const MapChartComponent = () => {
                 showInfluencerHashtag={showInfluencerHashtag}
                 value={inputValue}
                 clearData={clearData}
+                lastUserRef={lastUserRef}
+                onSearch={onInfluencerInputChange}
               />
             </div>
             <div className="bar-map-wrapper">
               <div className="chart-map">
                 {loading ? (
                   <div className="googleMap-loader">
-                    <PuffLoader color="#F05728" loading={loading} size={50} />
+                    <FadeLoader color="#F05728" loading={loading} size={50} />
                   </div>
                 ) : (
                   <TableData tableData={tableData} hideRank={hideRank} />
@@ -398,7 +466,6 @@ const MapChartComponent = () => {
           </>
         )}
       </div>
-      {/* {show ===  && } */}
     </div>
   );
 };

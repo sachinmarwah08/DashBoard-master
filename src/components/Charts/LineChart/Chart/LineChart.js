@@ -16,7 +16,6 @@ import {
   // Bar,
 } from "recharts";
 import { FilterContext } from "../../../../context/FilterContext";
-import { BeatLoader } from "react-spinners";
 
 // import { compareCountryData, CompareTime } from "./data";
 
@@ -143,80 +142,82 @@ const Chart = ({
           )}
 
           {chooseTimeLineChartData && (
-            <p
-              style={{
-                fontSize: "20px",
-                color: "#000000",
-                fontWeight: 700,
-                marginTop: 0,
-                marginBottom: 0,
-              }}
-            >
-              {item.payload[0].payload.MonthValue}
-            </p>
-          )}
+            <>
+              <p
+                style={{
+                  fontSize: "20px",
+                  color: "#000000",
+                  fontWeight: 700,
+                  marginTop: 0,
+                  marginBottom: "0.5rem",
+                }}
+              >
+                {item.payload[0].payload.MonthName}
+              </p>
+              <div
+                style={{
+                  fontSize: "20px",
+                  color: "#000000",
+                  fontWeight: 700,
+                  gap: "25px",
+                  display: "flex",
+                  marginBottom: "0.5rem",
+                  justifyContent: "space-between",
+                }}
+              >
+                <span
+                  style={{
+                    fontSize: "20px",
+                    color: "#939596",
+                    width: "max-content",
+                  }}
+                >
+                  {countryValue ? countryValue : selectCountry}
+                </span>
+                <span
+                  style={{
+                    fontSize: "20px",
+                    color: "#F05728",
+                    width: "max-content",
+                  }}
+                >
+                  {kFormatter(item.payload[0].payload.count)}
+                </span>
+              </div>
 
-          <div
-            style={{
-              fontSize: "20px",
-              color: "#000000",
-              fontWeight: 700,
-              gap: "25px",
-              display: "flex",
-              marginBottom: "0.5rem",
-              justifyContent: "space-between",
-            }}
-          >
-            <span
-              style={{
-                fontSize: "20px",
-                color: "#939596",
-                width: "max-content",
-              }}
-            >
-              {countryValue ? countryValue : selectCountry}
-            </span>
-            <span
-              style={{
-                fontSize: "20px",
-                color: "#F05728",
-                width: "max-content",
-              }}
-            >
-              {kFormatter(item.payload[0].payload.count)}
-            </span>
-          </div>
-          {item.payload[1] && item.payload[1].payload && (
-            <div
-              style={{
-                fontSize: "20px",
-                color: "#000000",
-                fontWeight: 700,
-                gap: "25px",
-                display: "flex",
-                marginBottom: "0.5rem",
-                justifyContent: "space-between",
-              }}
-            >
-              <span
-                style={{
-                  fontSize: "20px",
-                  color: "#939596",
-                  width: "max-content",
-                }}
-              >
-                {contryNameState}
-              </span>
-              <span
-                style={{
-                  fontSize: "20px",
-                  color: "#2A00FF",
-                  width: "max-content",
-                }}
-              >
-                {twoDecimalPlacesIfCents(item.payload[1].payload.compare)}
-              </span>
-            </div>
+              {item.payload[1] && item.payload[1].payload && (
+                <div
+                  style={{
+                    fontSize: "20px",
+                    color: "#000000",
+                    fontWeight: 700,
+                    gap: "25px",
+                    display: "flex",
+                    marginBottom: "0.5rem",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <span
+                    style={{
+                      fontSize: "20px",
+                      color: "#939596",
+                      width: "max-content",
+                    }}
+                  >
+                    {contryNameState}
+                  </span>
+                  <span
+                    style={{
+                      fontSize: "20px",
+                      color: "#2A00FF",
+                      width: "max-content",
+                    }}
+                  >
+                    {kFormatter(item.payload[1].payload.compare)}
+                  </span>
+                </div>
+              )}
+            </>
           )}
         </div>
       );
@@ -295,9 +296,6 @@ const Chart = ({
           ) : (
             ""
           )}
-          <div className="trendingHashtag-loader">
-            <BeatLoader color="#F05728" loading={true} size={10} />
-          </div>
         </LineChart>
       </ResponsiveContainer>
     </div>

@@ -1,5 +1,5 @@
 import React from "react";
-import FadeLoader from "react-spinners/FadeLoader";
+import { FadeLoader, BeatLoader } from "react-spinners";
 
 const Content = ({ topInfluencerData, loading, lastUserRef }) => {
   return (
@@ -37,6 +37,7 @@ const Content = ({ topInfluencerData, loading, lastUserRef }) => {
               </div>
             )
           )}
+          {loading && <BeatLoader color="#F05728" loading={true} size={10} />}
         </div>
       )}
     </>

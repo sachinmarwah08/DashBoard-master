@@ -33,6 +33,14 @@
   // display: flex;
   // align-items: end;
 
+  .linechart-loader {
+    display: flex;
+    height: 22rem;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
   .bar-chart-line {
     width: 19%;
     margin-top: 1rem;
@@ -333,24 +341,57 @@
           }
         }
         .type-country-name-dropdown {
-          width: 100%;
-          position: absolute;
-          top: 178%;
+          z-index: 99999999;
           background-color: white;
-          height: 15rem;
           border-radius: 8px;
-          box-shadow: 0px 12px 16px -4px rgba(16, 24, 40, 0.1),
-            0px 4px 6px -2px rgba(16, 24, 40, 0.05);
-          z-index: 99;
-          overflow: auto;
+          width: 100%;
+          box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+            rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+          top: 180%;
+          left: 0%;
+          cursor: pointer;
+          max-height: 20rem;
+          overflow: hidden;
+          position: absolute;
+          animation: growDown 300ms ease-in-out forwards;
+          transform-origin: top center;
 
-          .dropdown-item {
-            padding: 1rem;
-            color: #616161;
+          @keyframes growDown {
+            0% {
+              transform: scaleY(0);
+            }
+            80% {
+              transform: scaleY(1.1);
+            }
+            100% {
+              transform: scaleY(1);
+            }
+          }
 
-            &:hover {
-              background-color: #f5f5f5;
-              cursor: pointer;
+          .overflow-wrapper {
+            height: 14rem;
+            margin: 0.3rem;
+            margin-left: 0%;
+            // overflow: scroll;
+            overflow-x: hidden;
+            .dropdown-item {
+              display: flex;
+              padding: 0.7rem;
+              font-weight: 400;
+              line-height: 24px;
+              font-size: 16px;
+              &:hover {
+                background-color: #fef5f2;
+              }
+
+              .dropdown-list {
+                list-style: none;
+                padding-left: 0.5rem;
+                color: #101828;
+                &:hover {
+                  background-color: #fef5f2;
+                }
+              }
             }
           }
         }

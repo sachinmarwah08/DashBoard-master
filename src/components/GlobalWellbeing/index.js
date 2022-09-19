@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./GlobalWellbeing.scss";
 // import moment from "moment";
 import {
@@ -46,13 +46,7 @@ const GlobalWellbeing = () => {
         // let toDateDiff = "2022-07-31";
 
         const response = await getTweetsCount(fromDate, toDate, countryValue);
-        const diffRes = await getTweetsDiff(
-          // fromDateDiff,
-          fromDate,
-          toDate,
-          // toDateDiff,
-          countryValue
-        );
+        const diffRes = await getTweetsDiff(fromDate, toDate, countryValue);
 
         setData(response.pos_neg_tweet_count);
         setAbsoluteData(diffRes);

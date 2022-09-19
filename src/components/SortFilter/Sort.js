@@ -18,6 +18,8 @@ const Sort = ({
   onDropDownClick,
   inputValue,
   showInfluencerHashtag,
+  lastUserRef,
+  onSearch,
 }) => {
   const [isActive, setIsActive] = useState(false);
 
@@ -39,8 +41,6 @@ const Sort = ({
   const wrapperRef = useRef(null);
   useOutsideAlerter(wrapperRef);
 
-  console.log(showInfluencerHashtag, inputValue, influencerdata, "sbdjhbxjbks");
-
   return (
     <div className="search-bar-filter">
       <div className="bar-search">
@@ -51,7 +51,10 @@ const Sort = ({
           className="bar-search-data"
           name="search"
           value={value}
-          onChange={onchange}
+          onChange={(e) => {
+            onSearch(e.target.value);
+            onchange(e);
+          }}
           placeholder="Search..."
           type="text"
           onKeyDown={onEnterInputClick}
@@ -59,14 +62,25 @@ const Sort = ({
         {showInfluencerHashtag && inputValue && (
           <div className="search-bar-dropdown">
             {influencerdata &&
-              influencerdata.map((item) => (
-                <div
-                  onClick={() => onDropDownClick(item)}
-                  className="dropdown-item"
-                >
-                  {item}
-                </div>
-              ))}
+              influencerdata.map((item, index) =>
+                influencerdata.length === index + 1 ? (
+                  <div
+                    ref={lastUserRef}
+                    onClick={() => onDropDownClick(item)}
+                    className="dropdown-item"
+                  >
+                    {item}
+                  </div>
+                ) : (
+                  <div
+                    ref={lastUserRef}
+                    onClick={() => onDropDownClick(item)}
+                    className="dropdown-item"
+                  >
+                    {item}
+                  </div>
+                )
+              )}
           </div>
         )}
 

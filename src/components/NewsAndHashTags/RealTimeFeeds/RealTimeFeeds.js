@@ -117,7 +117,10 @@ const RealTimeFeeds = () => {
   const handleFilter = (e) => {
     setInputValue(e.target.value);
     setShowInfluencerHashtag(true);
+    setLoading(true);
     if (realData === "Filters") {
+      setShowInfluencerHashtag(false);
+      setLoading(false);
       let tempData = [...newDataBackup];
       console.log("influencerDataBackup", newDataBackup);
       const newFilter = tempData.filter((value) => {
@@ -129,6 +132,7 @@ const RealTimeFeeds = () => {
       });
       console.log("newFilter", newFilter);
       setNewsFeed(newFilter);
+      setLoading(false);
     }
     if (realData === "Filters") {
       let tempData = [...globalBackupData];
@@ -160,6 +164,28 @@ const RealTimeFeeds = () => {
       setCountryDataDropdown(countryFilter);
       sethashtag(hashtagFilter);
       setInfluencerData(influencerFilter);
+      setLoading(false);
+    }
+  };
+
+  const onInfluencerInputChange = async (searchValue) => {
+    if (realData === "Country") {
+      // setLoading(true);
+      const countryData = await getCountryDropdownData(1, searchValue);
+      setCountryDataDropdown(countryData);
+      setLoading(false);
+    }
+    if (realData === "Influencer") {
+      // setLoading(true);
+      const influencerData = await getInfluencerDropdownData(1, searchValue);
+      setInfluencerData(influencerData);
+      setLoading(false);
+    }
+    if (realData === "Hashtag") {
+      // setLoading(true);
+      const hashtagData = await getHashtagDropdownData(1, searchValue);
+      sethashtag(hashtagData);
+      setLoading(false);
     }
   };
 
@@ -172,6 +198,7 @@ const RealTimeFeeds = () => {
 
   useEffect(() => {
     if (countryLineChartLoading) {
+      // setLoading(true)
       const callApi = async () => {
         // let today = Date.now();
         // var check = moment(today);
@@ -233,9 +260,9 @@ const RealTimeFeeds = () => {
   useEffect(() => {
     console.log("inputValue", inputValue);
     const loadUsers = async () => {
+      setLoading(true);
       let sentiment = "ALL";
       let newsSentiment = "All";
-      setLoading(true);
 
       const tweetsCountResponse = await getSocialMediaFlashes(
         fromDate,
@@ -264,6 +291,22 @@ const RealTimeFeeds = () => {
     }
   }, [page]);
 
+  useEffect(() => {
+    const loadUsers = async () => {
+      // setLoading(true);
+      const countryData = await getCountryDropdownData(page);
+      setCountryDataDropdown((prev) => [...prev, ...countryData]);
+
+      const HashtagData = await getHashtagDropdownData(page);
+      sethashtag((prev) => [...prev, ...HashtagData]);
+
+      const influencerData = await getInfluencerDropdownData(page);
+      setInfluencerData((prev) => [...prev, ...influencerData]);
+      setLoading(false);
+    };
+    loadUsers();
+  }, [page]);
+
   const observer = useRef();
   const lastUserRef = useCallback(
     (node) => {
@@ -286,8 +329,9 @@ const RealTimeFeeds = () => {
   };
 
   const onEnterInputClick = async (e) => {
-    setShowInfluencerHashtag(false);
     if (e.key === "Enter") {
+      setLoading(true);
+      setShowInfluencerHashtag(false);
       let countryTypedValue = "";
       let influencerTypedValue = "";
       let hashtagTypedValue = "";
@@ -324,11 +368,13 @@ const RealTimeFeeds = () => {
       setNewsFeed(newsCountResponse.records);
       setTweets(tweetsCountResponse.records);
       setTweetsDataBackup(tweetsCountResponse.records);
+      setLoading(false);
     }
   };
 
   const onDropDownClick = async (val) => {
     setInputValue(val);
+    setLoading(true);
     setShowInfluencerHashtag(false);
     let countryTypedValue = "";
     let influencerTypedValue = "";
@@ -366,6 +412,7 @@ const RealTimeFeeds = () => {
     setNewsFeed(newsCountResponse.records);
     setTweets(tweetsCountResponse.records);
     setTweetsDataBackup(tweetsCountResponse.records);
+    setLoading(false);
   };
 
   return (
@@ -477,6 +524,8 @@ const RealTimeFeeds = () => {
           inputValue={inputValue}
           showInfluencerHashtag={showInfluencerHashtag}
           value={inputValue}
+          lastUserRef={lastUserRef}
+          onSearch={onInfluencerInputChange}
         />
       </div>
 

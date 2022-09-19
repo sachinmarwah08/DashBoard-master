@@ -13,11 +13,7 @@ const Content = ({ filterData, loading, lastUserRef }) => {
         <div className="left-content-wrapper">
           {filterData.map((item, index) =>
             filterData.length === index + 1 ? (
-              <div
-                lastUserRef={lastUserRef}
-                key={index}
-                className="left-content"
-              >
+              <div ref={lastUserRef} key={index} className="left-content">
                 <a
                   href={item.url}
                   rel="noreferrer"
@@ -59,11 +55,7 @@ const Content = ({ filterData, loading, lastUserRef }) => {
                 </div>
               </div>
             ) : (
-              <div
-                lastUserRef={lastUserRef}
-                key={index}
-                className="left-content"
-              >
+              <div ref={lastUserRef} key={index} className="left-content">
                 <a
                   href={item.url}
                   rel="noreferrer"

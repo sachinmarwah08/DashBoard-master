@@ -4,6 +4,7 @@ import React from "react";
 // import { LineChartBarData } from "../Chart/data";
 import LineBarChart from "../Chart/LineBarChart";
 import LineChart from "../Chart/LineChart";
+import { FadeLoader } from "react-spinners";
 
 const CompareTimeLineChart = ({
   dateValue,
@@ -12,6 +13,7 @@ const CompareTimeLineChart = ({
   chooseTimeBarDataState,
   selectCountry,
   contryNameState,
+  loading,
 }) => {
   return (
     <>
@@ -26,13 +28,19 @@ const CompareTimeLineChart = ({
             dateValue ? "line-chart-bar" : "line-chart-bar-condition"
           }`}
         >
-          <LineChart
-            dateValue={dateValue}
-            compareTimeActive={compareTimeActive}
-            chooseTimeLineChartData={chooseTimeLineChartData}
-            selectCountry={selectCountry}
-            contryNameState={contryNameState}
-          />
+          {loading ? (
+            <div className="linechart-loader">
+              <FadeLoader color="#F05728" loading={loading} size={50} />
+            </div>
+          ) : (
+            <LineChart
+              dateValue={dateValue}
+              compareTimeActive={compareTimeActive}
+              chooseTimeLineChartData={chooseTimeLineChartData}
+              selectCountry={selectCountry}
+              contryNameState={contryNameState}
+            />
+          )}
         </div>
       )}
     </>

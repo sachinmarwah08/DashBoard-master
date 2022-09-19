@@ -1,10 +1,16 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import "./BarChart.scss";
 import Sort from "../../SortFilter/Sort";
 // import shareIcon from "../../../Images/share-2.svg";
 // import TopBottomButton from "../../TopBottomButton/TopBottomButton";
 import { getBarData } from "../../../actions/BarChartApis";
-import { PuffLoader } from "react-spinners";
+import { FadeLoader } from "react-spinners";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
 import "tippy.js/themes/light.css";
@@ -42,6 +48,7 @@ const BarChartComponent = () => {
   const [hashtag, sethashtag] = useState([]);
   const [showInfluencerHashtag, setShowInfluencerHashtag] = useState(false);
   const [barBackupData, setBarBackupData] = useState([]);
+  const [page, setPage] = useState(1);
 
   // const handleChange = (value) => {
   //   setHeading(value);
@@ -49,7 +56,11 @@ const BarChartComponent = () => {
 
   const onInputChange = async (e) => {
     setInputValue(e.target.value);
+    setLoading(true);
     setShowInfluencerHashtag(true);
+    if (bardataFilterDrop === "Filters") {
+      setShowInfluencerHashtag(false);
+    }
     let tempData = [...influencerBackupdata];
     let tempHasgtagData = [...hashtagBackupdata];
     const newFilter = tempData.filter((value) => {
@@ -58,60 +69,116 @@ const BarChartComponent = () => {
     const hashtagFilter = tempHasgtagData.filter((value) => {
       return value.toLowerCase().includes(inputValue.toLowerCase());
     });
+
     sethashtag(hashtagFilter);
     setInfluencerData(newFilter);
+    setLoading(false);
+  };
+
+  const onInfluencerInputChange = async (searchValue) => {
+    if (bardataFilterDrop === "Influencer") {
+      setLoading(true);
+      const influencerData = await getInfluencerDropdownData(1, searchValue);
+      setInfluencerData(influencerData);
+      setLoading(false);
+    }
+    if (bardataFilterDrop === "Hashtag") {
+      setLoading(true);
+      const hashtagData = await getHashtagDropdownData(1, searchValue);
+      sethashtag(hashtagData);
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
-    if (countryLineChartLoading) {
-      const callApi = async (val) => {
-        // let today = Date.now();
-        // var check = moment(today);
-        // var month = check.format("M");
-        // var day = check.format("D");
-        // var year = check.format("YYYY");
-        // let fromDate = `${year}-${month}-01`;
-        // let toDate = `${year}-${month}-${day}`;
-        // console.log(month, day, year);
+    // if (countryLineChartLoading) {
+    setLoading(true);
+    const callApi = async (val) => {
+      // let today = Date.now();
+      // var check = moment(today);
+      // var month = check.format("M");
+      // var day = check.format("D");
+      // var year = check.format("YYYY");
+      // let fromDate = `${year}-${month}-01`;
+      // let toDate = `${year}-${month}-${day}`;
+      // console.log(month, day, year);
 
-        // let fromDate = "2022-06-01";
-        // let toDate = "2022-07-31";
-        // let country = "United States";
-        let order = "des";
+      // let fromDate = "2022-06-01";
+      // let toDate = "2022-07-31";
+      // let country = "United States";
+      let order = "des";
+      let c = false;
 
-        const response = await getBarData(
-          fromDate,
-          toDate,
-          countryValue,
-          influencerValue,
-          hashtagValue,
-          order
-        );
-        const getInfluenser = await getInfluencerDropdownData();
-        const hashtagDataResponse = await getHashtagDropdownData();
+      const response = await getBarData(
+        fromDate,
+        toDate,
+        countryValue,
+        influencerValue,
+        hashtagValue,
+        order,
+        c
+      );
+      const getInfluenser = await getInfluencerDropdownData();
+      const hashtagDataResponse = await getHashtagDropdownData();
 
-        let tempData = [];
+      let tempData = [];
 
-        for (let i = 0; i < response.data.length; i++) {
-          tempData.push({
-            name: response.data[i]._id,
-            pv: response.data[i].count,
-            happy: response.data[i].happy,
-            sad_per: response.data[i].sad_per,
-          });
+      for (let i = 0; i < response.data.length; i++) {
+        tempData.push({
+          name: response.data[i]._id,
+          pv: response.data[i].count,
+          happy: response.data[i].happy,
+          sad_per: response.data[i].sad_per,
+        });
+      }
+
+      setInfluencerData(getInfluenser);
+      setInfluencerBackupdata(getInfluenser);
+      sethashtag(hashtagDataResponse);
+      setHashtagBackupdata(hashtagDataResponse);
+      setData(tempData);
+      setBarBackupData(tempData);
+      setLoading(false);
+    };
+    callApi();
+    // }
+  }, []);
+
+  useEffect(() => {
+    const loadUsers = async () => {
+      // setLoading(true);
+      const HashtagData = await getHashtagDropdownData(page);
+      sethashtag((prev) => [...prev, ...HashtagData]);
+
+      const influencerData = await getInfluencerDropdownData(page);
+      setInfluencerData((prev) => [...prev, ...influencerData]);
+      setLoading(false);
+    };
+    loadUsers();
+  }, [page]);
+
+  const observer = useRef();
+
+  const lastUserRef = useCallback(
+    (node) => {
+      if (loading) return;
+      if (observer.current) observer.current.disconnect();
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          setPage((page) => page + 1);
         }
+      });
+      if (node) observer.current.observe(node);
+    },
+    [loading]
+  );
 
-        setInfluencerData(getInfluenser);
-        setInfluencerBackupdata(getInfluenser);
-        sethashtag(hashtagDataResponse);
-        setHashtagBackupdata(hashtagDataResponse);
-        setData(tempData);
-        setBarBackupData(tempData);
-        setLoading(false);
-      };
-      callApi();
-    }
-  }, [countryLineChartLoading]);
+  // const onHashtagInputChange = async (searchValue) => {
+  //   setLoading(true);
+  //   const hashtagData = await getHashtagDropdownData(1, searchValue);
+  //   sethashtag(hashtagData);
+  //   setLoading(false);
+  // };
 
   const onFilterDropClick = (option) => {
     setBardataFilterDrop(option);
@@ -158,6 +225,7 @@ const BarChartComponent = () => {
   const onEnterInputClick = async (e) => {
     setShowInfluencerHashtag(false);
     if (e.key === "Enter") {
+      setLoading(true);
       let influencerTypedValue = "";
       let hashtagTypedValue = "";
       if (bardataFilterDrop === "Influencer") {
@@ -190,12 +258,14 @@ const BarChartComponent = () => {
       }
 
       setData(tempData);
+      setLoading(false);
     }
   };
 
   const onDropDownClick = async (val) => {
     setInputValue(val);
     setShowInfluencerHashtag(false);
+    setLoading(true);
     let influencerTypedValue = "";
     let hashtagTypedValue = "";
     if (bardataFilterDrop === "Influencer") {
@@ -224,6 +294,7 @@ const BarChartComponent = () => {
     }
 
     setData(tempData);
+    setLoading(false);
   };
 
   const clearData = () => {
@@ -254,11 +325,11 @@ const BarChartComponent = () => {
                     <p style={{ fontWeight: 600, marginTop: 0 }}>
                       Countries Wellbeing Analysis
                     </p>
-                    The analysis of the top 10 and bottom 10 countries according
-                    to their wellbeing index scores is shown in this widget. To
-                    quantify a country's wellbeing on a numerical scale,
-                    wellbeing positive and negative percentages are calculated
-                    for each country.
+                    The analysis of the top 10 countries according to their
+                    wellbeing index scores is shown in this widget. To quantify
+                    a country's wellbeing on a numerical scale, wellbeing
+                    positive and negative percentages are calculated for each
+                    country.
                   </div>
                 }
               >
@@ -298,6 +369,8 @@ const BarChartComponent = () => {
             inputValue={inputValue}
             showInfluencerHashtag={showInfluencerHashtag}
             value={inputValue}
+            lastUserRef={lastUserRef}
+            onSearch={onInfluencerInputChange}
           />
           {/* </div> */}
         </div>
@@ -305,7 +378,7 @@ const BarChartComponent = () => {
           <div className="chart-bar">
             {loading ? (
               <div className="bar-loader">
-                <PuffLoader color="#F05728" loading={loading} size={50} />
+                <FadeLoader color="#F05728" loading={loading} size={50} />
               </div>
             ) : data.length === 0 ? (
               ""

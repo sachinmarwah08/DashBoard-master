@@ -3,7 +3,7 @@ import React from "react";
 // import Highcharts from "highcharts";
 // import { LineChartBarData } from "../Chart/data";
 import LineChart from "../Chart/LineChart";
-import { PuffLoader } from "react-spinners";
+import { FadeLoader } from "react-spinners";
 
 const CompareCountryLineChart = ({
   isValue,
@@ -34,7 +34,7 @@ const CompareCountryLineChart = ({
         >
           {loading ? (
             <div className="lineChart-loader">
-              <PuffLoader color="#F05728" loading={loading} size={50} />
+              <FadeLoader color="#F05728" loading={loading} size={50} />
             </div>
           ) : (
             <LineChart
