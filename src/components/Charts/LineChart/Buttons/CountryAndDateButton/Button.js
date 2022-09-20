@@ -14,7 +14,7 @@ const Button = ({
   handleChange,
   lastUserRef,
   loading,
-  handleFilter,
+  onAddCountry,
   inputValue,
   onSearch,
 }) => {
@@ -36,7 +36,7 @@ const Button = ({
           type="text"
           onChange={(e) => {
             onSearch(e.target.value);
-            handleFilter(e);
+            handleChange(e);
           }}
           value={countryValue ? countryValue : selected}
         /> */}

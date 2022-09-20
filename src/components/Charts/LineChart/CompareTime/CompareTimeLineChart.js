@@ -17,11 +17,11 @@ const CompareTimeLineChart = ({
 }) => {
   return (
     <>
-      {dateValue && (
+      {/* {dateValue && (
         <div className="bar-chart-line">
           <LineBarChart />
         </div>
-      )}
+      )} */}
       {compareTimeActive && (
         <div
           className={`${

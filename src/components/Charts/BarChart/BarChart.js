@@ -103,9 +103,6 @@ const BarChartComponent = () => {
       // let toDate = `${year}-${month}-${day}`;
       // console.log(month, day, year);
 
-      // let fromDate = "2022-06-01";
-      // let toDate = "2022-07-31";
-      // let country = "United States";
       let order = "des";
       let c = false;
 
@@ -172,13 +169,6 @@ const BarChartComponent = () => {
     },
     [loading]
   );
-
-  // const onHashtagInputChange = async (searchValue) => {
-  //   setLoading(true);
-  //   const hashtagData = await getHashtagDropdownData(1, searchValue);
-  //   sethashtag(hashtagData);
-  //   setLoading(false);
-  // };
 
   const onFilterDropClick = (option) => {
     setBardataFilterDrop(option);
