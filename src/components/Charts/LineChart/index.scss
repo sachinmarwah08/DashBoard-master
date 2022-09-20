@@ -30,8 +30,16 @@
 
 .chart {
   width: auto;
-  // display: flex;
-  // align-items: end;
+  display: flex;
+  align-items: center;
+
+  .line-chart-bar {
+    width: 80%;
+  }
+
+  .line-chart-bar-condition {
+    width: 100%;
+  }
 
   .linechart-loader {
     display: flex;
@@ -42,23 +50,14 @@
   }
 
   .bar-chart-line {
-    width: 19%;
+    width: 25%;
     margin-top: 1rem;
     display: flex;
-    margin-bottom: 3rem;
     justify-content: center;
 
     @media (max-width: 1440px) {
       margin-top: 0rem;
     }
-  }
-
-  // .line-chart-bar {
-  //   width: 85%;
-  //   margin-left: -3rem;
-  // }
-  .line-chart-bar-condition {
-    width: 100%;
   }
 
   .lineChart-loader {

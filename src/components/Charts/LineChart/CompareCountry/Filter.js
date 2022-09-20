@@ -80,8 +80,9 @@ const CompareCountry = ({
                     onKeyDown={onKeyDown}
                     // onChange={(e) => {
                     //   onCountryInputChange(e.target.value);
-                    //   onChange;
+                    //   onChange(e);
                     // }}
+                    style={{ fontFamily: "Work-Sans" }}
                     onChange={onChange}
                     value={value}
                     className="contry-name"
@@ -89,27 +90,28 @@ const CompareCountry = ({
                   />
                 </Tippy>
 
-                {/* {addCountry && (
+                {addCountry && showDropDown && (
                   <div className="type-country-name-dropdown">
                     <div className="overflow-wrapper">
                       {options.map((item, index) =>
                         options.length === index + 1 ? (
-                          <div className="dropdown-item">
+                          <div
+                            onClick={() => onDropDownClick(item)}
+                            className="dropdown-item"
+                          >
                             <ul style={{ margin: "0", padding: "0" }}>
-                              <li
-                                onClick={() => onDropDownClick(item)}
-                                ref={lastUserRef}
-                                className="dropdown-list"
-                              >
+                              <li ref={lastUserRef} className="dropdown-list">
                                 {item}
                               </li>
                             </ul>
                           </div>
                         ) : (
-                          <div className="dropdown-item">
+                          <div
+                            onClick={() => onDropDownClick(item)}
+                            className="dropdown-item"
+                          >
                             <ul style={{ margin: "0", padding: "0" }}>
                               <li
-                                onClick={() => onDropDownClick(item)}
                                 ref={lastUserRef}
                                 style={{ listStyle: "none" }}
                                 className="dropdown-list"
@@ -122,7 +124,7 @@ const CompareCountry = ({
                       )}
                     </div>
                   </div>
-                )} */}
+                )}
               </div>
             </div>
           )

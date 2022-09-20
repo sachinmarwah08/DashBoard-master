@@ -30,7 +30,7 @@ const barColors = ["#F05728", "#2A00FF"];
 
 const LineBarChart = () => {
   return (
-    <div style={{ width: " 10%", height: "30vh" }}>
+    <div style={{ width: "8rem", height: "12rem" }}>
       <ResponsiveContainer width="100%" height="100%" aspect="auto">
         <BarChart
           barCategoryGap={-0.0}

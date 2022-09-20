@@ -66,7 +66,7 @@ const MapChartComponent = () => {
 
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
-    googleMapsApiKey: "AIzaSyBjcLIeVQ02aYHchflfqslJz_9NPLYfNP0", // Add your API key
+    googleMapsApiKey: "AIzaSyDJqhd2TL6DayrN8E5GiqZqrjnmtrq45hU", // Add your API key
   });
 
   const onInputChange = async (e) => {

@@ -4,6 +4,7 @@ import React from "react";
 // import { LineChartBarData } from "../Chart/data";
 import LineChart from "../Chart/LineChart";
 import { FadeLoader } from "react-spinners";
+import LineBarChart from "../Chart/LineBarChart";
 
 const CompareCountryLineChart = ({
   isValue,
@@ -15,17 +16,14 @@ const CompareCountryLineChart = ({
   contryNameState,
   loading,
 }) => {
-  // console.log(dataForLineBarChart, "linebAr");
+  console.log(dataForLineBarChart, "linebAr");
   return (
     <>
-      {/* {isValue && (
+      {isValue && (
         <div className="bar-chart-line">
-          <HighchartsReact
-            highcharts={Highcharts}
-            options={dataForLineBarChart}
-          />
+          <LineBarChart data={dataForLineBarChart} />
         </div>
-      )} */}
+      )}
       {compareCountryActive && (
         <div
           className={`${

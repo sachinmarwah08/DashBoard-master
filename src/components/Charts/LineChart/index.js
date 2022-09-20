@@ -20,7 +20,7 @@ import CompareTime from "./CompareTime/Filter";
 import CompareCountryLineChart from "./CompareCountry/CompareCountryLineChart";
 import CompareTimeLineChart from "./CompareTime/CompareTimeLineChart";
 import { compareCountry, compareTime } from "../../../actions/LineChartApis";
-import { chooseTimeBarData, LineChartBarData } from "./Chart/data";
+// import { chooseTimeBarData, LineChartBarData } from "./Chart/data";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 // import moment from "moment";
@@ -102,38 +102,37 @@ const LineChartData = () => {
           .includes(e.target.value.toLowerCase())
       ) {
         setIsValue(true);
-        // let fromDate = "2022-07-01";
-        // let toDate = "2022-07-31";
+
         let country = e.target.value;
         try {
           const response = await compareCountry(fromDate, toDate, country);
 
-          let tempBarData = JSON.parse(JSON.stringify(LineChartBarData));
-          console.log(response.bar_graph_data[country]);
-          if (
-            response &&
-            response.bar_graph_data &&
-            response.bar_graph_data[country]
-          ) {
-            tempBarData.series[0].data[0].y =
-              response.bar_graph_data[country].happy;
-            tempBarData.tooltip.headerFormat = `<strong><span style="color:#212121; font-size: 16px;">{point.key}</span></strong><br>`;
-            tempBarData.tooltip.pointFormat = `{series.name}: <strong><span  style="color:#F05728">{point.y}</span></strong><br><span style="color:#212121">Positive:<span> <strong><span style="color:#F05728">${twoDecimalPlacesIfCents(
-              response.bar_graph_data[country].happy
-            )}%</span></strong><br/>Negative: <strong><span style="color:#F05728">${twoDecimalPlacesIfCents(
-              response.bar_graph_data[country].sad
-            )}%</span></strong>`;
-          }
-          if (barChartData) {
-            tempBarData.series[0].data[1].y = barChartData.happy;
-            tempBarData.tooltip.pointFormat = `</span></strong><br><span style="color:#212121">Positive:<span> <strong><span style="color:#F05728">${twoDecimalPlacesIfCents(
-              barChartData.happy
-            )}%</span></strong><br/>Negative: <strong><span style="color:#F05728">${twoDecimalPlacesIfCents(
-              barChartData.sad
-            )}%</span></strong>`;
-          }
+          // let tempBarData = JSON.parse(JSON.stringify(LineChartBarData));
+          // console.log(response.bar_graph_data[country]);
+          // if (
+          //   response &&
+          //   response.bar_graph_data &&
+          //   response.bar_graph_data[country]
+          // ) {
+          //   tempBarData.series[0].data[0].y =
+          //     response.bar_graph_data[country].happy;
+          //   tempBarData.tooltip.headerFormat = `<strong><span style="color:#212121; font-size: 16px;">{point.key}</span></strong><br>`;
+          //   tempBarData.tooltip.pointFormat = `{series.name}: <strong><span  style="color:#F05728">{point.y}</span></strong><br><span style="color:#212121">Positive:<span> <strong><span style="color:#F05728">${twoDecimalPlacesIfCents(
+          //     response.bar_graph_data[country].happy
+          //   )}%</span></strong><br/>Negative: <strong><span style="color:#F05728">${twoDecimalPlacesIfCents(
+          //     response.bar_graph_data[country].sad
+          //   )}%</span></strong>`;
+          // }
+          // if (barChartData) {
+          //   tempBarData.series[0].data[1].y = barChartData.happy;
+          //   tempBarData.tooltip.pointFormat = `</span></strong><br><span style="color:#212121">Positive:<span> <strong><span style="color:#F05728">${twoDecimalPlacesIfCents(
+          //     barChartData.happy
+          //   )}%</span></strong><br/>Negative: <strong><span style="color:#F05728">${twoDecimalPlacesIfCents(
+          //     barChartData.sad
+          //   )}%</span></strong>`;
+          // }
 
-          setDataForLineBarChart(tempBarData);
+          // setDataForLineBarChart(tempBarData);
 
           let tempData = [...LineChartData];
           for (let i = 0; i < tempData.length; i++) {
@@ -228,37 +227,37 @@ const LineChartData = () => {
           const dropResponse = await compareCountry(fromDate, toDate, option);
           const response = await compareCountry(fromDate, toDate, country);
 
-          let tempBarData = JSON.parse(JSON.stringify(LineChartBarData));
-          console.log(response.bar_graph_data[country]);
-          if (
-            response &&
-            response.bar_graph_data &&
-            response.bar_graph_data[country]
-          ) {
-            tempBarData.series[0].data[0].y =
-              response.bar_graph_data[country].happy;
-            tempBarData.tooltip.headerFormat = `<strong><span style="color:#212121; font-size: 16px;">{point.key}</span></strong><br>`;
-            tempBarData.tooltip.pointFormat = `{series.name}: <strong><span  style="color:#F05728">{point.y}</span></strong><br><span style="color:#212121">Positive:<span> <strong><span style="color:#F05728">${twoDecimalPlacesIfCents(
-              response.bar_graph_data[country].happy
-            )}%</span></strong><br/>Negative: <strong><span style="color:#F05728">${twoDecimalPlacesIfCents(
-              response.bar_graph_data[country].sad
-            )}%</span></strong>`;
-          }
-          if (
-            dropResponse &&
-            dropResponse.bar_graph_data &&
-            dropResponse.bar_graph_data[country]
-          ) {
-            tempBarData.series[0].data[1].y =
-              dropResponse.bar_graph_data[option].happy;
-            tempBarData.tooltip.pointFormat = `</span></strong><br><span style="color:#212121">Positive:<span> <strong><span style="color:#F05728">${twoDecimalPlacesIfCents(
-              dropResponse.bar_graph_data[option].happy
-            )}%</span></strong><br/>Negative: <strong><span style="color:#F05728">${twoDecimalPlacesIfCents(
-              dropResponse.bar_graph_data[option].sad
-            )}%</span></strong>`;
-          }
+          // let tempBarData = JSON.parse(JSON.stringify(LineChartBarData));
+          // console.log(response.bar_graph_data[country]);
+          // if (
+          //   response &&
+          //   response.bar_graph_data &&
+          //   response.bar_graph_data[country]
+          // ) {
+          //   tempBarData.series[0].data[0].y =
+          //     response.bar_graph_data[country].happy;
+          //   tempBarData.tooltip.headerFormat = `<strong><span style="color:#212121; font-size: 16px;">{point.key}</span></strong><br>`;
+          //   tempBarData.tooltip.pointFormat = `{series.name}: <strong><span  style="color:#F05728">{point.y}</span></strong><br><span style="color:#212121">Positive:<span> <strong><span style="color:#F05728">${twoDecimalPlacesIfCents(
+          //     response.bar_graph_data[country].happy
+          //   )}%</span></strong><br/>Negative: <strong><span style="color:#F05728">${twoDecimalPlacesIfCents(
+          //     response.bar_graph_data[country].sad
+          //   )}%</span></strong>`;
+          // }
+          // if (
+          //   dropResponse &&
+          //   dropResponse.bar_graph_data &&
+          //   dropResponse.bar_graph_data[country]
+          // ) {
+          //   tempBarData.series[0].data[1].y =
+          //     dropResponse.bar_graph_data[option].happy;
+          //   tempBarData.tooltip.pointFormat = `</span></strong><br><span style="color:#212121">Positive:<span> <strong><span style="color:#F05728">${twoDecimalPlacesIfCents(
+          //     dropResponse.bar_graph_data[option].happy
+          //   )}%</span></strong><br/>Negative: <strong><span style="color:#F05728">${twoDecimalPlacesIfCents(
+          //     dropResponse.bar_graph_data[option].sad
+          //   )}%</span></strong>`;
+          // }
 
-          setDataForLineBarChart(tempBarData);
+          // setDataForLineBarChart(tempBarData);
 
           let tempData = [...dropResponse.line_chart_data[option]];
           for (let i = 0; i < tempData.length; i++) {
@@ -339,31 +338,31 @@ const LineChartData = () => {
         country
       );
 
-      let tempBarData = JSON.parse(JSON.stringify(chooseTimeBarData));
-      console.log(response.bar_graph_data[selectCountry]);
-      if (
-        response &&
-        response.bar_graph_data &&
-        response.bar_graph_data[selectCountry]
-      ) {
-        tempBarData.series[0].data[0].y =
-          response.bar_graph_data[selectCountry].happy;
-        // tempData.tooltip.headerFormat = `<strong><span style="color:#212121; font-size: 16px;">{point.key}</span></strong><br>`;
-        // tempData.tooltip.pointFormat = `</strong><br><span style="color:#212121">Positive:<span> <strong><span style="color:#F05728">${parseFloat(
-        //   response.bar_graph_data[selectCountry].happy
-        // ).toFixed(
-        //   2
-        // )}%</span></strong><br/>Negative: <strong><span style="color:#F05728">${parseFloat(
-        //   response.bar_graph_data[selectCountry].sad
-        // ).toFixed(2)}%</span></strong>`;
-      }
-      if (barChartData) {
-        tempBarData.series[0].data[1].y = barChartData.happy;
-        // tempData.tooltip.pointFormat = `</strong><br/>Happy: <strong>${response.data[i].happy}</strong><br/>Sad: <strong>${response.data[i].sad_per}</strong>`;
-        // }
-      }
+      // let tempBarData = JSON.parse(JSON.stringify(chooseTimeBarData));
+      // console.log(response.bar_graph_data[selectCountry]);
+      // if (
+      //   response &&
+      //   response.bar_graph_data &&
+      //   response.bar_graph_data[selectCountry]
+      // ) {
+      //   tempBarData.series[0].data[0].y =
+      //     response.bar_graph_data[selectCountry].happy;
+      //   // tempData.tooltip.headerFormat = `<strong><span style="color:#212121; font-size: 16px;">{point.key}</span></strong><br>`;
+      //   // tempData.tooltip.pointFormat = `</strong><br><span style="color:#212121">Positive:<span> <strong><span style="color:#F05728">${parseFloat(
+      //   //   response.bar_graph_data[selectCountry].happy
+      //   // ).toFixed(
+      //   //   2
+      //   // )}%</span></strong><br/>Negative: <strong><span style="color:#F05728">${parseFloat(
+      //   //   response.bar_graph_data[selectCountry].sad
+      //   // ).toFixed(2)}%</span></strong>`;
+      // }
+      // if (barChartData) {
+      //   tempBarData.series[0].data[1].y = barChartData.happy;
+      //   // tempData.tooltip.pointFormat = `</strong><br/>Happy: <strong>${response.data[i].happy}</strong><br/>Sad: <strong>${response.data[i].sad_per}</strong>`;
+      //   // }
+      // }
 
-      setChooseTimeBarDataState(tempBarData);
+      // setChooseTimeBarDataState(tempBarData);
 
       let tempData = [...chooseTimeLineChartData];
       for (let i = 0; i < tempData.length; i++) {
@@ -464,34 +463,34 @@ const LineChartData = () => {
         // toDate,
         fromDateCompareTime,
         toDateCompareTime,
-        item
+        country
       );
 
-      let tempBarData = JSON.parse(JSON.stringify(chooseTimeBarData));
-      console.log(response.bar_graph_data[selectCountry]);
-      if (
-        response &&
-        response.bar_graph_data &&
-        response.bar_graph_data[selectCountry]
-      ) {
-        tempBarData.series[0].data[0].y =
-          response.bar_graph_data[selectCountry].happy;
-        // tempData.tooltip.headerFormat = `<strong><span style="color:#212121; font-size: 16px;">{point.key}</span></strong><br>`;
-        // tempData.tooltip.pointFormat = `</strong><br><span style="color:#212121">Positive:<span> <strong><span style="color:#F05728">${parseFloat(
-        //   response.bar_graph_data[selectCountry].happy
-        // ).toFixed(
-        //   2
-        // )}%</span></strong><br/>Negative: <strong><span style="color:#F05728">${parseFloat(
-        //   response.bar_graph_data[selectCountry].sad
-        // ).toFixed(2)}%</span></strong>`;
-      }
-      if (barChartData) {
-        tempBarData.series[0].data[1].y = barChartData.happy;
-        // tempData.tooltip.pointFormat = `</strong><br/>Happy: <strong>${response.data[i].happy}</strong><br/>Sad: <strong>${response.data[i].sad_per}</strong>`;
-        // }
-      }
+      // let tempBarData = JSON.parse(JSON.stringify(chooseTimeBarData));
+      // console.log(response.bar_graph_data[selectCountry]);
+      // if (
+      //   response &&
+      //   response.bar_graph_data &&
+      //   response.bar_graph_data[selectCountry]
+      // ) {
+      //   tempBarData.series[0].data[0].y =
+      //     response.bar_graph_data[selectCountry].happy;
+      //   // tempData.tooltip.headerFormat = `<strong><span style="color:#212121; font-size: 16px;">{point.key}</span></strong><br>`;
+      //   // tempData.tooltip.pointFormat = `</strong><br><span style="color:#212121">Positive:<span> <strong><span style="color:#F05728">${parseFloat(
+      //   //   response.bar_graph_data[selectCountry].happy
+      //   // ).toFixed(
+      //   //   2
+      //   // )}%</span></strong><br/>Negative: <strong><span style="color:#F05728">${parseFloat(
+      //   //   response.bar_graph_data[selectCountry].sad
+      //   // ).toFixed(2)}%</span></strong>`;
+      // }
+      // if (barChartData) {
+      //   tempBarData.series[0].data[1].y = barChartData.happy;
+      //   // tempData.tooltip.pointFormat = `</strong><br/>Happy: <strong>${response.data[i].happy}</strong><br/>Sad: <strong>${response.data[i].sad_per}</strong>`;
+      //   // }
+      // }
 
-      setChooseTimeBarDataState(tempBarData);
+      // setChooseTimeBarDataState(tempBarData);
 
       let tempData = [...chooseTimeLineChartData];
       console.log("initial world tempData", tempData);
@@ -680,14 +679,26 @@ const LineChartData = () => {
   );
 
   const onCountryNameAdd = (event) => {
-    // setShowDropDown(true);
+    //   setShowDropDown(true);
     setContryNameState(event.target.value);
-    // let tempCountryFilter = [...countryDropBackUpData];
-    // const countryFilter = tempCountryFilter.filter((value) => {
-    //   return value.toLowerCase().includes(contryNameState.toLowerCase());
-    // });
-    // setCountrySelect(countryFilter);
+    //   let tempCountryFilter = [...countryDropBackUpData];
+    //   const countryFilter = tempCountryFilter.filter((value) => {
+    //     return value.toLowerCase().includes(contryNameState.toLowerCase());
+    //   });
+    //   setCountrySelect(countryFilter);
   };
+
+  // const [inputValue, setInputValue] = useState("");
+
+  // const onAddCountry = (event) => {
+  //   setShowDropDown(true);
+  //   setInputValue(event.target.value);
+  //   let tempCountryFilter = [...countryDropBackUpData];
+  //   const countryFilter = tempCountryFilter.filter((value) => {
+  //     return value.toLowerCase().includes(inputValue.toLowerCase());
+  //   });
+  //   setCountrySelect(countryFilter);
+  // };
 
   // const onCountryInputChange = async (searchValue) => {
   //   // setLoading(true);
@@ -699,24 +710,6 @@ const LineChartData = () => {
   // const onDropDownClick = (value) => {
   //   setContryNameState(value);
   //   setShowDropDown(false);
-  // };
-
-  /////////////////////////////////////////////////////////////
-
-  // const handleFilter = (event) => {
-  //   setselectCountry(event.target.value);
-  //   let tempDataDrop = [...countryDropBackUpData];
-  //   const countryFilter = tempDataDrop.filter((value) => {
-  //     return value.toLowerCase().includes(selectCountry.toLowerCase());
-  //   });
-  //   setCountrySelect(countryFilter);
-  // };
-
-  // const onCountryInputChange = async (searchValue) => {
-  //   // setLoading(true);
-  //   const countryDropData = await getCountryDropdownData(1, searchValue);
-  //   setCountrySelect(countryDropData);
-  //   setLoading(false);
   // };
 
   return (
@@ -788,8 +781,6 @@ const LineChartData = () => {
                   setSelected={setselectCountry}
                   loading={loading}
                   lastUserRef={lastUserRef}
-                  // onSearch={onCountryInputChange}
-                  // handleFilter={handleFilter}
                 />
               </div>
               <div className="select-date-btn">
@@ -885,7 +876,7 @@ const LineChartData = () => {
               chooseTimeLineChartData={chooseTimeLineChartData}
               chooseTimeBarDataState={chooseTimeBarDataState}
               selectCountry={selectCountry}
-              contryNameState={chooseTime}
+              contryNameState={dateValue}
               loading={loading}
             />
           )}

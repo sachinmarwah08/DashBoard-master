@@ -58,8 +58,6 @@ const TopInfluencer = () => {
   const handleRadioChange = async (value) => {
     setLoading(true);
     // const persentile = localStorage.getItem("persentile");
-    // let fromDate = "2022-07-01";
-    // let toDate = "2022-07-31";
     let countryTypedValue = "";
     let influencerTypedValue = "";
     let hashtagTypedValue = "";
@@ -122,7 +120,7 @@ const TopInfluencer = () => {
       setCountryDataDropdown(countryFilter);
       sethashtag(hashtagFilter);
       setInfluencerData(influencerFilter);
-      // setLoading(false);
+      setLoading(false);
     }
   };
 
@@ -152,6 +150,7 @@ const TopInfluencer = () => {
     setGetInfluencersData(globalBackupData);
     setInfluencerCountData(influencerCountDataBackup);
     setInputValue("");
+    showInfluencerHashtag(false);
   };
 
   useEffect(() => {
@@ -167,11 +166,6 @@ const TopInfluencer = () => {
         // let toDate = `${year}-${month}-${day}`;
         // console.log(month, day, year);
 
-        // let influencerCountFromDate = "2022-07-01";
-        // let influencerCountToDate = "2022-07-31";
-
-        // let fromDate = "2022-07-01";
-        // let toDate = "2022-07-31";
         let category = "ALL";
 
         // const persentile =
@@ -225,14 +219,11 @@ const TopInfluencer = () => {
     }
   }, [countryLineChartLoading]);
 
-  /////////////////////////////////////////////////////////////
-
   useEffect(() => {
-    console.log("inputValue", inputValue);
     const loadUsers = async () => {
+      setLoading(true);
       let category = "ALL";
       // const persentile = localStorage.getItem("persentile");
-      // setLoading(true);
 
       const getInfluencersResponse = await getInfluencers(
         fromDate,
@@ -250,10 +241,10 @@ const TopInfluencer = () => {
         ...getInfluencersResponse.influencers,
       ]);
       // localStorage.setItem("persentile", getInfluencersResponse.persentile);
+      setLoading(false);
     };
     // if (!inputValue && !countryValue && !influencerValue && !hashtagValue) {
     loadUsers();
-    // setLoading(false);
     // }
   }, [page]);
 
@@ -289,8 +280,6 @@ const TopInfluencer = () => {
     [loading]
   );
 
-  /////////////////////////////////////////////////////////////
-
   const onFilterDropClick = (option) => {
     setTopInfluencerFilter(option);
   };
@@ -298,7 +287,7 @@ const TopInfluencer = () => {
   const onEnterInputClick = async (e) => {
     setShowInfluencerHashtag(false);
     if (e.key === "Enter") {
-      // setLoading(true);
+      setLoading(true);
       let countryTypedValue = "";
       let influencerTypedValue = "";
       let hashtagTypedValue = "";
@@ -342,7 +331,7 @@ const TopInfluencer = () => {
         setInfluencerCountData(influencerCountResponse.count);
       } catch (error) {}
     }
-    // setLoading(false);
+    setLoading(false);
   };
 
   const onDropDownClick = async (val) => {
