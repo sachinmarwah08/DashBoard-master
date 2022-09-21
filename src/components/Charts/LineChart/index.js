@@ -6,31 +6,33 @@ import React, {
   useCallback,
 } from "react";
 import "./index.scss";
-import moment from "moment";
-import "tippy.js/dist/tippy.css";
-import "tippy.js/themes/light.css";
-import Tippy from "@tippyjs/react";
-import "tippy.js/dist/svg-arrow.css";
-import Modal from "../../Modal/Modal";
-import CompareTime from "./CompareTime/Filter";
-import "react-toastify/dist/ReactToastify.css";
-import infoIcon from "../../../Images/info.svg";
-import Header from "../../Layouts/Header/Header";
-import CompareCountry from "./CompareCountry/Filter";
-import { ToastContainer, toast } from "react-toastify";
-import { UPDATE_LOADERS } from "../../../actions/types";
 import { useLocation, useNavigate } from "react-router-dom";
-import { FilterContext } from "../../../context/FilterContext";
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import CompareTimeLineChart from "./CompareTime/CompareTimeLineChart";
-import { getCountryDropdownData } from "../../../actions/DropDownApis";
-import CountryAndDateButton from "./Buttons/CountryAndDateButton/Button";
-import CountryAndTimeButton from "./Buttons/CountryAndTimeButton/Button";
-import { compareCountry, compareTime } from "../../../actions/LineChartApis";
-import CompareCountryLineChart from "./CompareCountry/CompareCountryLineChart";
 // import downloadIcon from "../../../Images/download-2.svg";
 // import shareIcon from "../../../Images/share-3.svg";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import CountryAndDateButton from "./Buttons/CountryAndDateButton/Button";
+import Modal from "../../Modal/Modal";
+import Header from "../../Layouts/Header/Header";
+import CountryAndTimeButton from "./Buttons/CountryAndTimeButton/Button";
+import CompareCountry from "./CompareCountry/Filter";
+import CompareTime from "./CompareTime/Filter";
+import CompareCountryLineChart from "./CompareCountry/CompareCountryLineChart";
+import CompareTimeLineChart from "./CompareTime/CompareTimeLineChart";
+import { compareCountry, compareTime } from "../../../actions/LineChartApis";
+// import { chooseTimeBarData, LineChartBarData } from "./Chart/data";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+// import moment from "moment";
+import infoIcon from "../../../Images/info.svg";
+import Tippy from "@tippyjs/react";
+import "tippy.js/dist/tippy.css";
+import "tippy.js/themes/light.css";
+import "tippy.js/dist/svg-arrow.css";
+import { getCountryDropdownData } from "../../../actions/DropDownApis";
+import { UPDATE_LOADERS } from "../../../actions/types";
+import { FilterContext } from "../../../context/FilterContext";
+import moment from "moment";
 // import { useInView } from "react-intersection-observer";
 
 const LineChartData = () => {
@@ -59,169 +61,38 @@ const LineChartData = () => {
     "This Year",
   ];
 
-  const router = useLocation();
+  // const [selected, setSelected] = useState("Past 1 months");
   const [selectCountry, setselectCountry] = useState("Worldwide");
-  const [compareCountryActive, setCompareCountryActive] =
-    useState("compareCountry");
-  const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(true);
-  const [isValue, setIsValue] = useState(false);
-  const [openModal, setOpenModal] = useState(false);
-  const [addCountry, setaddCountry] = useState(false);
-  const [chooseTime, setChooseTime] = useState(false);
-  const [contryNameState, setContryNameState] = useState("");
-  const [dateValue, setDateValue] = useState("");
+  const [data, setData] = useState([]);
   const [barChartData, setBarChartData] = useState([]);
   const [LineChartData, setLineChartData] = useState([]);
+  // const countrySelect = ["United States", "Canada", "Worldwide"];
   const [countrySelect, setCountrySelect] = useState([]);
+  const [openModal, setOpenModal] = useState(false);
+  const router = useLocation();
+  const [addCountry, setaddCountry] = useState(false);
+  const [contryNameState, setContryNameState] = useState("");
+  const [isValue, setIsValue] = useState(false);
+  const [compareCountryActive, setCompareCountryActive] =
+    useState("compareCountry");
+  const [chooseTime, setChooseTime] = useState(false);
+  const [dateValue, setDateValue] = useState("");
   const [backUpLineChartData, setBackUpLineChartData] = useState([]);
-  const [dataForLineBarChart, setDataForLineBarChart] = useState([]);
+  const [dataForLineBarChart, setDataForLineBarChart] = useState();
   const [chooseTimeLineChartData, setChooseTimeLineChartData] = useState([]);
-  // const [data, setData] = useState([]);
-  // const [showDropDown, setShowDropDown] = useState(false);
-  // const [selected, setSelected] = useState("Past 1 months");
-  // const [countryDropBackUpData, setCountryDropBackUpData] = useState([]);
-  // const [chooseTimeBarDataState, setChooseTimeBarDataState] = useState([]);
-
-  useEffect(() => {
-    if (countryLineChartLoading) {
-      setLoading(true);
-      const callApi = async () => {
-        // let today = Date.now();
-        // var check = moment(today);
-        // var month = check.format("M");
-        // var day = check.format("D");
-        // var year = check.format("YYYY");
-        // let fromDate = `${year}-${month}-01`;
-        // let toDate = `${year}-${month}-${day}`;
-        // console.log(month, day, year);
-
-        // let toDatetime = "2022-09-12";
-        let country = countryValue || "Worldwide";
-        var currentDate = moment().format("YYYY-MM-DD");
-        let fromDatetime = "2022-05-01";
-        // var pastMonthDate = moment().subtract(1, "M").format("DD-MM-YYYY");
-        // console.log(currentDate, futureMonth);
-
-        const response = await compareCountry(
-          fromDate,
-          toDate,
-          country,
-          influencerValue,
-          hashtagValue
-        );
-        const responseComapreTime = await compareTime(
-          fromDatetime,
-          currentDate,
-          country,
-          influencerValue,
-          hashtagValue
-        );
-        const countryDropdown = await getCountryDropdownData();
-
-        response.line_chart_data[country].sort(
-          (a, b) => a._id.split("-")[2] - b._id.split("-")[2]
-        );
-
-        response.line_chart_data[country].forEach((item) => {
-          item[country] = item.count;
-        });
-
-        responseComapreTime.line_chart_data[country].forEach((item) => {
-          item[country] = item.count;
-          item["MonthName"] = getTheNameOfMonth(item.MonthValue - 1);
-        });
-
-        let tempBarData = [];
-
-        tempBarData.push({
-          name: country,
-          pv: response.bar_graph_data[country].happy,
-        });
-
-        setDataForLineBarChart(tempBarData);
-
-        setCountrySelect(countryDropdown);
-        setBarChartData(response.bar_graph_data[country]);
-        setLineChartData(response.line_chart_data[country]);
-        setBackUpLineChartData(response.line_chart_data[country]);
-        setChooseTimeLineChartData(
-          responseComapreTime.line_chart_data[country]
-        );
-        // setCountryDropBackUpData(countryDropdown);
-        setLoading(false);
-        dispatch({
-          type: UPDATE_LOADERS,
-          payload: {
-            field: "countryLineChartLoading",
-            value: false,
-          },
-        });
-      };
-      callApi();
-    }
-  }, [countryLineChartLoading]);
-
-  useEffect(() => {
-    setLoading(true);
-    const loadUsers = async () => {
-      const countryData = await getCountryDropdownData(page);
-      setCountrySelect((prev) => [...prev, ...countryData]);
-    };
-    setLoading(false);
-    loadUsers();
-  }, [page]);
-
-  const observer = useRef();
-
-  const lastUserRef = useCallback(
-    (node) => {
-      if (loading) return;
-      if (observer.current) observer.current.disconnect();
-      observer.current = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting) {
-          setPage((page) => page + 1);
-        }
-      });
-      if (node) observer.current.observe(node);
-    },
-    [loading]
-  );
+  const [chooseTimeBarDataState, setChooseTimeBarDataState] = useState();
+  const [countryDropBackUpData, setCountryDropBackUpData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(1);
+  const [showDropDown, setShowDropDown] = useState(false);
 
   const navigateHome = () => {
     navigate("/");
   };
 
-  // function twoDecimalPlacesIfCents(amount) {
-  //   return amount % 1 !== 0 ? amount.toFixed(2) : amount;
-  // }
-
-  const closeAddCountry = () => {
-    setLineChartData(backUpLineChartData);
-
-    setContryNameState("");
-    setIsValue(false);
-  };
-
-  const getTheNameOfMonth = (month) => {
-    let months = [
-      "",
-      "",
-      "",
-      "",
-      "May, 2022",
-      "June, 2022",
-      "July, 2022",
-      "August, 2022",
-      "September, 2022",
-      "October, 2022",
-    ];
-    return months[month];
-  };
-
-  const onCountryNameAdd = (event) => {
-    setContryNameState(event.target.value);
-  };
+  function twoDecimalPlacesIfCents(amount) {
+    return amount % 1 !== 0 ? amount.toFixed(2) : amount;
+  }
 
   const onCountryEnterPress = async (e) => {
     if (e.key === "Enter") {
@@ -235,15 +106,6 @@ const LineChartData = () => {
         let country = e.target.value;
         try {
           const response = await compareCountry(fromDate, toDate, country);
-
-          // console.log(response.bar_graph_data[country].happy, "coming heere");
-
-          let tempBarData = [];
-
-          tempBarData.push({
-            name: country,
-            pv: response.bar_graph_data[country].happy,
-          });
 
           // let tempBarData = JSON.parse(JSON.stringify(LineChartBarData));
           // console.log(response.bar_graph_data[country]);
@@ -262,15 +124,15 @@ const LineChartData = () => {
           //   )}%</span></strong>`;
           // }
           // if (barChartData) {
-          //   let tempBarData = [];
-
-          //   tempBarData.push({
-          //     name: country,
-          //     pv: response.bar_graph_data[country].happy,
-          //   });
+          //   tempBarData.series[0].data[1].y = barChartData.happy;
+          //   tempBarData.tooltip.pointFormat = `</span></strong><br><span style="color:#212121">Positive:<span> <strong><span style="color:#F05728">${twoDecimalPlacesIfCents(
+          //     barChartData.happy
+          //   )}%</span></strong><br/>Negative: <strong><span style="color:#F05728">${twoDecimalPlacesIfCents(
+          //     barChartData.sad
+          //   )}%</span></strong>`;
           // }
 
-          setDataForLineBarChart(tempBarData);
+          // setDataForLineBarChart(tempBarData);
 
           let tempData = [...LineChartData];
           for (let i = 0; i < tempData.length; i++) {
@@ -307,15 +169,14 @@ const LineChartData = () => {
               }
             }
           }
-
           response.line_chart_data[country].sort(
             (a, b) => a._id.split("-")[2] - b._id.split("-")[2]
           );
-
           tempData.forEach((item) => {
             item[selectCountry] = item.count;
             item[country] = item.compare;
           });
+          console.log("tempData", tempData);
 
           // setBarChartData(response.bar_graph_data);
           setLineChartData(tempData);
@@ -342,8 +203,16 @@ const LineChartData = () => {
     }
   };
 
+  const closeAddCountry = () => {
+    setLineChartData(backUpLineChartData);
+
+    setContryNameState("");
+    setIsValue(false);
+  };
+
   const handleChange = async (option) => {
-    // setLoading(true);
+    console.log("hiiiii", chooseTime);
+    setLoading(true);
     if (contryNameState && isValue) {
       if (
         countrySelect
@@ -351,20 +220,13 @@ const LineChartData = () => {
           .includes(contryNameState.toLowerCase())
       ) {
         setIsValue(true);
+        // let fromDate = "2022-07-01";
+        // let toDate = "2022-07-31";
         let country = contryNameState;
-
         try {
           const dropResponse = await compareCountry(fromDate, toDate, option);
           const response = await compareCountry(fromDate, toDate, country);
 
-          let tempBarData = [...dataForLineBarChart];
-
-          tempBarData.push({
-            name: option,
-            pv: dropResponse.bar_graph_data[option].happy,
-          });
-
-          setDataForLineBarChart(tempBarData);
           // let tempBarData = JSON.parse(JSON.stringify(LineChartBarData));
           // console.log(response.bar_graph_data[country]);
           // if (
@@ -394,6 +256,8 @@ const LineChartData = () => {
           //     dropResponse.bar_graph_data[option].sad
           //   )}%</span></strong>`;
           // }
+
+          // setDataForLineBarChart(tempBarData);
 
           let tempData = [...dropResponse.line_chart_data[option]];
           for (let i = 0; i < tempData.length; i++) {
@@ -438,6 +302,7 @@ const LineChartData = () => {
             item[option] = item.count;
             item[country] = item.compare;
           });
+          console.log("tempData", tempData);
 
           // setBarChartData(response.bar_graph_data);
           setLineChartData(tempData);
@@ -464,11 +329,9 @@ const LineChartData = () => {
       }
     } else if (dateValue && chooseTime) {
       // setDateValue(item.month);
-
       let country = selectCountry;
       let fromDateCompareTime = "2022-05-01";
       let toDateCompareTime = moment().format("YYYY-MM-DD");
-
       const response = await compareTime(
         fromDateCompareTime,
         toDateCompareTime,
@@ -538,7 +401,7 @@ const LineChartData = () => {
       }
 
       // tempData.sort((a, b) => b._id.split("-")[2] - a._id.split("-")[2]);
-
+      console.log("tempData", tempData);
       tempData.forEach((item) => {
         item[selectCountry] = item.count;
         item[selectCountry] = item.compare;
@@ -548,12 +411,16 @@ const LineChartData = () => {
       setChooseTimeLineChartData(tempData);
     } else {
       let country = option;
+      // let fromDate = "2022-08-01";
+      // let toDate = "2022-09-31";
       let fromDateCompareTime = "2022-05-01";
       let toDateCompareTime = moment().format("YYYY-MM-DD");
 
       const response = await compareCountry(fromDate, toDate, country);
 
       const responseComapreTime = await compareTime(
+        // fromDatetime,
+        // toDatetime,
         fromDateCompareTime,
         toDateCompareTime,
         option
@@ -570,8 +437,12 @@ const LineChartData = () => {
         item[country] = item.count;
         item["MonthName"] = getTheNameOfMonth(item.MonthValue - 1);
       });
+      console.log(
+        "...............jkl responseComapreTime",
+        responseComapreTime.line_chart_data[country]
+      );
 
-      // setData(response, "Data");
+      setData(response, "Data");
       setBarChartData(response.bar_graph_data[option]);
       setLineChartData(response.line_chart_data[option]);
       setBackUpLineChartData(response.line_chart_data[option]);
@@ -588,6 +459,8 @@ const LineChartData = () => {
     try {
       setDateValue(item);
       const response = await compareTime(
+        // fromDate,
+        // toDate,
         fromDateCompareTime,
         toDateCompareTime,
         country
@@ -620,7 +493,12 @@ const LineChartData = () => {
       // setChooseTimeBarDataState(tempBarData);
 
       let tempData = [...chooseTimeLineChartData];
+      console.log("initial world tempData", tempData);
 
+      console.log(
+        "response.line_chart_data[country]",
+        response.line_chart_data[country]
+      );
       for (let i = 0; i < tempData.length; i++) {
         tempData[i]["compare"] = 0;
       }
@@ -657,7 +535,7 @@ const LineChartData = () => {
       }
 
       // tempData.sort((a, b) => b._id.split("-")[2] - a._id.split("-")[2]);
-
+      console.log(" final tempData", tempData);
       tempData.forEach((item) => {
         item["MonthName"] = getTheNameOfMonth(item.MonthValue - 1);
       });
@@ -682,29 +560,157 @@ const LineChartData = () => {
     }
   };
 
-  // const [inputValue, setInputValue] = useState("");
+  const getTheNameOfMonth = (month) => {
+    let months = [
+      "",
+      "",
+      "",
+      "",
+      "May, 2022",
+      "June, 2022",
+      "July, 2022",
+      "August, 2022",
+      "September, 2022",
+      "October, 2022",
+    ];
+    return months[month];
+  };
 
-  // const onAddCountry = (event) => {
-  //   setShowDropDown(true);
-  //   setInputValue(event.target.value);
-  //   let tempCountryFilter = [...countryDropBackUpData];
-  //   const countryFilter = tempCountryFilter.filter((value) => {
-  //     return value.toLowerCase().includes(inputValue.toLowerCase());
-  //   });
-  //   setCountrySelect(countryFilter);
-  // };
+  useEffect(() => {
+    if (countryLineChartLoading) {
+      setLoading(true);
+      const callApi = async () => {
+        // let today = Date.now();
+        // var check = moment(today);
+        // var month = check.format("M");
+        // var day = check.format("D");
+        // var year = check.format("YYYY");
+        // let fromDate = `${year}-${month}-01`;
+        // let toDate = `${year}-${month}-${day}`;
+        // console.log(month, day, year);
 
-  // const onCountryInputChange = async (searchValue) => {
-  //   // setLoading(true);
-  //   const countryData = await getCountryDropdownData(1, searchValue);
-  //   setCountrySelect(countryData);
-  //   setLoading(false);
-  // };
+        let fromDatetime = "2022-05-01";
+        // let toDatetime = "2022-09-12";
+        let country = countryValue || "Worldwide";
+        var currentDate = moment().format("YYYY-MM-DD");
+        // var pastMonthDate = moment().subtract(1, "M").format("DD-MM-YYYY");
+        // console.log(currentDate, futureMonth);
 
-  // const onDropDownClick = (value) => {
-  //   setContryNameState(value);
-  //   setShowDropDown(false);
-  // };
+        const response = await compareCountry(
+          fromDate,
+          toDate,
+          country,
+          influencerValue,
+          hashtagValue
+        );
+        const responseComapreTime = await compareTime(
+          // fromDatetime,
+          // toDatetime,
+          fromDatetime,
+          currentDate,
+          country,
+          influencerValue,
+          hashtagValue
+        );
+        const countryDropdown = await getCountryDropdownData();
+
+        response.line_chart_data[country].sort(
+          (a, b) => a._id.split("-")[2] - b._id.split("-")[2]
+        );
+
+        response.line_chart_data[country].forEach((item) => {
+          item[country] = item.count;
+        });
+        responseComapreTime.line_chart_data[country].forEach((item) => {
+          item[country] = item.count;
+          item["MonthName"] = getTheNameOfMonth(item.MonthValue - 1);
+        });
+        console.log(
+          "...............jkl responseComapreTime",
+          responseComapreTime.line_chart_data[country]
+        );
+        setCountrySelect(countryDropdown);
+        setCountryDropBackUpData(countryDropdown);
+        setBarChartData(response.bar_graph_data[country]);
+        setLineChartData(response.line_chart_data[country]);
+        setBackUpLineChartData(response.line_chart_data[country]);
+        setChooseTimeLineChartData(
+          responseComapreTime.line_chart_data[country]
+        );
+        setLoading(false);
+        dispatch({
+          type: UPDATE_LOADERS,
+          payload: {
+            field: "countryLineChartLoading",
+            value: false,
+          },
+        });
+      };
+      callApi();
+    }
+    // eslint-disable-next-line
+  }, [countryLineChartLoading]);
+
+  /////////////////////////////////////////////////////////////
+  useEffect(() => {
+    setLoading(true);
+    const loadUsers = async () => {
+      const countryData = await getCountryDropdownData(page);
+      setCountrySelect((prev) => [...prev, ...countryData]);
+    };
+    setLoading(false);
+    loadUsers();
+  }, [page]);
+
+  const observer = useRef();
+
+  const lastUserRef = useCallback(
+    (node) => {
+      if (loading) return;
+      if (observer.current) observer.current.disconnect();
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          setPage((page) => page + 1);
+        }
+      });
+      if (node) observer.current.observe(node);
+    },
+    [loading]
+  );
+
+  const onCountryNameAdd = (event) => {
+    //   setShowDropDown(true);
+    setContryNameState(event.target.value);
+    //   let tempCountryFilter = [...countryDropBackUpData];
+    //   const countryFilter = tempCountryFilter.filter((value) => {
+    //     return value.toLowerCase().includes(contryNameState.toLowerCase());
+    //   });
+    //   setCountrySelect(countryFilter);
+  };
+
+  const [inputValue, setInputValue] = useState("");
+
+  const onAddCountry = (event) => {
+    setShowDropDown(true);
+    setInputValue(event.target.value);
+    let tempCountryFilter = [...countryDropBackUpData];
+    const countryFilter = tempCountryFilter.filter((value) => {
+      return value.toLowerCase().includes(inputValue.toLowerCase());
+    });
+    setCountrySelect(countryFilter);
+  };
+
+  const onCountryInputChange = async (searchValue) => {
+    // setLoading(true);
+    const countryData = await getCountryDropdownData(1, searchValue);
+    setCountrySelect(countryData);
+    setLoading(false);
+  };
+
+  const onDropDownClick = (value) => {
+    setContryNameState(value);
+    setShowDropDown(false);
+  };
 
   return (
     <>
@@ -775,7 +781,9 @@ const LineChartData = () => {
                   lastUserRef={lastUserRef}
                   handleChange={handleChange}
                   setSelected={setselectCountry}
-                  // onSearch={onCountryInputChange}
+                  onAddCountry={onAddCountry}
+                  onSearch={onCountryInputChange}
+                  value={inputValue}
                 />
               </div>
               <div className="select-date-btn">
@@ -792,19 +800,19 @@ const LineChartData = () => {
 
             <div className="right-button">
               <CountryAndTimeButton
+                onClick={() => setCompareCountryActive("compareCountry")}
+                compareCountryActive={compareCountryActive}
+                compareCountryvalue="compareCountry"
                 value="compareCountry"
                 name="Compare Country"
-                compareCountryvalue="compareCountry"
-                compareCountryActive={compareCountryActive}
-                onClick={() => setCompareCountryActive("compareCountry")}
               />
 
               <CountryAndTimeButton
-                value="compareTime"
-                name="Compare Time"
-                compareTimevalue="compareTime"
-                compareCountryActive={compareCountryActive}
                 onClick={() => setCompareCountryActive("compareTime")}
+                compareCountryActive={compareCountryActive}
+                value="compareTime"
+                compareTimevalue="compareTime"
+                name="Compare Time"
               />
             </div>
           </div>
@@ -815,16 +823,16 @@ const LineChartData = () => {
 
           {compareCountryActive === "compareCountry" && (
             <CompareCountry
-              isValue={isValue}
               title={selectCountry}
               addCountry={addCountry}
-              value={contryNameState}
-              options={countrySelect}
-              onChange={onCountryNameAdd}
-              onKeyDown={onCountryEnterPress}
+              AddCountryonClick={() => setaddCountry(!addCountry)}
               closeAddCountry={closeAddCountry}
               addCountryClickName="Add country"
-              AddCountryonClick={() => setaddCountry(!addCountry)}
+              isValue={isValue}
+              onKeyDown={onCountryEnterPress}
+              onChange={onCountryNameAdd}
+              value={contryNameState}
+              options={countrySelect}
               // lastUserRef={lastUserRef}
               // onDropDownClick={onDropDownClick}
               // showDropDown={showDropDown}
@@ -836,14 +844,15 @@ const LineChartData = () => {
 
           {compareCountryActive === "compareTime" && (
             <CompareTime
-              title={selectCountry}
+              // title={"June, 2022"}
               dateValue={dateValue}
-              chooseTime={chooseTime}
-              countrySelect={countrySelect}
-              setDateClick={() => setDateValue("")}
-              chooseTimeClick={() => setChooseTime(!chooseTime)}
               onHandleCompareTimeMonthChange={onHandleCompareTimeMonthChange}
+              chooseTimeClick={() => setChooseTime(!chooseTime)}
+              chooseTime={chooseTime}
               // chooseTimeDropdownClick={() => setDateValue("July, 2022")}
+              setDateClick={() => setDateValue("")}
+              title={selectCountry}
+              countrySelect={countrySelect}
             />
           )}
         </div>
@@ -854,30 +863,28 @@ const LineChartData = () => {
           {compareCountryActive === "compareCountry" && (
             <CompareCountryLineChart
               loading={loading}
-              isValue={isValue}
               barData={barChartData}
+              dataForLineBarChart={dataForLineBarChart}
               lineChartData={LineChartData}
+              isValue={isValue}
+              compareCountryActive={compareCountryActive === "compareCountry"}
               selectCountry={selectCountry}
               contryNameState={contryNameState}
-              dataForLineBarChart={dataForLineBarChart}
-              compareCountryActive={compareCountryActive === "compareCountry"}
             />
           )}
           {compareCountryActive === "compareTime" && (
             <CompareTimeLineChart
-              loading={loading}
               dateValue={dateValue}
-              contryNameState={dateValue}
-              selectCountry={selectCountry}
-              chooseTimeLineChartData={chooseTimeLineChartData}
-              // chooseTimeBarDataState={chooseTimeBarDataState}
               compareTimeActive={compareCountryActive === "compareTime"}
+              chooseTimeLineChartData={chooseTimeLineChartData}
+              chooseTimeBarDataState={chooseTimeBarDataState}
+              selectCountry={selectCountry}
+              contryNameState={dateValue}
+              loading={loading}
             />
           )}
         </div>
       </div>
-
-      {/* ERROR MESSAGE */}
 
       <ToastContainer
         position="top-right"
@@ -891,7 +898,6 @@ const LineChartData = () => {
         draggable
         pauseOnHover
       />
-
       {/* MODAL */}
 
       <div>

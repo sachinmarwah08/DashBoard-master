@@ -11,9 +11,24 @@ import {
   Cell,
 } from "recharts";
 
-const barColors = ["#2A00FF", "#F05728"];
+const data = [
+  {
+    name: "Page A",
+    uv: 4000,
+    pv: 2400,
+    amt: 2400,
+  },
+  {
+    name: "Page B",
+    uv: 3000,
+    pv: 1398,
+    amt: 2210,
+  },
+];
 
-const LineBarChart = ({ data }) => {
+const barColors = ["#F05728", "#2A00FF"];
+
+const LineBarChart = () => {
   return (
     <div style={{ width: "8rem", height: "12rem" }}>
       <ResponsiveContainer width="100%" height="100%" aspect="auto">
@@ -24,6 +39,7 @@ const LineBarChart = ({ data }) => {
           layout="horizontal"
         >
           <XAxis
+            // width={130}
             dataKey="name"
             fill="#212121"
             fontWeight={400}

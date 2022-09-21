@@ -140,6 +140,13 @@
               60px 120px 80px rgba(5, 0, 255, 0.1),
               inset 0px 2px 10px rgba(255, 255, 255, 0.58),
               inset 0px -20px 50px #3244e8;
+            transition: transform 0.3s;
+            cursor: pointer;
+
+            &.bubble-one:hover {
+              transform: scale(1.15);
+              cursor: pointer;
+            }
           }
 
           .bubble-one-content {
@@ -205,6 +212,13 @@
               60px 120px 80px rgba(5, 0, 255, 0.1),
               inset 0px 2px 10px rgba(255, 255, 255, 0.58),
               inset 0px -20px 50px #3244e8, inset 10px 20px 100px #ff3d00;
+            transition: transform 0.3s;
+            cursor: pointer;
+
+            &.bubble-two:hover {
+              transform: scale(1.15);
+              cursor: pointer;
+            }
           }
 
           .bubble-two-content {
@@ -273,6 +287,13 @@
             box-shadow: 0px 4px 80px rgba(248, 0, 119, 0.2),
               inset 0px 2px 10px rgba(255, 255, 255, 0.58),
               inset 0px -20px 50px #5059b3;
+            transition: transform 0.3s;
+            cursor: pointer;
+
+            &.bubble-three:hover {
+              transform: scale(1.15);
+              cursor: pointer;
+            }
           }
 
           .bubble-three-content {
@@ -341,6 +362,13 @@
             box-shadow: 0px 4px 80px rgba(248, 0, 119, 0.2),
               inset 0px 2px 10px rgba(255, 255, 255, 0.58),
               inset 0px -20px 50px #24309c;
+            transition: transform 0.3s;
+            cursor: pointer;
+
+            &.bubble-four:hover {
+              transform: scale(1.15);
+              cursor: pointer;
+            }
           }
 
           .bubble-four-content {
@@ -409,6 +437,13 @@
             box-shadow: 0px 4px 80px rgba(248, 0, 119, 0.2),
               inset 0px 2px 10px rgba(255, 255, 255, 0.58),
               inset 0px -20px 50px #5059b3;
+            transition: transform 0.3s;
+            cursor: pointer;
+
+            &.bubble-five:hover {
+              transform: scale(1.15);
+              cursor: pointer;
+            }
           }
 
           .bubble-five-content {
@@ -472,6 +507,13 @@
             box-shadow: 0px 4px 80px rgba(240, 87, 40, 0.2),
               inset 0px 2px 10px rgba(255, 255, 255, 0.58),
               inset 10px 20px 100px #f05728;
+            transition: transform 0.3s;
+            cursor: pointer;
+
+            &.bubble-six:hover {
+              transform: scale(1.15);
+              cursor: pointer;
+            }
           }
 
           .bubble-six-content {
@@ -540,6 +582,13 @@
             box-shadow: 0px 4px 80px rgba(240, 87, 40, 0.5),
               inset 0px 2px 10px rgba(255, 255, 255, 0.58),
               inset 10px 20px 100px #f05728;
+            transition: transform 0.3s;
+            cursor: pointer;
+
+            &.bubble-seven:hover {
+              transform: scale(1.15);
+              cursor: pointer;
+            }
           }
 
           .bubble-seven-content {
@@ -602,6 +651,13 @@
             box-shadow: 0px 4px 80px rgba(248, 0, 119, 0.2),
               inset 0px 2px 10px rgba(255, 255, 255, 0.58),
               inset 10px 20px 50px #ff6e05;
+            transition: transform 0.3s;
+            cursor: pointer;
+
+            &.bubble-eight:hover {
+              transform: scale(1.15);
+              cursor: pointer;
+            }
           }
 
           .bubble-eight-content {
@@ -662,6 +718,13 @@
             border-radius: 50%;
             background: #ffa98e;
             box-shadow: 0px 4px 80px rgba(35, 0, 248, 0.29);
+            transition: transform 0.3s;
+            cursor: pointer;
+
+            &.bubble-nine:hover {
+              transform: scale(1.15);
+              cursor: pointer;
+            }
           }
 
           .bubble-nine-content {
@@ -724,7 +787,6 @@
             top: 18.7rem;
             width: max-content;
             overflow: hidden;
-
             left: -13rem;
 
             .hashtag-title {
@@ -756,6 +818,13 @@
             box-shadow: 0px 4px 80px rgba(248, 0, 119, 0.1),
               inset 0px 2px 10px rgba(255, 255, 255, 0.58),
               inset 10px 20px 50px #ff6e05;
+            transition: transform 0.3s;
+            cursor: pointer;
+
+            &.bubble-ten:hover {
+              transform: scale(1.15);
+              cursor: pointer;
+            }
           }
           .bubble-line-ten {
             width: 35.85px;
@@ -789,6 +858,13 @@
             box-shadow: 0px 4px 80px rgba(240, 87, 40, 0.2),
               inset 0px 2px 10px rgba(255, 255, 255, 0.58),
               inset 10px 20px 100px #f05728;
+            transition: transform 0.3s;
+            cursor: pointer;
+
+            &.bubble-eleven:hover {
+              transform: scale(1.15);
+              cursor: pointer;
+            }
           }
 
           .bubble-eleven-content {
@@ -840,6 +916,13 @@
             border-radius: 50%;
             background: #ffa98e;
             box-shadow: 0px 4px 80px rgba(35, 0, 248, 0.3);
+            transition: transform 0.3s;
+            cursor: pointer;
+
+            &.bubble-twelve:hover {
+              transform: scale(1.15);
+              cursor: pointer;
+            }
           }
 
           .bubble-twelve-content {
@@ -891,6 +974,13 @@
             border-radius: 50%;
             background: #ffa98e;
             box-shadow: 0px 4px 80px rgba(35, 0, 248, 0.3);
+            transition: transform 0.3s;
+            cursor: pointer;
+
+            &.bubble-thirteen:hover {
+              transform: scale(1.15);
+              cursor: pointer;
+            }
           }
 
           .bubble-thirteen-content {
@@ -942,6 +1032,13 @@
             border-radius: 50%;
             background: #ffa98e;
             box-shadow: 0px 4px 80px rgba(35, 0, 248, 0.29);
+            transition: transform 0.3s;
+            cursor: pointer;
+
+            &.bubble-fourteen:hover {
+              transform: scale(1.15);
+              cursor: pointer;
+            }
           }
 
           .bubble-fourteen-content {
@@ -1021,6 +1118,13 @@
             box-shadow: 0px 4px 80px rgba(240, 87, 40, 0.2),
               inset 0px 2px 10px rgba(255, 255, 255, 0.58),
               inset 10px 20px 100px #f05728;
+            transition: transform 0.3s;
+            cursor: pointer;
+
+            &.bubble-fifteen:hover {
+              transform: scale(1.15);
+              cursor: pointer;
+            }
           }
 
           .bubble-sixteen {

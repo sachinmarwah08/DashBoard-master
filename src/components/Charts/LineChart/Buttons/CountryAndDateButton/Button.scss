@@ -48,19 +48,19 @@
       color: #d0d5dd;
     }
   }
-  .dropdown-content-countryData {
+
+  .dropdown-country-wrapper {
     position: absolute;
     top: 120%;
     width: 118%;
     border-radius: 0.5rem;
-    height: 15rem;
-    overflow: auto;
+    max-height: 18rem;
+    overflow: hidden;
     z-index: 1000;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     background-color: white;
     font-weight: 400;
     color: #101828;
-
     animation: growDown 300ms ease-in-out forwards;
     transform-origin: top center;
 
@@ -76,14 +76,21 @@
       }
     }
 
-    .dropdown-item-countryData {
-      padding: 0.625rem;
-      cursor: pointer;
-      transition: all 0.2s;
+    .dropdown-content-countryData {
+      height: 12rem;
+      margin: 0.3rem;
+      overflow-x: hidden;
+      margin-left: 0%;
 
-      &:hover {
-        background: #f5f5f5;
-        border-radius: 0.5rem;
+      .dropdown-item-countryData {
+        padding: 0.625rem;
+        cursor: pointer;
+        transition: all 0.2s;
+
+        &:hover {
+          background: #f5f5f5;
+          border-radius: 0.5rem;
+        }
       }
     }
   }

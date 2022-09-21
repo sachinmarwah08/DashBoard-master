@@ -11,8 +11,8 @@ const Bubble = ({ name, index, handleChange, trendingHashtag }) => {
 
   return (
     <>
-      <div className={`bubble-${name}`}></div>
       <Tippy
+        zIndex={9999999}
         theme={"light"}
         interactive={true}
         content={
@@ -21,6 +21,7 @@ const Bubble = ({ name, index, handleChange, trendingHashtag }) => {
               fontWeight: 400,
               fontFamily: "Work-Sans",
               fontSize: "20px",
+              zIndex: "99999999999999999999",
             }}
           >
             <p style={{ fontWeight: 400, margin: 0, padding: "0.5rem" }}>
@@ -29,18 +30,17 @@ const Bubble = ({ name, index, handleChange, trendingHashtag }) => {
           </div>
         }
       >
-        <p
+        <div
           onClick={() => handleChange(index)}
-          className={`bubble-${name}-content`}
-        >
-          <span className="hashtag-title">
-            {/* {trendingHashtag &&
-              trendingHashtag.length &&
-              trendingHashtag[index].hashtag.htag} */}
-            {renderHashFunc(trendingHashtag)}
-          </span>
-        </p>
+          className={`bubble-${name}`}
+        ></div>
       </Tippy>
+      <p
+        onClick={() => handleChange(index)}
+        className={`bubble-${name}-content`}
+      >
+        <span className="hashtag-title">{renderHashFunc(trendingHashtag)}</span>
+      </p>
       <div className={`bubble-line-${name}`}></div>
     </>
   );

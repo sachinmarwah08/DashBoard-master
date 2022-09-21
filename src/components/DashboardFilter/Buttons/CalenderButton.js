@@ -17,7 +17,7 @@ import {
   addDays,
   // differenceInCalendarDays,
 } from "date-fns";
-import { DateRangePicker, defaultStaticRanges } from "react-date-range";
+import { DateRangePicker } from "react-date-range";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css";
 import Tippy from "@tippyjs/react";
@@ -33,10 +33,7 @@ const CalenderButton = ({ icon }) => {
   const {
     filters: { calenderToggler },
   } = state;
-  // const [isFilterActive, setIsFilterActive] = useState(false);
 
-  // const [startDate, setStartDate] = useState(new Date());
-  // const [endDate, setEndDate] = useState(new Date());
   var date = new Date();
   var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
 
@@ -48,17 +45,10 @@ const CalenderButton = ({ icon }) => {
     },
   ]);
 
-  // const selectionRange = {
-  //   startDate: startDate,
-  //   endDate: endDate,
-  //   key: 'selection',
-  // };
-
   function useOutsideAlerter(ref) {
     useEffect(() => {
       function handleClickOutside(event) {
         if (ref.current && !ref.current.contains(event.target)) {
-          // alert("You clicked outside of me!");
           calenderToggler(false);
         }
       }
@@ -82,14 +72,11 @@ const CalenderButton = ({ icon }) => {
       type: "SET_FILTERS",
       payload: { field: "dateRangeValue", value: dateObj },
     });
-    // setStartDate(ranges.selection.startDate);
-    // setEndDate(ranges.selection.endDate);
   }
 
   const onFilterBUttonClick = (e) => {
     e.stopPropagation();
     e.nativeEvent.stopImmediatePropagation();
-    // setIsFilterActive(!isFilterActive);
     dispatch({ type: TOGGLE_CALENDER });
   };
 
@@ -145,41 +132,8 @@ const CalenderButton = ({ icon }) => {
             className="calender"
           >
             <DateRangePicker
-              // staticRanges={[
-              //   ...defaultStaticRanges,
-              //   {
-              //     label: "This Year",
-              //     range: () => ({
-              //       startDate: startOfYear(new Date()),
-              //       endDate: endOfDay(new Date()),
-              //     }),
-              //     isSelected(range) {
-              //       const definedRange = this.range();
-              //       return (
-              //         isSameDay(range.startDate, definedRange.startDate) &&
-              //         isSameDay(range.endDate, definedRange.endDate)
-              //       );
-              //     },
-              //   },
-              // {
-              //   label: "Last Year",
-              //   range: () => ({
-              //     startDate: startOfYear(addYears(new Date(), -1)),
-              //     endDate: endOfYear(addYears(new Date(), -1)),
-              //   }),
-              //   isSelected(range) {
-              //     const definedRange = this.range();
-              //     return (
-              //       isSameDay(range.startDate, definedRange.startDate) &&
-              //       isSameDay(range.endDate, definedRange.endDate)
-              //     );
-              //   },
-              // },
-              // ]}
               rangeColors={["#F05728", "#F05728", "#F05728"]}
-              // ranges={[selectionRange]}
               onChange={handleSelect}
-              // onChange={item => setState([item.selection])}
               showSelectionPreview={true}
               moveRangeOnFirstSelection={false}
               months={1}
