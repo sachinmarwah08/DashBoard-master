@@ -19,11 +19,11 @@ const CompareCountryLineChart = ({
   console.log(dataForLineBarChart, "linebAr");
   return (
     <>
-      {/* {isValue && (
+      {isValue && (
         <div className="bar-chart-line">
           <LineBarChart data={dataForLineBarChart} />
         </div>
-      )} */}
+      )}
       {compareCountryActive && (
         <div
           className={`${

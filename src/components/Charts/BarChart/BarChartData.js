@@ -22,6 +22,7 @@ function twoDecimalPlacesIfCents(amount) {
 
 const BarChartData = ({ data }) => {
   function renderTooltip(BarItems) {
+    console.log("BarItem", BarItems);
     if (BarItems && BarItems.payload && BarItems.payload.length) {
       return (
         <div

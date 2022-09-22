@@ -229,11 +229,7 @@ const Chart = ({
 
   return (
     <div style={{ marginTop: "1rem", marginLeft: "1rem" }}>
-      <ResponsiveContainer
-        width="100%"
-        // aspect={isValue || dateValue ? 3.2 : 4.2}
-        aspect={4.2}
-      >
+      <ResponsiveContainer width="100%" aspect={4.2}>
         <LineChart
           data={
             (compareCountryActive && lineChartData) ||

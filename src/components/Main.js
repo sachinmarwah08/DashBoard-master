@@ -16,10 +16,10 @@ const Main = () => {
         <Header />
         <GlobalWellbeing />
         <DashboardFilter />
+        <LineChart />
         <ContryRanking />
         <NewsAndHashTags />
         <TrendingHashtags />
-        <LineChart />
         <Footer />
       </FilterProvider>
     </>

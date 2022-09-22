@@ -10,6 +10,7 @@ import { SET_FILTERS } from "../../../actions/types";
 const Footer = () => {
   const { state, dispatch } = useContext(FilterContext);
   const { ref, inView } = useInView({
+    /* Optional options */
     threshold: 0,
   });
 
@@ -19,13 +20,14 @@ const Footer = () => {
 
   useEffect(() => {
     if (inView && !filterActive) {
+      console.log(filterActive);
       dispatch({
         type: SET_FILTERS,
         payload: { field: "filterActive", value: true },
       });
     }
   }, [inView]);
-
+  console.log("filterActive", filterActive);
   return (
     <footer ref={ref} className="footer-wrapper">
       <div className="footer-inside-wrapper">

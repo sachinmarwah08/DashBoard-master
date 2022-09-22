@@ -1,6 +1,6 @@
 import React from "react";
 import twitterLogo from "../../../../Images/TwitterLogo.svg";
-import { FadeLoader } from "react-spinners";
+import FadeLoader from "react-spinners/FadeLoader";
 
 const Content = ({ filterData, loading, lastUserRef }) => {
   return (
@@ -20,9 +20,15 @@ const Content = ({ filterData, loading, lastUserRef }) => {
                   target="_blank"
                   className="left-content-heading"
                 >
+                  <span className="heading-colored">
+                    {/* {item.htag[0]} {""} */}
+                  </span>
+
                   {item.events}
                 </a>
                 <p className="hashtags">
+                  {/* {item.hashtags} */}
+
                   <span className="hashtags-colored">
                     {item.htag
                       .filter((item) => {
@@ -31,7 +37,14 @@ const Content = ({ filterData, loading, lastUserRef }) => {
                       .join(" ")}
                   </span>
                 </p>
-
+                {/* <a
+                href={item.url}
+                rel="noreferrer"
+                target="_blank"
+                className="link"
+              >
+                {item.url}
+              </a> */}
                 <div className="twitter-details">
                   <img
                     alt="twitter"
@@ -49,9 +62,15 @@ const Content = ({ filterData, loading, lastUserRef }) => {
                   target="_blank"
                   className="left-content-heading"
                 >
+                  <span className="heading-colored">
+                    {/* {item.htag[0]} {""} */}
+                  </span>
+
                   {item.events}
                 </a>
                 <p className="hashtags">
+                  {/* {item.hashtags} */}
+
                   <span className="hashtags-colored">
                     {item.htag
                       .filter((item) => {
@@ -60,7 +79,14 @@ const Content = ({ filterData, loading, lastUserRef }) => {
                       .join(" ")}
                   </span>
                 </p>
-
+                {/* <a
+                  href={item.url}
+                  rel="noreferrer"
+                  target="_blank"
+                  className="link"
+                >
+                  {item.url}
+                </a> */}
                 <div className="twitter-details">
                   <img
                     alt="twitter"

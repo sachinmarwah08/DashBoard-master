@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import { BeatLoader } from "react-spinners";
 import { debounce } from "throttle-debounce";
 
@@ -15,8 +16,10 @@ const DropdownButton = ({
   onSearch,
 }) => {
   const [isFilterActive, setIsFilterActive] = useState(false);
+
   const [query, setQuery] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -54,9 +57,10 @@ const DropdownButton = ({
           setIsFilterActive(false);
         }
       }
-
+      // Bind the event listener
       document.addEventListener("mousedown", handleClickOutside);
       return () => {
+        // Unbind the event listener on clean up
         document.removeEventListener("mousedown", handleClickOutside);
       };
     }, [ref]);

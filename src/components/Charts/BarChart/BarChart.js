@@ -7,6 +7,8 @@ import React, {
 } from "react";
 import "./BarChart.scss";
 import Sort from "../../SortFilter/Sort";
+// import shareIcon from "../../../Images/share-2.svg";
+// import TopBottomButton from "../../TopBottomButton/TopBottomButton";
 import { getBarData } from "../../../actions/BarChartApis";
 import { FadeLoader } from "react-spinners";
 import Tippy from "@tippyjs/react";
@@ -35,6 +37,9 @@ const BarChartComponent = () => {
   const [data, setData] = useState([]);
   const barDataOption = ["Influencer", "Hashtag"];
   const [bardataFilterDrop, setBardataFilterDrop] = useState("Filters");
+  // const topBottomData = ["Top 10", "Bottom 10"];
+  // const [topBottom, setTopBottom] = useState("Top 10");
+  const [heading, setHeading] = useState("Top 10 Countries Wellbeing Analysis");
   const [loading, setLoading] = useState(true);
   const [inputValue, setInputValue] = useState("");
   const [influencerdata, setInfluencerData] = useState([]);
@@ -44,6 +49,46 @@ const BarChartComponent = () => {
   const [showInfluencerHashtag, setShowInfluencerHashtag] = useState(false);
   const [barBackupData, setBarBackupData] = useState([]);
   const [page, setPage] = useState(1);
+
+  // const handleChange = (value) => {
+  //   setHeading(value);
+  // };
+
+  const onInputChange = async (e) => {
+    setInputValue(e.target.value);
+    setLoading(true);
+    setShowInfluencerHashtag(true);
+    if (bardataFilterDrop === "Filters") {
+      setShowInfluencerHashtag(false);
+    }
+    let tempData = [...influencerBackupdata];
+    let tempHasgtagData = [...hashtagBackupdata];
+    const newFilter = tempData.filter((value) => {
+      return value.toLowerCase().includes(inputValue.toLowerCase());
+    });
+    const hashtagFilter = tempHasgtagData.filter((value) => {
+      return value.toLowerCase().includes(inputValue.toLowerCase());
+    });
+
+    sethashtag(hashtagFilter);
+    setInfluencerData(newFilter);
+    setLoading(false);
+  };
+
+  const onInfluencerInputChange = async (searchValue) => {
+    if (bardataFilterDrop === "Influencer") {
+      setLoading(true);
+      const influencerData = await getInfluencerDropdownData(1, searchValue);
+      setInfluencerData(influencerData);
+      setLoading(false);
+    }
+    if (bardataFilterDrop === "Hashtag") {
+      setLoading(true);
+      const hashtagData = await getHashtagDropdownData(1, searchValue);
+      sethashtag(hashtagData);
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     // if (countryLineChartLoading) {
@@ -125,41 +170,47 @@ const BarChartComponent = () => {
     [loading]
   );
 
-  const onInputChange = async (e) => {
-    setInputValue(e.target.value);
-    setLoading(true);
-    setShowInfluencerHashtag(true);
-    if (bardataFilterDrop === "Filters") {
-      setShowInfluencerHashtag(false);
-    }
-    let tempData = [...influencerBackupdata];
-    let tempHasgtagData = [...hashtagBackupdata];
-    const newFilter = tempData.filter((value) => {
-      return value.toLowerCase().includes(inputValue.toLowerCase());
-    });
-    const hashtagFilter = tempHasgtagData.filter((value) => {
-      return value.toLowerCase().includes(inputValue.toLowerCase());
-    });
-
-    sethashtag(hashtagFilter);
-    setInfluencerData(newFilter);
-    setLoading(false);
+  const onFilterDropClick = (option) => {
+    setBardataFilterDrop(option);
   };
 
-  const onInfluencerInputChange = async (searchValue) => {
-    if (bardataFilterDrop === "Influencer") {
-      setLoading(true);
-      const influencerData = await getInfluencerDropdownData(1, searchValue);
-      setInfluencerData(influencerData);
-      setLoading(false);
-    }
-    if (bardataFilterDrop === "Hashtag") {
-      setLoading(true);
-      const hashtagData = await getHashtagDropdownData(1, searchValue);
-      sethashtag(hashtagData);
-      setLoading(false);
-    }
-  };
+  // const onTopBottomClick = async (val) => {
+  //   let order = "des";
+  //   if (val === "des") {
+  //     order = "des";
+  //   } else if (val === "asc") {
+  //     order = "asc";
+  //   }
+
+  //   const response = await getBarData(
+  //     fromDate,
+  //     toDate,
+  //     countryValue,
+  //     influencerValue,
+  //     hashtagValue,
+  //     order
+  //   );
+
+  //   let tempData = JSON.parse(JSON.stringify(Bardata));
+
+  //   for (let i = 0; i < response.data.length; i++) {
+  //     tempData.xAxis.categories.push(response.data[i]._id);
+  //     tempData.series[0].data.push(Math.floor(response.data[i].count));
+  //     tempData.tooltip.headerFormat = `<strong><span style="color:#212121; font-size: 16px;">{point.key}</span></strong><br>`;
+  //     tempData.tooltip.pointFormat = `{series.name}: <strong><span  style="color:#F05728">{point.y}</span></strong>`;
+  //     // tempData.tooltip.pointFormat = `{series.name}: <strong><span  style="color:#F05728">{point.y}</span></strong><br><span style="color:#212121">Positive:<span> <strong><span style="color:#F05728">${twoDecimalPlacesIfCents(
+  //     //   response.data[i].happy
+  //     // )}%</span></strong><br/>Negative: <strong><span style="color:#F05728">${twoDecimalPlacesIfCents(
+  //     //   response.data[i].sad_per
+  //     // )}%</span></strong>`;
+
+  //     // tempData.tooltip.formatter = function () {
+  //     //   return `${response.data[i].happy}`;
+  //     // };
+  //   }
+
+  //   setData(tempData);
+  // };
 
   const onEnterInputClick = async (e) => {
     setShowInfluencerHashtag(false);
@@ -242,17 +293,13 @@ const BarChartComponent = () => {
     setBardataFilterDrop("Filter");
   };
 
-  const onFilterDropClick = (option) => {
-    setBardataFilterDrop(option);
-  };
-
   return (
     <>
       <div className="wrapper">
         <div className="content">
           <div className="bar-heading-wrapper">
             <div className="heading-left">
-              <h1 className="heading">Top 10 Countries Wellbeing Analysis</h1>
+              <h1 className="heading">{heading}</h1>
               <Tippy
                 theme={"light"}
                 interactive={true}
@@ -279,8 +326,24 @@ const BarChartComponent = () => {
                 <img className="info-icon" src={infoIcon}></img>
               </Tippy>
             </div>
+            {/* <div className="btn-share">
+              <TopBottomButton
+                handleChange={handleChange}
+                setTopBottom={setTopBottom}
+                topBottomData={topBottomData}
+                topBottom={topBottom}
+                onTopBottomClick={onTopBottomClick}
+              />
+              <button className="share-btn">
+                <img
+                  className="share-icon-bar"
+                  alt="share-icon-bar"
+                  src={shareIcon}
+                />
+              </button>
+            </div> */}
           </div>
-
+          {/* <div className="filter-container"> */}
           <Sort
             influencerdata={
               bardataFilterDrop === "Influencer" ? influencerdata : hashtag
@@ -299,8 +362,8 @@ const BarChartComponent = () => {
             lastUserRef={lastUserRef}
             onSearch={onInfluencerInputChange}
           />
+          {/* </div> */}
         </div>
-
         <div className="bar-chart-wrapper">
           <div className="chart-bar">
             {loading ? (

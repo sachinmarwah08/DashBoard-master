@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./GlobalWellbeing.scss";
+// import moment from "moment";
 import {
   getTweetsCount,
   getTweetsDiff,
@@ -37,6 +38,12 @@ const GlobalWellbeing = () => {
         // let fromDate = `${year}-${month}-01`;
         // let toDate = `${year}-${month}-${day}`;
         // console.log(month, day, year);
+
+        // let fromDate = "2022-07-01";
+        // let toDate = "2022-07-31";
+
+        // let fromDateDiff = "2022-07-01";
+        // let toDateDiff = "2022-07-31";
 
         const response = await getTweetsCount(fromDate, toDate, countryValue);
         const diffRes = await getTweetsDiff(fromDate, toDate, countryValue);
@@ -97,7 +104,7 @@ const GlobalWellbeing = () => {
       <div className="main-container-wrapper">
         <div className="left-content">
           <div className="insite-left-content">
-            <h1 className="heading">Global Wellbeing Sentiment Analysis</h1>
+            <h1 className="heading">Global Wellbeing Index</h1>
             <Tippy
               theme={"light"}
               interactive={true}
@@ -111,12 +118,12 @@ const GlobalWellbeing = () => {
                   }}
                 >
                   <p style={{ fontWeight: 600, marginTop: 0 }}>
-                    Global Wellbeing Sentiment Analysis
+                    Global Wellbeing Index
                   </p>
-                  This dashboard provides insights on wellbeing rankings by
-                  country, top influencers, trending hashtags, tweets, and news
-                  stories about wellbeing, as well as categorisation of these
-                  into positive and negative sentiment.
+                  This index provides insights on wellbeing rankings by country,
+                  top influencers, trending hashtags, tweets, and news stories
+                  about wellbeing, as well as categorisation of these into
+                  positive and negative sentiment.
                 </div>
               }
             >
