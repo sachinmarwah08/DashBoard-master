@@ -16,35 +16,36 @@ const CompareCountryLineChart = ({
   contryNameState,
   loading,
 }) => {
-  console.log(dataForLineBarChart, "linebAr");
   return (
     <>
-      {isValue && (
-        <div className="bar-chart-line">
-          <LineBarChart data={dataForLineBarChart} />
+      {loading ? (
+        <div className="lineChart-loader">
+          <FadeLoader color="#F05728" loading={loading} size={50} />
         </div>
-      )}
-      {compareCountryActive && (
-        <div
-          className={`${
-            isValue ? "line-chart-bar" : "line-chart-bar-condition"
-          }`}
-        >
-          {loading ? (
-            <div className="lineChart-loader">
-              <FadeLoader color="#F05728" loading={loading} size={50} />
+      ) : (
+        <>
+          {isValue && (
+            <div className="bar-chart-line">
+              <LineBarChart data={dataForLineBarChart} />
             </div>
-          ) : (
-            <LineChart
-              barData={barData}
-              lineChartData={lineChartData}
-              isValue={isValue}
-              compareCountryActive={compareCountryActive}
-              selectCountry={selectCountry}
-              contryNameState={contryNameState}
-            />
           )}
-        </div>
+          {compareCountryActive && (
+            <div
+              className={`${
+                isValue ? "line-chart-bar" : "line-chart-bar-condition"
+              }`}
+            >
+              <LineChart
+                barData={barData}
+                lineChartData={lineChartData}
+                isValue={isValue}
+                compareCountryActive={compareCountryActive}
+                selectCountry={selectCountry}
+                contryNameState={contryNameState}
+              />
+            </div>
+          )}
+        </>
       )}
     </>
   );

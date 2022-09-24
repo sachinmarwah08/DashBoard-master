@@ -1,43 +1,58 @@
 import React from "react";
-import PuffLoader from "react-spinners/PuffLoader";
+import { FadeLoader } from "react-spinners";
 
-const NewsFeedContent = ({ filterData, loading }) => {
+const NewsFeedContent = ({ filterData, loading, lastUserRef }) => {
   return (
     <>
       {loading ? (
         <div className="loader">
-          <PuffLoader color="#F05728" loading={loading} size={50} />
+          <FadeLoader color="#F05728" loading={loading} size={50} />
         </div>
       ) : (
         <div className="left-content-wrapper">
-          {filterData.map((item, index) => (
-            <div
-              key={index}
-              className={`${
-                filterData.length === 0 ? "left-content-noData" : "left-content"
-              }`}
-            >
-              <a
-                href={item.url}
-                rel="noreferrer"
-                target="_blank"
-                className="left-content-heading-news"
+          {filterData.map((item, index) =>
+            filterData.length === index + 1 ? (
+              <div
+                ref={lastUserRef}
+                key={index}
+                className={`${
+                  filterData.length === 0
+                    ? "left-content-noData"
+                    : "left-content"
+                }`}
               >
-                {item.news_source}
-              </a>
-              <p className="hashtags-news">{item.headline}</p>
-              {/* <div className="news-link-wrapper">
                 <a
                   href={item.url}
                   rel="noreferrer"
                   target="_blank"
-                  className="news-link"
+                  className="left-content-heading-news"
                 >
-                  {item.url}
+                  {item.news_source}
                 </a>
-              </div> */}
-            </div>
-          ))}
+                <p className="hashtags-news">{item.headline}</p>
+              </div>
+            ) : (
+              <div
+                ref={lastUserRef}
+                key={index}
+                className={`${
+                  filterData.length === 0
+                    ? "left-content-noData"
+                    : "left-content"
+                }`}
+              >
+                <a
+                  href={item.url}
+                  rel="noreferrer"
+                  target="_blank"
+                  className="left-content-heading-news"
+                >
+                  {item.news_source}
+                </a>
+                <p className="hashtags-news">{item.headline}</p>
+              </div>
+            )
+          )}
         </div>
       )}
     </>

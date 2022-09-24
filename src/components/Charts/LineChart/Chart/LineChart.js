@@ -52,10 +52,6 @@ const Chart = ({
       : Math.sign(num) * Math.abs(num);
   }
 
-  function twoDecimalPlacesIfCents(amount) {
-    return amount % 1 !== 0 ? amount.toFixed(2) : amount;
-  }
-
   function renderTooltip(item) {
     console.log("item", item);
     if (item && item.payload && item.payload.length) {
@@ -225,11 +221,18 @@ const Chart = ({
     return null;
   }
 
-  console.log("chooseTimeLineChartData", chooseTimeLineChartData);
-
   return (
-    <div style={{ marginTop: "1rem", marginLeft: "1rem" }}>
-      <ResponsiveContainer width="100%" aspect={4.2}>
+    <div
+      style={
+        isValue || dateValue
+          ? { marginTop: "1rem" }
+          : { marginTop: "1rem", marginLeft: "1rem" }
+      }
+    >
+      <ResponsiveContainer
+        width="100%"
+        aspect={isValue || dateValue ? 3.2 : 4.2}
+      >
         <LineChart
           data={
             (compareCountryActive && lineChartData) ||

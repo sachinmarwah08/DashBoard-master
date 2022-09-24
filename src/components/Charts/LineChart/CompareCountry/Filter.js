@@ -49,7 +49,14 @@ const CompareCountry = ({
                 <FontAwesomeIcon icon={faPlus} />
               </span>
 
-              <p className="title">{addCountryClickName}</p>
+              <p
+                style={{
+                  fontFamily: "Work-Sans",
+                }}
+                className="title"
+              >
+                {addCountryClickName}
+              </p>
             </>
           </button>
         ) : (

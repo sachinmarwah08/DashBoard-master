@@ -263,6 +263,7 @@ body {
 .recharts-tooltip-wrapper {
   padding: 1rem;
   background-color: white;
+  width: max-content;
 }
 
 .dropdown-list-two {
@@ -289,6 +290,7 @@ body {
   opacity: 0.15;
 }
 
-#tippy-32 {
-  z-index: 999999;
+.rsm-svg {
+  width: 100%;
+  // height: 100%;
 }

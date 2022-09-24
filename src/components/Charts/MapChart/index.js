@@ -8,7 +8,6 @@ import React, {
 import "./index.scss";
 import WorldMap from "../../../Images/earth-rc.svg";
 import Table from "../../../Images/tableIcon.svg";
-import shareIcon from "../../../Images/share-2.svg";
 import GoogleMap from "./GoogleMap/googleMap";
 import Sort from "../../SortFilter/Sort";
 import Tippy from "@tippyjs/react";
@@ -29,6 +28,8 @@ import TableData from "../MapChart/Table/Table";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationArrow } from "@fortawesome/free-solid-svg-icons";
 import { FadeLoader } from "react-spinners";
+import { Chart } from "react-google-charts";
+import Map from "./Map";
 
 const MapChartComponent = () => {
   const mapData = ["Country", "Influencer", "Hashtag"];
@@ -69,61 +70,9 @@ const MapChartComponent = () => {
     googleMapsApiKey: "AIzaSyDJqhd2TL6DayrN8E5GiqZqrjnmtrq45hU", // Add your API key
   });
 
-  const onInputChange = async (e) => {
-    setInputValue(e.target.value);
-    if (mapdata === "Filters") {
-      let tempTableData = [...tableBackupData];
-      const tableFilter = tempTableData.filter((value) => {
-        return value._id.toLowerCase().includes(inputValue.toLowerCase());
-      });
-      setTableData(tableFilter);
-    } else {
-      setShowInfluencerHashtag(true);
-      let tempData = [...influencerBackupdata];
-      let tempHasgtagData = [...hashtagBackupdata];
-      let tempCountryData = [...countryBackupdata];
-      const newFilter = tempData.filter((value) => {
-        return value.toLowerCase().includes(inputValue.toLowerCase());
-      });
-      const hashtagFilter = tempHasgtagData.filter((value) => {
-        return value.toLowerCase().includes(inputValue.toLowerCase());
-      });
-      const countryFilter = tempCountryData.filter((value) => {
-        return value.toLowerCase().includes(inputValue.toLowerCase());
-      });
-      setCountryDataDropdown(countryFilter);
-      sethashtag(hashtagFilter);
-      setInfluencerData(newFilter);
-    }
-  };
-
-  const onInfluencerInputChange = async (searchValue) => {
-    if (mapdata === "Country") {
-      setLoading(true);
-      const countryData = await getCountryDropdownData(1, searchValue);
-      setCountryDataDropdown(countryData);
-      setLoading(false);
-    }
-    if (mapdata === "Influencer") {
-      setLoading(true);
-      const influencerData = await getInfluencerDropdownData(1, searchValue);
-      setInfluencerData(influencerData);
-      setLoading(false);
-    }
-    if (mapdata === "Hashtag") {
-      setLoading(true);
-      const hashtagData = await getHashtagDropdownData(1, searchValue);
-      sethashtag(hashtagData);
-      setLoading(false);
-    }
-  };
-
-  const clearData = () => {
-    setTableData(tableBackupData);
-    setShowInfluencerHashtag(false);
-    setInputValue("");
-    setMapData("Filters");
-    setHideRank(false);
+  const center = {
+    lat: 20,
+    lng: 77,
   };
 
   useEffect(() => {
@@ -139,9 +88,6 @@ const MapChartComponent = () => {
         // let toDate = `${year}-${month}-${day}`;
         // console.log(month, day, year);
 
-        // let fromDate = "2022-07-01";
-        // let toDate = "2022-07-31";
-        // let country = "United States";
         const response = await getMapData(
           fromDate,
           toDate,
@@ -155,7 +101,6 @@ const MapChartComponent = () => {
         const countryDataResponse = await getCountryDropdownData();
 
         let tempData = [...response.data];
-        console.log(tempData, "backup");
 
         for (let i = 0; i < tempData.length; i++) {
           for (let j = 0; j < countryData.length; j++) {
@@ -214,8 +159,53 @@ const MapChartComponent = () => {
     [loading]
   );
 
-  const onFilterDropClick = (option) => {
-    setMapData(option);
+  const onInputChange = async (e) => {
+    setInputValue(e.target.value);
+    if (mapdata === "Filters") {
+      let tempTableData = [...tableBackupData];
+      const tableFilter = tempTableData.filter((value) => {
+        return value._id.toLowerCase().includes(inputValue.toLowerCase());
+      });
+      setTableData(tableFilter);
+    } else {
+      setShowInfluencerHashtag(true);
+      let tempData = [...influencerBackupdata];
+      let tempHasgtagData = [...hashtagBackupdata];
+      let tempCountryData = [...countryBackupdata];
+      const newFilter = tempData.filter((value) => {
+        return value.toLowerCase().includes(inputValue.toLowerCase());
+      });
+      const hashtagFilter = tempHasgtagData.filter((value) => {
+        return value.toLowerCase().includes(inputValue.toLowerCase());
+      });
+      const countryFilter = tempCountryData.filter((value) => {
+        return value.toLowerCase().includes(inputValue.toLowerCase());
+      });
+      setCountryDataDropdown(countryFilter);
+      sethashtag(hashtagFilter);
+      setInfluencerData(newFilter);
+    }
+  };
+
+  const onInfluencerInputChange = async (searchValue) => {
+    if (mapdata === "Country") {
+      setLoading(true);
+      const countryData = await getCountryDropdownData(1, searchValue);
+      setCountryDataDropdown(countryData);
+      setLoading(false);
+    }
+    if (mapdata === "Influencer") {
+      setLoading(true);
+      const influencerData = await getInfluencerDropdownData(1, searchValue);
+      setInfluencerData(influencerData);
+      setLoading(false);
+    }
+    if (mapdata === "Hashtag") {
+      setLoading(true);
+      const hashtagData = await getHashtagDropdownData(1, searchValue);
+      sethashtag(hashtagData);
+      setLoading(false);
+    }
   };
 
   const onEnterInputClick = async (e) => {
@@ -316,10 +306,33 @@ const MapChartComponent = () => {
     // map.fitBounds(bounds);
   };
 
-  const center = {
-    lat: 20,
-    lng: 77,
+  const clearData = () => {
+    setTableData(tableBackupData);
+    setShowInfluencerHashtag(false);
+    setInputValue("");
+    setMapData("Filters");
+    setHideRank(false);
   };
+
+  const onFilterDropClick = (option) => {
+    setMapData(option);
+  };
+
+  const data = [
+    ["Country", "Popularity"],
+    ["Germany", 200],
+    ["United States", 300],
+    ["Brazil", 400],
+    ["Canada", 500],
+    ["France", 600],
+    ["India", 20],
+    ["Albania", 700],
+    ["Canada", 700],
+    ["Afghanistan", 700],
+    ["RU", 700],
+    ["India", 800],
+  ];
+
   return (
     <div className="map-wrapper">
       <div className="content-map">
@@ -356,7 +369,6 @@ const MapChartComponent = () => {
           <div className="side-logos">
             {show === "map" && (
               <button onClick={() => reCenterMap.panTo(center)}>
-                {/* <img alt="BigArrow" className="bigArrow" src={shareIcon}></img> */}
                 <FontAwesomeIcon className="navigator" icon={faLocationArrow} />
               </button>
             )}
@@ -378,6 +390,7 @@ const MapChartComponent = () => {
             </button>
           </div>
         </div>
+
         {show === "map" && (
           <>
             <div className="map-sort">
@@ -400,6 +413,7 @@ const MapChartComponent = () => {
                 onSearch={onInfluencerInputChange}
               />
             </div>
+
             <div className="bar-map-wrapper">
               <div className="chart-map">
                 {loading ? (
@@ -407,27 +421,61 @@ const MapChartComponent = () => {
                     <FadeLoader color="#F05728" loading={loading} size={50} />
                   </div>
                 ) : (
-                  <GoogleMap
-                    influencerdata={
-                      mapdata === "Country" ||
-                      mapdata === "Influencer" ||
-                      mapData === "Hashtag"
-                    }
-                    isLoaded={isLoaded}
-                    setActiveMarker={setActiveMarker}
-                    handleOnLoad={handleOnLoad}
-                    handleActiveMarker={handleActiveMarker}
-                    mapDataApi={mapDataApi}
-                    activeMarker={activeMarker}
-                    setReCenterMap={setReCenterMap}
-                    reCenterMap={reCenterMap}
-                    center={center}
-                  />
+                  // <GoogleMap
+                  //   influencerdata={
+                  //     mapdata === "Country" ||
+                  //     mapdata === "Influencer" ||
+                  //     mapData === "Hashtag"
+                  //   }
+                  //   isLoaded={isLoaded}
+                  //   setActiveMarker={setActiveMarker}
+                  //   handleOnLoad={handleOnLoad}
+                  //   handleActiveMarker={handleActiveMarker}
+                  //   mapDataApi={mapDataApi}
+                  //   activeMarker={activeMarker}
+                  //   setReCenterMap={setReCenterMap}
+                  //   reCenterMap={reCenterMap}
+                  //   center={center}
+                  // />
+                  // <Chart
+                  //   chartEvents={[
+                  //     {
+                  //       eventName: "select",
+                  //       callback: ({ chartWrapper }) => {
+                  //         const chart = chartWrapper.getChart();
+                  //         const selection = chart.getSelection();
+                  //         if (selection.length === 0) return;
+                  //         const region = data[selection[0].row + 1];
+                  //         console.log("Selected : " + region);
+                  //       },
+                  //     },
+                  //   ]}
+                  //   options={{
+                  //     is3D: true,
+                  //     // region: "US",
+                  //     chart: {
+                  //       title: "Spend Uplift",
+                  //       backgroundColor: "black",
+                  //     },
+                  //     // resolution: "provinces",
+                  //     // displayMode: "markers",
+                  //     colorAxis: { colors: ["#F05728"] },
+                  //     colors: ["#F05728"],
+                  //     // datalessRegionColor: "#f8bbd0",
+                  //   }}
+                  //   mapsApiKey="AIzaSyDJqhd2TL6DayrN8E5GiqZqrjnmtrq45hU"
+                  //   chartType="GeoChart"
+                  //   width="100%"
+                  //   height="100%"
+                  //   data={data}
+                  // />
+                  <Map />
                 )}
               </div>
             </div>
           </>
         )}
+
         {show === "tableData" && (
           <>
             <div className="map-sort">
@@ -452,6 +500,7 @@ const MapChartComponent = () => {
                 onSearch={onInfluencerInputChange}
               />
             </div>
+
             <div className="bar-map-wrapper">
               <div className="chart-map">
                 {loading ? (

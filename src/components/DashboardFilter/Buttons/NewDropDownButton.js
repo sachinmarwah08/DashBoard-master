@@ -87,7 +87,7 @@ const NewDropdownButton = ({
   const onInputChange = (e) => {
     let tempData = [...backupData];
     setIsFilterActive(true);
-    console.log("data", data);
+
     tempData = tempData.filter(
       (option) => option.toLowerCase().indexOf(query.toLowerCase()) > -1
     );
@@ -99,8 +99,6 @@ const NewDropdownButton = ({
       },
     });
 
-    console.log("tempData", tempData);
-    console.log("backupData", backupData);
     setQuery(e.target.value);
   };
 

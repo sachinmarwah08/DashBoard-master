@@ -12,17 +12,14 @@ const containerStyle = {
 function MyComponent({
   isLoaded,
   setActiveMarker,
-  handleOnLoad,
   handleActiveMarker,
   mapDataApi,
   activeMarker,
   setReCenterMap,
-  reCenterMap,
   center,
   influencerdata,
 }) {
   const { state } = useContext(FilterContext);
-  // console.log(state);
   const { influencerValue, hashtagValue, countryValue } = state.filters;
   function twoDecimalPlacesIfCents(amount) {
     return amount % 1 !== 0 ? amount.toFixed(2) : amount;
@@ -92,7 +89,6 @@ function MyComponent({
               key={_id}
               position={position}
               onClick={() => handleActiveMarker(_id)}
-              // onMouseOut={() => handleActiveMarker()}
             >
               {activeMarker === _id ? (
                 <InfoWindowF onCloseClick={() => setActiveMarker(null)}>

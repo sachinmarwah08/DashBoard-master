@@ -7,7 +7,11 @@ import React, {
 } from "react";
 import xCircle from "../../../../Images/x-circle.svg";
 import threeDots from "../../../../Images/threeDots.svg";
-import { faAngleUp, faAngleDown } from "@fortawesome/free-solid-svg-icons";
+import {
+  faAngleUp,
+  faAngleDown,
+  faPlus,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import moment from "moment";
 import Tippy from "@tippyjs/react";
@@ -44,6 +48,7 @@ const CompareTime = ({
   const [inputValue, setInputValue] = useState("");
   const [dropdownBackUp, setDropdownBackUp] = useState([]);
   const [showDropDown, setShowDropDown] = useState(false);
+  const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -146,6 +151,7 @@ const CompareTime = ({
   ];
 
   const DropDownFilter = (e) => {
+    setShowDropDown(true);
     setInputValue(e.target.value);
     let filterData = [...dropdownBackUp];
     const countryFilter = filterData.filter((value) => {
@@ -162,7 +168,7 @@ const CompareTime = ({
   };
 
   const dropdownVisible = () => {
-    setShowDropDown(true);
+    setShowDropDown(false);
   };
 
   const wrapperRef = useRef(null);
@@ -176,121 +182,138 @@ const CompareTime = ({
           <p className="title">{countryValue ? countryValue : title}</p>
           {/* <p className="title">September, 2022</p> */}
         </div>
-
-        {!dateValue && (
-          <Tippy
-            theme={"light"}
-            interactive={true}
-            content={
-              <div
-                style={{
-                  padding: "0.5rem",
-                  fontWeight: 400,
-                  fontFamily: "Work-Sans",
-                  fontSize: "14px",
-                }}
-              >
-                <p style={{ fontWeight: 600, marginTop: 0 }}>Choose Country</p>
-                Choose a time period for comparison of a country's wellbeing
-                index score.
-              </div>
-            }
+        {!isActive ? (
+          <button
+            onClick={() => setIsActive(!isActive)}
+            className="country-add"
           >
-            <div className="country-time">
-              <button
-                ref={wrapperRef}
-                onClick={dropdownVisible}
-                className={`${
-                  !showDropDown ? "compare-time" : "compare-time-with-border"
-                }`}
+            <>
+              <span className="faplus">
+                <FontAwesomeIcon icon={faPlus} />
+              </span>
+
+              <p
+                style={{
+                  fontFamily: "Work-Sans",
+                }}
+                className="title"
               >
-                <>
-                  <span className="faplus">
-                    {!showDropDown ? (
-                      <FontAwesomeIcon icon={faAngleDown} />
-                    ) : (
-                      <FontAwesomeIcon icon={faAngleUp} />
+                Choose Country
+              </p>
+            </>
+          </button>
+        ) : (
+          !dateValue && (
+            <Tippy
+              theme={"light"}
+              interactive={true}
+              content={
+                <div
+                  style={{
+                    padding: "0.5rem",
+                    fontWeight: 400,
+                    fontFamily: "Work-Sans",
+                    fontSize: "14px",
+                  }}
+                >
+                  <p
+                    style={{
+                      fontWeight: 600,
+                      marginTop: 0,
+                    }}
+                  >
+                    Choose Country
+                  </p>
+                  Choose a time period for comparison of a country's wellbeing
+                  index score.
+                </div>
+              }
+            >
+              <div className="country-time">
+                <button
+                  ref={wrapperRef}
+                  onClick={dropdownVisible}
+                  className="compare-time"
+                >
+                  <>
+                    <div
+                      style={{
+                        width: "100%",
+                      }}
+                    >
+                      <input
+                        style={{
+                          padding: "1rem",
+                          background: "transparent",
+                          border: "none",
+                          fontSize: "1.25rem",
+                          outline: "none",
+                          fontFamily: "Work-Sans",
+                          textAlign: "center",
+                        }}
+                        type="text"
+                        className="compare-time-input"
+                        placeholder="Search country name"
+                        value={inputValue}
+                        onChange={(e) => {
+                          DropDownFilter(e);
+                          onCountryInputChange(e.target.value);
+                        }}
+                      />
+                    </div>
+                    {showDropDown && inputValue && (
+                      <>
+                        <div className="dropdown-wrapper">
+                          <div
+                            style={{ fontFamily: "Work-Sans" }}
+                            className="dropdown-content"
+                          >
+                            {loading ? (
+                              <BeatLoader
+                                color="#F05728"
+                                loading={true}
+                                size={10}
+                              />
+                            ) : (
+                              <>
+                                {countryDropValues.map((item, index) =>
+                                  countryDropValues.length === index + 1 ? (
+                                    <div
+                                      ref={lastUserRef}
+                                      style={{ fontFamily: "Work-Sans" }}
+                                      key={item.value}
+                                      onClick={() =>
+                                        onHandleCompareTimeMonthChange(item)
+                                      }
+                                      className="drop-item"
+                                    >
+                                      {item}
+                                    </div>
+                                  ) : (
+                                    <div
+                                      ref={lastUserRef}
+                                      style={{ fontFamily: "Work-Sans" }}
+                                      key={item.value}
+                                      onClick={() =>
+                                        onHandleCompareTimeMonthChange(item)
+                                      }
+                                      className="drop-item"
+                                    >
+                                      {item}
+                                    </div>
+                                  )
+                                )}
+                              </>
+                            )}
+                          </div>
+                        </div>
+                      </>
                     )}
-                  </span>
-                  <p className="title">Choose Country</p>
-                  {showDropDown && (
-                    <>
-                      <div className="dropdown-wrapper">
-                        <div
-                          style={{
-                            width: "auto",
-                            height: "2.4rem",
-                            marginTop: "0.6rem",
-                            paddingTop: "0.6rem",
-                          }}
-                        >
-                          <input
-                            style={{
-                              padding: "0.5rem",
-                              borderRadius: "4px",
-                              border: "1px solid #d0d5dd",
-                              width: "9rem",
-                              outline: "none",
-                              fontFamily: "Work-Sans",
-                            }}
-                            type="text"
-                            placeholder="Search Country"
-                            value={inputValue}
-                            onChange={(e) => {
-                              DropDownFilter(e);
-                              onCountryInputChange(e.target.value);
-                            }}
-                          />
-                        </div>
-                        <div
-                          style={{ fontFamily: "Work-Sans" }}
-                          className="dropdown-content"
-                        >
-                          {loading ? (
-                            <BeatLoader
-                              color="#F05728"
-                              loading={true}
-                              size={10}
-                            />
-                          ) : (
-                            <>
-                              {countryDropValues.map((item, index) =>
-                                countryDropValues.length === index + 1 ? (
-                                  <div
-                                    ref={lastUserRef}
-                                    style={{ fontFamily: "Work-Sans" }}
-                                    key={item.value}
-                                    onClick={() =>
-                                      onHandleCompareTimeMonthChange(item)
-                                    }
-                                    className="drop-item"
-                                  >
-                                    {item}
-                                  </div>
-                                ) : (
-                                  <div
-                                    ref={lastUserRef}
-                                    style={{ fontFamily: "Work-Sans" }}
-                                    key={item.value}
-                                    onClick={() =>
-                                      onHandleCompareTimeMonthChange(item)
-                                    }
-                                    className="drop-item"
-                                  >
-                                    {item}
-                                  </div>
-                                )
-                              )}
-                            </>
-                          )}
-                        </div>
-                      </div>
-                    </>
-                  )}
-                </>
-              </button>
-            </div>
-          </Tippy>
+                  </>
+                </button>
+              </div>
+            </Tippy>
+          )
         )}
 
         {dateValue && (

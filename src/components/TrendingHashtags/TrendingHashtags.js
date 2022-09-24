@@ -6,7 +6,6 @@ import React, {
   useState,
 } from "react";
 import "./TrendingHashtags.scss";
-// import sentiment from "../../Images/trendingIconOne.svg";
 import trending from "../../Images/trendingIconTwo.svg";
 import totalUse from "../../Images/trendingIconThree.svg";
 import Sort from "../SortFilter/Sort";
@@ -50,15 +49,114 @@ const TrendingHashtags = () => {
   const [showInfluencerHashtag, setShowInfluencerHashtag] = useState(false);
   const [countryDataDropdown, setCountryDataDropdown] = useState([]);
   const [countryBackupdata, setCountryBackupdata] = useState([]);
+  const [toggle, setToggle] = useState(false);
+  const [dropdown, setDropdown] = useState(null);
   const [trendingHashtag, setTrendingHashtag] = useState([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
+
+  useEffect(() => {
+    if (countryLineChartLoading) {
+      setLoading(true);
+      const callApi = async () => {
+        // let today = Date.now();
+        // var check = moment(today);
+        // var month = check.format("M");
+        // var day = check.format("D");
+        // var year = check.format("YYYY");
+        // let fromDate = `${year}-${month}-01`;
+        // let toDate = `${year}-${month}-${day}`;
+        // console.log(month, day, year);
+
+        const getInfluenser = await getInfluencerDropdownData();
+        const hashtagDataResponse = await getHashtagDropdownData();
+        const countryDataResponse = await getCountryDropdownData();
+
+        const response = await getTrendingHashtagData(
+          fromDate,
+          toDate,
+          countryValue,
+          influencerValue,
+          hashtagValue
+        );
+
+        if (response.records && response.records.length) {
+          setTotalCount(response.records[0].hashtag.count);
+          setTotalConnections(response.records[0].connection);
+          setHashtag(response.records[0].hashtag.htag);
+        } else {
+          setTotalCount(0);
+          setTotalConnections(0);
+          setHashtag([]);
+        }
+        setCountryDataDropdown(countryDataResponse);
+        setCountryBackupdata(countryDataResponse);
+        setInfluencerData(getInfluenser);
+        setInfluencerBackupdata(getInfluenser);
+        sethashtagdropdwon(hashtagDataResponse);
+        setHashtagBackupdata(hashtagDataResponse);
+        setData(response.records);
+        setLoading(false);
+      };
+      callApi();
+    }
+  }, [countryLineChartLoading]);
+
+  useEffect(() => {
+    const loadUsers = async () => {
+      // setLoading(true);
+      const countryData = await getCountryDropdownData(page);
+      setCountryDataDropdown((prev) => [...prev, ...countryData]);
+
+      const HashtagData = await getHashtagDropdownData(page);
+      sethashtagdropdwon((prev) => [...prev, ...HashtagData]);
+
+      const influencerData = await getInfluencerDropdownData(page);
+      setInfluencerData((prev) => [...prev, ...influencerData]);
+      setLoading(false);
+    };
+    loadUsers();
+  }, [page]);
+
+  const observer = useRef();
+
+  const lastUserRef = useCallback(
+    (node) => {
+      if (loading) return;
+      if (observer.current) observer.current.disconnect();
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && !inputValue) {
+          setPage((page) => page + 1);
+        }
+      });
+      if (node) observer.current.observe(node);
+    },
+    [loading]
+  );
 
   function kFormatter(num) {
     return Math.abs(num) > 999
       ? Math.sign(num) * (Math.abs(num) / 1000).toFixed(1) + "k"
       : Math.sign(num) * Math.abs(num);
   }
+
+  function useOutsideAlerter(ref) {
+    useEffect(() => {
+      function handleClickOutside(event) {
+        if (ref.current && !ref.current.contains(event.target)) {
+          setToggle(false);
+        }
+      }
+
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }, [ref]);
+  }
+
+  const wrapperRef = useRef(null);
+  useOutsideAlerter(wrapperRef);
 
   const onInputChange = async (e) => {
     setShowInfluencerHashtag(true);
@@ -108,96 +206,18 @@ const TrendingHashtags = () => {
     setTrendingFilter(option);
   };
 
-  useEffect(() => {
-    if (countryLineChartLoading) {
-      setLoading(true);
-      const callApi = async () => {
-        // let today = Date.now();
-        // var check = moment(today);
-        // var month = check.format("M");
-        // var day = check.format("D");
-        // var year = check.format("YYYY");
-        // let fromDate = `${year}-${month}-01`;
-        // let toDate = `${year}-${month}-${day}`;
-        // console.log(month, day, year);
-
-        // let fromDate = "2022-07-01";
-        // let toDate = "2022-07-31";
-
-        const getInfluenser = await getInfluencerDropdownData();
-        const hashtagDataResponse = await getHashtagDropdownData();
-        const countryDataResponse = await getCountryDropdownData();
-
-        const response = await getTrendingHashtagData(
-          fromDate,
-          toDate,
-          countryValue,
-          influencerValue,
-          hashtagValue
-        );
-        console.log(
-          "////////////////////////////////////////////response//////",
-          response
-        );
-        if (response.records && response.records.length) {
-          setTotalCount(response.records[0].hashtag.count);
-          setTotalConnections(response.records[0].connection);
-          setHashtag(response.records[0].hashtag.htag);
-        } else {
-          setTotalCount(0);
-          setTotalConnections(0);
-          setHashtag([]);
-        }
-        setCountryDataDropdown(countryDataResponse);
-        setCountryBackupdata(countryDataResponse);
-        setInfluencerData(getInfluenser);
-        setInfluencerBackupdata(getInfluenser);
-        sethashtagdropdwon(hashtagDataResponse);
-        setHashtagBackupdata(hashtagDataResponse);
-        setData(response.records);
-        setLoading(false);
-        // console.log(response.records, "trending hashtag");
-      };
-      callApi();
-    }
-  }, [countryLineChartLoading]);
-
-  useEffect(() => {
-    const loadUsers = async () => {
-      // setLoading(true);
-      const countryData = await getCountryDropdownData(page);
-      setCountryDataDropdown((prev) => [...prev, ...countryData]);
-
-      const HashtagData = await getHashtagDropdownData(page);
-      sethashtagdropdwon((prev) => [...prev, ...HashtagData]);
-
-      const influencerData = await getInfluencerDropdownData(page);
-      setInfluencerData((prev) => [...prev, ...influencerData]);
-      setLoading(false);
-    };
-    loadUsers();
-  }, [page]);
-
-  const observer = useRef();
-
-  const lastUserRef = useCallback(
-    (node) => {
-      if (loading) return;
-      if (observer.current) observer.current.disconnect();
-      observer.current = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && !inputValue) {
-          setPage((page) => page + 1);
-        }
-      });
-      if (node) observer.current.observe(node);
-    },
-    [loading]
-  );
-
   const handleChange = (index) => {
     setTotalCount(data && data.length && data[index].hashtag.count);
     setTotalConnections(data && data.length && data[index].connection);
     setHashtag(data && data.length && data[index].hashtag.htag);
+
+    if (index !== dropdown) {
+      setToggle(true);
+      setDropdown(index);
+    } else {
+      setToggle(!toggle);
+      setDropdown(index);
+    }
   };
 
   const onEnterInputClick = async (e) => {
@@ -250,8 +270,6 @@ const TrendingHashtags = () => {
         tempData.sort((a, b) => b.hashtag.count - a.hashtag.count);
       }
 
-      // setTotalCount(tempData);
-      // setTotalConnections(tempData);
       setTrendingHashtag(tempData);
       setData(response.records);
       setLoading(false);
@@ -339,13 +357,6 @@ const TrendingHashtags = () => {
           />
           <div className="hashtags-wrapper">
             <div className="left-trending-content">
-              {/* <div className="trending-content">
-              <img src={sentiment}></img>
-              <span className="trending-heading">Hashtag</span>
-              <span className="trending-score">
-                {data && data.length && data[0].hashtag.htag}
-              </span>
-            </div> */}
               <div className="trending-content">
                 <Tippy
                   theme={"light"}
@@ -367,6 +378,7 @@ const TrendingHashtags = () => {
                 >
                   <img src={trending}></img>
                 </Tippy>
+
                 <span className="trending-heading">Total Use</span>
                 {loading ? (
                   <BeatLoader color="#F05728" loading={loading} size={10} />
@@ -376,6 +388,7 @@ const TrendingHashtags = () => {
                   </span>
                 )}
               </div>
+
               <div className="trending-content">
                 <Tippy
                   theme={"light"}
@@ -399,6 +412,7 @@ const TrendingHashtags = () => {
                 >
                   <img src={totalUse}></img>
                 </Tippy>
+
                 <span className="trending-heading">Total Connections</span>
                 {loading ? (
                   <BeatLoader color="#F05728" loading={loading} size={10} />
@@ -418,9 +432,13 @@ const TrendingHashtags = () => {
                 loading={loading}
                 setLoading={setLoading}
                 trendingFilter={trendingFilter}
+                toggle={toggle}
+                dropdown={dropdown}
+                wrapperRef={wrapperRef}
               />
             </div>
           </div>
+
           <p className="note">
             * Clicking on the hashtag bubble will provide insights about its
             usage and connections

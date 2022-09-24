@@ -11,9 +11,95 @@ import {
   Cell,
 } from "recharts";
 
-const barColors = ["#2A00FF", "#F05728"];
+const barColors = ["#F05728", "#2A00FF"];
+
+function kFormatter(num) {
+  return Math.abs(num) > 999
+    ? Math.sign(num) * (Math.abs(num) / 1000).toFixed(1) + "k"
+    : Math.sign(num) * Math.abs(num);
+}
+
+function twoDecimalPlacesIfCents(amount) {
+  return amount % 1 !== 0 ? amount.toFixed(2) : amount;
+}
 
 const LineBarChart = ({ data }) => {
+  function renderTooltip(BarLineChartItems) {
+    console.log("BarItemCompareCountry", BarLineChartItems);
+    if (
+      BarLineChartItems &&
+      BarLineChartItems.payload &&
+      BarLineChartItems.payload.length
+    ) {
+      return (
+        <div
+          style={{
+            width: "100%",
+          }}
+        >
+          {data && (
+            <>
+              <div
+                style={{
+                  borderRadius: "14px",
+                  marginBottom: 0,
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+              >
+                <span
+                  style={{
+                    fontSize: "20px",
+                    color: "#212121",
+                    fontWeight: 700,
+                    marginTop: 0,
+                    marginBottom: 0,
+                  }}
+                >
+                  {BarLineChartItems.payload[0].payload.name}
+                </span>
+                <span
+                  style={{
+                    fontSize: "14px",
+                    marginTop: "0.5rem",
+                    color: "#212121",
+                    fontWeight: 500,
+                    marginBottom: 0,
+                  }}
+                >
+                  Happy:{" "}
+                  <span style={{ color: "#F05728", fontWeight: 600 }}>
+                    {twoDecimalPlacesIfCents(
+                      BarLineChartItems.payload[0].payload.pv
+                    )}
+                    %
+                  </span>
+                </span>
+                <span
+                  style={{
+                    fontSize: "14px",
+                    marginTop: "0.5rem",
+                    color: "#212121",
+                    fontWeight: 500,
+                    marginBottom: 0,
+                  }}
+                >
+                  Negative:{" "}
+                  <span style={{ color: "#F05728", fontWeight: 600 }}>
+                    {twoDecimalPlacesIfCents(
+                      BarLineChartItems.payload[0].payload.sad
+                    )}
+                    %
+                  </span>
+                </span>
+              </div>
+            </>
+          )}
+        </div>
+      );
+    }
+    return null;
+  }
   return (
     <div style={{ width: "8rem", height: "12rem" }}>
       <ResponsiveContainer width="100%" height="100%" aspect="auto">
@@ -40,7 +126,7 @@ const LineBarChart = ({ data }) => {
               border: "1px solid #939596",
               outline: "none",
             }}
-            // content={(item, index) => renderTooltip(item, index)}
+            content={(item, index) => renderTooltip(item, index)}
             cursor={{ fill: "transparent" }}
           />
           <Bar cursor="pointer" dataKey="pv">

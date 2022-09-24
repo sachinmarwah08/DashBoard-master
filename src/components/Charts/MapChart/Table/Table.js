@@ -1,33 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import "./Table.scss";
-import { getMapData } from "../../../../actions/GoogleMapApis/index";
 import { FilterContext } from "../../../../context/FilterContext";
 
 const Table = ({ tableData, hideRank }) => {
   const { state } = useContext(FilterContext);
-  // console.log(state);
   const { influencerValue, hashtagValue, countryValue } = state.filters;
-  // const [data, setData] = useState([]);
-
-  // useEffect(() => {
-  //   const callApi = async () => {
-  //     // let today = Date.now();
-  //     // var check = moment(today);
-  //     // var month = check.format("M");
-  //     // var day = check.format("D");
-  //     // var year = check.format("YYYY");
-  //     // let fromDate = `${year}-${month}-01`;
-  //     // let toDate = `${year}-${month}-${day}`;
-  //     // console.log(month, day, year);
-
-  //     let fromDate = "2022-07-01";
-  //     let toDate = "2022-07-31";
-
-  //     const response = await getMapData(fromDate, toDate);
-  //     setData(response.data);
-  //   };
-  //   callApi();
-  // }, []);
 
   function nFormatter(num) {
     if (num >= 1000000000) {
@@ -42,16 +19,11 @@ const Table = ({ tableData, hideRank }) => {
     return num;
   }
 
-  // function twoDecimalPlacesIfCents(amount) {
-  //   return amount % 1 !== 0 ? amount.toFixed(2) : amount;
-  // }
-
   function ParseFloat(str, val) {
     str = str.toString();
     str = str.slice(0, str.indexOf(".") + val + 1);
     return Number(str);
   }
-  console.log(ParseFloat("NaN", 2), "Helloooooooooparsen");
 
   return (
     <div className="table-wrapper">

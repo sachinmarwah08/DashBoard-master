@@ -17,31 +17,39 @@ const CompareTimeLineChart = ({
 }) => {
   return (
     <>
-      {/* {dateValue && (
-        <div className="bar-chart-line">
-          <LineBarChart />
+      {loading ? (
+        <div className="lineChart-loader">
+          <FadeLoader color="#F05728" loading={loading} size={50} />
         </div>
-      )} */}
-      {compareTimeActive && (
-        <div
-          className={`${
-            dateValue ? "line-chart-bar" : "line-chart-bar-condition"
-          }`}
-        >
-          {loading ? (
-            <div className="linechart-loader">
-              <FadeLoader color="#F05728" loading={loading} size={50} />
+      ) : (
+        <>
+          {dateValue && (
+            <div className="bar-chart-line">
+              <LineBarChart data={chooseTimeBarDataState} />
             </div>
-          ) : (
-            <LineChart
-              dateValue={dateValue}
-              compareTimeActive={compareTimeActive}
-              chooseTimeLineChartData={chooseTimeLineChartData}
-              selectCountry={selectCountry}
-              contryNameState={contryNameState}
-            />
           )}
-        </div>
+          {compareTimeActive && (
+            <div
+              className={`${
+                dateValue ? "line-chart-bar" : "line-chart-bar-condition"
+              }`}
+            >
+              {loading ? (
+                <div className="linechart-loader">
+                  <FadeLoader color="#F05728" loading={loading} size={50} />
+                </div>
+              ) : (
+                <LineChart
+                  dateValue={dateValue}
+                  compareTimeActive={compareTimeActive}
+                  chooseTimeLineChartData={chooseTimeLineChartData}
+                  selectCountry={selectCountry}
+                  contryNameState={contryNameState}
+                />
+              )}
+            </div>
+          )}
+        </>
       )}
     </>
   );

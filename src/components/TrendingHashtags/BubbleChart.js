@@ -15,6 +15,9 @@ const BubbleChart = ({
   setTrendingHashtag,
   loading,
   setLoading,
+  toggle,
+  dropdown,
+  wrapperRef,
 }) => {
   const { state } = useContext(FilterContext);
   const {
@@ -78,6 +81,9 @@ const BubbleChart = ({
             index={0}
             handleChange={handleChange}
             trendingHashtag={trendingHashtag}
+            toggle={toggle}
+            dropdown={dropdown}
+            wrapperRef={wrapperRef}
           />
 
           <Bubble
@@ -85,6 +91,9 @@ const BubbleChart = ({
             index={3}
             handleChange={handleChange}
             trendingHashtag={trendingHashtag}
+            toggle={toggle}
+            dropdown={dropdown}
+            wrapperRef={wrapperRef}
           />
 
           <Bubble
@@ -92,6 +101,9 @@ const BubbleChart = ({
             index={2}
             handleChange={handleChange}
             trendingHashtag={trendingHashtag}
+            toggle={toggle}
+            dropdown={dropdown}
+            wrapperRef={wrapperRef}
           />
 
           <Bubble
@@ -99,6 +111,9 @@ const BubbleChart = ({
             index={4}
             handleChange={handleChange}
             trendingHashtag={trendingHashtag}
+            toggle={toggle}
+            dropdown={dropdown}
+            wrapperRef={wrapperRef}
           />
 
           <Bubble
@@ -106,6 +121,9 @@ const BubbleChart = ({
             index={5}
             handleChange={handleChange}
             trendingHashtag={trendingHashtag}
+            toggle={toggle}
+            dropdown={dropdown}
+            wrapperRef={wrapperRef}
           />
 
           <Bubble
@@ -113,6 +131,9 @@ const BubbleChart = ({
             index={6}
             handleChange={handleChange}
             trendingHashtag={trendingHashtag}
+            toggle={toggle}
+            dropdown={dropdown}
+            wrapperRef={wrapperRef}
           />
 
           <Bubble
@@ -120,6 +141,9 @@ const BubbleChart = ({
             index={1}
             handleChange={handleChange}
             trendingHashtag={trendingHashtag}
+            toggle={toggle}
+            dropdown={dropdown}
+            wrapperRef={wrapperRef}
           />
 
           <Bubble
@@ -127,6 +151,9 @@ const BubbleChart = ({
             index={12}
             handleChange={handleChange}
             trendingHashtag={trendingHashtag}
+            toggle={toggle}
+            dropdown={dropdown}
+            wrapperRef={wrapperRef}
           />
 
           <Bubble
@@ -134,6 +161,9 @@ const BubbleChart = ({
             index={13}
             handleChange={handleChange}
             trendingHashtag={trendingHashtag}
+            toggle={toggle}
+            dropdown={dropdown}
+            wrapperRef={wrapperRef}
           />
 
           <Bubble
@@ -141,6 +171,9 @@ const BubbleChart = ({
             index={7}
             handleChange={handleChange}
             trendingHashtag={trendingHashtag}
+            toggle={toggle}
+            dropdown={dropdown}
+            wrapperRef={wrapperRef}
           />
 
           <Bubble
@@ -148,6 +181,9 @@ const BubbleChart = ({
             index={11}
             handleChange={handleChange}
             trendingHashtag={trendingHashtag}
+            toggle={toggle}
+            dropdown={dropdown}
+            wrapperRef={wrapperRef}
           />
 
           <Bubble
@@ -155,6 +191,9 @@ const BubbleChart = ({
             index={9}
             handleChange={handleChange}
             trendingHashtag={trendingHashtag}
+            toggle={toggle}
+            dropdown={dropdown}
+            wrapperRef={wrapperRef}
           />
 
           <Bubble
@@ -162,6 +201,9 @@ const BubbleChart = ({
             index={10}
             handleChange={handleChange}
             trendingHashtag={trendingHashtag}
+            toggle={toggle}
+            dropdown={dropdown}
+            wrapperRef={wrapperRef}
           />
 
           <Bubble
@@ -169,6 +211,9 @@ const BubbleChart = ({
             index={8}
             handleChange={handleChange}
             trendingHashtag={trendingHashtag}
+            toggle={toggle}
+            dropdown={dropdown}
+            wrapperRef={wrapperRef}
           />
 
           <Bubble
@@ -176,6 +221,9 @@ const BubbleChart = ({
             index={14}
             handleChange={handleChange}
             trendingHashtag={trendingHashtag}
+            toggle={toggle}
+            dropdown={dropdown}
+            wrapperRef={wrapperRef}
           />
 
           <div className="bubble-line-fifteen"></div>
@@ -186,7 +234,6 @@ const BubbleChart = ({
           <div className="bubble-twenty"></div>
           <div className="bubble-twentyone"></div>
           <div className="bubble-twentytwo"></div>
-          {/* <div className="bubble-twentythree"></div> */}
         </div>
       )}
     </>

@@ -7,7 +7,6 @@ import React, {
 } from "react";
 import "./RealTimeFeeds.scss";
 import RealTimeFeed from "./Content/RealTimeContent";
-// import shareIcon from "../../../Images/share-2.svg";
 import Sort from "../../SortFilter/Sort";
 import RadioButton from "../../RadioButton/RadioButton";
 import {
@@ -37,7 +36,6 @@ const RealTimeFeeds = () => {
       dateRangeValue: { fromDate, toDate },
     },
   } = state;
-  const [wordEntered, setWordEntered] = useState("");
   const [active, setActive] = useState("Real-time-Tweets");
   const realTimeData =
     active === "Real-time-Tweets"
@@ -61,141 +59,6 @@ const RealTimeFeeds = () => {
   const [globalBackupData, setGlobalBackupData] = useState([]);
   const [page, setPage] = useState(1);
 
-  const handleRadioChange = async (value) => {
-    setLoading(true);
-    let countryTypedValue = "";
-    let influencerTypedValue = "";
-    let hashtagTypedValue = "";
-    if (realData === "Influencer") {
-      influencerTypedValue = inputValue;
-    }
-    if (realData === "Hashtag") {
-      hashtagTypedValue = inputValue;
-    }
-    if (realData === "Country") {
-      countryTypedValue = inputValue;
-    }
-
-    let sentiment = "All";
-    if (value === 2) {
-      sentiment = "Positive";
-    } else if (value === 3) {
-      sentiment = "Negative";
-    }
-
-    let newsSentiment = "All";
-    if (value === 2) {
-      newsSentiment = "Positive";
-    } else if (value === 3) {
-      newsSentiment = "Negative";
-    }
-
-    setIsRadioChecked(value);
-
-    const newsCountResponse = await newsFlashes(
-      fromDate,
-      toDate,
-      newsSentiment,
-      countryTypedValue || countryValue,
-      influencerTypedValue || influencerValue,
-      hashtagTypedValue || hashtagValue
-    );
-    setNewsFeed(newsCountResponse.records);
-
-    const tweetsCountResponse = await getSocialMediaFlashes(
-      fromDate,
-      toDate,
-      sentiment,
-      countryTypedValue || countryValue,
-      influencerTypedValue || influencerValue,
-      hashtagTypedValue || hashtagValue
-    );
-    setTweets(tweetsCountResponse.records);
-    setLoading(false);
-  };
-
-  const handleFilter = (e) => {
-    setInputValue(e.target.value);
-    setShowInfluencerHashtag(true);
-    setLoading(true);
-    if (realData === "Filters") {
-      setShowInfluencerHashtag(false);
-      setLoading(false);
-      let tempData = [...newDataBackup];
-      console.log("influencerDataBackup", newDataBackup);
-      const newFilter = tempData.filter((value) => {
-        return (
-          value.headline.toLowerCase().includes(inputValue.toLowerCase()) ||
-          // value.htag.toLowerCase().includes(searchWord.toLowerCase()) ||
-          value.news_source.toLowerCase().includes(inputValue.toLowerCase())
-        );
-      });
-      console.log("newFilter", newFilter);
-      setNewsFeed(newFilter);
-      setLoading(false);
-    }
-    if (realData === "Filters") {
-      let tempData = [...globalBackupData];
-      console.log("influencerDataBackup", tweetsDataBackup);
-      const newFilter = tempData.filter((value) => {
-        return (
-          value.username.toLowerCase().includes(inputValue.toLowerCase()) ||
-          // value.htag.toLowerCase().includes(searchWord.toLowerCase()) ||
-          value.events.toLowerCase().includes(inputValue.toLowerCase()) ||
-          value.url.toLowerCase().includes(inputValue.toLowerCase())
-        );
-      });
-      console.log("newFilter", newFilter);
-      setTweets(newFilter);
-    } else {
-      let tempDatadrodown = [...influencerBackupdata];
-      let tempHasgtagData = [...hashtagBackupdata];
-      let tempCountryData = [...countryBackupdata];
-
-      const influencerFilter = tempDatadrodown.filter((value) => {
-        return value.toLowerCase().includes(inputValue.toLowerCase());
-      });
-      const hashtagFilter = tempHasgtagData.filter((value) => {
-        return value.toLowerCase().includes(inputValue.toLowerCase());
-      });
-      const countryFilter = tempCountryData.filter((value) => {
-        return value.toLowerCase().includes(inputValue.toLowerCase());
-      });
-      setCountryDataDropdown(countryFilter);
-      sethashtag(hashtagFilter);
-      setInfluencerData(influencerFilter);
-      setLoading(false);
-    }
-  };
-
-  const onInfluencerInputChange = async (searchValue) => {
-    if (realData === "Country") {
-      // setLoading(true);
-      const countryData = await getCountryDropdownData(1, searchValue);
-      setCountryDataDropdown(countryData);
-      setLoading(false);
-    }
-    if (realData === "Influencer") {
-      // setLoading(true);
-      const influencerData = await getInfluencerDropdownData(1, searchValue);
-      setInfluencerData(influencerData);
-      setLoading(false);
-    }
-    if (realData === "Hashtag") {
-      // setLoading(true);
-      const hashtagData = await getHashtagDropdownData(1, searchValue);
-      sethashtag(hashtagData);
-      setLoading(false);
-    }
-  };
-
-  const clearData = () => {
-    setRealData("Filter");
-    setTweets(globalBackupData);
-    setNewsFeed(newDataBackup);
-    setInputValue("");
-  };
-
   useEffect(() => {
     if (countryLineChartLoading) {
       // setLoading(true)
@@ -209,12 +72,7 @@ const RealTimeFeeds = () => {
         // let toDate = `${year}-${month}-${day}`;
         // console.log(month, day, year);
 
-        // let tweetsFromDate = "2022-07-01";
-        // let tweetsToDate = "2022-07-31";
         let sentiment = "All";
-
-        // let newsFromDate = "2022-07-01";
-        // let newsToDate = "2022-07-31";
         let newsSentiment = "All";
 
         const tweetsCountResponse = await getSocialMediaFlashes(
@@ -255,10 +113,7 @@ const RealTimeFeeds = () => {
     }
   }, [countryLineChartLoading]);
 
-  /////////////////////////////////////////////////////////////
-
   useEffect(() => {
-    console.log("inputValue", inputValue);
     const loadUsers = async () => {
       setLoading(true);
       let sentiment = "ALL";
@@ -322,10 +177,131 @@ const RealTimeFeeds = () => {
     [loading]
   );
 
-  /////////////////////////////////////////////////////////////
+  const handleRadioChange = async (value) => {
+    setLoading(true);
+    let countryTypedValue = "";
+    let influencerTypedValue = "";
+    let hashtagTypedValue = "";
+    if (realData === "Influencer") {
+      influencerTypedValue = inputValue;
+    }
+    if (realData === "Hashtag") {
+      hashtagTypedValue = inputValue;
+    }
+    if (realData === "Country") {
+      countryTypedValue = inputValue;
+    }
 
-  const onFilterDropClick = (option) => {
-    setRealData(option);
+    let sentiment = "All";
+    if (value === 2) {
+      sentiment = "Positive";
+    } else if (value === 3) {
+      sentiment = "Negative";
+    }
+
+    let newsSentiment = "All";
+    if (value === 2) {
+      newsSentiment = "Positive";
+    } else if (value === 3) {
+      newsSentiment = "Negative";
+    }
+
+    setIsRadioChecked(value);
+
+    const newsCountResponse = await newsFlashes(
+      fromDate,
+      toDate,
+      newsSentiment,
+      countryTypedValue || countryValue,
+      influencerTypedValue || influencerValue,
+      hashtagTypedValue || hashtagValue
+    );
+    setNewsFeed(newsCountResponse.records);
+
+    const tweetsCountResponse = await getSocialMediaFlashes(
+      fromDate,
+      toDate,
+      sentiment,
+      countryTypedValue || countryValue,
+      influencerTypedValue || influencerValue,
+      hashtagTypedValue || hashtagValue
+    );
+    setTweets(tweetsCountResponse.records);
+    setLoading(false);
+  };
+
+  const handleFilter = (e) => {
+    setInputValue(e.target.value);
+    setShowInfluencerHashtag(true);
+    setLoading(true);
+    if (realData === "Filters") {
+      setShowInfluencerHashtag(false);
+      setLoading(false);
+      let tempData = [...newDataBackup];
+
+      const newFilter = tempData.filter((value) => {
+        return (
+          value.headline.toLowerCase().includes(inputValue.toLowerCase()) ||
+          // value.htag.toLowerCase().includes(searchWord.toLowerCase()) ||
+          value.news_source.toLowerCase().includes(inputValue.toLowerCase())
+        );
+      });
+
+      setNewsFeed(newFilter);
+      setLoading(false);
+    }
+    if (realData === "Filters") {
+      let tempData = [...globalBackupData];
+
+      const newFilter = tempData.filter((value) => {
+        return (
+          value.username.toLowerCase().includes(inputValue.toLowerCase()) ||
+          // value.htag.toLowerCase().includes(searchWord.toLowerCase()) ||
+          value.events.toLowerCase().includes(inputValue.toLowerCase()) ||
+          value.url.toLowerCase().includes(inputValue.toLowerCase())
+        );
+      });
+      setTweets(newFilter);
+    } else {
+      let tempDatadrodown = [...influencerBackupdata];
+      let tempHasgtagData = [...hashtagBackupdata];
+      let tempCountryData = [...countryBackupdata];
+
+      const influencerFilter = tempDatadrodown.filter((value) => {
+        return value.toLowerCase().includes(inputValue.toLowerCase());
+      });
+      const hashtagFilter = tempHasgtagData.filter((value) => {
+        return value.toLowerCase().includes(inputValue.toLowerCase());
+      });
+      const countryFilter = tempCountryData.filter((value) => {
+        return value.toLowerCase().includes(inputValue.toLowerCase());
+      });
+      setCountryDataDropdown(countryFilter);
+      sethashtag(hashtagFilter);
+      setInfluencerData(influencerFilter);
+      setLoading(false);
+    }
+  };
+
+  const onInfluencerInputChange = async (searchValue) => {
+    if (realData === "Country") {
+      // setLoading(true);
+      const countryData = await getCountryDropdownData(1, searchValue);
+      setCountryDataDropdown(countryData);
+      setLoading(false);
+    }
+    if (realData === "Influencer") {
+      // setLoading(true);
+      const influencerData = await getInfluencerDropdownData(1, searchValue);
+      setInfluencerData(influencerData);
+      setLoading(false);
+    }
+    if (realData === "Hashtag") {
+      // setLoading(true);
+      const hashtagData = await getHashtagDropdownData(1, searchValue);
+      sethashtag(hashtagData);
+      setLoading(false);
+    }
   };
 
   const onEnterInputClick = async (e) => {
@@ -415,6 +391,17 @@ const RealTimeFeeds = () => {
     setLoading(false);
   };
 
+  const clearData = () => {
+    setRealData("Filter");
+    setTweets(globalBackupData);
+    setNewsFeed(newDataBackup);
+    setInputValue("");
+  };
+
+  const onFilterDropClick = (option) => {
+    setRealData(option);
+  };
+
   return (
     <div className="left-container">
       <div className="main-heading">
@@ -448,6 +435,7 @@ const RealTimeFeeds = () => {
             <div className="tweets-heading">Real-time Tweets</div>
           </Tippy>
         </button>
+
         <button
           onClick={() => setActive("Real-time-News")}
           className={` ${
@@ -478,10 +466,8 @@ const RealTimeFeeds = () => {
             <div className="tweets-heading">Real-time News</div>
           </Tippy>
         </button>
-        {/* <div className="share-icon-btn">
-          <img className="share-icon" alt="share-icon" src={shareIcon} />
-        </div> */}
       </div>
+
       <div className="realTime-radioBtn">
         <RadioButton
           radioName="realTimeTweets"
@@ -536,8 +522,13 @@ const RealTimeFeeds = () => {
           loading={loading}
         />
       )}
+
       {active === "Real-time-News" && (
-        <NewsFeed filterData={newsFeed} loading={loading} />
+        <NewsFeed
+          lastUserRef={lastUserRef}
+          filterData={newsFeed}
+          loading={loading}
+        />
       )}
     </div>
   );

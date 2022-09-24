@@ -29,7 +29,7 @@ import CountryAndDateButton from "./Buttons/CountryAndDateButton/Button";
 import CountryAndTimeButton from "./Buttons/CountryAndTimeButton/Button";
 import { compareCountry, compareTime } from "../../../actions/LineChartApis";
 import CompareCountryLineChart from "./CompareCountry/CompareCountryLineChart";
-import SelectSearch from "react-select-search";
+// import SelectSearch from "react-select-search";
 // import downloadIcon from "../../../Images/download-2.svg";
 // import shareIcon from "../../../Images/share-3.svg";
 // import { useInView } from "react-intersection-observer";
@@ -82,7 +82,7 @@ const LineChartData = () => {
   // const [showDropDown, setShowDropDown] = useState(false);
   // const [selected, setSelected] = useState("Past 1 months");
   const [countryDropBackUpData, setCountryDropBackUpData] = useState([]);
-  // const [chooseTimeBarDataState, setChooseTimeBarDataState] = useState([]);
+  const [chooseTimeBarDataState, setChooseTimeBarDataState] = useState([]);
 
   useEffect(() => {
     if (countryLineChartLoading) {
@@ -135,12 +135,22 @@ const LineChartData = () => {
 
         let tempBarData = [];
 
-        tempBarData.push({
+        tempBarData[0] = {
           name: country,
           pv: response.bar_graph_data[country].happy,
-        });
+          sad: response.bar_graph_data[country].sad,
+        };
+
+        let tempChooseTimeBarData = [];
+
+        tempChooseTimeBarData[0] = {
+          name: country,
+          pv: response.bar_graph_data[country].happy,
+          sad: response.bar_graph_data[country].sad,
+        };
 
         setDataForLineBarChart(tempBarData);
+        setChooseTimeBarDataState(tempChooseTimeBarData);
 
         setCountrySelect(countryDropdown);
         setBarChartData(response.bar_graph_data[country]);
@@ -226,6 +236,7 @@ const LineChartData = () => {
 
   const onCountryEnterPress = async (e) => {
     if (e.key === "Enter") {
+      setLoading(true);
       if (
         countrySelect
           .map((x) => x.toLowerCase())
@@ -237,41 +248,23 @@ const LineChartData = () => {
         try {
           const response = await compareCountry(fromDate, toDate, country);
 
-          // console.log(response.bar_graph_data[country].happy, "coming heere");
+          console.log(response.bar_graph_data[country].happy, "coming heere");
+
+          // BAR CHART
 
           let tempBarData = [];
 
-          tempBarData.push({
+          tempBarData[0] = { ...dataForLineBarChart[0] };
+
+          tempBarData[1] = {
             name: country,
             pv: response.bar_graph_data[country].happy,
-          });
-
-          // let tempBarData = JSON.parse(JSON.stringify(LineChartBarData));
-          // console.log(response.bar_graph_data[country]);
-          // if (
-          //   response &&
-          //   response.bar_graph_data &&
-          //   response.bar_graph_data[country]
-          // ) {
-          //   tempBarData.series[0].data[0].y =
-          //     response.bar_graph_data[country].happy;
-          //   tempBarData.tooltip.headerFormat = `<strong><span style="color:#212121; font-size: 16px;">{point.key}</span></strong><br>`;
-          //   tempBarData.tooltip.pointFormat = `{series.name}: <strong><span  style="color:#F05728">{point.y}</span></strong><br><span style="color:#212121">Positive:<span> <strong><span style="color:#F05728">${twoDecimalPlacesIfCents(
-          //     response.bar_graph_data[country].happy
-          //   )}%</span></strong><br/>Negative: <strong><span style="color:#F05728">${twoDecimalPlacesIfCents(
-          //     response.bar_graph_data[country].sad
-          //   )}%</span></strong>`;
-          // }
-          // if (barChartData) {
-          //   let tempBarData = [];
-
-          //   tempBarData.push({
-          //     name: country,
-          //     pv: response.bar_graph_data[country].happy,
-          //   });
-          // }
+            sad: response.bar_graph_data[country].sad,
+          };
 
           setDataForLineBarChart(tempBarData);
+
+          // BAR CHART
 
           let tempData = [...LineChartData];
           for (let i = 0; i < tempData.length; i++) {
@@ -318,8 +311,8 @@ const LineChartData = () => {
             item[country] = item.compare;
           });
 
-          // setBarChartData(response.bar_graph_data);
           setLineChartData(tempData);
+          setLoading(false);
         } catch (error) {
           toast.error("No records found in Data Lake...", {
             position: "top-right",
@@ -346,6 +339,7 @@ const LineChartData = () => {
   const handleChange = async (option) => {
     setLoading(true);
     if (contryNameState && isValue) {
+      setLoading(true);
       if (
         countrySelect
           .map((x) => x.toLowerCase())
@@ -358,43 +352,21 @@ const LineChartData = () => {
           const dropResponse = await compareCountry(fromDate, toDate, option);
           const response = await compareCountry(fromDate, toDate, country);
 
+          // BAR CHART
+
           let tempBarData = [...dataForLineBarChart];
 
-          tempBarData.push({
+          tempBarData[0] = { ...dataForLineBarChart[0] };
+
+          tempBarData[0] = {
             name: option,
             pv: dropResponse.bar_graph_data[option].happy,
-          });
+            sad: dropResponse.bar_graph_data[option].sad,
+          };
 
           setDataForLineBarChart(tempBarData);
-          // let tempBarData = JSON.parse(JSON.stringify(LineChartBarData));
-          // console.log(response.bar_graph_data[country]);
-          // if (
-          //   response &&
-          //   response.bar_graph_data &&
-          //   response.bar_graph_data[country]
-          // ) {
-          //   tempBarData.series[0].data[0].y =
-          //     response.bar_graph_data[country].happy;
-          //   tempBarData.tooltip.headerFormat = `<strong><span style="color:#212121; font-size: 16px;">{point.key}</span></strong><br>`;
-          //   tempBarData.tooltip.pointFormat = `{series.name}: <strong><span  style="color:#F05728">{point.y}</span></strong><br><span style="color:#212121">Positive:<span> <strong><span style="color:#F05728">${twoDecimalPlacesIfCents(
-          //     response.bar_graph_data[country].happy
-          //   )}%</span></strong><br/>Negative: <strong><span style="color:#F05728">${twoDecimalPlacesIfCents(
-          //     response.bar_graph_data[country].sad
-          //   )}%</span></strong>`;
-          // }
-          // if (
-          //   dropResponse &&
-          //   dropResponse.bar_graph_data &&
-          //   dropResponse.bar_graph_data[country]
-          // ) {
-          //   tempBarData.series[0].data[1].y =
-          //     dropResponse.bar_graph_data[option].happy;
-          //   tempBarData.tooltip.pointFormat = `</span></strong><br><span style="color:#212121">Positive:<span> <strong><span style="color:#F05728">${twoDecimalPlacesIfCents(
-          //     dropResponse.bar_graph_data[option].happy
-          //   )}%</span></strong><br/>Negative: <strong><span style="color:#F05728">${twoDecimalPlacesIfCents(
-          //     dropResponse.bar_graph_data[option].sad
-          //   )}%</span></strong>`;
-          // }
+
+          // BAR CHART
 
           let tempData = [...dropResponse.line_chart_data[option]];
           for (let i = 0; i < tempData.length; i++) {
@@ -443,6 +415,7 @@ const LineChartData = () => {
           // setBarChartData(response.bar_graph_data);
           setLineChartData(tempData);
           setBackUpLineChartData(dropResponse.line_chart_data[option]);
+          setLoading(false);
         } catch (error) {
           toast.error("No records found in Data Lake...", {
             position: "top-right",
@@ -465,6 +438,7 @@ const LineChartData = () => {
       }
     } else if (dateValue && chooseTime) {
       // setDateValue(item.month);
+      setLoading(true);
 
       let country = selectCountry;
       let fromDateCompareTime = "2022-05-01";
@@ -476,31 +450,21 @@ const LineChartData = () => {
         country
       );
 
-      // let tempBarData = JSON.parse(JSON.stringify(chooseTimeBarData));
-      // console.log(response.bar_graph_data[selectCountry]);
-      // if (
-      //   response &&
-      //   response.bar_graph_data &&
-      //   response.bar_graph_data[selectCountry]
-      // ) {
-      //   tempBarData.series[0].data[0].y =
-      //     response.bar_graph_data[selectCountry].happy;
-      //   // tempData.tooltip.headerFormat = `<strong><span style="color:#212121; font-size: 16px;">{point.key}</span></strong><br>`;
-      //   // tempData.tooltip.pointFormat = `</strong><br><span style="color:#212121">Positive:<span> <strong><span style="color:#F05728">${parseFloat(
-      //   //   response.bar_graph_data[selectCountry].happy
-      //   // ).toFixed(
-      //   //   2
-      //   // )}%</span></strong><br/>Negative: <strong><span style="color:#F05728">${parseFloat(
-      //   //   response.bar_graph_data[selectCountry].sad
-      //   // ).toFixed(2)}%</span></strong>`;
-      // }
-      // if (barChartData) {
-      //   tempBarData.series[0].data[1].y = barChartData.happy;
-      //   // tempData.tooltip.pointFormat = `</strong><br/>Happy: <strong>${response.data[i].happy}</strong><br/>Sad: <strong>${response.data[i].sad_per}</strong>`;
-      //   // }
-      // }
+      // BAR CHART
 
-      // setChooseTimeBarDataState(tempBarData);
+      let tempChooseTimeBarData = [...chooseTimeBarDataState];
+
+      tempChooseTimeBarData[0] = { ...chooseTimeBarDataState[0] };
+
+      tempChooseTimeBarData[0] = {
+        name: country,
+        pv: response.bar_graph_data[country].happy,
+        sad: response.bar_graph_data[country].sad,
+      };
+
+      setChooseTimeBarDataState(tempChooseTimeBarData);
+
+      // BAR CHART
 
       let tempData = [...chooseTimeLineChartData];
       for (let i = 0; i < tempData.length; i++) {
@@ -545,9 +509,10 @@ const LineChartData = () => {
         item[selectCountry] = item.compare;
       });
 
-      // setBarChartData(response.bar_graph_data);
+      setLoading(false);
       setChooseTimeLineChartData(tempData);
     } else {
+      setLoading(true);
       let country = option;
       let fromDateCompareTime = "2022-05-01";
       let toDateCompareTime = moment().format("YYYY-MM-DD");
@@ -557,8 +522,67 @@ const LineChartData = () => {
       const responseComapreTime = await compareTime(
         fromDateCompareTime,
         toDateCompareTime,
-        option
+        country
       );
+
+      // BAR CHART
+
+      let tempChooseTimeBarData = [...chooseTimeBarDataState];
+
+      tempChooseTimeBarData[0] = { ...chooseTimeBarDataState[0] };
+
+      tempChooseTimeBarData[0] = {
+        name: country,
+        pv: responseComapreTime.bar_graph_data[country].happy,
+        sad: responseComapreTime.bar_graph_data[country].sad,
+      };
+
+      setChooseTimeBarDataState(tempChooseTimeBarData);
+
+      // BAR CHART
+
+      let tempData = [...responseComapreTime.line_chart_data[country]];
+      for (let i = 0; i < tempData.length; i++) {
+        tempData[i]["compare"] = 0;
+      }
+      let equal_ids = [];
+      if (
+        response &&
+        response.line_chart_data &&
+        response.line_chart_data[selectCountry] &&
+        response.line_chart_data[selectCountry].length
+      ) {
+        let countryData = responseComapreTime.line_chart_data[selectCountry];
+
+        for (let i = 0; i < countryData.length; i++) {
+          for (let j = 0; j < tempData.length; j++) {
+            if (!equal_ids.includes(tempData[j].MonthValue)) {
+              equal_ids.push(tempData[j].week);
+            }
+            if (countryData[i].week === tempData[j].week) {
+              if (countryData[i]) {
+                tempData[j]["compare"] = countryData[i].count;
+              }
+            }
+          }
+        }
+
+        for (let i = 0; i < countryData.length; i++) {
+          if (!equal_ids.includes(countryData[i].week)) {
+            countryData[i]["compare"] = countryData[i]["count"];
+            countryData[i]["count"] = 0;
+            tempData.push(countryData[i]);
+          }
+        }
+      }
+
+      // tempData.sort((a, b) => b._id.split("-")[2] - a._id.split("-")[2]);
+
+      tempData.forEach((item) => {
+        item[selectCountry] = item.count;
+        item[selectCountry] = item.compare;
+      });
+
       setChooseTimeLineChartData(responseComapreTime.line_chart_data[option]);
       response.line_chart_data[country].sort(
         (a, b) => a._id.split("-")[2] - b._id.split("-")[2]
@@ -572,7 +596,6 @@ const LineChartData = () => {
         item["MonthName"] = getTheNameOfMonth(item.MonthValue - 1);
       });
 
-      // setData(response, "Data");
       setBarChartData(response.bar_graph_data[option]);
       setLineChartData(response.line_chart_data[option]);
       setBackUpLineChartData(response.line_chart_data[option]);
@@ -594,31 +617,21 @@ const LineChartData = () => {
         country
       );
 
-      // let tempBarData = JSON.parse(JSON.stringify(chooseTimeBarData));
-      // console.log(response.bar_graph_data[selectCountry]);
-      // if (
-      //   response &&
-      //   response.bar_graph_data &&
-      //   response.bar_graph_data[selectCountry]
-      // ) {
-      //   tempBarData.series[0].data[0].y =
-      //     response.bar_graph_data[selectCountry].happy;
-      //   // tempData.tooltip.headerFormat = `<strong><span style="color:#212121; font-size: 16px;">{point.key}</span></strong><br>`;
-      //   // tempData.tooltip.pointFormat = `</strong><br><span style="color:#212121">Positive:<span> <strong><span style="color:#F05728">${parseFloat(
-      //   //   response.bar_graph_data[selectCountry].happy
-      //   // ).toFixed(
-      //   //   2
-      //   // )}%</span></strong><br/>Negative: <strong><span style="color:#F05728">${parseFloat(
-      //   //   response.bar_graph_data[selectCountry].sad
-      //   // ).toFixed(2)}%</span></strong>`;
-      // }
-      // if (barChartData) {
-      //   tempBarData.series[0].data[1].y = barChartData.happy;
-      //   // tempData.tooltip.pointFormat = `</strong><br/>Happy: <strong>${response.data[i].happy}</strong><br/>Sad: <strong>${response.data[i].sad_per}</strong>`;
-      //   // }
-      // }
+      // BAR CHART
 
-      // setChooseTimeBarDataState(tempBarData);
+      let tempChooseTimeBarData = [];
+
+      tempChooseTimeBarData[0] = { ...chooseTimeBarDataState[0] };
+
+      tempChooseTimeBarData[1] = {
+        name: country,
+        pv: response.bar_graph_data[country].happy,
+        sad: response.bar_graph_data[country].sad,
+      };
+
+      setChooseTimeBarDataState(tempChooseTimeBarData);
+
+      // BAR CHART
 
       let tempData = [...chooseTimeLineChartData];
 
@@ -872,7 +885,7 @@ const LineChartData = () => {
               contryNameState={dateValue}
               selectCountry={selectCountry}
               chooseTimeLineChartData={chooseTimeLineChartData}
-              // chooseTimeBarDataState={chooseTimeBarDataState}
+              chooseTimeBarDataState={chooseTimeBarDataState}
               compareTimeActive={compareCountryActive === "compareTime"}
             />
           )}
