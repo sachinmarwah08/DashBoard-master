@@ -8,6 +8,7 @@ import "tippy.js/dist/svg-arrow.css";
 import Bubble from "./Bubble";
 import { FilterContext } from "../../context/FilterContext";
 import { FadeLoader } from "react-spinners";
+import moment from "moment";
 
 const BubbleChart = ({
   handleChange,
@@ -46,12 +47,17 @@ const BubbleChart = ({
         // let fromDate = "2022-07-01";
         // let toDate = "2022-07-31";
 
+        let c = moment(toDate).isSame(moment(new Date()).format("YYYY-MM-DD"))
+          ? false
+          : null;
+
         const response = await getTrendingHashtagData(
           fromDate,
           toDate,
           countryValue,
           influencerValue,
-          hashtagValue
+          hashtagValue,
+          c
         );
         let tempData = [...response.records];
 

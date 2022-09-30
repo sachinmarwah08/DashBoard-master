@@ -5,7 +5,8 @@ export const compareCountry = async (
   to_date,
   country,
   username,
-  htag
+  htag,
+  c
 ) => {
   const response = await baseApi().get("/api/v1/get-country-line-chart-data", {
     params: {
@@ -14,6 +15,7 @@ export const compareCountry = async (
       country,
       username,
       htag,
+      c,
     },
   });
   if (response) {
@@ -26,7 +28,8 @@ export const compareTime = async (
   to_date,
   country,
   username,
-  htag
+  htag,
+  c
 ) => {
   const response = await baseApi().get(
     "/api/v1/get-country-time-line-chart-data",
@@ -37,6 +40,7 @@ export const compareTime = async (
         country,
         username,
         htag,
+        c,
       },
     }
   );

@@ -1,6 +1,10 @@
 import moment from "moment/moment";
 
-const formatDate = moment().format("YYYY-MM-DD");
+// const startOfMonth = moment().startOf("month").format("YYYY-MM-DD");
+// const formatDate = moment().format("YYYY-MM-DD");
+
+let newDate = moment().add(-30, "days").format("YYYY-MM-DD");
+let formatDate = moment().subtract(1, "days").format("YYYY-MM-DD");
 
 export const initialFilterState = {
   filters: {
@@ -8,12 +12,13 @@ export const initialFilterState = {
     hashtagValue: "",
     countryValue: "",
     dateRangeValue: {
-      fromDate: "2022-09-01",
+      fromDate: newDate,
       toDate: formatDate,
     },
     calenderToggler: false,
     filterActive: false,
   },
+  applyClicked: false,
   data: {
     countryDropData: [],
     hashtagDropData: [],

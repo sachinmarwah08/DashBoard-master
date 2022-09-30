@@ -16,8 +16,10 @@ function kFormatter(num) {
     : Math.sign(num) * Math.abs(num);
 }
 
-function twoDecimalPlacesIfCents(amount) {
-  return amount % 1 !== 0 ? amount.toFixed(2) : amount;
+function ParseFloat(str, val) {
+  str = str.toString();
+  str = str.slice(0, str.indexOf(".") + val + 1);
+  return Number(str);
 }
 
 const BarChartData = ({ data }) => {
@@ -59,7 +61,7 @@ const BarChartData = ({ data }) => {
                     marginBottom: 0,
                   }}
                 >
-                  Index:{" "}
+                  Interest:{" "}
                   <span style={{ color: "#F05728", fontWeight: 600 }}>
                     {kFormatter(BarItems.payload[0].payload.pv)}
                   </span>
@@ -75,8 +77,7 @@ const BarChartData = ({ data }) => {
                 >
                   Positive:{" "}
                   <span style={{ color: "#F05728", fontWeight: 600 }}>
-                    {twoDecimalPlacesIfCents(BarItems.payload[0].payload.happy)}
-                    %
+                    {ParseFloat(BarItems.payload[0].payload.happy, 2)}%
                   </span>
                 </span>
                 <span
@@ -90,10 +91,7 @@ const BarChartData = ({ data }) => {
                 >
                   Negative:{" "}
                   <span style={{ color: "#F05728", fontWeight: 600 }}>
-                    {twoDecimalPlacesIfCents(
-                      BarItems.payload[0].payload.sad_per
-                    )}
-                    %
+                    {ParseFloat(BarItems.payload[0].payload.sad_per, 2)}%
                   </span>
                 </span>
               </div>

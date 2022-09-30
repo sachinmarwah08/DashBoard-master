@@ -32,7 +32,7 @@ const Footer = () => {
         <div className="footer-left-container">
           <div className="footer-column-one">
             <div className="footer-li">
-              <img alt="logo" src={logo}></img>
+              {/* <img alt="logo" src={logo}></img> */}
               <p className="title-logo">
                 Wholistic Wellbeing for a better life
               </p>

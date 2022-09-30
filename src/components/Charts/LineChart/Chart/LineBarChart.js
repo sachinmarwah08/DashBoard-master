@@ -13,14 +13,10 @@ import {
 
 const barColors = ["#F05728", "#2A00FF"];
 
-function kFormatter(num) {
-  return Math.abs(num) > 999
-    ? Math.sign(num) * (Math.abs(num) / 1000).toFixed(1) + "k"
-    : Math.sign(num) * Math.abs(num);
-}
-
-function twoDecimalPlacesIfCents(amount) {
-  return amount % 1 !== 0 ? amount.toFixed(2) : amount;
+function ParseFloat(str, val) {
+  str = str.toString();
+  str = str.slice(0, str.indexOf(".") + val + 1);
+  return Number(str);
 }
 
 const LineBarChart = ({ data }) => {
@@ -67,12 +63,9 @@ const LineBarChart = ({ data }) => {
                     marginBottom: 0,
                   }}
                 >
-                  Happy:{" "}
+                  Positive:{" "}
                   <span style={{ color: "#F05728", fontWeight: 600 }}>
-                    {twoDecimalPlacesIfCents(
-                      BarLineChartItems.payload[0].payload.pv
-                    )}
-                    %
+                    {ParseFloat(BarLineChartItems.payload[0].payload.pv, 2)}%
                   </span>
                 </span>
                 <span
@@ -86,10 +79,7 @@ const LineBarChart = ({ data }) => {
                 >
                   Negative:{" "}
                   <span style={{ color: "#F05728", fontWeight: 600 }}>
-                    {twoDecimalPlacesIfCents(
-                      BarLineChartItems.payload[0].payload.sad
-                    )}
-                    %
+                    {ParseFloat(BarLineChartItems.payload[0].payload.sad, 2)}%
                   </span>
                 </span>
               </div>

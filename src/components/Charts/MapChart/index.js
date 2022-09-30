@@ -30,6 +30,7 @@ import { faLocationArrow } from "@fortawesome/free-solid-svg-icons";
 import { FadeLoader } from "react-spinners";
 import { Chart } from "react-google-charts";
 import Map from "./Map";
+import moment from "moment";
 
 const MapChartComponent = () => {
   const mapData = ["Country", "Influencer", "Hashtag"];
@@ -88,12 +89,17 @@ const MapChartComponent = () => {
         // let toDate = `${year}-${month}-${day}`;
         // console.log(month, day, year);
 
+        let c = moment(toDate).isSame(moment(new Date()).format("YYYY-MM-DD"))
+          ? false
+          : null;
+
         const response = await getMapData(
           fromDate,
           toDate,
           countryValue,
           influencerValue,
-          hashtagValue
+          hashtagValue,
+          c
         );
 
         const getInfluenser = await getInfluencerDropdownData();
@@ -105,13 +111,17 @@ const MapChartComponent = () => {
         for (let i = 0; i < tempData.length; i++) {
           for (let j = 0; j < countryData.length; j++) {
             if (tempData[i]._id === countryData[j].country) {
-              tempData[i]["position"] = {
-                lat: countryData[j]["latitude"],
-                lng: countryData[j]["longitude"],
-              };
+              tempData[i]["cordinates"] = [
+                countryData[j]["longitude"],
+                countryData[j]["latitude"],
+              ];
+              tempData[i]["name"] = tempData[i]._id;
+              tempData[i]["ISO3"] = countryData[j].alpha3;
+              tempData[i]["count"] = tempData[i].count;
             }
           }
         }
+        console.log(tempData, "mapsss");
         setCountryDataDropdown(countryDataResponse);
         setCountryBackupdata(countryDataResponse);
         setInfluencerData(getInfluenser);
@@ -224,12 +234,18 @@ const MapChartComponent = () => {
       if (mapdata === "Country") {
         countryTypedValue = inputValue;
       }
+
+      let c = moment(toDate).isSame(moment(new Date()).format("YYYY-MM-DD"))
+        ? false
+        : null;
+
       const response = await getMapData(
         fromDate,
         toDate,
         countryTypedValue,
         influencerTypedValue,
-        hashtagTypedValue
+        hashtagTypedValue,
+        c
       );
 
       let tempData = [...response.data];
@@ -237,10 +253,13 @@ const MapChartComponent = () => {
       for (let i = 0; i < tempData.length; i++) {
         for (let j = 0; j < countryData.length; j++) {
           if (tempData[i]._id === countryData[j].country) {
-            tempData[i]["position"] = {
-              lat: countryData[j]["latitude"],
-              lng: countryData[j]["longitude"],
-            };
+            tempData[i]["cordinates"] = [
+              countryData[j]["longitude"],
+              countryData[j]["latitude"],
+            ];
+            tempData[i]["name"] = tempData[i]._id;
+            tempData[i]["ISO3"] = countryData[j].alpha3;
+            tempData[i]["count"] = tempData[i].count;
           }
         }
       }
@@ -267,12 +286,18 @@ const MapChartComponent = () => {
     if (mapdata === "Country") {
       countryTypedValue = val;
     }
+
+    let c = moment(toDate).isSame(moment(new Date()).format("YYYY-MM-DD"))
+      ? false
+      : null;
+
     const response = await getMapData(
       fromDate,
       toDate,
       countryTypedValue,
       influencerTypedValue,
-      hashtagTypedValue
+      hashtagTypedValue,
+      c
     );
 
     let tempData = [...response.data];
@@ -280,10 +305,13 @@ const MapChartComponent = () => {
     for (let i = 0; i < tempData.length; i++) {
       for (let j = 0; j < countryData.length; j++) {
         if (tempData[i]._id === countryData[j].country) {
-          tempData[i]["position"] = {
-            lat: countryData[j]["latitude"],
-            lng: countryData[j]["longitude"],
-          };
+          tempData[i]["cordinates"] = [
+            countryData[j]["longitude"],
+            countryData[j]["latitude"],
+          ];
+          tempData[i]["name"] = tempData[i]._id;
+          tempData[i]["ISO3"] = countryData[j].alpha3;
+          tempData[i]["count"] = tempData[i].count;
         }
       }
     }
@@ -355,10 +383,10 @@ const MapChartComponent = () => {
                     Geography Wise Wellbeing Analysis
                   </p>
                   This shows geography-wise wellbeing insights. It shows each
-                  country's ranking for wellbeing, wellbeing index score,
-                  percentages of positive and negative sentiment towards
-                  wellbeing, and the net change in ranking and wellbeing index
-                  score from the previous period.
+                  country's ranking for wellbeing interest, percentages of
+                  positive and negative sentiment towards wellbeing, and the net
+                  change in ranking and wellbeing interest from the previous
+                  period.
                 </div>
               }
             >
@@ -367,11 +395,11 @@ const MapChartComponent = () => {
           </div>
 
           <div className="side-logos">
-            {show === "map" && (
+            {/* {show === "map" && (
               <button onClick={() => reCenterMap.panTo(center)}>
                 <FontAwesomeIcon className="navigator" icon={faLocationArrow} />
               </button>
-            )}
+            )} */}
             <button onClick={() => setShow("map")}>
               <img
                 alt="WorldMap"
@@ -469,8 +497,25 @@ const MapChartComponent = () => {
                   //   height="100%"
                   //   data={data}
                   // />
-                  <Map />
+                  <Map
+                    influencerdata={
+                      mapdata === "Country" ||
+                      mapdata === "Influencer" ||
+                      mapData === "Hashtag"
+                    }
+                    hideRank={hideRank}
+                    activeMarker={activeMarker}
+                    mapDataApi={mapDataApi}
+                    handleActiveMarker={handleActiveMarker}
+                  />
                 )}
+              </div>
+
+              <div className="progress-bar">
+                <div className="inside-bar">
+                  <span>1</span>
+                  <span>222</span>
+                </div>
               </div>
             </div>
           </>
@@ -502,7 +547,7 @@ const MapChartComponent = () => {
             </div>
 
             <div className="bar-map-wrapper">
-              <div className="chart-map">
+              <div className="chart-map-table">
                 {loading ? (
                   <div className="googleMap-loader">
                     <FadeLoader color="#F05728" loading={loading} size={50} />

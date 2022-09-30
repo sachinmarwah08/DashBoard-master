@@ -15,11 +15,13 @@ import {
   // endOfWeek,
   isSameDay,
   addDays,
+  format,
   // differenceInCalendarDays,
 } from "date-fns";
 import { DateRangePicker } from "react-date-range";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css";
+// import "rsuite/dist/styles/rsuite-default.css";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
 import "tippy.js/themes/light.css";
@@ -28,18 +30,21 @@ import { FilterContext } from "../../../context/FilterContext";
 import moment from "moment";
 import { TOGGLE_CALENDER } from "../../../actions/types";
 
-const CalenderButton = ({ icon }) => {
+const CalenderButton = ({ icon, showInputField }) => {
   const { state, dispatch } = useContext(FilterContext);
   const {
     filters: { calenderToggler },
   } = state;
 
+  // var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+
   var date = new Date();
-  var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+  date.setDate(date.getDate() - 1);
+  var dateLimit = new Date(new Date().setDate(date.getDate() - 29));
 
   const [dateState, setDateState] = useState([
     {
-      startDate: firstDay,
+      startDate: dateLimit,
       endDate: date,
       key: "selection",
     },
@@ -110,9 +115,29 @@ const CalenderButton = ({ icon }) => {
         <div className="dropdown-filter-content-calender">
           <div className="filter-content">
             <img className="user-Icon" src={icon}></img>
-            <p style={{ fontFamily: "Work-Sans" }} className="filter-title">
-              Select Dates
-            </p>
+            {!showInputField ? (
+              <p style={{ fontFamily: "Work-Sans" }} className="filter-title">
+                Select Dates
+              </p>
+            ) : (
+              <input
+                style={{
+                  fontSize: "16px",
+                  color: "#616161",
+                  border: "none",
+                  outline: "none",
+                  background: " transparent",
+                  display: "flex",
+                  alignItems: "center",
+                  fontFamily: "Work-Sans",
+                  width: "13.2rem",
+                }}
+                value={`${format(
+                  dateState[0].startDate,
+                  "yyyy-MM-dd"
+                )} - ${format(dateState[0].endDate, "yyyy-MM-dd")}`}
+              />
+            )}
           </div>
           <div className="dropdown-Icon">
             {!calenderToggler ? (
@@ -122,25 +147,52 @@ const CalenderButton = ({ icon }) => {
             )}
           </div>
         </div>
+
         {calenderToggler && (
-          <div
-            ref={wrapperRef}
-            onClick={(e) => {
-              e.stopPropagation();
-              e.nativeEvent.stopImmediatePropagation();
-            }}
-            className="calender"
-          >
-            <DateRangePicker
-              rangeColors={["#F05728", "#F05728", "#F05728"]}
-              onChange={handleSelect}
-              showSelectionPreview={true}
-              moveRangeOnFirstSelection={false}
-              months={1}
-              ranges={dateState}
-              direction="horizontal"
-            />
-          </div>
+          <>
+            <div
+              ref={wrapperRef}
+              onClick={(e) => {
+                e.stopPropagation();
+                e.nativeEvent.stopImmediatePropagation();
+              }}
+              className="calender"
+            >
+              <DateRangePicker
+                rangeColors={["#F05728", "#F05728", "#F05728"]}
+                onChange={handleSelect}
+                showSelectionPreview={true}
+                moveRangeOnFirstSelection={false}
+                months={2}
+                ranges={dateState}
+                direction="horizontal"
+              />
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "end",
+                  marginRight: "0.7rem",
+                }}
+              >
+                {/* <button
+                  style={{
+                    border: "none",
+                    outline: "none",
+                    background: "#F05728",
+                    padding: "0.8rem",
+                    borderRadius: "4px",
+                    color: "white",
+                    fontFamily: "Work-Sans",
+                    cursor: "pointer",
+                  }}
+                  className="apply-btn-inside"
+                  onClick={apply}
+                >
+                  Apply
+                </button> */}
+              </div>
+            </div>
+          </>
         )}
       </button>
     </Tippy>

@@ -5,7 +5,8 @@ export const influencerCount = async (
   to_date,
   country,
   username,
-  htag
+  htag,
+  c
 ) => {
   const response = await baseApi().get("/api/v1/get-influencers-count", {
     params: {
@@ -14,6 +15,7 @@ export const influencerCount = async (
       country,
       username,
       htag,
+      c,
     },
   });
   if (response) {
@@ -26,11 +28,11 @@ export const getInfluencers = async (
   from_date,
   to_date,
   category,
-  // persentile,
   country,
   username,
   htag,
-  page
+  page,
+  c
 ) => {
   const response = await baseApi().get(
     "/api/v1/get-influencers-social-media-impact",
@@ -39,11 +41,11 @@ export const getInfluencers = async (
         from_date,
         to_date,
         category,
-        // persentile,
         country,
         username,
         htag,
-        page: page,
+        page,
+        c,
       },
     }
   );

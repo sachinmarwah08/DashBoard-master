@@ -5,7 +5,8 @@ export const getTrendingHashtagData = async (
   to_date,
   country,
   username,
-  htag
+  htag,
+  c
 ) => {
   const response = await baseApi().get(
     "/api/v1/get-hashtag-social-media-impact-v2",
@@ -16,6 +17,7 @@ export const getTrendingHashtagData = async (
         country,
         username,
         htag,
+        c,
       },
     }
   );

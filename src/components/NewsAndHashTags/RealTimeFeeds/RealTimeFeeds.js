@@ -24,6 +24,7 @@ import {
   getHashtagDropdownData,
   getInfluencerDropdownData,
 } from "../../../actions/DropDownApis";
+import moment from "moment";
 
 const RealTimeFeeds = () => {
   const { state } = useContext(FilterContext);
@@ -61,8 +62,8 @@ const RealTimeFeeds = () => {
 
   useEffect(() => {
     if (countryLineChartLoading) {
-      // setLoading(true)
       const callApi = async () => {
+        setLoading(true);
         // let today = Date.now();
         // var check = moment(today);
         // var month = check.format("M");
@@ -72,8 +73,12 @@ const RealTimeFeeds = () => {
         // let toDate = `${year}-${month}-${day}`;
         // console.log(month, day, year);
 
-        let sentiment = "All";
-        let newsSentiment = "All";
+        let sentiment = "ALL";
+        let newsSentiment = "ALL";
+
+        let c = moment(toDate).isSame(moment(new Date()).format("YYYY-MM-DD"))
+          ? false
+          : null;
 
         const tweetsCountResponse = await getSocialMediaFlashes(
           fromDate,
@@ -81,7 +86,9 @@ const RealTimeFeeds = () => {
           sentiment,
           countryValue,
           influencerValue,
-          hashtagValue
+          hashtagValue,
+          page,
+          c
         );
 
         const newsCountResponse = await newsFlashes(
@@ -90,8 +97,11 @@ const RealTimeFeeds = () => {
           newsSentiment,
           countryValue,
           influencerValue,
-          hashtagValue
+          hashtagValue,
+          page,
+          c
         );
+
         const getInfluenser = await getInfluencerDropdownData();
         const hashtagDataResponse = await getHashtagDropdownData();
         const countryDataResponse = await getCountryDropdownData();
@@ -117,7 +127,11 @@ const RealTimeFeeds = () => {
     const loadUsers = async () => {
       setLoading(true);
       let sentiment = "ALL";
-      let newsSentiment = "All";
+      let newsSentiment = "ALL";
+
+      let c = moment(toDate).isSame(moment(new Date()).format("YYYY-MM-DD"))
+        ? false
+        : null;
 
       const tweetsCountResponse = await getSocialMediaFlashes(
         fromDate,
@@ -125,7 +139,9 @@ const RealTimeFeeds = () => {
         sentiment,
         countryValue,
         influencerValue,
-        hashtagValue
+        hashtagValue,
+        page,
+        c
       );
 
       const newsCountResponse = await newsFlashes(
@@ -134,16 +150,37 @@ const RealTimeFeeds = () => {
         newsSentiment,
         countryValue,
         influencerValue,
-        hashtagValue
+        hashtagValue,
+        page,
+        c
       );
 
       setTweets((prev) => [...prev, ...tweetsCountResponse.records]);
       setNewsFeed((prev) => [...prev, ...newsCountResponse.records]);
-      setLoading(false);
     };
-    if (!inputValue && !countryValue && !influencerValue && !hashtagValue) {
-      loadUsers();
-    }
+
+    setLoading(false);
+
+    // if (
+    //   (!countryValue &&
+    //     !influencerValue &&
+    //     !hashtagValue &&
+    //     active === "Real-time-Tweets",
+    //   realData === "Country")
+    // ) {
+    //   loadUsers();
+    // } else if (realData === "Influencer") {
+    //   return;
+    // } else if (active === "Real-time-News" && isRadioChecked === 1) {
+    //   loadUsers();
+    // } else if (
+    //   active === "Real-time-News" &&
+    //   realData === "Country" &&
+    //   isRadioChecked === 2
+    // ) {
+    //   return;
+    // } else loadUsers();
+    loadUsers();
   }, [page]);
 
   useEffect(() => {
@@ -168,7 +205,7 @@ const RealTimeFeeds = () => {
       if (loading) return;
       if (observer.current) observer.current.disconnect();
       observer.current = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && !inputValue) {
+        if (entries[0].isIntersecting) {
           setPage((page) => page + 1);
         }
       });
@@ -192,14 +229,14 @@ const RealTimeFeeds = () => {
       countryTypedValue = inputValue;
     }
 
-    let sentiment = "All";
+    let sentiment = "ALL";
     if (value === 2) {
       sentiment = "Positive";
     } else if (value === 3) {
       sentiment = "Negative";
     }
 
-    let newsSentiment = "All";
+    let newsSentiment = "ALL";
     if (value === 2) {
       newsSentiment = "Positive";
     } else if (value === 3) {
@@ -216,7 +253,6 @@ const RealTimeFeeds = () => {
       influencerTypedValue || influencerValue,
       hashtagTypedValue || hashtagValue
     );
-    setNewsFeed(newsCountResponse.records);
 
     const tweetsCountResponse = await getSocialMediaFlashes(
       fromDate,
@@ -226,6 +262,8 @@ const RealTimeFeeds = () => {
       influencerTypedValue || influencerValue,
       hashtagTypedValue || hashtagValue
     );
+
+    setNewsFeed(newsCountResponse.records);
     setTweets(tweetsCountResponse.records);
     setLoading(false);
   };
@@ -321,8 +359,12 @@ const RealTimeFeeds = () => {
         countryTypedValue = inputValue;
       }
 
-      let sentiment = "All";
-      let newsSentiment = "All";
+      let sentiment = "ALL";
+      let newsSentiment = "ALL";
+
+      let c = moment(toDate).isSame(moment(new Date()).format("YYYY-MM-DD"))
+        ? false
+        : null;
 
       const tweetsCountResponse = await getSocialMediaFlashes(
         fromDate,
@@ -330,7 +372,9 @@ const RealTimeFeeds = () => {
         sentiment,
         countryTypedValue,
         influencerTypedValue,
-        hashtagTypedValue
+        hashtagTypedValue,
+        1,
+        c
       );
 
       const newsCountResponse = await newsFlashes(
@@ -339,18 +383,22 @@ const RealTimeFeeds = () => {
         newsSentiment,
         countryTypedValue,
         influencerTypedValue,
-        hashtagTypedValue
+        hashtagTypedValue,
+        1,
+        c
       );
+
+      setPage(1);
       setNewsFeed(newsCountResponse.records);
       setTweets(tweetsCountResponse.records);
-      setTweetsDataBackup(tweetsCountResponse.records);
+      // setTweetsDataBackup(tweetsCountResponse.records);
       setLoading(false);
     }
   };
 
   const onDropDownClick = async (val) => {
-    setInputValue(val);
     setLoading(true);
+    setInputValue(val);
     setShowInfluencerHashtag(false);
     let countryTypedValue = "";
     let influencerTypedValue = "";
@@ -364,9 +412,13 @@ const RealTimeFeeds = () => {
     if (realData === "Country") {
       countryTypedValue = val;
     }
-    let sentiment = "All";
+    let sentiment = "ALL";
 
-    let newsSentiment = "All";
+    let newsSentiment = "ALL";
+
+    let c = moment(toDate).isSame(moment(new Date()).format("YYYY-MM-DD"))
+      ? false
+      : null;
 
     const tweetsCountResponse = await getSocialMediaFlashes(
       fromDate,
@@ -374,7 +426,9 @@ const RealTimeFeeds = () => {
       sentiment,
       countryTypedValue,
       influencerTypedValue,
-      hashtagTypedValue
+      hashtagTypedValue,
+      1,
+      c
     );
 
     const newsCountResponse = await newsFlashes(
@@ -383,11 +437,15 @@ const RealTimeFeeds = () => {
       newsSentiment,
       countryTypedValue,
       influencerTypedValue,
-      hashtagTypedValue
+      hashtagTypedValue,
+      1,
+      c
     );
+
+    setPage(1);
     setNewsFeed(newsCountResponse.records);
     setTweets(tweetsCountResponse.records);
-    setTweetsDataBackup(tweetsCountResponse.records);
+    // setTweetsDataBackup(tweetsCountResponse.records);
     setLoading(false);
   };
 

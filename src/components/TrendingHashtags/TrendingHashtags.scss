@@ -153,14 +153,49 @@
             width: 154.15px;
             height: 154.15px;
             border-radius: 50%;
-
-            background: #f05728;
+            background: radial-gradient(
+                  96% 96% at 70.4% 31.2%,
+                  #f05728 61.72%,
+                  #d0c1f7 100%
+                )
+                /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
+              #030092;
+            box-shadow: 0px 0px 20px rgba(255, 147, 147, 0.13),
+              60px 120px 80px rgba(5, 0, 255, 0.1),
+              inset 0px 2px 10px rgba(255, 255, 255, 0.58),
+              inset -15px 28px 50px #3244e8;
             transition: transform 0.3s;
+            transform: scale(1.15);
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            transform: scale(1.15);
+          }
+
+          .bubble-one-opacity {
+            position: absolute;
+            z-index: 100;
+            width: 154.15px;
+            height: 154.15px;
+            border-radius: 50%;
+            background: radial-gradient(
+                  96% 96% at 70.4% 31.2%,
+                  #f05728 61.72%,
+                  #d0c1f7 100%
+                )
+                /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
+              #030092;
+            box-shadow: 0px 0px 20px rgba(255, 147, 147, 0.13),
+              60px 120px 80px rgba(5, 0, 255, 0.1),
+              inset 0px 2px 10px rgba(255, 255, 255, 0.58),
+              inset -15px 28px 50px #3244e8;
+            transition: transform 0.3s;
+            // transform: scale(1.15);
+            opacity: 0.5;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
           }
 
           .bubble-one-content {
@@ -234,7 +269,7 @@
             justify-content: center;
           }
 
-          .bubble-two-colored {
+          .bubble-two-opacity {
             position: absolute;
             z-index: 100;
             display: inline-block;
@@ -243,6 +278,7 @@
             width: 88.17px;
             height: 88.17px;
             border-radius: 50%;
+            opacity: 0.5;
             background: radial-gradient(
                   96% 96% at 70.4% 31.2%,
                   #f05728 0%,
@@ -254,6 +290,35 @@
               60px 120px 80px rgba(5, 0, 255, 0.1),
               inset 0px 2px 10px rgba(255, 255, 255, 0.58),
               inset 0px -20px 50px #3244e8, inset 10px 20px 100px #ff3d00;
+            transition: transform 0.3s;
+            cursor: pointer;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+
+          .bubble-two-colored {
+            position: absolute;
+            z-index: 100;
+            display: inline-block;
+            top: 11.5rem;
+            left: -11.5rem;
+            width: 88.17px;
+            height: 88.17px;
+            border-radius: 50%;
+
+            background: radial-gradient(
+                  96% 96% at 70.4% 31.2%,
+                  #f05728 61.72%,
+                  #d0c1f7 100%
+                )
+                /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
+              #030092;
+            box-shadow: 0px 0px 20px rgba(255, 147, 147, 0.13),
+              60px 120px 80px rgba(5, 0, 255, 0.1),
+              inset 0px 2px 10px rgba(255, 255, 255, 0.58),
+              inset -15px 28px 50px #3244e8;
             transition: transform 0.3s;
             transform: scale(1.15);
             cursor: pointer;
@@ -343,16 +408,44 @@
             border-radius: 50%;
             background: radial-gradient(
                   96% 96% at 70.4% 31.2%,
-                  #f05728 0%,
+                  #f05728 61.72%,
                   #d0c1f7 100%
                 )
                 /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
               #030092;
-            box-shadow: 0px 4px 80px rgba(248, 0, 119, 0.2),
+            box-shadow: 0px 0px 20px rgba(255, 147, 147, 0.13),
+              60px 120px 80px rgba(5, 0, 255, 0.1),
               inset 0px 2px 10px rgba(255, 255, 255, 0.58),
-              inset 0px -20px 50px #5059b3;
+              inset -15px 28px 50px #3244e8;
             transition: transform 0.3s;
             transform: scale(1.15);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+
+          .bubble-three-opacity {
+            position: absolute;
+            z-index: 100;
+            top: 7.5rem;
+            left: 1.8rem;
+            width: 88.17px;
+            height: 88.17px;
+            border-radius: 50%;
+            background: radial-gradient(
+                  96% 96% at 70.4% 31.2%,
+                  #f05728 61.72%,
+                  #d0c1f7 100%
+                )
+                /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
+              #030092;
+            box-shadow: 0px 0px 20px rgba(255, 147, 147, 0.13),
+              60px 120px 80px rgba(5, 0, 255, 0.1),
+              inset 0px 2px 10px rgba(255, 255, 255, 0.58),
+              inset -15px 28px 50px #3244e8;
+            transition: transform 0.3s;
+            opacity: 0.5;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -441,16 +534,44 @@
             border-radius: 50%;
             background: radial-gradient(
                   96% 96% at 70.4% 31.2%,
-                  #f05728 0%,
+                  #f05728 61.72%,
                   #d0c1f7 100%
                 )
                 /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
               #030092;
-            box-shadow: 0px 4px 80px rgba(248, 0, 119, 0.2),
+            box-shadow: 0px 0px 20px rgba(255, 147, 147, 0.13),
+              60px 120px 80px rgba(5, 0, 255, 0.1),
               inset 0px 2px 10px rgba(255, 255, 255, 0.58),
-              inset 0px -20px 50px #24309c;
+              inset -15px 28px 50px #3244e8;
             transition: transform 0.3s;
             transform: scale(1.15);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+
+          .bubble-four-opacity {
+            position: absolute;
+            z-index: 100;
+            top: 16.3rem;
+            left: 8.8rem;
+            width: 61.66px;
+            height: 61.66px;
+            border-radius: 50%;
+            background: radial-gradient(
+                  96% 96% at 70.4% 31.2%,
+                  #f05728 61.72%,
+                  #d0c1f7 100%
+                )
+                /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
+              #030092;
+            box-shadow: 0px 0px 20px rgba(255, 147, 147, 0.13),
+              60px 120px 80px rgba(5, 0, 255, 0.1),
+              inset 0px 2px 10px rgba(255, 255, 255, 0.58),
+              inset -15px 28px 50px #3244e8;
+            transition: transform 0.3s;
+            opacity: 0.5;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -529,7 +650,7 @@
             justify-content: center;
           }
 
-          .bubble-five-colored {
+          .bubble-five-opacity {
             position: absolute;
             z-index: 100;
             top: 24.3rem;
@@ -547,6 +668,34 @@
             box-shadow: 0px 4px 80px rgba(248, 0, 119, 0.2),
               inset 0px 2px 10px rgba(255, 255, 255, 0.58),
               inset 0px -20px 50px #5059b3;
+            transition: transform 0.3s;
+            opacity: 0.5;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+
+          .bubble-five-colored {
+            position: absolute;
+            z-index: 100;
+            top: 24.3rem;
+            left: -8.99rem;
+            width: 107.9px;
+            height: 107.9px;
+            border-radius: 50%;
+
+            background: radial-gradient(
+                  96% 96% at 70.4% 31.2%,
+                  #f05728 61.72%,
+                  #d0c1f7 100%
+                )
+                /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
+              #030092;
+            box-shadow: 0px 0px 20px rgba(255, 147, 147, 0.13),
+              60px 120px 80px rgba(5, 0, 255, 0.1),
+              inset 0px 2px 10px rgba(255, 255, 255, 0.58),
+              inset -15px 28px 50px #3244e8;
             transition: transform 0.3s;
             transform: scale(1.15);
             cursor: pointer;
@@ -622,7 +771,7 @@
             justify-content: center;
           }
 
-          .bubble-six-colored {
+          .bubble-six-opacity {
             position: absolute;
             z-index: 100;
             top: 25.3rem;
@@ -634,6 +783,32 @@
             box-shadow: 0px 4px 80px rgba(240, 87, 40, 0.2),
               inset 0px 2px 10px rgba(255, 255, 255, 0.58),
               inset 10px 20px 100px #f05728;
+            opacity: 0.5;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+
+          .bubble-six-colored {
+            position: absolute;
+            z-index: 100;
+            top: 25.3rem;
+            left: 0.4rem;
+            width: 62.28px;
+            height: 62.28px;
+            border-radius: 50%;
+            background: radial-gradient(
+                  96% 96% at 70.4% 31.2%,
+                  #f05728 61.72%,
+                  #d0c1f7 100%
+                )
+                /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
+              #030092;
+            box-shadow: 0px 0px 20px rgba(255, 147, 147, 0.13),
+              60px 120px 80px rgba(5, 0, 255, 0.1),
+              inset 0px 2px 10px rgba(255, 255, 255, 0.58),
+              inset -15px 28px 50px #3244e8;
             transition: transform 0.3s;
             transform: scale(1.15);
             cursor: pointer;
@@ -714,7 +889,7 @@
             justify-content: center;
           }
 
-          .bubble-seven-colored {
+          .bubble-seven-opacity {
             position: absolute;
             z-index: 100;
             top: 23.3rem;
@@ -732,6 +907,32 @@
             box-shadow: 0px 4px 80px rgba(240, 87, 40, 0.5),
               inset 0px 2px 10px rgba(255, 255, 255, 0.58),
               inset 10px 20px 100px #f05728;
+            opacity: 0.5;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+
+          .bubble-seven-colored {
+            position: absolute;
+            z-index: 100;
+            top: 23.3rem;
+            left: 5.4rem;
+            width: 72.14px;
+            height: 72.14px;
+            border-radius: 50%;
+            background: radial-gradient(
+                  96% 96% at 70.4% 31.2%,
+                  #f05728 61.72%,
+                  #d0c1f7 100%
+                )
+                /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
+              #030092;
+            box-shadow: 0px 0px 20px rgba(255, 147, 147, 0.13),
+              60px 120px 80px rgba(5, 0, 255, 0.1),
+              inset 0px 2px 10px rgba(255, 255, 255, 0.58),
+              inset -15px 28px 50px #3244e8;
             transition: transform 0.3s;
             transform: scale(1.15);
             cursor: pointer;
@@ -807,7 +1008,7 @@
             justify-content: center;
           }
 
-          .bubble-eight-colored {
+          .bubble-eight {
             position: absolute;
             z-index: 100;
             top: 9.5rem;
@@ -819,6 +1020,32 @@
             box-shadow: 0px 4px 80px rgba(248, 0, 119, 0.2),
               inset 0px 2px 10px rgba(255, 255, 255, 0.58),
               inset 10px 20px 50px #ff6e05;
+            opacity: 0.5;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+
+          .bubble-eight-colored {
+            position: absolute;
+            z-index: 100;
+            top: 9.5rem;
+            left: -5.1rem;
+            width: 53.64px;
+            height: 53.64px;
+            border-radius: 50%;
+            background: radial-gradient(
+                  96% 96% at 70.4% 31.2%,
+                  #f05728 61.72%,
+                  #d0c1f7 100%
+                )
+                /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
+              #030092;
+            box-shadow: 0px 0px 20px rgba(255, 147, 147, 0.13),
+              60px 120px 80px rgba(5, 0, 255, 0.1),
+              inset 0px 2px 10px rgba(255, 255, 255, 0.58),
+              inset -15px 28px 50px #3244e8;
             transition: transform 0.3s;
             transform: scale(1.15);
             cursor: pointer;
@@ -891,7 +1118,7 @@
             justify-content: center;
           }
 
-          .bubble-nine-colored {
+          .bubble-nine-opacity {
             position: absolute;
             z-index: 100;
             top: 4rem;
@@ -901,6 +1128,32 @@
             border-radius: 50%;
             background: #ffa98e;
             box-shadow: 0px 4px 80px rgba(35, 0, 248, 0.29);
+            opacity: 0.5;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+
+          .bubble-nine-colored {
+            position: absolute;
+            z-index: 100;
+            top: 4rem;
+            left: -10.5rem;
+            width: 64.74px;
+            height: 64.74px;
+            border-radius: 50%;
+            background: radial-gradient(
+                  96% 96% at 70.4% 31.2%,
+                  #f05728 61.72%,
+                  #d0c1f7 100%
+                )
+                /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
+              #030092;
+            box-shadow: 0px 0px 20px rgba(255, 147, 147, 0.13),
+              60px 120px 80px rgba(5, 0, 255, 0.1),
+              inset 0px 2px 10px rgba(255, 255, 255, 0.58),
+              inset -15px 28px 50px #3244e8;
             transition: transform 0.3s;
             transform: scale(1.15);
             cursor: pointer;
@@ -1005,7 +1258,7 @@
             justify-content: center;
           }
 
-          .bubble-ten-colored {
+          .bubble-ten-opacity {
             position: absolute;
             z-index: 100;
             top: 18rem;
@@ -1023,6 +1276,32 @@
             box-shadow: 0px 4px 80px rgba(248, 0, 119, 0.1),
               inset 0px 2px 10px rgba(255, 255, 255, 0.58),
               inset 10px 20px 50px #ff6e05;
+            opacity: 0.5;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+
+          .bubble-ten-colored {
+            position: absolute;
+            z-index: 100;
+            top: 18rem;
+            left: -8.66rem;
+            width: 37px;
+            height: 37px;
+            border-radius: 50%;
+            background: radial-gradient(
+                  96% 96% at 70.4% 31.2%,
+                  #f05728 61.72%,
+                  #d0c1f7 100%
+                )
+                /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
+              #030092;
+            box-shadow: 0px 0px 20px rgba(255, 147, 147, 0.13),
+              60px 120px 80px rgba(5, 0, 255, 0.1),
+              inset 0px 2px 10px rgba(255, 255, 255, 0.58),
+              inset -15px 28px 50px #3244e8;
             transition: transform 0.3s;
             transform: scale(1.15);
             cursor: pointer;
@@ -1070,7 +1349,7 @@
             justify-content: center;
           }
 
-          .bubble-eleven-colored {
+          .bubble-eleven-opacity {
             position: absolute;
             z-index: 100;
             top: 18.3rem;
@@ -1088,6 +1367,32 @@
             box-shadow: 0px 4px 80px rgba(240, 87, 40, 0.2),
               inset 0px 2px 10px rgba(255, 255, 255, 0.58),
               inset 10px 20px 100px #f05728;
+            opacity: 0.5;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+
+          .bubble-eleven-colored {
+            position: absolute;
+            z-index: 100;
+            top: 18.3rem;
+            left: -13.44rem;
+            width: 62.28px;
+            height: 62.28px;
+            border-radius: 50%;
+            background: radial-gradient(
+                  96% 96% at 70.4% 31.2%,
+                  #f05728 61.72%,
+                  #d0c1f7 100%
+                )
+                /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
+              #030092;
+            box-shadow: 0px 0px 20px rgba(255, 147, 147, 0.13),
+              60px 120px 80px rgba(5, 0, 255, 0.1),
+              inset 0px 2px 10px rgba(255, 255, 255, 0.58),
+              inset -15px 28px 50px #3244e8;
             transition: transform 0.3s;
             transform: scale(1.15);
             cursor: pointer;
@@ -1106,12 +1411,12 @@
             justify-content: center;
             cursor: pointer;
             width: 100%;
-            left: -0.5rem;
+            left: 0;
             overflow: hidden;
 
             .hashtag-title {
               font-weight: 500;
-              font-size: 7.5px;
+              font-size: 12px;
               // line-height: 32px;
               width: 2rem;
               text-align: center;
@@ -1151,7 +1456,7 @@
             justify-content: center;
           }
 
-          .bubble-twelve-colored {
+          .bubble-twelve-opacity {
             position: absolute;
             z-index: 100;
             top: 13.5rem;
@@ -1161,6 +1466,32 @@
             border-radius: 50%;
             background: #ffa98e;
             box-shadow: 0px 4px 80px rgba(35, 0, 248, 0.3);
+            opacity: 0.5;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+
+          .bubble-twelve-colored {
+            position: absolute;
+            z-index: 100;
+            top: 13.5rem;
+            left: -15rem;
+            width: 37px;
+            height: 37px;
+            border-radius: 50%;
+            background: radial-gradient(
+                  96% 96% at 70.4% 31.2%,
+                  #f05728 61.72%,
+                  #d0c1f7 100%
+                )
+                /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
+              #030092;
+            box-shadow: 0px 0px 20px rgba(255, 147, 147, 0.13),
+              60px 120px 80px rgba(5, 0, 255, 0.1),
+              inset 0px 2px 10px rgba(255, 255, 255, 0.58),
+              inset -15px 28px 50px #3244e8;
             transition: transform 0.3s;
             transform: scale(1.15);
             cursor: pointer;
@@ -1224,7 +1555,7 @@
             justify-content: center;
           }
 
-          .bubble-thirteen-colored {
+          .bubble-thirteen-opacity {
             position: absolute;
             z-index: 100;
             top: 17rem;
@@ -1234,6 +1565,32 @@
             border-radius: 50%;
             background: #ffa98e;
             box-shadow: 0px 4px 80px rgba(35, 0, 248, 0.3);
+            opacity: 0.5;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+
+          .bubble-thirteen-colored {
+            position: absolute;
+            z-index: 100;
+            top: 17rem;
+            left: -17.5rem;
+            width: 39.46px;
+            height: 39.46px;
+            border-radius: 50%;
+            background: radial-gradient(
+                  96% 96% at 70.4% 31.2%,
+                  #f05728 61.72%,
+                  #d0c1f7 100%
+                )
+                /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
+              #030092;
+            box-shadow: 0px 0px 20px rgba(255, 147, 147, 0.13),
+              60px 120px 80px rgba(5, 0, 255, 0.1),
+              inset 0px 2px 10px rgba(255, 255, 255, 0.58),
+              inset -15px 28px 50px #3244e8;
             transition: transform 0.3s;
             transform: scale(1.15);
             cursor: pointer;
@@ -1297,7 +1654,7 @@
             justify-content: center;
           }
 
-          .bubble-fourteen-colored {
+          .bubble-fourteen-opacity {
             position: absolute;
             z-index: 100;
             top: 7.8rem;
@@ -1307,6 +1664,32 @@
             border-radius: 50%;
             background: #ffa98e;
             box-shadow: 0px 4px 80px rgba(35, 0, 248, 0.29);
+            opacity: 0.5;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+
+          .bubble-fourteen-colored {
+            position: absolute;
+            z-index: 100;
+            top: 7.8rem;
+            left: 8.5rem;
+            width: 64.74px;
+            height: 64.74px;
+            border-radius: 50%;
+            background: radial-gradient(
+                  96% 96% at 70.4% 31.2%,
+                  #f05728 61.72%,
+                  #d0c1f7 100%
+                )
+                /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
+              #030092;
+            box-shadow: 0px 0px 20px rgba(255, 147, 147, 0.13),
+              60px 120px 80px rgba(5, 0, 255, 0.1),
+              inset 0px 2px 10px rgba(255, 255, 255, 0.58),
+              inset -15px 28px 50px #3244e8;
             transition: transform 0.3s;
             transform: scale(1.15);
             cursor: pointer;
@@ -1397,7 +1780,7 @@
             justify-content: center;
           }
 
-          .bubble-fifteen-colored {
+          .bubble-fifteen-opacity {
             position: absolute;
             z-index: 100;
             top: 17rem;
@@ -1409,6 +1792,32 @@
             box-shadow: 0px 4px 80px rgba(240, 87, 40, 0.2),
               inset 0px 2px 10px rgba(255, 255, 255, 0.58),
               inset 10px 20px 100px #f05728;
+            opacity: 0.5;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+
+          .bubble-fifteen-colored {
+            position: absolute;
+            z-index: 100;
+            top: 17rem;
+            left: 15.5rem;
+            width: 62.28px;
+            height: 62.28px;
+            border-radius: 50%;
+            background: radial-gradient(
+                  96% 96% at 70.4% 31.2%,
+                  #f05728 61.72%,
+                  #d0c1f7 100%
+                )
+                /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
+              #030092;
+            box-shadow: 0px 0px 20px rgba(255, 147, 147, 0.13),
+              60px 120px 80px rgba(5, 0, 255, 0.1),
+              inset 0px 2px 10px rgba(255, 255, 255, 0.58),
+              inset -15px 28px 50px #3244e8;
             transition: transform 0.3s;
             transform: scale(1.15);
             cursor: pointer;
@@ -1430,6 +1839,22 @@
               inset 0px 2px 10px rgba(255, 255, 255, 0.58),
               inset 10px 20px 50px #ff6e05;
           }
+
+          .bubble-sixteen-opacity {
+            position: absolute;
+            z-index: 100;
+            top: 5rem;
+            left: -4.5rem;
+            width: 35.15px;
+            height: 35.15px;
+            border-radius: 50%;
+            background: #ffa98e;
+            opacity: 0.5;
+            box-shadow: 0px 4px 80px rgba(248, 0, 119, 0.2),
+              inset 0px 2px 10px rgba(255, 255, 255, 0.58),
+              inset 10px 20px 50px #ff6e05;
+          }
+
           .bubble-seventeen {
             position: absolute;
             z-index: 100;
@@ -1441,6 +1866,20 @@
             background: #ffa98e;
             box-shadow: 0px 4px 80px rgba(35, 0, 248, 0.3);
           }
+
+          .bubble-seventeen-opacity {
+            position: absolute;
+            z-index: 100;
+            top: 5rem;
+            left: -16.5rem;
+            width: 28.98px;
+            height: 28.98px;
+            border-radius: 50%;
+            opacity: 0.5;
+            background: #ffa98e;
+            box-shadow: 0px 4px 80px rgba(35, 0, 248, 0.3);
+          }
+
           .bubble-eighteen {
             position: absolute;
             z-index: 100;
@@ -1452,6 +1891,20 @@
             background: #ffa98e;
             box-shadow: 0px 4px 80px rgba(35, 0, 248, 0.3);
           }
+
+          .bubble-eighteen-opacity {
+            position: absolute;
+            z-index: 100;
+            top: 31rem;
+            left: -14.5rem;
+            width: 37.61px;
+            height: 37.61px;
+            opacity: 0.5;
+            border-radius: 50%;
+            background: #ffa98e;
+            box-shadow: 0px 4px 80px rgba(35, 0, 248, 0.3);
+          }
+
           .bubble-nineteen {
             position: absolute;
             z-index: 100;
@@ -1463,6 +1916,20 @@
             background: #ffa98e;
             box-shadow: 0px 4px 80px rgba(35, 0, 248, 0.3);
           }
+
+          .bubble-nineteen-opacity {
+            position: absolute;
+            z-index: 100;
+            top: 4rem;
+            left: 4rem;
+            width: 37px;
+            height: 37px;
+            opacity: 0.5;
+            border-radius: 50%;
+            background: #ffa98e;
+            box-shadow: 0px 4px 80px rgba(35, 0, 248, 0.3);
+          }
+
           .bubble-twenty {
             position: absolute;
             z-index: 100;
@@ -1482,6 +1949,28 @@
               inset 0px 2px 10px rgba(255, 255, 255, 0.58),
               inset 10px 20px 50px #ff6e05;
           }
+
+          .bubble-twenty-opacity {
+            position: absolute;
+            z-index: 100;
+            top: 15rem;
+            left: 6.2rem;
+            width: 37px;
+            height: 37px;
+            border-radius: 50%;
+            background: radial-gradient(
+                  96% 96% at 70.4% 31.2%,
+                  #3244e8 0%,
+                  rgba(0, 2, 16, 0) 100%
+                )
+                /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
+              #030092;
+            opacity: 0.5;
+            box-shadow: 0px 4px 80px rgba(248, 0, 119, 0.48),
+              inset 0px 2px 10px rgba(255, 255, 255, 0.58),
+              inset 10px 20px 50px #ff6e05;
+          }
+
           .bubble-twentyone {
             position: absolute;
             z-index: 100;
@@ -1493,6 +1982,20 @@
             background: #ffa98e;
             box-shadow: 0px 4px 80px rgba(35, 0, 248, 0.3);
           }
+
+          .bubble-twentyone-opacity {
+            position: absolute;
+            z-index: 100;
+            top: 23.4rem;
+            left: 11.7rem;
+            width: 35.15px;
+            opacity: 0.5;
+            height: 35.15px;
+            border-radius: 50%;
+            background: #ffa98e;
+            box-shadow: 0px 4px 80px rgba(35, 0, 248, 0.3);
+          }
+
           .bubble-twentytwo {
             position: absolute;
             z-index: 100;
@@ -1504,11 +2007,38 @@
             background: #ffa98e;
             box-shadow: 0px 4px 80px rgba(35, 0, 248, 0.3);
           }
+
+          .bubble-twentytwo-opacity {
+            position: absolute;
+            z-index: 100;
+            top: 29.4rem;
+            left: 12.5rem;
+            opacity: 0.5;
+            width: 37px;
+            height: 37px;
+            border-radius: 50%;
+            background: #ffa98e;
+            box-shadow: 0px 4px 80px rgba(35, 0, 248, 0.3);
+          }
+
           .bubble-twentythree {
             position: absolute;
             z-index: 100;
             top: 23.4rem;
             left: 16.8rem;
+            width: 37px;
+            height: 37px;
+            border-radius: 50%;
+            background: #ffa98e;
+            box-shadow: 0px 4px 80px rgba(35, 0, 248, 0.3);
+          }
+
+          .bubble-twentythree-opacity {
+            position: absolute;
+            z-index: 100;
+            top: 23.4rem;
+            left: 16.8rem;
+            opacity: 0.5;
             width: 37px;
             height: 37px;
             border-radius: 50%;

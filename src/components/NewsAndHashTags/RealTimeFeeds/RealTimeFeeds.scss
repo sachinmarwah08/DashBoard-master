@@ -305,16 +305,64 @@
       width: 0.625rem;
     }
 
-    .left-content-noData {
-      // border-bottom: 1px solid #eeeeee;
+    .left-content-News {
+      border-bottom: 1px solid #eeeeee;
       height: auto;
-      // margin-bottom: 0.5rem;
+      margin-bottom: 0.5rem;
       // padding: 1rem;
       // padding-top: 1rem;
       overflow: hidden;
+
+      .left-content-noData {
+        // border-bottom: 1px solid #eeeeee;
+        height: auto;
+        // margin-bottom: 0.5rem;
+        // padding: 1rem;
+        // padding-top: 1rem;
+        overflow: hidden;
+      }
+
+      .left-content-heading-news {
+        color: #f05728;
+        margin: 0%;
+        font-size: 0.875rem;
+        font-weight: 500;
+        line-height: 1.25rem;
+        text-decoration: none;
+        cursor: pointer;
+        width: 80%;
+        margin-bottom: 0.5rem;
+      }
+
+      .hashtags-news {
+        margin: 0%;
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: #000000;
+        cursor: pointer;
+        text-decoration: none;
+        width: 80%;
+        padding-bottom: 0.5rem;
+        padding-top: 0.5rem;
+
+        .hashtags-colored {
+          color: #f05728;
+        }
+      }
+
+      .news-link-wrapper {
+        margin-bottom: 1rem;
+        font-size: 16px;
+        width: 98%;
+        .news-link {
+          color: #1da1f2;
+          cursor: pointer;
+          text-decoration: none;
+        }
+      }
     }
 
-    .left-content {
+    .left-content-tweets {
       border-bottom: 1px solid #eeeeee;
       height: auto;
       margin-bottom: 0.5rem;
@@ -336,18 +384,6 @@
         }
       }
 
-      .left-content-heading-news {
-        color: #f05728;
-        margin: 0%;
-        font-size: 0.875rem;
-        font-weight: 500;
-        line-height: 1.25rem;
-        text-decoration: none;
-        cursor: pointer;
-        width: 80%;
-        margin-bottom: 0.5rem;
-      }
-
       .hashtags {
         margin: 0%;
         font-size: 0.875rem;
@@ -361,21 +397,6 @@
         }
       }
 
-      .hashtags-news {
-        margin: 0%;
-        font-size: 0.875rem;
-        font-weight: 500;
-        color: #000000;
-        cursor: pointer;
-        text-decoration: none;
-        width: 80%;
-        padding-bottom: 0.5rem;
-        padding-top: 0.5rem;
-
-        .hashtags-colored {
-          color: #f05728;
-        }
-      }
       .link {
         margin: 0%;
         padding-top: 0.5rem;
@@ -383,17 +404,6 @@
         line-height: 2.5rem;
         cursor: pointer;
         text-decoration: none;
-      }
-
-      .news-link-wrapper {
-        margin-bottom: 1rem;
-        font-size: 16px;
-        width: 98%;
-        .news-link {
-          color: #1da1f2;
-          cursor: pointer;
-          text-decoration: none;
-        }
       }
 
       .username {

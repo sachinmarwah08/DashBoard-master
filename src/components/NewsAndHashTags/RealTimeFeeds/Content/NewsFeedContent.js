@@ -2,6 +2,7 @@ import React from "react";
 import { FadeLoader } from "react-spinners";
 
 const NewsFeedContent = ({ filterData, loading, lastUserRef }) => {
+  console.log(filterData, "NewsFeed");
   return (
     <>
       {loading ? (
@@ -16,9 +17,7 @@ const NewsFeedContent = ({ filterData, loading, lastUserRef }) => {
                 ref={lastUserRef}
                 key={index}
                 className={`${
-                  filterData.length === 0
-                    ? "left-content-noData"
-                    : "left-content"
+                  item.headline && item.news_source && "left-content-News"
                 }`}
               >
                 <a
@@ -36,9 +35,7 @@ const NewsFeedContent = ({ filterData, loading, lastUserRef }) => {
                 ref={lastUserRef}
                 key={index}
                 className={`${
-                  filterData.length === 0
-                    ? "left-content-noData"
-                    : "left-content"
+                  item.headline && item.news_source && "left-content-News"
                 }`}
               >
                 <a

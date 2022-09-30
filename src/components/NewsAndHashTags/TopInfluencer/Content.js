@@ -37,7 +37,9 @@ const Content = ({ topInfluencerData, loading, lastUserRef }) => {
               </div>
             )
           )}
-          {loading && <BeatLoader color="#F05728" loading={true} size={10} />}
+          {loading && (
+            <BeatLoader color="#F05728" loading={loading} size={10} />
+          )}
         </div>
       )}
     </>

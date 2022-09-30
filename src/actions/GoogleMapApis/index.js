@@ -5,7 +5,8 @@ export const getMapData = async (
   to_date,
   country,
   username,
-  htag
+  htag,
+  c
 ) => {
   const response = await baseApi().get("/api/v1/country-map-data", {
     params: {
@@ -14,6 +15,7 @@ export const getMapData = async (
       country,
       username,
       htag,
+      c,
     },
   });
   if (response) {
@@ -27,7 +29,8 @@ export const getTableData = async (
   to_date,
   country,
   username,
-  htag
+  htag,
+  c
 ) => {
   const response = await baseApi().get("/api/v1/country-map-data", {
     params: {
@@ -36,6 +39,7 @@ export const getTableData = async (
       country,
       username,
       htag,
+      c,
     },
   });
   if (response) {

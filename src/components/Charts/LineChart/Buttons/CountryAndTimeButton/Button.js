@@ -30,8 +30,8 @@ const Button = ({
               }}
             >
               <p style={{ fontWeight: 600, marginTop: 0 }}>Compare Country</p>
-              This button compares the wellbeing index scores for countries
-              during the same time period.
+              This button compares the wellbeing interest and sentiment scores
+              for countries during the same time period.
             </div>
           )) ||
           (compareTimevalue && (
@@ -44,8 +44,8 @@ const Button = ({
               }}
             >
               <p style={{ fontWeight: 600, marginTop: 0 }}>Compare Time</p>
-              This button compares a country's wellbeing index score over
-              different time periods.
+              This button compares a country's wellbeing interest and sentiment
+              score over different time periods.
             </div>
           ))
         }

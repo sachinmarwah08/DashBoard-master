@@ -231,6 +231,7 @@ const Chart = ({
     >
       <ResponsiveContainer
         width="100%"
+        height="100%"
         aspect={isValue || dateValue ? 3.2 : 4.2}
       >
         <LineChart
@@ -238,15 +239,18 @@ const Chart = ({
             (compareCountryActive && lineChartData) ||
             (compareTimeActive && chooseTimeLineChartData)
           }
-          width={600}
-          height={50}
+          width="auto"
+          height="auto"
           margin={{ top: 50, right: 70, left: 0, bottom: 40 }}
         >
           {/* <PolarGrid strokeDasharray="3 3" /> */}
           {/* <CartesianGrid horizontal={true} vertical={false} /> */}
           <XAxis
             style={{ fontFamily: "Work-Sans" }}
-            dataKey={compareTimeActive ? "MonthName" : "_id"}
+            dataKey={
+              (compareTimeActive && "MonthName") ||
+              (compareCountryActive && "_id")
+            }
             stroke="#757575"
             fontWeight={400}
             dy={8}

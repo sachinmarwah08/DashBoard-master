@@ -23,12 +23,12 @@ const Header = () => {
       <header className="header-container">
         <div className="main-content">
           <div className="logo">
-            <img
+            {/* <img
               onClick={navigateHome}
               alt="logo"
               className="logo-image"
               src={logo}
-            ></img>
+            ></img> */}
           </div>
           <div className="links">
             <div style={{ fontFamily: "NEXA" }} className="links-data">

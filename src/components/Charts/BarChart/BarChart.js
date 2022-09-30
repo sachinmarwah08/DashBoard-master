@@ -20,13 +20,14 @@ import {
   getInfluencerDropdownData,
 } from "../../../actions/DropDownApis";
 import BarChartData from "./BarChartData";
+import moment from "moment";
 
 const BarChartComponent = () => {
   const { state } = useContext(FilterContext);
   const {
     loaders: { countryLineChartLoading },
     filters: {
-      countryValue,
+      // countryValue,
       influencerValue,
       hashtagValue,
       dateRangeValue: { fromDate, toDate },
@@ -59,12 +60,17 @@ const BarChartComponent = () => {
       // console.log(month, day, year);
 
       let order = "des";
-      let c = false;
+      let country = "";
+
+      let c = moment(toDate).isSame(moment(new Date()).format("YYYY-MM-DD"))
+        ? false
+        : null;
 
       const response = await getBarData(
         fromDate,
         toDate,
-        countryValue,
+        // countryValue,
+        country,
         influencerValue,
         hashtagValue,
         order,
@@ -175,11 +181,12 @@ const BarChartComponent = () => {
       }
 
       let order = "des";
+      let country = "";
 
       const response = await getBarData(
         fromDate,
         toDate,
-        countryValue,
+        country,
         influencerTypedValue,
         hashtagTypedValue,
         order
@@ -213,12 +220,17 @@ const BarChartComponent = () => {
     if (bardataFilterDrop === "Hashtag") {
       hashtagTypedValue = val;
     }
+
+    let order = "des";
+    let country = "";
+
     const response = await getBarData(
       fromDate,
       toDate,
-      countryValue,
+      country,
       influencerTypedValue,
-      hashtagTypedValue
+      hashtagTypedValue,
+      order
     );
 
     let tempData = [];
@@ -269,10 +281,10 @@ const BarChartComponent = () => {
                       Countries Wellbeing Analysis
                     </p>
                     The analysis of the top 10 countries according to their
-                    wellbeing index scores is shown in this widget. To quantify
-                    a country's wellbeing on a numerical scale, wellbeing
-                    positive and negative percentages are calculated for each
-                    country.
+                    wellbeing interest and sentiment is shown in this widget. To
+                    quantify a country's wellbeing on a numerical scale,
+                    wellbeing positive and negative percentages are calculated
+                    for each country.
                   </div>
                 }
               >
@@ -281,7 +293,7 @@ const BarChartComponent = () => {
             </div>
           </div>
 
-          <Sort
+          {/* <Sort
             influencerdata={
               bardataFilterDrop === "Influencer" ? influencerdata : hashtag
             }
@@ -298,7 +310,7 @@ const BarChartComponent = () => {
             value={inputValue}
             lastUserRef={lastUserRef}
             onSearch={onInfluencerInputChange}
-          />
+          /> */}
         </div>
 
         <div className="bar-chart-wrapper">

@@ -11,6 +11,8 @@ import "tippy.js/themes/light.css";
 import "tippy.js/dist/svg-arrow.css";
 import { FilterContext } from "../../context/FilterContext";
 import { BeatLoader } from "react-spinners";
+import CalenderButton from "../DashboardFilter/Buttons/CalenderButton";
+import moment from "moment";
 
 const GlobalWellbeing = () => {
   const { state } = useContext(FilterContext);
@@ -18,8 +20,11 @@ const GlobalWellbeing = () => {
     loaders: { countryLineChartLoading },
     filters: {
       countryValue,
+      influencerValue,
+      hashtagValue,
       dateRangeValue: { fromDate, toDate },
     },
+    applyClicked,
   } = state;
   const [data, setData] = useState(0);
   const [absoluteData, setAbsoluteData] = useState({});
@@ -29,6 +34,7 @@ const GlobalWellbeing = () => {
   useEffect(() => {
     if (countryLineChartLoading) {
       const callApi = async () => {
+        setLoader(true);
         // let today = Date.now();
         // var check = moment(today);
         // var month = check.format("M");
@@ -38,8 +44,26 @@ const GlobalWellbeing = () => {
         // let toDate = `${year}-${month}-${day}`;
         // console.log(month, day, year);
 
-        const response = await getTweetsCount(fromDate, toDate, countryValue);
-        const diffRes = await getTweetsDiff(fromDate, toDate, countryValue);
+        let c = moment(toDate).isSame(moment(new Date()).format("YYYY-MM-DD"))
+          ? false
+          : null;
+
+        const response = await getTweetsCount(
+          fromDate,
+          toDate,
+          countryValue,
+          influencerValue,
+          hashtagValue,
+          c
+        );
+        const diffRes = await getTweetsDiff(
+          fromDate,
+          toDate,
+          countryValue,
+          influencerValue,
+          hashtagValue,
+          c
+        );
 
         setData(response.pos_neg_tweet_count);
         setAbsoluteData(diffRes);
@@ -72,8 +96,10 @@ const GlobalWellbeing = () => {
       : Math.sign(num) * Math.abs(num);
   }
 
-  var date = new Date().getDate();
+  // var date = new Date().getDate();
   var year = new Date().getFullYear();
+
+  let formatDate = moment().subtract(1, "days").format("DD");
 
   let monthsArray = [
     "January",
@@ -151,17 +177,36 @@ const GlobalWellbeing = () => {
                   <p style={{ fontWeight: 600, marginTop: 0 }}>
                     Current Day Value
                   </p>
-                  This is the global wellbeing index score for the current MTD
-                  period.
+                  This is the count of positive and negative wellbeing stories
+                  from Twitter and News media for the current MTD period.
                 </div>
               }
             >
               <p className="value-one">Current Day Value </p>
             </Tippy>
 
-            <p className="date">
-              As of {date} {monthName}, {year}
-            </p>
+            {!applyClicked && (
+              <p className="date">
+                As of {formatDate} {monthName}, {year}
+              </p>
+            )}
+
+            {applyClicked && (
+              <div style={{ display: "flex", width: "100%" }}>
+                {fromDate && (
+                  <p style={{ marginRight: "0.3rem" }} className="date">
+                    As of {moment(fromDate).format("DD MMM")}
+                  </p>
+                )}
+
+                {toDate && (
+                  <p className="date">
+                    {" "}
+                    - {moment(toDate).format("DD MMM, YYYY")}
+                  </p>
+                )}
+              </div>
+            )}
           </div>
 
           <div className="column-two">
@@ -190,8 +235,9 @@ const GlobalWellbeing = () => {
                   <p style={{ fontWeight: 600, marginTop: 0 }}>
                     Absolute Change
                   </p>
-                  This represents the change in the global wellbeing index score
-                  from the preceding MTD period.
+                  This represents the change in the count of positive and
+                  negative wellbeing stories on Twitter and News media from the
+                  preceding MTD period.
                 </div>
               }
             >
@@ -224,8 +270,9 @@ const GlobalWellbeing = () => {
                   <p style={{ fontWeight: 600, marginTop: 0 }}>
                     Percentage Change
                   </p>
-                  This represents the percentage change in the global wellbeing
-                  index score from the preceding MTD period.
+                  This represents the percentage change in the count of positive
+                  and negative wellbeing stories on Twitter and News media from
+                  the preceding MTD period.
                 </div>
               }
             >

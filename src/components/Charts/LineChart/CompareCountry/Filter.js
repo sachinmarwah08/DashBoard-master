@@ -1,10 +1,4 @@
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import xCircle from "../../../../Images/x-circle.svg";
@@ -14,36 +8,57 @@ import "tippy.js/dist/tippy.css";
 import "tippy.js/themes/light.css";
 import "tippy.js/dist/svg-arrow.css";
 import { FilterContext } from "../../../../context/FilterContext";
-import { getCountryDropdownData } from "../../../../actions/DropDownApis";
+import { BeatLoader } from "react-spinners";
 
 const CompareCountry = ({
   title,
-  addCountry,
-  AddCountryonClick,
-  addCountryClickName,
   isValue,
-  onKeyDown,
   closeAddCountry,
-  onChange,
-  value,
-  options,
+  CompareCountryDropDownClick,
+  countryDropValues,
+  dropdownVisible,
+  onCountryInputChangeNew,
+  DropDownFilter,
+  contryNameState,
   lastUserRef,
-  onDropDownClick,
   showDropDown,
-  onCountryInputChange,
+  loading,
+  setShowDropDown,
 }) => {
   const { state } = useContext(FilterContext);
   const { countryValue } = state.filters;
+
+  const [isActive, setIsActive] = useState(false);
+
+  function useOutsideAlerter(ref) {
+    useEffect(() => {
+      function handleClickOutside(event) {
+        if (ref.current && !ref.current.contains(event.target)) {
+          setShowDropDown(false);
+        }
+      }
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }, [ref]);
+  }
+
+  const wrapperRef = useRef(null);
+  useOutsideAlerter(wrapperRef);
 
   return (
     <>
       <div className="Add-country">
         <div className="country">
-          <img alt="dots" src={threeDots} />
+          <img alt="threeDots" src={threeDots} />
           <p className="title">{countryValue ? countryValue : title}</p>
         </div>
-        {!addCountry ? (
-          <button onClick={AddCountryonClick} className="country-add">
+        {!isActive ? (
+          <button
+            onClick={() => setIsActive(!isActive)}
+            className="country-add"
+          >
             <>
               <span className="faplus">
                 <FontAwesomeIcon icon={faPlus} />
@@ -55,92 +70,129 @@ const CompareCountry = ({
                 }}
                 className="title"
               >
-                {addCountryClickName}
+                Add Country
               </p>
             </>
           </button>
         ) : (
           !isValue && (
-            <div className="country-added">
-              <div className="container-type-country-name">
-                <Tippy
-                  theme={"light"}
-                  interactive={true}
-                  content={
+            <Tippy
+              theme={"light"}
+              interactive={true}
+              content={
+                <div
+                  style={{
+                    padding: "0.5rem",
+                    fontWeight: 400,
+                    fontFamily: "Work-Sans",
+                    fontSize: "14px",
+                  }}
+                >
+                  <p
+                    style={{
+                      fontWeight: 600,
+                      marginTop: 0,
+                    }}
+                  >
+                    Choose Country
+                  </p>
+                  Choose a time period for comparison of a country's wellbeing
+                  index score.
+                </div>
+              }
+            >
+              <div className="country-time">
+                <button
+                  ref={wrapperRef}
+                  onClick={dropdownVisible}
+                  className="compare-time"
+                >
+                  <>
                     <div
                       style={{
-                        padding: "0.5rem",
-                        fontWeight: 400,
-                        fontFamily: "Work-Sans",
-                        fontSize: "14px",
+                        width: "100%",
                       }}
                     >
-                      <p style={{ fontWeight: 600, marginTop: 0 }}>
-                        Type Country Name
-                      </p>
-                      Choose the country for comparison in the same time frame.
+                      <input
+                        style={{
+                          padding: "1rem",
+                          background: "transparent",
+                          border: "none",
+                          fontSize: "1.25rem",
+                          outline: "none",
+                          fontFamily: "Work-Sans",
+                          textAlign: "center",
+                        }}
+                        type="text"
+                        className="compare-time-input"
+                        placeholder="Search country name"
+                        value={contryNameState}
+                        onChange={(e) => {
+                          DropDownFilter(e);
+                          onCountryInputChangeNew(e.target.value);
+                        }}
+                      />
                     </div>
-                  }
-                >
-                  <input
-                    type="text"
-                    onKeyDown={onKeyDown}
-                    // onChange={(e) => {
-                    //   onCountryInputChange(e.target.value);
-                    //   onChange(e);
-                    // }}
-                    style={{ fontFamily: "Work-Sans" }}
-                    onChange={onChange}
-                    value={value}
-                    className="contry-name"
-                    placeholder="Type country name"
-                  />
-                </Tippy>
-
-                {addCountry && showDropDown && (
-                  <div className="type-country-name-dropdown">
-                    <div className="overflow-wrapper">
-                      {options.map((item, index) =>
-                        options.length === index + 1 ? (
+                    {showDropDown && contryNameState && (
+                      <>
+                        <div className="dropdown-wrapper">
                           <div
-                            onClick={() => onDropDownClick(item)}
-                            className="dropdown-item"
+                            style={{ fontFamily: "Work-Sans" }}
+                            className="dropdown-content"
                           >
-                            <ul style={{ margin: "0", padding: "0" }}>
-                              <li ref={lastUserRef} className="dropdown-list">
-                                {item}
-                              </li>
-                            </ul>
+                            {loading ? (
+                              <BeatLoader
+                                color="#F05728"
+                                loading={true}
+                                size={10}
+                              />
+                            ) : (
+                              <>
+                                {countryDropValues.map((item, index) =>
+                                  countryDropValues.length === index + 1 ? (
+                                    <div
+                                      ref={lastUserRef}
+                                      style={{ fontFamily: "Work-Sans" }}
+                                      key={item.value}
+                                      onClick={() =>
+                                        CompareCountryDropDownClick(item)
+                                      }
+                                      className="drop-item"
+                                    >
+                                      {item}
+                                    </div>
+                                  ) : (
+                                    <div
+                                      ref={lastUserRef}
+                                      style={{ fontFamily: "Work-Sans" }}
+                                      key={item.value}
+                                      onClick={() =>
+                                        CompareCountryDropDownClick(item)
+                                      }
+                                      className="drop-item"
+                                    >
+                                      {item}
+                                    </div>
+                                  )
+                                )}
+                              </>
+                            )}
                           </div>
-                        ) : (
-                          <div
-                            onClick={() => onDropDownClick(item)}
-                            className="dropdown-item"
-                          >
-                            <ul style={{ margin: "0", padding: "0" }}>
-                              <li
-                                ref={lastUserRef}
-                                style={{ listStyle: "none" }}
-                                className="dropdown-list"
-                              >
-                                {item}
-                              </li>
-                            </ul>
-                          </div>
-                        )
-                      )}
-                    </div>
-                  </div>
-                )}
+                        </div>
+                      </>
+                    )}
+                  </>
+                </button>
               </div>
-            </div>
+            </Tippy>
           )
         )}
+
         {isValue && (
           <div className="country-added">
-            <span className="circle-line-added-country"></span>
+            <span className="circle-line-added-country-time"></span>
             <p className="title-line-added-country">
-              {value}
+              {isValue}
               <button
                 className="close-addCountry-btn"
                 onClick={closeAddCountry}

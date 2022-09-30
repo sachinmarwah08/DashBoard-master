@@ -7,11 +7,7 @@ import React, {
 } from "react";
 import xCircle from "../../../../Images/x-circle.svg";
 import threeDots from "../../../../Images/threeDots.svg";
-import {
-  faAngleUp,
-  faAngleDown,
-  faPlus,
-} from "@fortawesome/free-solid-svg-icons";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import moment from "moment";
 import Tippy from "@tippyjs/react";
@@ -25,14 +21,23 @@ import { BeatLoader } from "react-spinners";
 const CompareTime = ({
   title,
   dateValue,
-  chooseTimeClick,
-  chooseTime,
-  chooseTimeDropdownClick,
-  onHandleCompareTimeMonthChange,
   setDateClick,
-  countrySelect,
+  CompareTimeDropDownClick,
+  // chooseTimeClick,
+  // chooseTime,
+  // chooseTimeDropdownClick,
+  // countrySelect,
+  countryDropValues,
+  dropdownVisible,
+  onCountryInputChangeNew,
+  DropDownFilter,
+  contryNameState,
+  lastUserRef,
+  showDropDown,
+  loading,
+  setShowDropDown,
 }) => {
-  const { dispatch, state } = useContext(FilterContext);
+  const { state } = useContext(FilterContext);
   const {
     filters: { countryValue },
   } = state;
@@ -42,24 +47,24 @@ const CompareTime = ({
   const month = check.format("MMMM");
   const year = check.format("YYYY");
   const [monthsList, setMonthsList] = useState([]);
-  const [countryDropValues, setCountryDropValues] = useState([]);
-  const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(true);
-  const [inputValue, setInputValue] = useState("");
-  const [dropdownBackUp, setDropdownBackUp] = useState([]);
-  const [showDropDown, setShowDropDown] = useState(false);
+  // const [countryDropValues, setCountryDropValues] = useState([]);
+  // const [page, setPage] = useState(1);
+  // const [loading, setLoading] = useState(true);
+  // const [inputValue, setInputValue] = useState("");
+  // const [dropdownBackUp, setDropdownBackUp] = useState([]);
+  // const [showDropDown, setShowDropDown] = useState(false);
   const [isActive, setIsActive] = useState(false);
 
-  useEffect(() => {
-    setLoading(true);
-    const loadUsers = async () => {
-      const countryDropdown = await getCountryDropdownData(page);
-      setCountryDropValues((prev) => [...prev, ...countryDropdown]);
-      setDropdownBackUp(countryDropdown);
-    };
-    setLoading(false);
-    loadUsers();
-  }, [page]);
+  // useEffect(() => {
+  //   setLoading(true);
+  //   const loadUsers = async () => {
+  //     const countryDropdown = await getCountryDropdownData(page);
+  //     setCountryDropValues((prev) => [...prev, ...countryDropdown]);
+  //     setDropdownBackUp(countryDropdown);
+  //   };
+  //   setLoading(false);
+  //   loadUsers();
+  // }, [page]);
 
   useEffect(() => {
     const date = moment();
@@ -69,21 +74,21 @@ const CompareTime = ({
     setMonthsList(fullMonthsList);
   }, []);
 
-  const observer = useRef();
+  // const observer = useRef();
 
-  const lastUserRef = useCallback(
-    (node) => {
-      if (loading) return;
-      if (observer.current) observer.current.disconnect();
-      observer.current = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting) {
-          setPage((page) => page + 1);
-        }
-      });
-      if (node) observer.current.observe(node);
-    },
-    [loading]
-  );
+  // const lastUserRef = useCallback(
+  //   (node) => {
+  //     if (loading) return;
+  //     if (observer.current) observer.current.disconnect();
+  //     observer.current = new IntersectionObserver((entries) => {
+  //       if (entries[0].isIntersecting) {
+  //         setPage((page) => page + 1);
+  //       }
+  //     });
+  //     if (node) observer.current.observe(node);
+  //   },
+  //   [loading]
+  // );
 
   function useOutsideAlerter(ref) {
     useEffect(() => {
@@ -150,26 +155,26 @@ const CompareTime = ({
     // },
   ];
 
-  const DropDownFilter = (e) => {
-    setShowDropDown(true);
-    setInputValue(e.target.value);
-    let filterData = [...dropdownBackUp];
-    const countryFilter = filterData.filter((value) => {
-      return value.toLowerCase().includes(inputValue.toLowerCase());
-    });
-    setCountryDropValues(countryFilter);
-  };
+  // const DropDownFilter = (e) => {
+  //   setShowDropDown(true);
+  //   setInputValue(e.target.value);
+  //   let filterData = [...dropdownBackUp];
+  //   const countryFilter = filterData.filter((value) => {
+  //     return value.toLowerCase().includes(inputValue.toLowerCase());
+  //   });
+  //   setCountryDropValues(countryFilter);
+  // };
 
-  const onCountryInputChange = async (searchValue) => {
-    setLoading(true);
-    const countryData = await getCountryDropdownData(1, searchValue);
-    setCountryDropValues(countryData);
-    setLoading(false);
-  };
+  // const onCountryInputChange = async (searchValue) => {
+  //   setLoading(true);
+  //   const countryData = await getCountryDropdownData(1, searchValue);
+  //   setCountryDropValues(countryData);
+  //   setLoading(false);
+  // };
 
-  const dropdownVisible = () => {
-    setShowDropDown(false);
-  };
+  // const dropdownVisible = () => {
+  //   setShowDropDown(false);
+  // };
 
   const wrapperRef = useRef(null);
   useOutsideAlerter(wrapperRef);
@@ -225,7 +230,7 @@ const CompareTime = ({
                     Choose Country
                   </p>
                   Choose a time period for comparison of a country's wellbeing
-                  index score.
+                  inetrest score.
                 </div>
               }
             >
@@ -254,14 +259,14 @@ const CompareTime = ({
                         type="text"
                         className="compare-time-input"
                         placeholder="Search country name"
-                        value={inputValue}
+                        value={contryNameState}
                         onChange={(e) => {
                           DropDownFilter(e);
-                          onCountryInputChange(e.target.value);
+                          onCountryInputChangeNew(e.target.value);
                         }}
                       />
                     </div>
-                    {showDropDown && inputValue && (
+                    {showDropDown && contryNameState && (
                       <>
                         <div className="dropdown-wrapper">
                           <div
@@ -283,7 +288,7 @@ const CompareTime = ({
                                       style={{ fontFamily: "Work-Sans" }}
                                       key={item.value}
                                       onClick={() =>
-                                        onHandleCompareTimeMonthChange(item)
+                                        CompareTimeDropDownClick(item)
                                       }
                                       className="drop-item"
                                     >
@@ -295,7 +300,7 @@ const CompareTime = ({
                                       style={{ fontFamily: "Work-Sans" }}
                                       key={item.value}
                                       onClick={() =>
-                                        onHandleCompareTimeMonthChange(item)
+                                        CompareTimeDropDownClick(item)
                                       }
                                       className="drop-item"
                                     >

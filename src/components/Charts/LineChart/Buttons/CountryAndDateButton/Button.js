@@ -1,6 +1,10 @@
 import React, { useContext, useState } from "react";
 import "./Button.scss";
-import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
+import {
+  faAngleDown,
+  faAngleUp,
+  faXmark,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { SET_FILTERS } from "../../../../../actions/types";
 import { FilterContext } from "../../../../../context/FilterContext";
@@ -14,9 +18,10 @@ const Button = ({
   handleChange,
   lastUserRef,
   loading,
-  inputValue,
+  value,
   onAddCountry,
   onSearch,
+  ClearData,
 }) => {
   const { dispatch, state } = useContext(FilterContext);
   const {
@@ -49,6 +54,7 @@ const Button = ({
                 height: "2.4rem",
                 marginTop: "0.4rem",
                 paddingTop: "0.5rem",
+                position: "relative",
               }}
             >
               <input
@@ -64,13 +70,40 @@ const Button = ({
                 }}
                 type="text"
                 placeholder="Search Country"
-                value={inputValue}
+                value={value}
                 onChange={(e) => {
                   onAddCountry(e);
                   onSearch(e.target.value);
                 }}
               />
+              {value ? (
+                <button
+                  style={{
+                    position: "absolute",
+                    top: "1.01rem",
+                    left: "11.8rem",
+                    border: "none",
+                    outline: "none",
+                    background: "transparent",
+                  }}
+                  onClick={ClearData}
+                >
+                  <FontAwesomeIcon
+                    onClick={ClearData}
+                    style={{
+                      color: "#616161",
+                      opacity: "0.6",
+                      cursor: "pointer",
+                    }}
+                    className="close-icon-image"
+                    icon={faXmark}
+                  />
+                </button>
+              ) : (
+                ""
+              )}
             </div>
+
             {loading ? (
               <BeatLoader
                 style={{

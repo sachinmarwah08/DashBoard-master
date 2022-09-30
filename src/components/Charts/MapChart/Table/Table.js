@@ -36,7 +36,7 @@ const Table = ({ tableData, hideRank }) => {
                 !hashtagValue &&
                 !countryValue &&
                 !hideRank && <th>Rank</th>}
-              <th>Index</th>
+              <th>Interest</th>
               <th>Positive</th>
               <th>Negative</th>
             </tr>

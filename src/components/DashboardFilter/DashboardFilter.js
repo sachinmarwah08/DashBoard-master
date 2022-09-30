@@ -38,6 +38,7 @@ const DashboardFilter = () => {
   const [country, setCountry] = useState([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
+  const [showInputField, setShowInpuField] = useState(false);
 
   const headerRef = useRef();
   if (typeof document !== `undefined`) {
@@ -75,10 +76,14 @@ const DashboardFilter = () => {
     dispatch({ type: UPDATE_ALL_LOADERS_TRUE });
     dispatch({ type: TOGGLE_CALENDER });
     dispatch({ type: CLOSE_CALENDER });
+    setShowInpuField(true);
   };
 
   const onResetFiltersClick = () => {
+    setLoading(true);
     dispatch({ type: RESET_FILTERS });
+    setShowInpuField(false);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -236,7 +241,10 @@ const DashboardFilter = () => {
               </div>
             </Tippy>
 
-            <CalenderButton icon={calenderIcon} />
+            <CalenderButton
+              showInputField={showInputField}
+              icon={calenderIcon}
+            />
           </div>
 
           <div className="apply-reset-btn">

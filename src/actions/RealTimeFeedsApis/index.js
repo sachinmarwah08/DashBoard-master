@@ -6,7 +6,9 @@ export const getSocialMediaFlashes = async (
   sentiment,
   country,
   username,
-  htag
+  htag,
+  page,
+  c
 ) => {
   const response = await baseApi().get("/api/v1/get-social-media-flashes-v2", {
     params: {
@@ -16,6 +18,8 @@ export const getSocialMediaFlashes = async (
       country,
       username,
       htag,
+      page,
+      c,
     },
   });
   if (response) {
@@ -30,7 +34,9 @@ export const newsFlashes = async (
   sentiment,
   country,
   username,
-  htag
+  htag,
+  page,
+  c
 ) => {
   const response = await baseApi().get("/api/v1/get-news-flashes-v2", {
     params: {
@@ -40,6 +46,8 @@ export const newsFlashes = async (
       country,
       username,
       htag,
+      page,
+      c,
     },
   });
   if (response) {

@@ -42,7 +42,11 @@ const Content = ({ filterData, loading, lastUserRef }) => {
                 </div>
               </div>
             ) : (
-              <div ref={lastUserRef} key={index} className="left-content">
+              <div
+                ref={lastUserRef}
+                key={index}
+                className="left-content-tweets"
+              >
                 <a
                   href={item.url}
                   rel="noreferrer"

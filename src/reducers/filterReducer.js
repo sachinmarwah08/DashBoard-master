@@ -9,6 +9,11 @@ import {
   SET_LOADERS,
 } from "../actions/types";
 
+import moment from "moment/moment";
+
+const startOfMonth = moment().startOf("month").format("YYYY-MM-DD");
+const formatDate = moment().format("YYYY-MM-DD");
+
 const filterReducer = (state, action) => {
   const { type, payload } = action;
   switch (type) {
@@ -60,12 +65,17 @@ const filterReducer = (state, action) => {
           influencerValue: "",
           hashtagValue: "",
           countryValue: "",
+          calenderToggler: "",
+          dateRangeValue: {
+            fromDate: null,
+            toDate: null,
+          },
         },
         loaders: {
           ...state.loaders,
           countryLineChartLoading: true,
-          topInfluencerLoading: true,
         },
+        applyClicked: false,
       };
     case UPDATE_LOADERS:
       return {
@@ -83,6 +93,7 @@ const filterReducer = (state, action) => {
           countryLineChartLoading: true,
           topInfluencerLoading: true,
         },
+        applyClicked: true,
       };
     default:
       return state;

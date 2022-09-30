@@ -23,6 +23,7 @@ import {
   getInfluencerDropdownData,
 } from "../../actions/DropDownApis";
 import { BeatLoader } from "react-spinners";
+import moment from "moment";
 
 const TrendingHashtags = () => {
   const { state } = useContext(FilterContext);
@@ -57,8 +58,8 @@ const TrendingHashtags = () => {
 
   useEffect(() => {
     if (countryLineChartLoading) {
-      setLoading(true);
       const callApi = async () => {
+        setLoading(true);
         // let today = Date.now();
         // var check = moment(today);
         // var month = check.format("M");
@@ -67,6 +68,10 @@ const TrendingHashtags = () => {
         // let fromDate = `${year}-${month}-01`;
         // let toDate = `${year}-${month}-${day}`;
         // console.log(month, day, year);
+
+        let c = moment(toDate).isSame(moment(new Date()).format("YYYY-MM-DD"))
+          ? false
+          : null;
 
         const getInfluenser = await getInfluencerDropdownData();
         const hashtagDataResponse = await getHashtagDropdownData();
@@ -77,7 +82,8 @@ const TrendingHashtags = () => {
           toDate,
           countryValue,
           influencerValue,
-          hashtagValue
+          hashtagValue,
+          c
         );
 
         if (response.records && response.records.length) {
@@ -183,22 +189,22 @@ const TrendingHashtags = () => {
 
   const onInfluencerInputChange = async (searchValue) => {
     if (trendingFilter === "Country") {
-      setLoading(true);
+      // setLoading(true);
       const countryData = await getCountryDropdownData(1, searchValue);
       setCountryDataDropdown(countryData);
-      setLoading(false);
+      // setLoading(false);
     }
     if (trendingFilter === "Influencer") {
-      setLoading(true);
+      // setLoading(true);
       const influencerData = await getInfluencerDropdownData(1, searchValue);
       setInfluencerData(influencerData);
-      setLoading(false);
+      // setLoading(false);
     }
     if (trendingFilter === "Hashtag") {
-      setLoading(true);
+      // setLoading(true);
       const hashtagData = await getHashtagDropdownData(1, searchValue);
       sethashtagdropdwon(hashtagData);
-      setLoading(false);
+      // setLoading(false);
     }
   };
 
@@ -236,12 +242,18 @@ const TrendingHashtags = () => {
       if (trendingFilter === "Country") {
         countryTypedValue = inputValue;
       }
+
+      let c = moment(toDate).isSame(moment(new Date()).format("YYYY-MM-DD"))
+        ? false
+        : null;
+
       const response = await getTrendingHashtagData(
         fromDate,
         toDate,
         countryTypedValue,
         influencerTypedValue,
-        hashtagTypedValue
+        hashtagTypedValue,
+        c
       );
       if (response.records && response.records.length) {
         setTotalCount(response.records[0].hashtag.count);
@@ -254,7 +266,8 @@ const TrendingHashtags = () => {
         toDate,
         countryTypedValue,
         influencerTypedValue,
-        hashtagTypedValue
+        hashtagTypedValue,
+        c
       );
       let tempData = [...responseBubbleChart.records];
 
@@ -284,26 +297,57 @@ const TrendingHashtags = () => {
     let hashtagTypedValue = "";
     let countryTypedValue = "";
     if (trendingFilter === "Influencer") {
-      influencerTypedValue = inputValue;
+      influencerTypedValue = val;
     }
     if (trendingFilter === "Hashtag") {
-      hashtagTypedValue = inputValue;
+      hashtagTypedValue = val;
     }
     if (trendingFilter === "Country") {
-      countryTypedValue = inputValue;
+      countryTypedValue = val;
     }
+
+    let c = moment(toDate).isSame(moment(new Date()).format("YYYY-MM-DD"))
+      ? false
+      : null;
+
     const response = await getTrendingHashtagData(
       fromDate,
       toDate,
       countryTypedValue,
       influencerTypedValue,
-      hashtagTypedValue
+      hashtagTypedValue,
+      c
     );
     if (response.records && response.records.length) {
       setTotalCount(response.records[0].hashtag.count);
       setTotalConnections(response.records[0].connection);
       setHashtag(response.records[0].hashtag.htag);
     }
+
+    const responseBubbleChart = await getTrendingHashtagData(
+      fromDate,
+      toDate,
+      countryTypedValue,
+      influencerTypedValue,
+      hashtagTypedValue,
+      c
+    );
+
+    let tempData = [...responseBubbleChart.records];
+
+    if (!trendingFilter === "Influencer") {
+      tempData.sort((a, b) => b.hashtag.count - a.hashtag.count);
+    }
+
+    if (!trendingFilter === "Hashtag") {
+      tempData.sort((a, b) => b.hashtag.count - a.hashtag.count);
+    }
+
+    if (!trendingFilter === "Country") {
+      tempData.sort((a, b) => b.hashtag.count - a.hashtag.count);
+    }
+
+    setTrendingHashtag(tempData);
     setData(response.records);
     setLoading(false);
   };
