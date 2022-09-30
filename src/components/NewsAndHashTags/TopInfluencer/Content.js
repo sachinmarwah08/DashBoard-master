@@ -18,7 +18,7 @@ const Content = forwardRef(
                     style={{ listStyle: 'none', margin: '0%', padding: '0%' }}
                   >
                     <li
-                      // ref={ref}
+                      ref={lastUserRef}
                       style={{ padding: '1rem', paddingLeft: '0%' }}
                       className="username"
                     >
@@ -32,7 +32,7 @@ const Content = forwardRef(
                     style={{ listStyle: 'none', margin: '0%', padding: '0%' }}
                   >
                     <li
-                      // ref={ref}
+                      ref={lastUserRef}
                       style={{ padding: '1rem', paddingLeft: '0%' }}
                       className="username"
                     >

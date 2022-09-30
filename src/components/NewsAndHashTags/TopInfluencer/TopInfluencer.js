@@ -187,6 +187,7 @@ const TopInfluencer = () => {
   }, [page]);
 
   const observer = useRef();
+  const lastNodeRef = useRef();
 
   const lastUserRef = useCallback(
     (node) => {
@@ -199,13 +200,19 @@ const TopInfluencer = () => {
           setPage((page) => page + 1);
         }
       });
-      if (node) observer.current.observe(node);
+      // console.log(node);
+      if (node) {
+        observer.current.observe(node);
+        lastNodeRef.current = node;
+      }
     },
     [loading]
   );
 
   const handleRadioChange = async (value) => {
-    myRefNew.current.scrollTo(0, 0);
+    setLoading(true);
+    observer.current.disconnect();
+    myRefNew && myRefNew.current && myRefNew.current.scrollTo(0, 0);
 
     let countryTypedValue = '';
     let influencerTypedValue = '';
