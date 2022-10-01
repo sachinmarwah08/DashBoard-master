@@ -40,18 +40,18 @@ const DashboardFilter = () => {
   const [loading, setLoading] = useState(true);
   const [showInputField, setShowInpuField] = useState(false);
 
-  const headerRef = useRef();
-  if (typeof document !== `undefined`) {
-    document.addEventListener("scroll", function () {
-      if (headerRef.current) {
-        const documentTop =
-          document.body.scrollTop || document.documentElement.scrollTop;
-        if (documentTop > 280)
-          headerRef.current.classList.add("global-filter-btn");
-        else headerRef.current.classList.remove("hide-filter-icon");
-      }
-    });
-  }
+  // const headerRef = useRef();
+  // if (typeof document !== `undefined`) {
+  //   document.addEventListener("scroll", function () {
+  //     if (headerRef.current) {
+  //       const documentTop =
+  //         document.body.scrollTop || document.documentElement.scrollTop;
+  //       if (documentTop > 280)
+  //         headerRef.current.classList.add("global-filter-btn");
+  //       else headerRef.current.classList.remove("hide-filter-icon");
+  //     }
+  //   });
+  // }
 
   const onInfluencerChange = (val) => {
     dispatch({

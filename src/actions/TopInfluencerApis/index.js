@@ -1,4 +1,4 @@
-import baseApi from '../../apis';
+import baseApi from "../../apis";
 
 export const influencerCount = async (
   from_date,
@@ -8,7 +8,7 @@ export const influencerCount = async (
   htag,
   c
 ) => {
-  const response = await baseApi().get('/api/v1/get-influencers-count', {
+  const response = await baseApi().get("/api/v1/get-influencers-count", {
     params: {
       from_date,
       to_date,
@@ -28,7 +28,7 @@ export const getInfluencers = async (
   from_date,
   to_date,
   category,
-  persantile,
+  persentile,
   country,
   username,
   htag,
@@ -36,13 +36,13 @@ export const getInfluencers = async (
   c
 ) => {
   const response = await baseApi().get(
-    '/api/v1/get-influencers-social-media-impact',
+    "/api/v1/get-influencers-social-media-impact",
     {
       params: {
         from_date,
         to_date,
         category,
-        persantile,
+        persentile,
         country,
         username,
         htag,
