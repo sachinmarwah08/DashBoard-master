@@ -27,7 +27,7 @@ import {
 import moment from "moment";
 
 const TopInfluencer = () => {
-  // const myRefNew = useRef(null);
+  const myRefNew = useRef(null);
   const { state } = useContext(FilterContext);
   const {
     loaders: { countryLineChartLoading },
@@ -56,6 +56,9 @@ const TopInfluencer = () => {
   const [globalBackupData, setGlobalBackupData] = useState([]);
   const [influencerCountDataBackup, setInfluencerCountDataBackup] = useState(0);
   const [page, setPage] = useState(1);
+
+  const [dropLoading, setDropLoading] = useState(false);
+  const [dropPage, setDropPage] = useState(1);
 
   useEffect(() => {
     if (countryLineChartLoading) {
@@ -126,14 +129,15 @@ const TopInfluencer = () => {
   }, [countryLineChartLoading]);
 
   useEffect(() => {
-    const loadUsers = async (value) => {
+    const loadUsers = async () => {
+      console.log("aaaaaaaa");
       setLoading(true);
 
       let category = "ALL";
       if (isRadioChecked) {
-        if (value === 2) {
+        if (isRadioChecked === 2) {
           category = "PERSON";
-        } else if (value === 3) {
+        } else if (isRadioChecked === 3) {
           category = "ORGANIZATION";
         }
       }
@@ -178,25 +182,20 @@ const TopInfluencer = () => {
         // persentile,
         "",
         countryTypedValue || countryValue,
-        influencerTypedValue,
+        influencerTypedValue || influencerValue,
         hashtagTypedValue || hashtagValue,
         page,
         c
       );
 
-      setGetInfluencersData((prev) => [
-        ...prev,
-        ...getInfluencersResponse.influencers,
-      ]);
-
-      const countryData = await getCountryDropdownData(page);
-      setCountryDataDropdown((prev) => [...prev, ...countryData]);
-
-      const HashtagData = await getHashtagDropdownData(page);
-      sethashtag((prev) => [...prev, ...HashtagData]);
-
-      const influencerData = await getInfluencerDropdownData(page);
-      setInfluencerData((prev) => [...prev, ...influencerData]);
+      if (page === 1) {
+        setGetInfluencersData(getInfluencersResponse.influencers);
+      } else {
+        setGetInfluencersData((prev) => [
+          ...prev,
+          ...getInfluencersResponse.influencers,
+        ]);
+      }
 
       // if (getInfluencersResponse.persentile === 0) {
       //   return null;
@@ -205,8 +204,25 @@ const TopInfluencer = () => {
 
       setLoading(false);
     };
-    loadUsers();
+    if (page) {
+      loadUsers();
+    }
   }, [page]);
+  console.log(page);
+
+  useEffect(() => {
+    const loadUsers = async () => {
+      const countryData = await getCountryDropdownData(dropPage);
+      setCountryDataDropdown((prev) => [...prev, ...countryData]);
+
+      const HashtagData = await getHashtagDropdownData(dropPage);
+      sethashtag((prev) => [...prev, ...HashtagData]);
+
+      const influencerData = await getInfluencerDropdownData(dropPage);
+      setInfluencerData((prev) => [...prev, ...influencerData]);
+    };
+    loadUsers();
+  }, [dropPage]);
 
   // useEffect(() => {
   //   const loadUsersDropDown = async () => {
@@ -225,7 +241,11 @@ const TopInfluencer = () => {
       if (observer.current) observer.current.disconnect();
       observer.current = new IntersectionObserver((entries) => {
         console.log(entries, "entires");
-        if (entries[0].isIntersecting) {
+        if (
+          entries[0].isIntersecting &&
+          getInfluencersData &&
+          getInfluencersData.length > 7
+        ) {
           setPage((page) => page + 1);
         }
       });
@@ -234,7 +254,28 @@ const TopInfluencer = () => {
     [loading]
   );
 
+  const dropObserver = useRef();
+
+  const lastDropRef = useCallback(
+    (node) => {
+      console.log(dropLoading, "dropLoading");
+      if (dropLoading) return;
+      if (dropObserver.current) dropObserver.current.disconnect();
+      dropObserver.current = new IntersectionObserver((entries) => {
+        console.log(entries, "entires");
+        if (entries[0].isIntersecting) {
+          setDropPage((page) => page + 1);
+        }
+      });
+      if (node) dropObserver.current.observe(node);
+    },
+    [dropLoading]
+  );
+
   const handleRadioChange = async (value) => {
+    console.log("hhhhhhhhhhhhhhhhhhhhhhh");
+    myRefNew.current.scrollTo(0, 0);
+    setPage(null);
     setLoading(true);
 
     let countryTypedValue = "";
@@ -263,7 +304,7 @@ const TopInfluencer = () => {
       ? false
       : null;
 
-    setPage(1);
+    // setPage(1);
     setGetInfluencersData("");
 
     console.log(
@@ -280,30 +321,35 @@ const TopInfluencer = () => {
       "RadioChange UseEffect"
     );
 
-    const getInfluencersResponse = await getInfluencers(
-      fromDate,
-      toDate,
-      category,
-      // persentile,
-      "",
-      countryTypedValue || countryValue,
-      influencerTypedValue,
-      hashtagTypedValue || hashtagValue,
-      1,
-      c
-    );
+    // const getInfluencersResponse = await getInfluencers(
+    //   fromDate,
+    //   toDate,
+    //   category,
+    //   // persentile,
+    //   "",
+    //   countryTypedValue || countryValue,
+    //   influencerTypedValue,
+    //   hashtagTypedValue || hashtagValue,
+    //   1,
+    //   c
+    // );
 
     // if (getInfluencersResponse.persentile === 0) {
     //   return null;
     // } else
     //   localStorage.setItem("persentile", getInfluencersResponse.persentile);
 
+    setTimeout(() => {
+      setPage(1);
+    }, 0);
     setIsRadioChecked(value);
-    setGetInfluencersData(getInfluencersResponse.influencers);
+    // setGetInfluencersData(getInfluencersResponse.influencers);
     setLoading(false);
   };
 
   const handleFilter = (e) => {
+    console.log("object");
+    myRefNew && myRefNew.current && myRefNew.current.scrollTo(0, 0);
     setInputValue(e.target.value);
     setShowInfluencerHashtag(true);
     if (topInfluencerFilter === "Filters") {
@@ -395,6 +441,7 @@ const TopInfluencer = () => {
           c,
           "OnEnter UseEffect"
         );
+
         const getInfluencersResponse = await getInfluencers(
           fromDate,
           toDate,
@@ -434,8 +481,10 @@ const TopInfluencer = () => {
   };
 
   const onDropDownClick = async (val) => {
-    setLoading(true);
+    myRefNew.current.scrollTo(0, 0);
+    // setLoading(true);
     setInputValue(val);
+    setPage(null);
     setShowInfluencerHashtag(false);
     let countryTypedValue = "";
     let influencerTypedValue = "";
@@ -473,27 +522,30 @@ const TopInfluencer = () => {
         "Dropdown UseEffect"
       );
 
-      setPage(1);
-      const getInfluencersResponse = await getInfluencers(
-        fromDate,
-        toDate,
-        category,
-        // persentile,
-        "",
-        countryTypedValue,
-        influencerTypedValue,
-        hashtagTypedValue,
-        1,
-        c
-      );
+      // setPage(1);
+      // const getInfluencersResponse = await getInfluencers(
+      //   fromDate,
+      //   toDate,
+      //   category,
+      //   // persentile,
+      //   "",
+      //   countryTypedValue,
+      //   influencerTypedValue,
+      //   hashtagTypedValue,
+      //   1,
+      //   c
+      // );
 
       // if (getInfluencersResponse.persentile === 0) {
       //   return null;
       // } else
       //   localStorage.setItem("persentile", getInfluencersResponse.persentile);
 
-      setGetInfluencersData(getInfluencersResponse.influencers);
-      setInfluencerDataBackup(getInfluencersResponse.influencers);
+      // setGetInfluencersData(getInfluencersResponse.influencers);
+      // setInfluencerDataBackup(getInfluencersResponse.influencers);
+      setTimeout(() => {
+        setPage(1);
+      }, 0);
       setLoading(false);
     } catch (error) {}
 
@@ -512,12 +564,17 @@ const TopInfluencer = () => {
   };
 
   const clearData = () => {
+    console.log("vvvvvvvvvvvvvvvvvv");
+    myRefNew.current.scrollTo(0, 0);
     setTopInfluencerFilter("Filter");
-    setPage(1);
+    setPage(null);
     setGetInfluencersData(globalBackupData);
     setInfluencerCountData(influencerCountDataBackup);
     setInputValue("");
     setShowInfluencerHashtag(false);
+    setTimeout(() => {
+      setPage(1);
+    }, 0);
   };
 
   const onFilterDropClick = (option) => {
@@ -602,6 +659,7 @@ const TopInfluencer = () => {
           showInfluencerHashtag={showInfluencerHashtag}
           value={inputValue}
           lastUserRef={lastUserRef}
+          lastDropRef={lastDropRef}
           onSearch={onInfluencerInputChange}
         />
       </div>
@@ -610,7 +668,7 @@ const TopInfluencer = () => {
         lastUserRef={lastUserRef}
         topInfluencerData={getInfluencersData}
         loading={loading}
-        // ref={myRefNew}
+        ref={myRefNew}
       />
     </div>
   );

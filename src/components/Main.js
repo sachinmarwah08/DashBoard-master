@@ -8,6 +8,7 @@ import NewsAndHashTags from "./NewsAndHashTags";
 import TrendingHashtags from "./TrendingHashtags/TrendingHashtags";
 import DashboardFilter from "./DashboardFilter/DashboardFilter";
 import FilterProvider from "../context/FilterContext";
+import Globe from "./Globe";
 
 const Main = () => {
   return (

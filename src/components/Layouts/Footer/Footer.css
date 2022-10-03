@@ -1,0 +1,114 @@
+.footer-wrapper {
+  width: 80%;
+  height: auto;
+  margin: auto;
+  display: flex;
+  border-bottom: 1px solid #757575;
+  padding-bottom: 1rem;
+  margin-top: 6rem;
+  margin-bottom: 6rem;
+}
+.footer-wrapper .footer-inside-wrapper {
+  width: 100%;
+  margin: auto;
+  display: flex;
+}
+@media (max-width: 998px) {
+  .footer-wrapper .footer-inside-wrapper {
+    width: 100%;
+    margin: auto;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
+.footer-wrapper .footer-li {
+  margin: 0%;
+}
+.footer-wrapper .footer-li img {
+  margin: 0%;
+  cursor: pointer;
+}
+.footer-wrapper .footer-right-container {
+  width: auto;
+  margin-left: 4rem;
+  margin-top: 0%;
+}
+@media (max-width: 998px) {
+  .footer-wrapper .footer-right-container {
+    width: auto;
+    margin: 0%;
+    margin-top: 1rem;
+  }
+}
+@media (max-width: 1280px) {
+  .footer-wrapper .footer-right-container {
+    margin-left: 0%;
+  }
+}
+.footer-wrapper .footer-right-container .logos-apple {
+  display: flex;
+  align-items: center;
+}
+.footer-wrapper .footer-right-container .logos-apple .appleLogo {
+  width: 6.875rem;
+  height: 3.75rem;
+}
+.footer-wrapper .footer-right-container .logos-apple .googleLogo {
+  width: 6.875rem;
+  height: 2.188rem;
+}
+.footer-wrapper .footer-left-container {
+  display: flex;
+  justify-content: space-around;
+}
+@media (max-width: 998px) {
+  .footer-wrapper .footer-left-container {
+    width: auto;
+    margin: auto;
+  }
+}
+.footer-wrapper .footer-column-one {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-right: 3.5rem;
+}
+@media (max-width: 1280px) {
+  .footer-wrapper .footer-column-one {
+    width: auto;
+    margin-right: 3.4rem;
+  }
+}
+.footer-wrapper .heading {
+  cursor: pointer;
+  margin: 0%;
+  font-size: 1.25rem;
+  color: #f05728;
+  font-weight: 700;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+}
+.footer-wrapper .title-logo {
+  color: #757575;
+  font-weight: 500;
+  margin-top: 3%;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  font-size: 1rem;
+}
+.footer-wrapper .title {
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 400;
+  color: #757575;
+}
+.footer-wrapper .title-right {
+  font-size: 1rem;
+  font-weight: 400;
+  margin-bottom: 0%;
+  color: #757575;
+}/*# sourceMappingURL=Footer.css.map */

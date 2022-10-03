@@ -29,7 +29,6 @@ import CountryAndDateButton from "./Buttons/CountryAndDateButton/Button";
 import CountryAndTimeButton from "./Buttons/CountryAndTimeButton/Button";
 import { compareCountry, compareTime } from "../../../actions/LineChartApis";
 import CompareCountryLineChart from "./CompareCountry/CompareCountryLineChart";
-// import SelectSearch from "react-select-search";
 // import downloadIcon from "../../../Images/download-2.svg";
 // import shareIcon from "../../../Images/share-3.svg";
 // import { useInView } from "react-intersection-observer";
@@ -86,26 +85,11 @@ const LineChartData = () => {
   const [backupCompareTimeLineChart, setBackupCompareTimeLineChart] = useState(
     []
   );
-  // const [data, setData] = useState([]);
-  // const [page, setPage] = useState(1);
-  // const [loading, setLoading] = useState(true);
-  // const [inputValue, setInputValue] = useState("");
-  // const [selected, setSelected] = useState("Past 1 months");
-  // const [addCountry, setaddCountry] = useState(false);
 
   useEffect(() => {
     if (countryLineChartLoading) {
       setLoading(true);
       const callApi = async () => {
-        // let today = Date.now();
-        // var check = moment(today);
-        // var month = check.format("M");
-        // var day = check.format("D");
-        // var year = check.format("YYYY");
-        // let fromDate = `${year}-${month}-01`;
-        // let toDate = `${year}-${month}-${day}`;
-        // console.log(month, day, year);
-
         let country = countryValue || "Worldwide";
         var currentDate = moment().subtract(1, "days").format("YYYY-MM-DD");
         let fromDatetime = "2022-05-01";

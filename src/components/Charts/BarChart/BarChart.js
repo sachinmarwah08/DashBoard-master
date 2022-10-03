@@ -50,15 +50,6 @@ const BarChartComponent = () => {
     // if (countryLineChartLoading) {
     setLoading(true);
     const callApi = async (val) => {
-      // let today = Date.now();
-      // var check = moment(today);
-      // var month = check.format("M");
-      // var day = check.format("D");
-      // var year = check.format("YYYY");
-      // let fromDate = `${year}-${month}-01`;
-      // let toDate = `${year}-${month}-${day}`;
-      // console.log(month, day, year);
-
       let order = "des";
       let country = "";
 
@@ -104,13 +95,11 @@ const BarChartComponent = () => {
 
   useEffect(() => {
     const loadUsers = async () => {
-      // setLoading(true);
       const HashtagData = await getHashtagDropdownData(page);
       sethashtag((prev) => [...prev, ...HashtagData]);
 
       const influencerData = await getInfluencerDropdownData(page);
       setInfluencerData((prev) => [...prev, ...influencerData]);
-      setLoading(false);
     };
     loadUsers();
   }, [page]);

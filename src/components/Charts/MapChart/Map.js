@@ -10,7 +10,6 @@ import "tippy.js/dist/tippy.css";
 import "tippy.js/themes/light.css";
 import "tippy.js/dist/svg-arrow.css";
 import ReactTooltip from "react-tooltip";
-import { countries } from "./TestData";
 import { scaleLinear } from "d3-scale";
 import { FilterContext } from "../../../context/FilterContext";
 

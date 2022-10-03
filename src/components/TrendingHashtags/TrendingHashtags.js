@@ -51,7 +51,7 @@ const TrendingHashtags = () => {
   const [countryDataDropdown, setCountryDataDropdown] = useState([]);
   const [countryBackupdata, setCountryBackupdata] = useState([]);
   const [toggle, setToggle] = useState(false);
-  const [dropdown, setDropdown] = useState(null);
+  const [dropdown, setDropdown] = useState(1);
   const [trendingHashtag, setTrendingHashtag] = useState([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
@@ -213,6 +213,7 @@ const TrendingHashtags = () => {
   };
 
   const handleChange = (index) => {
+    console.log(index, dropdown);
     setTotalCount(data && data.length && data[index].hashtag.count);
     setTotalConnections(data && data.length && data[index].connection);
     setHashtag(data && data.length && data[index].hashtag.htag);
@@ -221,7 +222,7 @@ const TrendingHashtags = () => {
       setToggle(true);
       setDropdown(index);
     } else {
-      setToggle(!toggle);
+      setToggle(true);
       setDropdown(index);
     }
   };

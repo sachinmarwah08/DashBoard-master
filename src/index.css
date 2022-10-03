@@ -1,0 +1,296 @@
+body {
+  margin: 0;
+  font-family: "Work-Sans";
+  background: #f5f5f5;
+}
+body::-webkit-scrollbar {
+  width: 0;
+}
+
+@font-face {
+  font-family: "Work-Sans";
+  src: url("./Fonts/work-sans.regular.ttf");
+  font-style: normal;
+}
+@font-face {
+  font-family: "Work-Sans";
+  src: url("./Fonts/work-sans.bold.ttf");
+  font-style: normal;
+}
+@font-face {
+  font-family: "Work-Sans";
+  src: url("./Fonts/work-sans.medium.ttf");
+  font-style: normal;
+}
+@media (max-width: 998px) {
+  html {
+    font-size: 55%;
+  }
+}
+@media (max-width: 768px) {
+  html {
+    font-size: 45%;
+  }
+}
+::-webkit-scrollbar {
+  width: 0.375rem;
+  height: 0.5rem;
+}
+
+::-webkit-scrollbar-track {
+  background: #eeeeee;
+  border-radius: 0.188rem;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #bdbdbd;
+  border-radius: 188rem;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #bdbdbd;
+}
+
+.rdrCalendarWrapper > .rdrDateRangeWrapper {
+  font-family: "Work-Sans" !important;
+  font-weight: 600 !important;
+}
+@font-face {
+  .rdrCalendarWrapper > .rdrDateRangeWrapper {
+    font-family: "Work-Sans";
+    src: url("./Fonts/work-sans.regular.ttf");
+    font-style: normal;
+  }
+}
+@font-face {
+  .rdrCalendarWrapper > .rdrDateRangeWrapper {
+    font-family: "Work-Sans";
+    src: url("./Fonts/work-sans.bold.ttf");
+    font-style: normal;
+  }
+}
+@font-face {
+  .rdrCalendarWrapper > .rdrDateRangeWrapper {
+    font-family: "Work-Sans";
+    src: url("./Fonts/work-sans.medium.ttf");
+    font-style: normal;
+  }
+}
+
+.rdrInputRanges {
+  display: none;
+}
+
+.rdrStaticRangeLabel {
+  color: #424242;
+  font-weight: 100 !important;
+  font-size: 14px !important;
+  padding: 0.7rem !important;
+  border-bottom: none !important;
+  font-family: "Work-Sans";
+}
+@font-face {
+  .rdrStaticRangeLabel {
+    font-family: "Work-Sans";
+    src: url("./Fonts/work-sans.regular.ttf");
+    font-style: normal;
+  }
+}
+@font-face {
+  .rdrStaticRangeLabel {
+    font-family: "Work-Sans";
+    src: url("./Fonts/work-sans.bold.ttf");
+    font-style: normal;
+  }
+}
+@font-face {
+  .rdrStaticRangeLabel {
+    font-family: "Work-Sans";
+    src: url("./Fonts/work-sans.medium.ttf");
+    font-style: normal;
+  }
+}
+
+.rdrDayToday .rdrDayNumber span:after {
+  display: none;
+}
+
+.recharts-tooltip-wrapper {
+  width: auto;
+  padding: 0.8rem;
+  padding-left: 0;
+}
+
+.rdrMonth {
+  font-family: "Work-Sans";
+}
+
+.highcharts-tooltip {
+  border: 1px solid #939596;
+  background: #fff;
+  display: block;
+  border-radius: 14px;
+  height: 3.4rem !important;
+  padding: 5px !important;
+  line-height: 1.5rem;
+  width: 100% !important;
+  white-space: normal !important;
+  font-family: "Work-Sans" !important;
+}
+@font-face {
+  .highcharts-tooltip {
+    font-family: "Work-Sans";
+    src: url("./Fonts/work-sans.regular.ttf");
+    font-style: normal;
+  }
+}
+@font-face {
+  .highcharts-tooltip {
+    font-family: "Work-Sans";
+    src: url("./Fonts/work-sans.bold.ttf");
+    font-style: normal;
+  }
+}
+@font-face {
+  .highcharts-tooltip {
+    font-family: "Work-Sans";
+    src: url("./Fonts/work-sans.medium.ttf");
+    font-style: normal;
+  }
+}
+
+.highcharts-title {
+  display: none;
+}
+
+.highcharts-credits {
+  display: none;
+}
+
+.rdrDateDisplayWrapper {
+  background-color: transparent !important;
+}
+
+.rdrDateDisplayItemActive {
+  border: 1px solid #e0e0e0 !important;
+  box-shadow: none !important;
+  border-radius: 8px !important;
+  color: #757575 !important;
+  font-weight: 400 !important;
+  font-size: 16px !important;
+}
+
+.rdrDateDisplayItem {
+  box-shadow: none !important;
+  border-radius: 8px !important;
+  border: 1px solid #e0e0e0 !important;
+  color: #757575 !important;
+  font-weight: 400 !important;
+  font-size: 16px !important;
+}
+
+.rdrStaticRange {
+  border: none !important;
+}
+
+.gm-ui-hover-effect {
+  padding-right: 3rem !important;
+  padding-top: 0.8rem !important;
+  width: 40px !important;
+  height: 40px !important;
+}
+
+.highcharts-xaxis-labels {
+  font-family: "Work-Sans";
+  font-weight: 500;
+  color: #616161 !important;
+}
+
+.rdrDays {
+  font-family: "Work-Sans" !important;
+  font-weight: 400 !important;
+  color: #424242 !important;
+}
+
+.tippy-box[data-theme~=light] {
+  border-radius: 8px;
+}
+
+.recharts-tooltip-item {
+  display: flex !important;
+  justify-content: space-between !important;
+  width: 100%;
+  align-items: center !important;
+  padding-top: 0% !important;
+  gap: 0% !important;
+  padding-top: 0% !important;
+}
+
+.recharts-tooltip-item-name {
+  font-size: 20px !important;
+  color: #939596;
+  width: 100% !important;
+}
+
+.recharts-tooltip-item-separator {
+  display: none !important;
+}
+
+.recharts-tooltip-item-value {
+  font-size: 20px;
+  font-weight: 400;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  color: #f05728;
+}
+
+.recharts-default-tooltip {
+  width: 160px !important;
+  height: -webkit-max-content !important;
+  height: -moz-max-content !important;
+  height: max-content !important;
+}
+
+.dropdown-list-two {
+  list-style: none;
+  padding-left: 0.5rem;
+  padding: 1rem;
+  text-align: left;
+  color: #101828;
+}
+.dropdown-list-two:hover {
+  background-color: #fef5f2;
+}
+
+.recharts-tooltip-wrapper {
+  padding: 1rem;
+  background-color: white;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+}
+
+.dropdown-list-two {
+  list-style: none;
+  padding-left: 0.5rem;
+  padding: 1rem;
+  text-align: left;
+  color: #101828;
+}
+.dropdown-list-two:hover {
+  background-color: #fef5f2;
+}
+
+.recharts-cartesian-axis-tick-line {
+  display: none;
+}
+
+.recharts-cartesian-axis-line {
+  color: #f0f0f0;
+  opacity: 0.15;
+}
+
+.rsm-svg {
+  width: 100%;
+}/*# sourceMappingURL=index.css.map */

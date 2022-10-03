@@ -11,7 +11,6 @@ import "tippy.js/themes/light.css";
 import "tippy.js/dist/svg-arrow.css";
 import { FilterContext } from "../../context/FilterContext";
 import { BeatLoader } from "react-spinners";
-import CalenderButton from "../DashboardFilter/Buttons/CalenderButton";
 import moment from "moment";
 
 const GlobalWellbeing = () => {
@@ -35,14 +34,6 @@ const GlobalWellbeing = () => {
     if (countryLineChartLoading) {
       const callApi = async () => {
         setLoader(true);
-        // let today = Date.now();
-        // var check = moment(today);
-        // var month = check.format("M");
-        // var day = check.format("D");
-        // var year = check.format("YYYY");
-        // let fromDate = `${year}-${month}-01`;
-        // let toDate = `${year}-${month}-${day}`;
-        // console.log(month, day, year);
 
         let c = moment(toDate).isSame(moment(new Date()).format("YYYY-MM-DD"))
           ? false
@@ -96,27 +87,9 @@ const GlobalWellbeing = () => {
       : Math.sign(num) * Math.abs(num);
   }
 
-  // var date = new Date().getDate();
   var year = new Date().getFullYear();
-
   let formatDate = moment().subtract(1, "days").format("DD");
-
-  let monthsArray = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-  let month = new Date().getMonth();
-  let monthName = monthsArray[month];
+  let formatMonth = moment().subtract(1, "days").format("MMMM");
 
   return (
     <div className="main-container">
@@ -187,7 +160,7 @@ const GlobalWellbeing = () => {
 
             {!applyClicked && (
               <p className="date">
-                As of {formatDate} {monthName}, {year}
+                As of {formatDate} {formatMonth}, {year}
               </p>
             )}
 

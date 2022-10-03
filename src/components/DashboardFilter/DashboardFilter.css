@@ -1,0 +1,428 @@
+.filter-wrapper {
+  width: 100%;
+  display: flex;
+  height: 5.75rem;
+  background-color: white;
+  margin-top: 1.5rem;
+}
+.filter-wrapper .apply-reset-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: 2rem;
+}
+.filter-wrapper .apply-reset-btn .apply-btn {
+  border: 1px solid #f05728;
+  background-color: #f05728;
+  font-weight: 500;
+  cursor: pointer;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  padding-left: 2rem;
+  color: white;
+  line-height: 24px;
+  box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+  padding-top: 0.5rem;
+  padding-right: 2rem;
+  padding-bottom: 0.5rem;
+  border-radius: 8px;
+  font-size: 16px;
+}
+.filter-wrapper .apply-reset-btn .reset-btn {
+  border: 1px solid #e0e0e0;
+  background-color: white;
+  font-weight: 500;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  cursor: pointer;
+  padding-left: 2rem;
+  color: #616161;
+  line-height: 24px;
+  box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+  padding-top: 0.5rem;
+  padding-right: 2rem;
+  padding-bottom: 0.5rem;
+  border-radius: 8px;
+  font-size: 16px;
+}
+.filter-wrapper .buttons-wrapper {
+  display: flex;
+  align-items: center;
+  width: 88%;
+  margin: auto;
+}
+.filter-wrapper .buttons-wrapper .dropdown-btn-wrapper {
+  width: 100%;
+  display: flex;
+  gap: 12px;
+}
+.filter-wrapper .dropdown-filter-button-colored {
+  border: 1px solid #fcad95;
+  padding: 0.66rem;
+  border-radius: 8px;
+  background: #f9fafb;
+  box-shadow: 0px 1px 2px rgba(254, 245, 242, 0.05), 0px 0px 0px 4px #fef5f2;
+  width: auto;
+  gap: 10px;
+  padding-right: 1rem;
+  padding-left: 1rem;
+  height: auto;
+  position: relative;
+}
+.filter-wrapper .dropdown-filter-button-colored .dropdown-filter-wrapper {
+  z-index: 99999999;
+  background-color: white;
+  border-radius: 8px;
+  width: 100%;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+  top: 130%;
+  left: 0%;
+  cursor: pointer;
+  max-height: 20rem;
+  overflow: hidden;
+  position: absolute;
+  -webkit-animation: growDown 300ms ease-in-out forwards;
+          animation: growDown 300ms ease-in-out forwards;
+  transform-origin: top center;
+}
+@-webkit-keyframes growDown {
+  0% {
+    transform: scaleY(0);
+  }
+  80% {
+    transform: scaleY(1.1);
+  }
+  100% {
+    transform: scaleY(1);
+  }
+}
+@keyframes growDown {
+  0% {
+    transform: scaleY(0);
+  }
+  80% {
+    transform: scaleY(1.1);
+  }
+  100% {
+    transform: scaleY(1);
+  }
+}
+.filter-wrapper .dropdown-filter-button-colored .dropdown-filter-wrapper .overflow-wrapper {
+  height: 14rem;
+  margin: 0.3rem;
+  margin-left: 0%;
+  overflow-x: hidden;
+}
+.filter-wrapper .dropdown-filter-button-colored .dropdown-filter-wrapper .overflow-wrapper .dropdown-filter-item {
+  display: flex;
+  padding: 0.7rem;
+  font-weight: 400;
+  line-height: 24px;
+  font-size: 16px;
+}
+.filter-wrapper .dropdown-filter-button-colored .dropdown-filter-wrapper .overflow-wrapper .dropdown-filter-item:hover {
+  background-color: #fef5f2;
+}
+.filter-wrapper .dropdown-filter-button-colored .dropdown-filter-wrapper .overflow-wrapper .dropdown-filter-item .dropdown-list {
+  list-style: none;
+  padding-left: 0.5rem;
+  color: #101828;
+}
+.filter-wrapper .dropdown-filter-button-colored .dropdown-filter-wrapper .overflow-wrapper .dropdown-filter-item .dropdown-list:hover {
+  background-color: #fef5f2;
+}
+.filter-wrapper .dropdown-filter-button-colored .dropdown-filter-wrapper .overflow-wrapper .dropdown-filter-item .dropdown-list-two {
+  list-style: none;
+  padding-left: 0.5rem;
+  color: #101828;
+}
+.filter-wrapper .dropdown-filter-button-colored .dropdown-filter-wrapper .overflow-wrapper .dropdown-filter-item .dropdown-list-two:hover {
+  background-color: #fef5f2;
+}
+.filter-wrapper .dropdown-filter-button-colored .dropdown-filter-content {
+  display: flex;
+  gap: 25px;
+  align-items: center;
+  height: auto;
+  padding: 0%;
+  margin: 0%;
+  justify-content: space-between;
+  width: auto;
+  cursor: pointer;
+  font-weight: 400;
+  font-size: 16px;
+  color: #667085;
+}
+.filter-wrapper .dropdown-filter-button-colored .dropdown-filter-content .filter-content {
+  display: flex;
+  height: auto;
+  width: auto;
+  gap: 10px;
+  align-items: center;
+}
+.filter-wrapper .dropdown-filter-button-colored .dropdown-filter-content .user-Icon {
+  width: 13.33px;
+  height: 15px;
+}
+.filter-wrapper .dropdown-filter-button-colored .dropdown-filter-content .filter-title {
+  width: 100%;
+  margin: 0%;
+  line-height: 24px;
+  align-items: center;
+}
+.filter-wrapper .dropdown-filter-button-colored .dropdown-filter-content .faAngleDown {
+  cursor: pointer;
+  color: #667085;
+  align-items: center;
+}
+.filter-wrapper .dropdown-filter-button {
+  border: 1px solid #bdbdbd;
+  padding: 0.66rem;
+  border-radius: 8px;
+  background: #f9fafb;
+  box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+  gap: 10px;
+  padding-right: 1rem;
+  padding-left: 1rem;
+  height: auto;
+  position: relative;
+}
+.filter-wrapper .dropdown-filter-button .dropdown-filter-wrapper {
+  z-index: 99999999;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+  top: 130%;
+  left: 0%;
+  cursor: pointer;
+  max-height: 20rem;
+  overflow: hidden;
+  position: absolute;
+  -webkit-animation: growDown 300ms ease-in-out forwards;
+          animation: growDown 300ms ease-in-out forwards;
+  transform-origin: top center;
+}
+@keyframes growDown {
+  0% {
+    transform: scaleY(0);
+  }
+  80% {
+    transform: scaleY(1.1);
+  }
+  100% {
+    transform: scaleY(1);
+  }
+}
+.filter-wrapper .dropdown-filter-button .dropdown-filter-wrapper .overflow-wrapper {
+  height: 14rem;
+  margin: 0.3rem;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+.filter-wrapper .dropdown-filter-button .dropdown-filter-wrapper .overflow-wrapper .dropdown-filter-item {
+  display: flex;
+  padding: 1rem;
+  font-weight: 400;
+  line-height: 24px;
+  font-size: 16px;
+}
+.filter-wrapper .dropdown-filter-button .dropdown-filter-wrapper .overflow-wrapper .dropdown-filter-item .dropdown-list {
+  list-style: none;
+  color: #101828;
+}
+.filter-wrapper .dropdown-filter-button .dropdown-filter-wrapper .overflow-wrapper .dropdown-filter-item .dropdown-list:hover {
+  background-color: #fef5f2;
+}
+.filter-wrapper .dropdown-filter-button .dropdown-filter-content {
+  display: flex;
+  gap: 25px;
+  align-items: center;
+  height: auto;
+  padding: 0%;
+  margin: 0%;
+  justify-content: space-between;
+  cursor: pointer;
+  font-weight: 400;
+  font-size: 16px;
+  color: #667085;
+}
+.filter-wrapper .dropdown-filter-button .dropdown-filter-content .filter-content {
+  display: flex;
+  height: auto;
+  gap: 10px;
+  align-items: center;
+}
+.filter-wrapper .dropdown-filter-button .dropdown-filter-content .user-Icon {
+  width: 13.33px;
+  height: 15px;
+}
+.filter-wrapper .dropdown-filter-button .dropdown-filter-content .filter-title {
+  width: 100%;
+  margin: 0%;
+  line-height: 24px;
+  align-items: center;
+}
+.filter-wrapper .dropdown-filter-button .dropdown-filter-content .faAngleDown {
+  cursor: pointer;
+  color: #667085;
+  align-items: center;
+}
+.filter-wrapper .dropdown-filter-button-calender {
+  border: 1px solid #98a2b3;
+  padding: 0.5rem;
+  border-radius: 8px;
+  background: #f9fafb;
+  box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+  gap: 10px;
+  padding-right: 1rem;
+  padding-left: 1rem;
+  height: auto;
+  position: relative;
+}
+.filter-wrapper .dropdown-filter-button-calender .calender {
+  position: absolute;
+  top: 130%;
+  width: 100%;
+  border-radius: 8px;
+  background-color: white;
+  z-index: 99999999;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+  padding: 0.5rem;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  right: 0%;
+}
+.filter-wrapper .dropdown-filter-button-calender .dropdown-filter-content-calender {
+  display: flex;
+  gap: 25px;
+  align-items: center;
+  height: auto;
+  padding: 0%;
+  margin: 0%;
+  width: 100%;
+  cursor: pointer;
+  font-weight: 400;
+  font-size: 16px;
+  color: #667085;
+}
+.filter-wrapper .dropdown-filter-button-calender .dropdown-filter-content-calender .filter-content {
+  display: flex;
+  height: auto;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  gap: 10px;
+  align-items: center;
+}
+.filter-wrapper .dropdown-filter-button-calender .dropdown-filter-content-calender .user-Icon {
+  width: 13.33px;
+  height: 15px;
+}
+.filter-wrapper .dropdown-filter-button-calender .dropdown-filter-content-calender .filter-title {
+  width: 100%;
+  margin: 0%;
+  line-height: 24px;
+  align-items: center;
+}
+.filter-wrapper .dropdown-filter-button-calender .dropdown-filter-content-calender .faAngleDown {
+  cursor: pointer;
+  color: #667085;
+  align-items: center;
+}
+.filter-wrapper .dropdown-filter-button-calender-colored {
+  border: 1px solid #fcad95;
+  padding: 0.5rem;
+  border-radius: 8px;
+  background: #f9fafb;
+  box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+  gap: 10px;
+  padding-right: 1rem;
+  padding-left: 1rem;
+  height: auto;
+  position: relative;
+}
+.filter-wrapper .dropdown-filter-button-calender-colored .calender {
+  position: absolute;
+  top: 130%;
+  width: 100%;
+  border-radius: 8px;
+  background-color: white;
+  z-index: 99999999;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+  padding: 0.5rem;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  right: 0;
+}
+.filter-wrapper .dropdown-filter-button-calender-colored .dropdown-filter-content-calender {
+  display: flex;
+  gap: 25px;
+  align-items: center;
+  height: auto;
+  padding: 0%;
+  margin: 0%;
+  width: 100%;
+  cursor: pointer;
+  font-weight: 400;
+  font-size: 16px;
+  color: #667085;
+}
+.filter-wrapper .dropdown-filter-button-calender-colored .dropdown-filter-content-calender .filter-content {
+  display: flex;
+  height: auto;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  gap: 10px;
+  align-items: center;
+}
+.filter-wrapper .dropdown-filter-button-calender-colored .dropdown-filter-content-calender .user-Icon {
+  width: 13.33px;
+  height: 15px;
+}
+.filter-wrapper .dropdown-filter-button-calender-colored .dropdown-filter-content-calender .filter-title {
+  width: 100%;
+  margin: 0%;
+  line-height: 24px;
+  align-items: center;
+}
+.filter-wrapper .dropdown-filter-button-calender-colored .dropdown-filter-content-calender .faAngleDown {
+  cursor: pointer;
+  color: #667085;
+  align-items: center;
+}
+
+.global-filter-btn {
+  position: fixed;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  justify-content: center;
+  box-shadow: 0px 0px 10px rgba(88, 89, 91, 0.2);
+  background-color: white;
+  border-radius: 0px 4px 4px 0px;
+  cursor: pointer;
+  z-index: 1000000000000000300000000000;
+  border: 1px solid #f05728;
+}
+
+.hide-filter-icon {
+  display: none;
+}
+
+.global-filter-modal-wrapper {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: #101828;
+}/*# sourceMappingURL=DashboardFilter.css.map */

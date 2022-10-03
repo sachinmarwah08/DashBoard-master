@@ -20,6 +20,7 @@ const Sort = ({
   showInfluencerHashtag,
   lastUserRef,
   onSearch,
+  lastDropRef,
 }) => {
   const [isActive, setIsActive] = useState(false);
 
@@ -65,7 +66,7 @@ const Sort = ({
               influencerdata.map((item, index) =>
                 influencerdata.length === index + 1 ? (
                   <div
-                    ref={lastUserRef}
+                    ref={lastDropRef}
                     onClick={() => onDropDownClick(item)}
                     className="dropdown-item"
                   >
@@ -73,7 +74,7 @@ const Sort = ({
                   </div>
                 ) : (
                   <div
-                    ref={lastUserRef}
+                    ref={lastDropRef}
                     onClick={() => onDropDownClick(item)}
                     className="dropdown-item"
                   >

@@ -1,0 +1,136 @@
+.modal-background {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0%;
+  z-index: 999999999;
+  left: 0%;
+  margin: 0%;
+}
+.modal-background .modal-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal-background .modal-container .filterModa-body {
+  padding: 2rem;
+  z-index: 1000000;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  width: 80%;
+  height: auto;
+  border-radius: 0.5rem;
+}
+.modal-background .modal-container .filterModa-body .submit-btn-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+}
+.modal-background .modal-container .filterModa-body .submit-btn-wrapper .submit-btn {
+  border: none;
+  padding: 0.8rem;
+  background: #f05728;
+  border-radius: 0.25rem;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  color: white;
+  cursor: pointer;
+  font-weight: 400;
+  font-size: 1rem;
+}
+.modal-background .modal-container .filterModa-body .modal-cloe-btn {
+  width: 100%;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  display: flex;
+  justify-content: end;
+}
+.modal-background .modal-container .filterModa-body .modal-cloe-btn .x-mark {
+  width: 24px;
+  height: 24px;
+  color: #14144b;
+}
+.modal-background .modal-container .filterModa-body .filter-modal-content {
+  width: 100%;
+  gap: 20px;
+  z-index: 1000000;
+  padding: 0.5rem;
+  justify-content: space-between;
+  display: flex;
+  align-items: center;
+}
+.modal-background .modal-container .filterModa-body .filter-modal-content .font > .rdrStartEdge .rdrEndEdge {
+  background: red !important;
+}
+.modal-background .modal-container .filterModa-body .filter-modal-content .right-dropdown-filters {
+  padding: 0.6rem;
+  gap: 10px;
+  height: auto;
+  align-items: center;
+  width: 100%;
+}
+.modal-background .modal-container .filterModa-body .filter-modal-content .right-dropdown-filters .search-wrapper {
+  width: 60%;
+  height: 100%;
+  margin: auto;
+}
+.modal-background .modal-container .filterModa-body .filter-modal-content .right-dropdown-filters .search-wrapper .search-one {
+  font-size: 14px;
+  gap: 10px;
+  color: #f05728;
+  margin-bottom: 2.5rem;
+}
+.modal-background .modal-container .filterModa-body .filter-modal-content .right-dropdown-filters .search-wrapper .search-one .select-placeholder-text {
+  font-size: 12px;
+}
+.modal-background .modal-container .modal-body {
+  padding: 1rem;
+  z-index: 1000000;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  width: 40%;
+  height: auto;
+  border-radius: 0.5rem;
+}
+.modal-background .modal-container .modal-body .modal-cloe-btn {
+  width: 100%;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  display: flex;
+  justify-content: end;
+}
+.modal-background .modal-container .modal-body .LineChartmodal-content {
+  display: flex;
+  width: 100%;
+  margin-bottom: 2.7rem;
+  margin-top: 1.5rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
+}
+.modal-background .modal-container .modal-body .LineChartmodal-content .component-link {
+  width: 60%;
+  outline: none;
+  border-radius: 0.25rem;
+  border: 2px solid #eeeeee;
+  padding: 0.8rem;
+}
+.modal-background .modal-container .modal-body .LineChartmodal-content .copy-btn {
+  border: none;
+  padding: 0.8rem;
+  background: #f05728;
+  border-radius: 0.25rem;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  color: white;
+  cursor: pointer;
+  font-weight: 400;
+  font-size: 1rem;
+}/*# sourceMappingURL=Modal.css.map */

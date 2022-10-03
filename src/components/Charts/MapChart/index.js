@@ -8,14 +8,12 @@ import React, {
 import "./index.scss";
 import WorldMap from "../../../Images/earth-rc.svg";
 import Table from "../../../Images/tableIcon.svg";
-import GoogleMap from "./GoogleMap/googleMap";
 import Sort from "../../SortFilter/Sort";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
 import "tippy.js/themes/light.css";
 import "tippy.js/dist/svg-arrow.css";
 import infoIcon from "../../../Images/info.svg";
-import { useJsApiLoader } from "@react-google-maps/api";
 import { countryData } from "../MapChart/GoogleMap/Cordinates";
 import { FilterContext } from "../../../context/FilterContext";
 import { getMapData } from "../../../actions/GoogleMapApis";
@@ -25,14 +23,60 @@ import {
   getInfluencerDropdownData,
 } from "../../../actions/DropDownApis";
 import TableData from "../MapChart/Table/Table";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLocationArrow } from "@fortawesome/free-solid-svg-icons";
 import { FadeLoader } from "react-spinners";
-import { Chart } from "react-google-charts";
 import Map from "./Map";
 import moment from "moment";
+import Globe from "../../Globe";
+// import { useJsApiLoader } from "@react-google-maps/api";
+// import GoogleMap from "./GoogleMap/googleMap";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faLocationArrow } from "@fortawesome/free-solid-svg-icons";
 
 const MapChartComponent = () => {
+  const markers = [
+    {
+      id: "marker1",
+      city: "Singapore",
+      color: "red",
+      coordinates: [1.3521, 103.8198],
+      value: 50,
+    },
+    {
+      id: "marker2",
+      city: "New York",
+      color: "blue",
+      coordinates: [40.73061, -73.935242],
+      value: 25,
+    },
+    {
+      id: "marker3",
+      city: "San Francisco",
+      color: "orange",
+      coordinates: [37.773972, -122.431297],
+      value: 35,
+    },
+    {
+      id: "marker4",
+      city: "Beijing",
+      color: "gold",
+      coordinates: [39.9042, 116.4074],
+      value: 135,
+    },
+    {
+      id: "marker5",
+      city: "London",
+      color: "green",
+      coordinates: [51.5074, 0.1278],
+      value: 80,
+    },
+    {
+      id: "marker6",
+      city: "Los Angeles",
+      color: "gold",
+      coordinates: [29.7604, -95.3698],
+      value: 54,
+    },
+  ];
   const mapData = ["Country", "Influencer", "Hashtag"];
   const [mapdata, setMapData] = useState("Filters");
   const [show, setShow] = useState("map");
@@ -49,11 +93,11 @@ const MapChartComponent = () => {
   const [countryDataDropdown, setCountryDataDropdown] = useState([]);
   const [countryBackupdata, setCountryBackupdata] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [reCenterMap, setReCenterMap] = useState(
-    /** @type google.maps.Map */ (null)
-  );
   const [hideRank, setHideRank] = useState(false);
   const [page, setPage] = useState(1);
+  // const [reCenterMap, setReCenterMap] = useState(
+  //   /** @type google.maps.Map */ (null)
+  // );
 
   const { state } = useContext(FilterContext);
   const {
@@ -66,29 +110,15 @@ const MapChartComponent = () => {
     },
   } = state;
 
-  const { isLoaded } = useJsApiLoader({
-    id: "google-map-script",
-    googleMapsApiKey: "AIzaSyDJqhd2TL6DayrN8E5GiqZqrjnmtrq45hU", // Add your API key
-  });
-
-  const center = {
-    lat: 20,
-    lng: 77,
-  };
+  // const { isLoaded } = useJsApiLoader({
+  //   id: "google-map-script",
+  //   googleMapsApiKey: "AIzaSyDJqhd2TL6DayrN8E5GiqZqrjnmtrq45hU", // Add your API key
+  // });
 
   useEffect(() => {
     if (countryLineChartLoading) {
       setLoading(true);
       const callApi = async () => {
-        // let today = Date.now();
-        // var check = moment(today);
-        // var month = check.format("M");
-        // var day = check.format("D");
-        // var year = check.format("YYYY");
-        // let fromDate = `${year}-${month}-01`;
-        // let toDate = `${year}-${month}-${day}`;
-        // console.log(month, day, year);
-
         let c = moment(toDate).isSame(moment(new Date()).format("YYYY-MM-DD"))
           ? false
           : null;
@@ -107,28 +137,35 @@ const MapChartComponent = () => {
         const countryDataResponse = await getCountryDropdownData();
 
         let tempData = [...response.data];
-
         for (let i = 0; i < tempData.length; i++) {
-          for (let j = 0; j < countryData.length; j++) {
-            if (tempData[i]._id === countryData[j].country) {
-              tempData[i]["cordinates"] = [
-                countryData[j]["longitude"],
-                countryData[j]["latitude"],
-              ];
-              tempData[i]["name"] = tempData[i]._id;
-              tempData[i]["ISO3"] = countryData[j].alpha3;
-              tempData[i]["count"] = tempData[i].count;
-            }
-          }
+          tempData[i]["cordinates"] = [39.9042, 116.4074];
+          tempData[i]["city"] = "Videsh";
+          tempData[i]["color"] = "red";
         }
+
+        // for (let i = 0; i < tempData.length; i++) {
+        //   for (let j = 0; j < countryData.length; j++) {
+        //     if (tempData[i]._id === countryData[j].country) {
+        //       tempData[i]["cordinates"] = [
+        //         countryData[j]["longitude"],
+        //         countryData[j]["latitude"],
+        //       ];
+        //       tempData[i]["city"] = tempData[i]._id;
+        //       tempData[i]["ISO3"] = countryData[j].alpha3;
+        //       tempData[i]["count"] = tempData[i].count;
+        //     }
+        //   }
+        // }
         console.log(tempData, "mapsss");
+        console.log(countryData, "country data");
         setCountryDataDropdown(countryDataResponse);
         setCountryBackupdata(countryDataResponse);
         setInfluencerData(getInfluenser);
         setInfluencerBackupdata(getInfluenser);
         sethashtag(hashtagDataResponse);
         setHashtagBackupdata(hashtagDataResponse);
-        setMapDataApi(tempData);
+        setMapDataApi(markers);
+
         setTableData(response.data);
         setTableBackupData(response.data);
         setLoading(false);
@@ -328,12 +365,6 @@ const MapChartComponent = () => {
     setActiveMarker(marker);
   };
 
-  const handleOnLoad = (map) => {
-    // const bounds = new google.maps.LatLngBounds();
-    // mapData && mapData.forEach(({ position }) => bounds.extend(position));
-    // map.fitBounds(bounds);
-  };
-
   const clearData = () => {
     setTableData(tableBackupData);
     setShowInfluencerHashtag(false);
@@ -345,21 +376,6 @@ const MapChartComponent = () => {
   const onFilterDropClick = (option) => {
     setMapData(option);
   };
-
-  const data = [
-    ["Country", "Popularity"],
-    ["Germany", 200],
-    ["United States", 300],
-    ["Brazil", 400],
-    ["Canada", 500],
-    ["France", 600],
-    ["India", 20],
-    ["Albania", 700],
-    ["Canada", 700],
-    ["Afghanistan", 700],
-    ["RU", 700],
-    ["India", 800],
-  ];
 
   return (
     <div className="map-wrapper">
@@ -465,58 +481,31 @@ const MapChartComponent = () => {
                   //   reCenterMap={reCenterMap}
                   //   center={center}
                   // />
-                  // <Chart
-                  //   chartEvents={[
-                  //     {
-                  //       eventName: "select",
-                  //       callback: ({ chartWrapper }) => {
-                  //         const chart = chartWrapper.getChart();
-                  //         const selection = chart.getSelection();
-                  //         if (selection.length === 0) return;
-                  //         const region = data[selection[0].row + 1];
-                  //         console.log("Selected : " + region);
-                  //       },
-                  //     },
-                  //   ]}
-                  //   options={{
-                  //     is3D: true,
-                  //     // region: "US",
-                  //     chart: {
-                  //       title: "Spend Uplift",
-                  //       backgroundColor: "black",
-                  //     },
-                  //     // resolution: "provinces",
-                  //     // displayMode: "markers",
-                  //     colorAxis: { colors: ["#F05728"] },
-                  //     colors: ["#F05728"],
-                  //     // datalessRegionColor: "#f8bbd0",
-                  //   }}
-                  //   mapsApiKey="AIzaSyDJqhd2TL6DayrN8E5GiqZqrjnmtrq45hU"
-                  //   chartType="GeoChart"
-                  //   width="100%"
-                  //   height="100%"
-                  //   data={data}
+                  // <Map
+                  //   influencerdata={
+                  //     mapdata === "Country" ||
+                  //     mapdata === "Influencer" ||
+                  //     mapData === "Hashtag"
+                  //   }
+                  //   hideRank={hideRank}
+                  //   activeMarker={activeMarker}
+                  //   mapDataApi={mapDataApi}
+                  //   handleActiveMarker={handleActiveMarker}
                   // />
-                  <Map
-                    influencerdata={
-                      mapdata === "Country" ||
-                      mapdata === "Influencer" ||
-                      mapData === "Hashtag"
-                    }
-                    hideRank={hideRank}
-                    activeMarker={activeMarker}
-                    mapDataApi={mapDataApi}
-                    handleActiveMarker={handleActiveMarker}
-                  />
+                  <Globe mapDataApi={mapDataApi} />
                 )}
               </div>
-
-              <div className="progress-bar">
-                <div className="inside-bar">
-                  <span>1</span>
-                  <span>222</span>
+              {/* 
+              {countryValue || hashtagValue || influencerValue ? (
+                ""
+              ) : (
+                <div className="progress-bar">
+                  <div className="inside-bar">
+                    <span>1</span>
+                    <span>222</span>
+                  </div>
                 </div>
-              </div>
+              )} */}
             </div>
           </>
         )}

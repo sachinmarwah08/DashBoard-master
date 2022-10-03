@@ -21,7 +21,6 @@ import {
 import { DateRangePicker } from "react-date-range";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css";
-// import "rsuite/dist/styles/rsuite-default.css";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
 import "tippy.js/themes/light.css";
@@ -167,30 +166,6 @@ const CalenderButton = ({ icon, showInputField }) => {
                 ranges={dateState}
                 direction="horizontal"
               />
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "end",
-                  marginRight: "0.7rem",
-                }}
-              >
-                {/* <button
-                  style={{
-                    border: "none",
-                    outline: "none",
-                    background: "#F05728",
-                    padding: "0.8rem",
-                    borderRadius: "4px",
-                    color: "white",
-                    fontFamily: "Work-Sans",
-                    cursor: "pointer",
-                  }}
-                  className="apply-btn-inside"
-                  onClick={apply}
-                >
-                  Apply
-                </button> */}
-              </div>
             </div>
           </>
         )}

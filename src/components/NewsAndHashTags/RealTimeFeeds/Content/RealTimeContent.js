@@ -1,8 +1,8 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import twitterLogo from "../../../../Images/TwitterLogo.svg";
 import { FadeLoader } from "react-spinners";
 
-const Content = ({ filterData, loading, lastUserRef }) => {
+const Content = forwardRef(({ filterData, loading, lastUserRef }, ref) => {
   return (
     <>
       {loading ? (
@@ -10,10 +10,14 @@ const Content = ({ filterData, loading, lastUserRef }) => {
           <FadeLoader color="#F05728" loading={loading} size={50} />
         </div>
       ) : (
-        <div className="left-content-wrapper">
+        <div ref={ref} className="left-content-wrapper">
           {filterData.map((item, index) =>
             filterData.length === index + 1 ? (
-              <div ref={lastUserRef} key={index} className="left-content">
+              <div
+                ref={lastUserRef}
+                key={index}
+                className="left-content-tweets"
+              >
                 <a
                   href={item.url}
                   rel="noreferrer"
@@ -80,6 +84,6 @@ const Content = ({ filterData, loading, lastUserRef }) => {
       )}
     </>
   );
-};
+});
 
 export default Content;
