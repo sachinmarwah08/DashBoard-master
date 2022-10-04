@@ -1,63 +1,63 @@
-import React, { useState } from "react";
-import ReactGlobe from "react-globe";
-import * as THREE from "three";
+import React, { useState } from 'react';
+import ReactGlobe from 'react-globe';
+import * as THREE from 'three';
 
 const Globe = ({ mapDataApi }) => {
-  console.log("chutiya", mapDataApi);
+  console.log('chutiya', mapDataApi);
   const markers = [
     {
-      id: "marker1",
-      city: "Singapore",
-      color: "red",
+      id: 'marker1',
+      city: 'Singapore',
+      color: 'red',
       coordinates: [1.3521, 103.8198],
-      value: 50,
+      value: 350,
     },
     {
-      id: "marker2",
-      city: "New York",
-      color: "blue",
+      id: 'marker2',
+      city: 'New York',
+      color: 'blue',
       coordinates: [40.73061, -73.935242],
-      value: 25,
+      value: 350,
     },
     {
-      id: "marker3",
-      city: "San Francisco",
-      color: "orange",
+      id: 'marker3',
+      city: 'San Francisco',
+      color: 'orange',
       coordinates: [37.773972, -122.431297],
-      value: 35,
+      value: 350,
     },
     {
-      id: "marker4",
-      city: "Beijing",
-      color: "gold",
+      id: 'marker4',
+      city: 'Beijing',
+      color: 'gold',
       coordinates: [39.9042, 116.4074],
-      value: 135,
+      value: 350,
     },
     {
-      id: "marker5",
-      city: "London",
-      color: "green",
+      id: 'marker5',
+      city: 'London',
+      color: 'green',
       coordinates: [51.5074, 0.1278],
-      value: 80,
+      value: 350,
     },
     {
-      id: "marker6",
-      city: "Los Angeles",
-      color: "gold",
+      id: 'marker6',
+      city: 'Los Angeles',
+      color: 'gold',
       coordinates: [29.7604, -95.3698],
-      value: 54,
+      value: 350,
     },
   ];
 
   const options = {
-    // ambientLightColor: "red",
-    cameraRotateSpeed: 0.1,
-    focusAnimationDuration: 2000,
-    // focusEasingFunction: ["Linear", "None"],
-    // pointLightColor: "gold",
-    // pointLightIntensity: 1.5,
-    globeGlowColor: "blue",
-    markerTooltipRenderer: (marker) => `${marker.city}`,
+    ambientLightColor: 'red',
+    // cameraRotateSpeed: 0.5,
+    // focusAnimationDuration: 2000,
+    // focusEasingFunction: ['Linear', 'None'],
+    // pointLightColor: 'gold',
+    pointLightIntensity: 1.5,
+    globeGlowColor: 'blue',
+    markerTooltipRenderer: (marker) => `${marker.city} (${marker.value})`,
   };
 
   const renderer = new THREE.WebGLRenderer({
@@ -75,7 +75,15 @@ const Globe = ({ mapDataApi }) => {
           globeBackgroundTexture={null}
           // markers={markers}
           markers={mapDataApi}
-          options={options}
+          options={{
+            cameraRotateSpeed: 0.1,
+            focusAnimationDuration: 2000,
+            // focusEasingFunction: ["Linear", "None"],
+            // pointLightColor: "gold",
+            // pointLightIntensity: 1.5,
+            globeGlowColor: 'blue',
+            markerTooltipRenderer: (marker) => marker && `${marker.city}`,
+          }}
           globeTexture="https://unpkg.com/three-globe@2.18.5/example/img/earth-blue-marble.jpg"
           width="100%"
           onClickMarker={(marker, markerObject, event) =>
@@ -85,7 +93,7 @@ const Globe = ({ mapDataApi }) => {
           onMouseOutMarker={(marker, markerObject, event) =>
             console.log(marker, markerObject, event)
           }
-          onGlobeTextureLoaded={() => console.log("globe loaded")}
+          onGlobeTextureLoaded={() => console.log('globe loaded')}
           onMouseOverMarker={(marker, markerObject, event) =>
             console.log(marker, markerObject, event)
           }

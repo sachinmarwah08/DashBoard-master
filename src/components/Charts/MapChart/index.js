@@ -4,87 +4,43 @@ import React, {
   useEffect,
   useRef,
   useCallback,
-} from "react";
-import "./index.scss";
-import WorldMap from "../../../Images/earth-rc.svg";
-import Table from "../../../Images/tableIcon.svg";
-import Sort from "../../SortFilter/Sort";
-import Tippy from "@tippyjs/react";
-import "tippy.js/dist/tippy.css";
-import "tippy.js/themes/light.css";
-import "tippy.js/dist/svg-arrow.css";
-import infoIcon from "../../../Images/info.svg";
-import { countryData } from "../MapChart/GoogleMap/Cordinates";
-import { FilterContext } from "../../../context/FilterContext";
-import { getMapData } from "../../../actions/GoogleMapApis";
+} from 'react';
+import './index.scss';
+import WorldMap from '../../../Images/earth-rc.svg';
+import Table from '../../../Images/tableIcon.svg';
+import Sort from '../../SortFilter/Sort';
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css';
+import 'tippy.js/themes/light.css';
+import 'tippy.js/dist/svg-arrow.css';
+import infoIcon from '../../../Images/info.svg';
+import { countryData } from '../MapChart/GoogleMap/Cordinates';
+import { FilterContext } from '../../../context/FilterContext';
+import { getMapData } from '../../../actions/GoogleMapApis';
 import {
   getCountryDropdownData,
   getHashtagDropdownData,
   getInfluencerDropdownData,
-} from "../../../actions/DropDownApis";
-import TableData from "../MapChart/Table/Table";
-import { FadeLoader } from "react-spinners";
-import Map from "./Map";
-import moment from "moment";
-import Globe from "../../Globe";
+} from '../../../actions/DropDownApis';
+import TableData from '../MapChart/Table/Table';
+import { FadeLoader } from 'react-spinners';
+import Map from './Map';
+import moment from 'moment';
+import Globe from '../../Globe';
 // import { useJsApiLoader } from "@react-google-maps/api";
 // import GoogleMap from "./GoogleMap/googleMap";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faLocationArrow } from "@fortawesome/free-solid-svg-icons";
 
 const MapChartComponent = () => {
-  const markers = [
-    {
-      id: "marker1",
-      city: "Singapore",
-      color: "red",
-      coordinates: [1.3521, 103.8198],
-      value: 50,
-    },
-    {
-      id: "marker2",
-      city: "New York",
-      color: "blue",
-      coordinates: [40.73061, -73.935242],
-      value: 25,
-    },
-    {
-      id: "marker3",
-      city: "San Francisco",
-      color: "orange",
-      coordinates: [37.773972, -122.431297],
-      value: 35,
-    },
-    {
-      id: "marker4",
-      city: "Beijing",
-      color: "gold",
-      coordinates: [39.9042, 116.4074],
-      value: 135,
-    },
-    {
-      id: "marker5",
-      city: "London",
-      color: "green",
-      coordinates: [51.5074, 0.1278],
-      value: 80,
-    },
-    {
-      id: "marker6",
-      city: "Los Angeles",
-      color: "gold",
-      coordinates: [29.7604, -95.3698],
-      value: 54,
-    },
-  ];
-  const mapData = ["Country", "Influencer", "Hashtag"];
-  const [mapdata, setMapData] = useState("Filters");
-  const [show, setShow] = useState("map");
+  const mapData = ['Country', 'Influencer', 'Hashtag'];
+  const [mapdata, setMapData] = useState('Filters');
+  const [show, setShow] = useState('map');
   const [tableData, setTableData] = useState([]);
   const [tableBackupData, setTableBackupData] = useState([]);
   const [activeMarker, setActiveMarker] = useState(null);
   const [mapDataApi, setMapDataApi] = useState();
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState('');
   const [influencerdata, setInfluencerData] = useState([]);
   const [influencerBackupdata, setInfluencerBackupdata] = useState([]);
   const [hashtagBackupdata, setHashtagBackupdata] = useState([]);
@@ -119,7 +75,7 @@ const MapChartComponent = () => {
     if (countryLineChartLoading) {
       setLoading(true);
       const callApi = async () => {
-        let c = moment(toDate).isSame(moment(new Date()).format("YYYY-MM-DD"))
+        let c = moment(toDate).isSame(moment(new Date()).format('YYYY-MM-DD'))
           ? false
           : null;
 
@@ -138,33 +94,38 @@ const MapChartComponent = () => {
 
         let tempData = [...response.data];
         for (let i = 0; i < tempData.length; i++) {
-          tempData[i]["cordinates"] = [39.9042, 116.4074];
-          tempData[i]["city"] = "Videsh";
-          tempData[i]["color"] = "red";
+          tempData[i]['coordinates'] = [];
         }
 
-        // for (let i = 0; i < tempData.length; i++) {
-        //   for (let j = 0; j < countryData.length; j++) {
-        //     if (tempData[i]._id === countryData[j].country) {
-        //       tempData[i]["cordinates"] = [
-        //         countryData[j]["longitude"],
-        //         countryData[j]["latitude"],
-        //       ];
-        //       tempData[i]["city"] = tempData[i]._id;
-        //       tempData[i]["ISO3"] = countryData[j].alpha3;
-        //       tempData[i]["count"] = tempData[i].count;
-        //     }
-        //   }
-        // }
-        console.log(tempData, "mapsss");
-        console.log(countryData, "country data");
+        let colors = ['red', 'green', 'blue', 'orange', 'yellow'];
+        for (let i = 0; i < tempData.length; i++) {
+          for (let j = 0; j < countryData.length; j++) {
+            if (tempData[i]._id === countryData[j].country) {
+              tempData[i]['coordinates'] = [
+                countryData[j]['latitude'],
+                countryData[j]['longitude'],
+              ];
+              tempData[i]['city'] = tempData[i]._id;
+              tempData[i]['ISO3'] = countryData[j].alpha3;
+              tempData[i]['value'] = countryData[j].value || 350;
+              tempData[i]['id'] = i;
+              tempData[i]['color'] =
+                countryData[j].color ||
+                colors[Math.floor(Math.random() * colors.length)];
+              // tempData[i]["count"] = tempData[i].count;
+            }
+          }
+        }
+        tempData = tempData.filter((item) => item.coordinates.length > 0);
+        console.table(tempData, 'mapsss');
+        console.log(countryData, 'country data');
         setCountryDataDropdown(countryDataResponse);
         setCountryBackupdata(countryDataResponse);
         setInfluencerData(getInfluenser);
         setInfluencerBackupdata(getInfluenser);
         sethashtag(hashtagDataResponse);
         setHashtagBackupdata(hashtagDataResponse);
-        setMapDataApi(markers);
+        setMapDataApi(tempData);
 
         setTableData(response.data);
         setTableBackupData(response.data);
@@ -208,7 +169,7 @@ const MapChartComponent = () => {
 
   const onInputChange = async (e) => {
     setInputValue(e.target.value);
-    if (mapdata === "Filters") {
+    if (mapdata === 'Filters') {
       let tempTableData = [...tableBackupData];
       const tableFilter = tempTableData.filter((value) => {
         return value._id.toLowerCase().includes(inputValue.toLowerCase());
@@ -235,19 +196,19 @@ const MapChartComponent = () => {
   };
 
   const onInfluencerInputChange = async (searchValue) => {
-    if (mapdata === "Country") {
+    if (mapdata === 'Country') {
       setLoading(true);
       const countryData = await getCountryDropdownData(1, searchValue);
       setCountryDataDropdown(countryData);
       setLoading(false);
     }
-    if (mapdata === "Influencer") {
+    if (mapdata === 'Influencer') {
       setLoading(true);
       const influencerData = await getInfluencerDropdownData(1, searchValue);
       setInfluencerData(influencerData);
       setLoading(false);
     }
-    if (mapdata === "Hashtag") {
+    if (mapdata === 'Hashtag') {
       setLoading(true);
       const hashtagData = await getHashtagDropdownData(1, searchValue);
       sethashtag(hashtagData);
@@ -257,22 +218,22 @@ const MapChartComponent = () => {
 
   const onEnterInputClick = async (e) => {
     setShowInfluencerHashtag(false);
-    if (e.key === "Enter") {
+    if (e.key === 'Enter') {
       setLoading(true);
-      let countryTypedValue = "";
-      let influencerTypedValue = "";
-      let hashtagTypedValue = "";
-      if (mapdata === "Influencer") {
+      let countryTypedValue = '';
+      let influencerTypedValue = '';
+      let hashtagTypedValue = '';
+      if (mapdata === 'Influencer') {
         influencerTypedValue = inputValue;
       }
-      if (mapdata === "Hashtag") {
+      if (mapdata === 'Hashtag') {
         hashtagTypedValue = inputValue;
       }
-      if (mapdata === "Country") {
+      if (mapdata === 'Country') {
         countryTypedValue = inputValue;
       }
 
-      let c = moment(toDate).isSame(moment(new Date()).format("YYYY-MM-DD"))
+      let c = moment(toDate).isSame(moment(new Date()).format('YYYY-MM-DD'))
         ? false
         : null;
 
@@ -290,13 +251,13 @@ const MapChartComponent = () => {
       for (let i = 0; i < tempData.length; i++) {
         for (let j = 0; j < countryData.length; j++) {
           if (tempData[i]._id === countryData[j].country) {
-            tempData[i]["cordinates"] = [
-              countryData[j]["longitude"],
-              countryData[j]["latitude"],
+            tempData[i]['cordinates'] = [
+              countryData[j]['longitude'],
+              countryData[j]['latitude'],
             ];
-            tempData[i]["name"] = tempData[i]._id;
-            tempData[i]["ISO3"] = countryData[j].alpha3;
-            tempData[i]["count"] = tempData[i].count;
+            tempData[i]['name'] = tempData[i]._id;
+            tempData[i]['ISO3'] = countryData[j].alpha3;
+            tempData[i]['count'] = tempData[i].count;
           }
         }
       }
@@ -311,20 +272,20 @@ const MapChartComponent = () => {
     setInputValue(val);
     setShowInfluencerHashtag(false);
     setLoading(true);
-    let countryTypedValue = "";
-    let influencerTypedValue = "";
-    let hashtagTypedValue = "";
-    if (mapdata === "Influencer") {
+    let countryTypedValue = '';
+    let influencerTypedValue = '';
+    let hashtagTypedValue = '';
+    if (mapdata === 'Influencer') {
       influencerTypedValue = val;
     }
-    if (mapdata === "Hashtag") {
+    if (mapdata === 'Hashtag') {
       hashtagTypedValue = val;
     }
-    if (mapdata === "Country") {
+    if (mapdata === 'Country') {
       countryTypedValue = val;
     }
 
-    let c = moment(toDate).isSame(moment(new Date()).format("YYYY-MM-DD"))
+    let c = moment(toDate).isSame(moment(new Date()).format('YYYY-MM-DD'))
       ? false
       : null;
 
@@ -342,13 +303,13 @@ const MapChartComponent = () => {
     for (let i = 0; i < tempData.length; i++) {
       for (let j = 0; j < countryData.length; j++) {
         if (tempData[i]._id === countryData[j].country) {
-          tempData[i]["cordinates"] = [
-            countryData[j]["longitude"],
-            countryData[j]["latitude"],
+          tempData[i]['cordinates'] = [
+            countryData[j]['longitude'],
+            countryData[j]['latitude'],
           ];
-          tempData[i]["name"] = tempData[i]._id;
-          tempData[i]["ISO3"] = countryData[j].alpha3;
-          tempData[i]["count"] = tempData[i].count;
+          tempData[i]['name'] = tempData[i]._id;
+          tempData[i]['ISO3'] = countryData[j].alpha3;
+          tempData[i]['count'] = tempData[i].count;
         }
       }
     }
@@ -368,8 +329,8 @@ const MapChartComponent = () => {
   const clearData = () => {
     setTableData(tableBackupData);
     setShowInfluencerHashtag(false);
-    setInputValue("");
-    setMapData("Filters");
+    setInputValue('');
+    setMapData('Filters');
     setHideRank(false);
   };
 
@@ -384,15 +345,15 @@ const MapChartComponent = () => {
           <div className="heading-map-content">
             <h1 className="heading">Geographical Wellbeing Analysis</h1>
             <Tippy
-              theme={"light"}
+              theme={'light'}
               interactive={true}
               content={
                 <div
                   style={{
-                    padding: "0.5rem",
+                    padding: '0.5rem',
                     fontWeight: 400,
-                    fontFamily: "Work-Sans",
-                    fontSize: "14px",
+                    fontFamily: 'Work-Sans',
+                    fontSize: '14px',
                   }}
                 >
                   <p style={{ fontWeight: 600, marginTop: 0 }}>
@@ -416,18 +377,18 @@ const MapChartComponent = () => {
                 <FontAwesomeIcon className="navigator" icon={faLocationArrow} />
               </button>
             )} */}
-            <button onClick={() => setShow("map")}>
+            <button onClick={() => setShow('map')}>
               <img
                 alt="WorldMap"
-                className={`${show === "map" ? "worldMapColored" : "WorldMap"}`}
+                className={`${show === 'map' ? 'worldMapColored' : 'WorldMap'}`}
                 src={WorldMap}
               ></img>
             </button>
-            <button onClick={() => setShow("tableData")}>
+            <button onClick={() => setShow('tableData')}>
               <img
                 alt="Table"
                 className={`${
-                  show === "tableData" ? "table-colored" : "table"
+                  show === 'tableData' ? 'table-colored' : 'table'
                 }`}
                 src={Table}
               ></img>
@@ -435,14 +396,14 @@ const MapChartComponent = () => {
           </div>
         </div>
 
-        {show === "map" && (
+        {show === 'map' && (
           <>
             <div className="map-sort">
               <Sort
                 influencerdata={
-                  (mapdata === "Influencer" && influencerdata) ||
-                  (mapdata === "Hashtag" && hashtag) ||
-                  (mapdata === "Country" && countryDataDropdown)
+                  (mapdata === 'Influencer' && influencerdata) ||
+                  (mapdata === 'Hashtag' && hashtag) ||
+                  (mapdata === 'Country' && countryDataDropdown)
                 }
                 setData={onFilterDropClick}
                 data={mapdata}
@@ -492,7 +453,8 @@ const MapChartComponent = () => {
                   //   mapDataApi={mapDataApi}
                   //   handleActiveMarker={handleActiveMarker}
                   // />
-                  <Globe mapDataApi={mapDataApi} />
+                  mapDataApi &&
+                  mapDataApi.length && <Globe mapDataApi={mapDataApi} />
                 )}
               </div>
               {/* 
@@ -510,14 +472,14 @@ const MapChartComponent = () => {
           </>
         )}
 
-        {show === "tableData" && (
+        {show === 'tableData' && (
           <>
             <div className="map-sort">
               <Sort
                 influencerdata={
-                  (mapdata === "Influencer" && influencerdata) ||
-                  (mapdata === "Hashtag" && hashtag) ||
-                  (mapdata === "Country" && countryDataDropdown)
+                  (mapdata === 'Influencer' && influencerdata) ||
+                  (mapdata === 'Hashtag' && hashtag) ||
+                  (mapdata === 'Country' && countryDataDropdown)
                 }
                 setData={onFilterDropClick}
                 data={mapdata}
